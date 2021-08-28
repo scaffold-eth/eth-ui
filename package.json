@@ -23,6 +23,14 @@
       "url": "https://github.com/ShravanSunder"
     }
   ],
+  "scripts": {
+    "commit": "git-cz",
+    "build": "ts-patch i && tsc -p tsconfig.json",
+    "publish": "cd lib && npm publish && shx rm ./lib/package.json",
+    "watch": "watch 'yarn build' ./src",
+    "clean": "shx rm -rf ./lib",
+    "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*"
+  },
   "dependencies": {
     "@ethersproject/address": "^5.4.0",
     "@ethersproject/bignumber": "^5.4.0",
@@ -100,14 +108,6 @@
     "typescript"
   ],
   "license": "MIT",
-  "scripts": {
-    "commit": "git-cz",
-    "build": "ts-patch i && tsc -p tsconfig.json",
-    "publish": "cd lib && npm publish && shx rm ./lib/package.json",
-    "watch": "watch 'yarn build' ./src",
-    "clean": "shx rm -rf ./lib",
-    "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

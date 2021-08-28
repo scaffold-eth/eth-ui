@@ -34,6 +34,7 @@ export const useOnBlock = (
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -43,7 +44,10 @@ export const useOnBlock = (
         provider.off('block', listener);
       };
     } else {
-      return (): void => {};
+      return (): void => {
+        /* cleanup */
+      };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provider]);
 };

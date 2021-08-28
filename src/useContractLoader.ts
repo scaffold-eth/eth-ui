@@ -55,6 +55,7 @@ export const useContractLoader = (
           if (typeof providerOrSigner !== 'undefined') {
             // we need to check to see if this providerOrSigner has a signer or not
 
+            // eslint-disable-next-line unused-imports/no-unused-vars-ts
             const { signer, providerNetwork } = await parseProviderOrSigner(providerOrSigner);
             // find the current chainId based on this order:
             //  - chainId passed in or a fallback of provider chainId
@@ -74,7 +75,6 @@ export const useContractLoader = (
               for (const hardhatNetwork in contractList[currentChainId]) {
                 if (Object.prototype.hasOwnProperty.call(contractList[currentChainId], hardhatNetwork)) {
                   if (!config.hardhatNetworkName || hardhatNetwork === config.hardhatNetworkName) {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     combinedContracts = {
                       ...combinedContracts,
                       ...contractList?.[currentChainId]?.[hardhatNetwork]?.contracts,

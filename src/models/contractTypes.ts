@@ -1,6 +1,5 @@
 import { Contract } from 'ethers';
 
-type Index = string | number;
 export type TDeployedContracts = {
   [key: string]: {
     [key: string]: {
