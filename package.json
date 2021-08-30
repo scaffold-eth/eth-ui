@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "2.2.5",
+  "version": "2.2.7",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -9,7 +9,7 @@
     "node": ">=12",
     "npm": ">=6"
   },
-   "publishConfig": {
+  "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "contributors": [
