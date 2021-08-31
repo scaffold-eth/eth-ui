@@ -1,13 +1,13 @@
 {
   "name": "eth-hooks",
-  "version": "2.2.7",
+  "version": "2.3.0-beta04",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=12",
-    "npm": ">=6"
+    "node": ">=14",
+    "npm": ">=7"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,10 +30,11 @@
     "commit": "git-cz",
     "build": "ts-patch i && tsc -p tsconfig.json",
     "pre-publish": "yarn clean && yarn build && shx cp -R package.json ./lib",
-    "publish:next": "cd lib && npm publish --tag next",
-    "publish:latest": "cd lib && npm publish --tag latest",
+    "publish:next": "yarn pre-publish && cd lib && npm publish --tag next",
+    "publish:latest": "yarn pre-publish && cd lib && npm publish --tag latest",
     "watch": "watch 'yarn build' ./src",
     "clean": "shx rm -rf ./lib",
+    "deprecate": "npm deprecate",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*"
   },
   "dependencies": {
