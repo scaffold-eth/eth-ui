@@ -45,7 +45,7 @@ export const useContractReader = <T>(
       let newValue: T;
       if (DEBUG) console.log('CALLING ', contractName, functionName, 'with args', functionArgs);
 
-      if (contractFunction && contracts?.[contractName]?.provider?._isProvider != null) {
+      if (contractFunction) {
         if (functionArgs && functionArgs.length > 0) {
           newValue = await contractFunction(...functionArgs);
           if (DEBUG)
@@ -70,7 +70,7 @@ export const useContractReader = <T>(
     } catch (e) {
       console.log(e);
     }
-  }, [contractName, formatter, functionName, functionArgs]);
+  }, [contracts, contractName, functionName, functionArgs, formatter]);
 
   useOnRepetition(
     updateValue,

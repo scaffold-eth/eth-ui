@@ -55,7 +55,7 @@ export const useContractLoader = (
           if (typeof providerOrSigner !== 'undefined') {
             // we need to check to see if this providerOrSigner has a signer or not
 
-            const { signer, providerNetwork } = await parseProviderOrSigner(providerOrSigner);
+            const { providerNetwork } = await parseProviderOrSigner(providerOrSigner);
             // find the current chainId based on this order:
             //  - chainId passed in or a fallback of provider chainId
             const currentChainId: number = chainId ?? providerNetwork?.chainId ?? 0;
@@ -74,7 +74,6 @@ export const useContractLoader = (
               for (const hardhatNetwork in contractList[currentChainId]) {
                 if (Object.prototype.hasOwnProperty.call(contractList[currentChainId], hardhatNetwork)) {
                   if (!config.hardhatNetworkName || hardhatNetwork === config.hardhatNetworkName) {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                     combinedContracts = {
                       ...combinedContracts,
                       ...contractList?.[currentChainId]?.[hardhatNetwork]?.contracts,
@@ -94,7 +93,11 @@ export const useContractLoader = (
                   config.customAddresses && Object.keys(config.customAddresses).includes(contractName)
                     ? config.customAddresses[contractName]
                     : combinedContracts[contractName].address;
-                accumulator[contractName] = new ethers.Contract(address, combinedContracts[contractName].abi, signer);
+                accumulator[contractName] = new ethers.Contract(
+                  address,
+                  combinedContracts[contractName].abi,
+                  providerOrSigner
+                );
                 return accumulator;
               },
               {}
