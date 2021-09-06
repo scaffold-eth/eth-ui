@@ -20,7 +20,7 @@ export const useNonce = (provider: TEthersProvider, address: string, pollTime: n
     }
   }, [nonce]);
 
-  useOnRepetition(getTransactionCount, { pollTime, leadTrigger: provider != null });
+  useOnRepetition(getTransactionCount, { pollTime, leadingTrigger: provider != null });
 
   return nonce;
 };

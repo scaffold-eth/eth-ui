@@ -36,7 +36,7 @@ export const useBalance = (provider: Provider | undefined, address: string, poll
 
   useOnRepetition(
     pollBalance,
-    { pollTime, provider, leadTrigger: address != null && address !== '' && provider != null },
+    { pollTime, provider, leadingTrigger: address != null && address !== '' && provider != null },
     provider,
     address
   );

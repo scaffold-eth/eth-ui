@@ -51,6 +51,6 @@ export const useGasPrice = (
     }
   }, [gasPrice, speed, targetNetwork.gasPrice]);
 
-  useOnRepetition(loadGasPrice, { pollTime, leadTrigger: true });
+  useOnRepetition(loadGasPrice, { pollTime, leadingTrigger: true });
   return gasPrice;
 };
