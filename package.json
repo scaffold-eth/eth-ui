@@ -1,10 +1,10 @@
 {
   "name": "eth-hooks",
-  "version": "2.3.0-beta06",
+  "version": "2.3.0-beta07",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
-  "main": "lib/index.js",
+  "main": "index.js",
   "engines": {
     "node": ">=14",
     "npm": ">=7"
