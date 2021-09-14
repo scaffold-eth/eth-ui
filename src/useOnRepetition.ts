@@ -1,5 +1,5 @@
 import { Provider } from '@ethersproject/providers';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 const DEBUG = false;
 
@@ -24,11 +24,12 @@ export const useOnRepetition = (
   options: {
     pollTime?: number;
     provider?: Provider | undefined;
-    leadTrigger?: boolean;
+    leadingTrigger?: boolean;
   },
   ...args: any[]
 ): void => {
   const polling = options?.pollTime && options.pollTime > 0;
+  const leadingCall = useRef(true);
 
   // save the input function provided
   const callFunctionWithArgs = useCallback(() => {
@@ -65,7 +66,7 @@ export const useOnRepetition = (
     }
   }, [options.provider, polling, listener, args]);
 
-  // Set up the interval if poller
+  // Set up the interval if its using polling
   useEffect(() => {
     const tick = (): void => {
       if (DEBUG) console.log('polling: call function');
@@ -80,10 +81,11 @@ export const useOnRepetition = (
     }
   }, [options.pollTime, polling, callFunctionWithArgs]);
 
-  // call if triggered by extra watch
+  // call if triggered by extra watch, however only on inital call
   useEffect(() => {
-    if (options.leadTrigger) {
+    if (options.leadingTrigger && callFunctionWithArgs != null && leadingCall?.current === true) {
+      leadingCall.current = false;
       callFunctionWithArgs();
     }
-  }, [options.leadTrigger, callFunctionWithArgs]);
+  }, [options.leadingTrigger, callFunctionWithArgs]);
 };

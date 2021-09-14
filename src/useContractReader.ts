@@ -76,7 +76,7 @@ export const useContractReader = <T>(
     updateValue,
     {
       pollTime,
-      leadTrigger: contracts?.[contractName] != null,
+      leadingTrigger: contracts?.[contractName] != null,
       provider: contracts?.[contractName]?.provider,
     },
     functionArgs

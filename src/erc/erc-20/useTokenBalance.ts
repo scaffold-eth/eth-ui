@@ -33,7 +33,7 @@ export const useTokenBalance = (contract: Contract, address: string, pollTime: n
     }
   }, [address, balance, contract]);
 
-  useOnRepetition(pollBalance, { pollTime, leadTrigger: contract?.provider != null });
+  useOnRepetition(pollBalance, { pollTime, leadingTrigger: contract?.provider != null });
 
   return balance;
 };
