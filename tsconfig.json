@@ -34,7 +34,7 @@
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]
   },
-  "include": ["src", "src/**/*.json", "src/**/*.ts"],
+  "include": ["src", "src/**/*.json", "src/**/*.ts", "src/**/*.tsx", "__tests__/**/*.ts", "__tests/**/*.tsx"],
   "exclude": [
     "lib/**/*.ts",
     "lib/**/*.tsx",
