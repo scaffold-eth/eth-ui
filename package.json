@@ -6,8 +6,8 @@
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
   "main": "index.js",
   "engines": {
-    "node": ">=14",
-    "npm": ">=7"
+    "node": ">=12",
+    "npm": ">=6"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
