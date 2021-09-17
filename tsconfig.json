@@ -5,6 +5,7 @@
     "outDir": "lib",
     "lib": ["dom", "ESNext", "ES2017"],
     "sourceMap": false,
+    "jsx": "react-jsxdev",
     "allowJs": false,
     "declaration": true,
     "declarationDir": "lib",
@@ -20,12 +21,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strict": true,
-    "rootDir": "./src",
+    "rootDir": ".",
     "baseUrl": ".",
     "typeRoots": ["node_modules/@types", "helpers/types"],
     "paths": {
       "~~": ["./src/"],
-      "~~/*": ["./src/*"]
+      "~~/*": ["./src/*"],
+      "~helpers": ["./helpers/"],
+      "~helpers/*": ["./helpers/*"]
     },
     "plugins": [
       // Transform paths in output .js files
@@ -34,7 +37,15 @@
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]
   },
-  "include": ["src", "src/**/*.json", "src/**/*.ts", "src/**/*.tsx", "__tests__/**/*.ts", "__tests/**/*.tsx"],
+  "include": [
+    "src",
+    "src/**/*.json",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "__tests__/**/*.ts",
+    "__tests/**/*.tsx",
+    "helpers/**/*"
+  ],
   "exclude": [
     "lib/**/*.ts",
     "lib/**/*.tsx",
