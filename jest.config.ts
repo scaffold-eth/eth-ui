@@ -86,7 +86,13 @@ export default {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }) /** browserify for web3 components */,
+    stream: 'stream-browserify',
+    http: 'http-browserify',
+    https: 'http-browserify',
+    timers: 'timers-browserify',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -98,7 +104,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  preset: 'ts-jest/presets/default-esm',
+  preset: 'ts-jest/presets/js-with-ts',
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -130,7 +136,7 @@ export default {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
+  setupFiles: ['<rootDir>/helpers/__global.ts'],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
@@ -142,7 +148,7 @@ export default {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  // testEnvironment: "jest-environment-node",
+  testEnvironment: 'jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -174,14 +180,14 @@ export default {
   // testURL: "http://localhost",
 
   // Setting this value to "fake" allows the use of fake timers for functions such as "setTimeout"
-  // timers: "real",
+  timers: 'modern',
 
   // A map from regular expressions to paths to transformers
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
-  transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-  },
+  // transform: {
+  //   '^.+\\.tsx?$': 'ts-jest',
+  // },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
