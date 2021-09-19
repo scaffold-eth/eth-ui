@@ -35,7 +35,8 @@
     "watch": "watch 'yarn build' ./src",
     "clean": "shx rm -rf ./lib",
     "deprecate": "npm deprecate",
-    "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*"
+    "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*",
+    "test": "jest"
   },
   "dependencies": {
     "@ethersproject/address": "^5.4.0",
@@ -69,7 +70,7 @@
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.1",
     "@testing-library/user-event": "^13.1.9",
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.0.1",
     "@types/node": "^16.0.0",
     "@types/pretty-time": "^1.1.0",
     "@types/qrcode.react": "^1.0.1",
@@ -108,6 +109,7 @@
     "react-dom": "^17.0.2",
     "rxjs": "^7.2.0",
     "shx": "^0.3.3",
+    "ts-jest": "^27.0.5",
     "ts-node": "^10.1.0",
     "ts-patch": "^1.3.4",
     "typescript": "^4.3.4",
