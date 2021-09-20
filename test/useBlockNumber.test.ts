@@ -13,17 +13,16 @@ describe('useBlockNumber', function () {
     // await waitFor(async () => expect(await mockProvider.getBlockNumber()).equal(1));
 
     const hook = renderHook((mockProvider: MockProvider) => useBlockNumber(mockProvider));
+    hook.rerender(mockProvider);
 
     await mineBlock(mockProvider);
     await waitFor(async () => expect(await mockProvider.getBlockNumber()).equal(1));
-    hook.rerender(mockProvider);
     await hook.waitForNextUpdate({ timeout: 10000 });
     expect(hook.result.current).equal(1);
 
     await mineBlock(mockProvider);
     await waitFor(async () => expect(await mockProvider.getBlockNumber()).equal(2));
     console.log('waitformine');
-    hook.rerender(mockProvider);
     await hook.waitForNextUpdate({ timeout: 10000 });
 
     expect(hook.result.current).equal(2);
