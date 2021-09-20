@@ -2,20 +2,19 @@ import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { MockProvider } from 'ethereum-waffle';
 
-import { getMockProvider } from '~helpers/getMockProvider';
+import { TEthersProvider } from '~~/models';
 
-// Modified from https://github.com/NoahZinsmeister/web3-react/blob/v6/packages/network-connector/src/index.ts
 export class MockConnector extends AbstractConnector {
-  private readonly provider: MockProvider;
+  private readonly provider: MockProvider | TEthersProvider;
   private readonly chainId: number;
 
-  constructor(provider?: MockProvider, chainId?: number) {
+  constructor(provider: MockProvider | TEthersProvider, chainId?: number) {
     super();
-    this.provider = provider ?? getMockProvider();
+    this.provider = provider;
     this.chainId = chainId ?? 1337;
   }
 
-  private providerPromise = (): Promise<MockProvider> => {
+  private providerPromise = (): Promise<MockProvider | TEthersProvider> => {
     return Promise.resolve(this.provider);
   };
 
@@ -23,7 +22,7 @@ export class MockConnector extends AbstractConnector {
     return { provider: await this.providerPromise(), chainId: this.chainId, account: null };
   };
 
-  public getProvider = async (): Promise<MockProvider> => {
+  public getProvider = async (): Promise<MockProvider | TEthersProvider> => {
     return await this.providerPromise();
   };
 

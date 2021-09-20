@@ -1,15 +1,30 @@
-import { renderHook } from '@testing-library/react-hooks';
-import { FC } from 'react';
+import '@nomiclabs/hardhat-waffle';
+
+import { Renderer, renderHook, RenderHookResult } from '@testing-library/react-hooks';
+import { MockProvider } from 'ethereum-waffle';
+import { waffle } from 'hardhat';
 
 import { MockEthersWrapper } from '~helpers/MockWeb3Provider';
 
-type TRenderHook = typeof renderHook;
+// import { JsonRpcProvider } from '@ethersproject/providers';
+// import { ethers } from 'hardhat';
 
-export const renderTestHook: TRenderHook = (callback, options = {}) => {
-  const Wrapper: FC = () => <MockEthersWrapper />;
+const provider = waffle.provider;
+const getMockProvider = (): MockProvider => provider;
+// const getMockProvider = (): JsonRpcProvider => ethers.provider;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  options.wrapper = Wrapper as any;
+export const mockProvider = getMockProvider();
 
-  return renderHook(callback, options);
+type TTestHookResult<TProps, TResult> = RenderHookResult<TProps, TResult, Renderer<TProps>> & {
+  mockProvider: MockProvider;
+};
+
+export const renderTestHook = <TProps, TResult>(
+  callback: (props: TProps) => TResult
+): TTestHookResult<TProps, TResult> => {
+  const result = renderHook(callback, { wrapper: (props) => <MockEthersWrapper mockProvider={mockProvider} /> });
+  return {
+    ...result,
+    mockProvider,
+  };
 };

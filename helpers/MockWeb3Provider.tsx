@@ -2,24 +2,24 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { MockProvider } from 'ethereum-waffle';
 import React, { FC, useEffect } from 'react';
 
-import { getMockProvider } from '~helpers/getMockProvider';
 import { MockConnector } from '~helpers/MockConnector';
 import { useEthersProvider } from '~helpers/useEthersProvider';
+import { TEthersProvider } from '~~/models';
 
 export interface IMockEthersWrapper {
-  stub?: void;
+  mockProvider: MockProvider | TEthersProvider;
 }
-const mockProvider = getMockProvider();
-const setupMock = (_provider: any): MockProvider => {
-  mockProvider.pollingInterval = 200;
-  return mockProvider;
+
+const setupMock = (provider: MockProvider): MockProvider | TEthersProvider => {
+  // mockProvider.pollingInterval = 200;
+  return provider;
 };
 
-const ActivateWrapper: FC = (props) => {
+const ActivateWrapper: FC<IMockEthersWrapper> = (props) => {
   const { activate } = useEthersProvider();
 
   useEffect(() => {
-    const connector = new MockConnector(mockProvider);
+    const connector = new MockConnector(props.mockProvider);
     void activate(connector, console.error);
   }, []);
 
@@ -29,7 +29,7 @@ const ActivateWrapper: FC = (props) => {
 export const MockEthersWrapper: FC<IMockEthersWrapper> = (props) => {
   return (
     <Web3ReactProvider getLibrary={setupMock}>
-      <ActivateWrapper>{props.children}</ActivateWrapper>
+      <ActivateWrapper mockProvider={props.mockProvider}>{props.children}</ActivateWrapper>
     </Web3ReactProvider>
   );
 };

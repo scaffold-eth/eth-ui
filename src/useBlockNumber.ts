@@ -10,6 +10,7 @@ import { useOnRepetition } from '~~/useOnRepetition';
  * @returns
  */
 export const useBlockNumber = (provider: TEthersProvider, pollTime: number = 0): number => {
+  console.log('hook');
   const [blockNumber, setBlockNumber] = useState<number>(0);
 
   const getBlockNumber = useCallback(async (): Promise<void> => {
@@ -17,6 +18,7 @@ export const useBlockNumber = (provider: TEthersProvider, pollTime: number = 0):
     if (nextBlockNumber !== blockNumber) {
       setBlockNumber(nextBlockNumber);
     }
+    console.log('callback');
   }, [blockNumber, provider]);
 
   useOnRepetition(getBlockNumber, { provider, pollTime });
