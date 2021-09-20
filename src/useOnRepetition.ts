@@ -58,6 +58,7 @@ export const useOnRepetition = (
       if (DEBUG) console.log('register block event', ...args);
       options.provider.addListener('block', listener);
       return (): void => {
+        if (DEBUG) console.log('unregister block event', ...args);
         options?.provider?.removeListener('block', listener);
       };
     } else {
@@ -75,8 +76,9 @@ export const useOnRepetition = (
       callFunctionWithArgs();
     };
 
-    if (polling) {
-      const id = setInterval(tick, options.pollTime);
+    if (polling && options?.pollTime) {
+      const safePollTime = options?.pollTime > 10000 ? options.pollTime : 10000;
+      const id = setInterval(tick, safePollTime);
       return (): void => {
         clearInterval(id);
       };
