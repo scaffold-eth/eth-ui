@@ -1,5 +1,8 @@
-import 'hardhat-jest-plugin';
+import 'tsconfig-paths/register';
+import 'global-jsdom/register';
 
+import '@nomiclabs/hardhat-waffle';
+import '@nomiclabs/hardhat-ethers';
 import { HardhatUserConfig } from 'hardhat/types';
 
 const config: HardhatUserConfig = {
@@ -7,4 +10,4 @@ const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
 };
 
-export default config;
+module.exports = config;

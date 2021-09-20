@@ -9,23 +9,27 @@ import { useEthersProvider } from '~helpers/useEthersProvider';
 export interface IMockEthersWrapper {
   stub?: void;
 }
-
-export const MockEthersWrapper: FC<IMockEthersWrapper> = (props) => {
-  const mockProvider = getMockProvider();
+const mockProvider = getMockProvider();
+const setupMock = (_provider: any): MockProvider => {
   mockProvider.pollingInterval = 200;
-  const connector = new MockConnector(mockProvider);
+  return mockProvider;
+};
 
-  const { activate, active } = useEthersProvider();
+const ActivateWrapper: FC = (props) => {
+  const { activate } = useEthersProvider();
 
   useEffect(() => {
-    void activate(connector ?? new MockConnector(), console.error);
+    const connector = new MockConnector(mockProvider);
+    void activate(connector, console.error);
   }, []);
 
-  if (!active) return null;
+  return <>{props.children}</>;
+};
 
+export const MockEthersWrapper: FC<IMockEthersWrapper> = (props) => {
   return (
-    <Web3ReactProvider getLibrary={(): MockProvider => mockProvider}>
-      <>{props.children}</>
+    <Web3ReactProvider getLibrary={setupMock}>
+      <ActivateWrapper>{props.children}</ActivateWrapper>
     </Web3ReactProvider>
   );
 };
