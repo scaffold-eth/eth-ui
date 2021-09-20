@@ -4,3 +4,7 @@ export const mineBlock = async (mockProvider: MockProvider): Promise<void> => {
   await mockProvider.send('evm_increaseTime', [3600]);
   await mockProvider.send('evm_mine', []);
 };
+
+// await network.provider.send("evm_setIntervalMining", [5000]);
+
+// await network.provider.send("evm_setIntervalMining", [5000]);

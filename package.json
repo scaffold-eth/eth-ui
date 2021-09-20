@@ -60,6 +60,7 @@
     "react-dom": ">=16.9.0"
   },
   "devDependencies": {
+    "@atixlabs/hardhat-time-n-mine": "^0.0.5",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@nomiclabs/hardhat-ethers": "^2.0.2",
@@ -103,6 +104,7 @@
     "ethereum-waffle": "^3.4.0",
     "global-jsdom": "^8.2.0",
     "hardhat": "^2.6.4",
+    "hardhat-gas-reporter": "^1.0.4",
     "http-browserify": "^1.7.0",
     "husky": "^4.2.5",
     "jsdom": "^17.0.0",

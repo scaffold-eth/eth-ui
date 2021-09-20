@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { expect } from 'chai';
 import { MockProvider } from 'ethereum-waffle';
 
-import { mineBlock as mineBlock } from '~helpers/mockProviderActions';
+import { mineBlock as mineBlock } from '~helpers/hardhatActions';
 import { mockProvider } from '~helpers/renderTestHook';
 import { useBlockNumber } from '~~/useBlockNumber';
 
@@ -17,18 +17,15 @@ describe('useBlockNumber', function () {
     await mineBlock(mockProvider);
     await waitFor(async () => expect(await mockProvider.getBlockNumber()).equal(1));
     hook.rerender(mockProvider);
-    await waitFor(() => {
-      expect(hook.result.current).equal(1);
-    });
+    await hook.waitForNextUpdate({ timeout: 10000 });
+    expect(hook.result.current).equal(1);
 
     await mineBlock(mockProvider);
     await waitFor(async () => expect(await mockProvider.getBlockNumber()).equal(2));
+    console.log('waitformine');
     hook.rerender(mockProvider);
-    await waitFor(
-      () => {
-        expect(hook.result.current).equal(2);
-      },
-      { timeout: 10000 }
-    );
+    await hook.waitForNextUpdate({ timeout: 10000 });
+
+    expect(hook.result.current).equal(2);
   });
 });
