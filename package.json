@@ -33,7 +33,7 @@
     "pre-publish": "yarn clean && yarn build && shx cp -R package.json ./lib && shx cp -R README.md ./lib",
     "publish:next": "yarn pre-publish && cd lib && npm publish --tag next",
     "publish:latest": "yarn pre-publish && cd lib && npm publish --tag latest",
-    "docs": "yarn pre-publish && yarn jsdoc2md ./lib/**/*.{js,jsx}",
+    "docs": "yarn pre-publish && yarn jsdoc2md -t README.hsb.md ./lib/**/*.{js,jsx} > README.md",
     "deprecate": "npm deprecate",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*",
     "hardhat:test": "cross-env TS_NODE_PROJECT=tsconfig.testing.json yarn hardhat test  --network hardhat",
