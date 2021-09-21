@@ -3,6 +3,11 @@ import { ethers, Signer } from 'ethers';
 
 import { TProviderAndSigner, TEthersProviderOrSigner } from '~~/models';
 
+/**
+ * Parse TEthersProviderOrSigner to TProviderAndSigner
+ * @param providerOrSigner TEthersProviderOrSigner
+ * @returns TProviderAndSigner
+ */
 export const parseProviderOrSigner = async (
   providerOrSigner: TEthersProviderOrSigner | undefined
 ): Promise<TProviderAndSigner> => {

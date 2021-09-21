@@ -5,6 +5,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { parseProviderOrSigner } from '~~/functions/providerOrSigner';
 import { TDeployedContracts, TExternalContracts, TEthersProviderOrSigner } from '~~/models';
 
+/**
+ * Configuration for useContractLoader
+ */
 export type TContractConfig = {
   hardhatNetworkName?: string;
   customAddresses?: Record<string, string>;
@@ -31,9 +34,9 @@ export type TContractConfig = {
   - customAddresses: { contractName: 0xCustomAddress } to hardcode the address for a given named contract
   - hardhatContracts: object following the hardhat deploy export format (Json with chainIds as keys, which have hardhat network names as keys, which contain arrays of contracts for each)
   - externalContracts: object with chainIds as keys, with an array of contracts for each
- * @param providerOrSigner 
- * @param safeConfig 
- * @returns Hash: contractName: Contract
+ * @param providerOrSigner (TEthersProviderOrSigner)
+ * @param config (TContractConfig) :: configuration for loader
+ * @returns (Record<string, Contract>) :: a record of contractName:contract
  */
 export const useContractLoader = (
   providerOrSigner: TEthersProviderOrSigner | undefined,

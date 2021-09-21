@@ -6,8 +6,8 @@ import { TEthersProvider } from '~~/models/providerTypes';
 
 /**
  * A hook that creates a buner address and returns a Signer
- * @param provider
- * @returns
+ * @param provider (TEthersProvider)
+ * @returns (ethers.signer) :: signer of the wallet
  */
 export const useBurnerSigner = (provider: TEthersProvider): Signer | undefined => {
   const key = 'metaPrivateKey';

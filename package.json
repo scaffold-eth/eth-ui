@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "2.3.2",
+  "version": "2.3.4",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -29,9 +29,10 @@
   "scripts": {
     "commit": "git-cz",
     "build": "ts-patch i && tsc -p tsconfig.json",
-    "pre-publish": "yarn clean && yarn build && shx cp -R package.json ./lib",
+    "pre-publish": "yarn clean && yarn build && shx cp -R package.json ./lib && shx cp -R README.md ./lib",
     "publish:next": "yarn pre-publish && cd lib && npm publish --tag next",
     "publish:latest": "yarn pre-publish && cd lib && npm publish --tag latest",
+    "docs": "yarn pre-publish && yarn jsdoc2md ./lib/**/*.{js,jsx}",
     "watch": "watch 'yarn build' ./src",
     "clean": "shx rm -rf ./lib",
     "deprecate": "npm deprecate",
@@ -93,6 +94,7 @@
     "eslint-plugin-unused-imports": "^1.1.2",
     "husky": "^4.2.5",
     "jest": "^27.0.6",
+    "jsdoc-to-markdown": "^7.0.1",
     "lint-staged": "^10.2.7",
     "prettier": "^2.3.1",
     "prettier-eslint": "^12.0.0",

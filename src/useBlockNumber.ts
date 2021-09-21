@@ -4,10 +4,10 @@ import { TEthersProvider } from '~~/models';
 import { useOnRepetition } from '~~/useOnRepetition';
 
 /**
- * Get the current block number
- * @param provider
- * @param pollTime if greater than 0, update the blocknumber on an interval
- * @returns
+ * Get the current block number of the network
+ * @param provider (TEthersProvider)
+ * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
+ * @returns (number) :: block number
  */
 export const useBlockNumber = (provider: TEthersProvider, pollTime: number = 0): number => {
   const [blockNumber, setBlockNumber] = useState<number>(0);

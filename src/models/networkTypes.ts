@@ -1,3 +1,6 @@
+/**
+ * Simple type to describe a network in scaffold-eth
+ */
 export type TNetwork = {
   name: string;
   color: string;

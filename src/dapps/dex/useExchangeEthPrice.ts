@@ -7,10 +7,10 @@ import { TEthersProvider } from '~~/models/providerTypes';
 
 /**
  * Get the Exchange price of ETH/USD (extrapolated from WETH/DAI)
- * @param targetNetwork
- * @param mainnetProvider
- * @param pollTime
- * @returns
+ * @param targetNetwork (TNetwork)
+ * @param mainnetProvider (TEthersProvider)
+ * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
+ * @returns (number) :: price
  */
 export const useExchangeEthPrice = (
   targetNetwork: TNetwork,
