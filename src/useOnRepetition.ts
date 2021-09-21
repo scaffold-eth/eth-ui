@@ -28,11 +28,12 @@ export const useOnRepetition = (
   },
   ...args: any[]
 ): void => {
-  const polling = options?.pollTime && options.pollTime > 0;
+  const polling = options?.pollTime != null && options.pollTime > 0;
   const leadingCall = useRef(true);
 
   // create a callback for the input function
   const callFunctionWithArgs = useCallback(() => {
+    if (DEBUG) console.log('create callback');
     if (callback) {
       if (args && args.length > 0) {
         void callback(...args);
