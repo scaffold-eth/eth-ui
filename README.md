@@ -1,6 +1,6 @@
 # 🖇 Eth-Hooks Overview
 
-A list of commonly used Ethereum hooks, created for ease of use. Used by scaffold-eth for quick prototyping
+A list of commonly used Ethereum hooks, created for ease of use. Used by scaffold-eth!
 
 ## Install
 
