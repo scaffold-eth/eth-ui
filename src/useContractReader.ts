@@ -21,7 +21,7 @@ const DEBUG = false;
  * @param pollTime (number) :: optional :: if >0 use polling, else use instead of onBlock event
  * @param formatter ((_value: T) => T) :: optional :: function to format the result
  * @param onChange (string) :: optional :: callback to call with the function
- * @returns 
+ * @returns (<T>) :: generic return type 
  */
 export const useContractReader = <T>(
   contracts: Record<string, Contract>,
