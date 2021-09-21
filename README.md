@@ -1,6 +1,6 @@
 # 🖇 Eth-Hooks Overview
 
-A list of commonly used Ethereum hooks. 
+Commonly used Ethereum hooks. 
 
 Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
 
