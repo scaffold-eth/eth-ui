@@ -8,9 +8,9 @@ import { useState, useEffect } from 'react';
  * ~ How can I use? ~
   const tokenList = useTokenList(); <- default returns the Unsiwap tokens
   const tokenList = useTokenList("https://gateway.ipfs.io/ipns/tokens.uniswap.org");
- * @param tokenListUri
- * @param chainId
- * @returns
+ * @param tokenListUri (string)
+ * @param chainId (number)
+ * @returns (TokenInfo[])
  */
 export const useTokenList = (
   tokenListUri: string = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org',
