@@ -29,7 +29,7 @@
   "scripts": {
     "commit": "git-cz",
     "build": "ts-patch i && tsc -p tsconfig.json",
-    "pre-publish": "yarn clean && yarn build && shx cp -R package.json ./lib",
+    "pre-publish": "yarn clean && yarn build && shx cp -R package.json ./lib && shx cp -R README.md ./lib",
     "publish:next": "yarn pre-publish && cd lib && npm publish --tag next",
     "publish:latest": "yarn pre-publish && cd lib && npm publish --tag latest",
     "docs": "yarn pre-publish && yarn jsdoc2md ./lib/**/*.{js,jsx}",
