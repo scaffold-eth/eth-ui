@@ -1,6 +1,6 @@
 # 🖇 Eth-Hooks Overview
 
-A list of commonly used Ethereum hooks, created for ease of use. Used by scaffold-eth!
+A list of commonly used Ethereum hooks. 🧪 Quickly experiment with Solidity using a frontend that adapts to your smart contracts: Used by [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)!
 
 ## Install
 
@@ -14,7 +14,7 @@ yarn add eth-hooks
 [@shravansunder](https://github.com/ShravanSunder)
 [@calvinbores](https://github.com/calvbore)
 
-# eth-hooks API
+# API
 
-{{>main-index~}}
+{{>global-index-kinds kind="constant" title="Hooks & Helpers" ~}}
 {{>all-docs~}}
