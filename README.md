@@ -1,6 +1,6 @@
 # 🖇 Eth-Hooks Overview
 
-Commonly used Ethereum hooks.
+A list of commonly used Ethereum hooks, created for ease of use. Used by scaffold-eth for quick prototyping
 
 ## Install
 
@@ -10,33 +10,31 @@ yarn add eth-hooks
 
 ## Authors
 
-@austinGriffith
-@shravansunder
-@cav
+[@austinGriffith](https://github.com/austintgriffith)
+[@shravansunder](https://github.com/ShravanSunder)
+[@calvinbores](https://github.com/calvbore)
 
 # eth-hooks API
 
-# eth-hooks API
-
-## Constants
+## Summary
 
 <dl>
-<dt><a href="#useExchangeEthPrice">useExchangeEthPrice</a> =></dt>
+<dt><a href="#useExchangeEthPrice">useExchangeEthPrice</a> </dt>
 <dd><p>Get the Exchange price of ETH/USD (extrapolated from WETH/DAI)</p>
 </dd>
-<dt><a href="#useTokenList">useTokenList</a> =></dt>
+<dt><a href="#useTokenList">useTokenList</a> </dt>
 <dd><p>Gets a tokenlist (see more at <a href="https://tokenlists.org/">https://tokenlists.org/</a>), returning the .tokens only</p>
 <p>~ How can I use? ~
   const tokenList = useTokenList(); &lt;- default returns the Unsiwap tokens
   const tokenList = useTokenList(&quot;<a href="https://gateway.ipfs.io/ipns/tokens.uniswap.org&quot;">https://gateway.ipfs.io/ipns/tokens.uniswap.org&quot;</a>);</p>
 </dd>
-<dt><a href="#useLookupAddress">useLookupAddress</a> =></dt>
+<dt><a href="#useLookupAddress">useLookupAddress</a> </dt>
 <dd><p>Gets ENS name from given address and provider</p>
 </dd>
-<dt><a href="#useResolveEnsName">useResolveEnsName</a> =></dt>
+<dt><a href="#useResolveEnsName">useResolveEnsName</a> </dt>
 <dd><p>Gets the address from an ENS name and provider</p>
 </dd>
-<dt><a href="#useTokenBalance">useTokenBalance</a> =></dt>
+<dt><a href="#useTokenBalance">useTokenBalance</a> </dt>
 <dd><p>Get the balance of an ERC20 token in an address</p>
 <p>~ Features ~</p>
 <ul>
@@ -45,7 +43,7 @@ yarn add eth-hooks
 <li>If no pollTime is passed, the balance will update on every new block</li>
 </ul>
 </dd>
-<dt><a href="#useEventListener">useEventListener</a> =></dt>
+<dt><a href="#useEventListener">useEventListener</a> </dt>
 <dd><p>Enables you to keep track of events</p>
 <p>~ Features ~</p>
 <ul>
@@ -55,10 +53,10 @@ yarn add eth-hooks
 <li>Specify the provider</li>
 </ul>
 </dd>
-<dt><a href="#parseProviderOrSigner">parseProviderOrSigner</a> =></dt>
+<dt><a href="#parseProviderOrSigner">parseProviderOrSigner</a> </dt>
 <dd><p>Parse TEthersProviderOrSigner to TProviderAndSigner</p>
 </dd>
-<dt><a href="#useBalance">useBalance</a> =></dt>
+<dt><a href="#useBalance">useBalance</a> </dt>
 <dd><p>Gets your balance in ETH from given address and provider</p>
 <p>~ Features ~</p>
 <ul>
@@ -67,13 +65,13 @@ yarn add eth-hooks
 <li>If no pollTime is passed, the balance will update on every new block</li>
 </ul>
 </dd>
-<dt><a href="#useBlockNumber">useBlockNumber</a> =></dt>
+<dt><a href="#useBlockNumber">useBlockNumber</a> </dt>
 <dd><p>Get the current block number of the network</p>
 </dd>
-<dt><a href="#useBurnerSigner">useBurnerSigner</a> =></dt>
+<dt><a href="#useBurnerSigner">useBurnerSigner</a> </dt>
 <dd><p>A hook that creates a buner address and returns a Signer</p>
 </dd>
-<dt><a href="#useContractExistsAtAddress">useContractExistsAtAddress</a> =></dt>
+<dt><a href="#useContractExistsAtAddress">useContractExistsAtAddress</a> </dt>
 <dd><p>Checks whether a contract exists on the blockchain, returns true if it exists, otherwise false</p>
 <p>  ~ Features ~</p>
 <ul>
@@ -81,7 +79,7 @@ yarn add eth-hooks
 <li>Change provider to check contract address on different chains (ex. mainnetProvider)</li>
 </ul>
 </dd>
-<dt><a href="#useContractLoader">useContractLoader</a> =></dt>
+<dt><a href="#useContractLoader">useContractLoader</a> </dt>
 <dd><p>Loads your local contracts and gives options to read values from contracts
   or write transactions into them</p>
 <p>   ~ Features ~</p>
@@ -103,7 +101,7 @@ tx( writeContracts.YourContract.setPurpose(newPurpose) )</li>
 <li>externalContracts: object with chainIds as keys, with an array of contracts for each</li>
 </ul>
 </dd>
-<dt><a href="#useContractReader">useContractReader</a> =></dt>
+<dt><a href="#useContractReader">useContractReader</a> </dt>
 <dd><p>Enables you to call functions in contracts and read their values.  It helps keep track of them in the local React states</p>
 <p>  ~ Features ~</p>
 <ul>
@@ -114,10 +112,10 @@ tx( writeContracts.YourContract.setPurpose(newPurpose) )</li>
 <li>Pass pollTime - if no pollTime is specified, the function will update on every new block</li>
 </ul>
 </dd>
-<dt><a href="#useGasPrice">useGasPrice</a> =></dt>
+<dt><a href="#useGasPrice">useGasPrice</a> </dt>
 <dd><p>Gets the gas price from Eth Gas Station</p>
 </dd>
-<dt><a href="#useNonce">useNonce</a> =></dt>
+<dt><a href="#useNonce">useNonce</a> </dt>
 <dd><p>Get the current nonce of the address provided</p>
 </dd>
 <dt><a href="#useOnBlock">useOnBlock</a></dt>
@@ -132,13 +130,13 @@ it will use that instead.</li>
 </dd>
 <dt><a href="#usePoller">usePoller</a></dt>
 <dd></dd>
-<dt><a href="#useTimestamp">useTimestamp</a> =></dt>
+<dt><a href="#useTimestamp">useTimestamp</a> </dt>
 <dd><p>Get the current timestamp from the latest block</p>
 </dd>
-<dt><a href="#useUserAddress">useUserAddress</a> =></dt>
+<dt><a href="#useUserAddress">useUserAddress</a> </dt>
 <dd><p>Get the address from the current signer or provider</p>
 </dd>
-<dt><a href="#useUserProviderAndSigner">useUserProviderAndSigner</a> =></dt>
+<dt><a href="#useUserProviderAndSigner">useUserProviderAndSigner</a> </dt>
 <dd><p>Gets user provider/signer from injected provider or local provider
  Use your injected provider from ≡ƒªè Metamask
  If you don&#39;t have it then instantly generate a ≡ƒöÑ burner wallet from a local provider</p>
@@ -154,7 +152,7 @@ const tx = Transactor(userSigner, gasPrice)</li>
 
 <a name="useExchangeEthPrice"></a>
 
-## useExchangeEthPrice =>
+## useExchangeEthPrice
 
 Get the Exchange price of ETH/USD (extrapolated from WETH/DAI)
 
@@ -169,7 +167,7 @@ Get the Exchange price of ETH/USD (extrapolated from WETH/DAI)
 
 <a name="useTokenList"></a>
 
-## useTokenList =>
+## useTokenList
 
 Gets a tokenlist (see more at https://tokenlists.org/), returning the .tokens only
 
@@ -187,7 +185,7 @@ const tokenList = useTokenList("https://gateway.ipfs.io/ipns/tokens.uniswap.org"
 
 <a name="useLookupAddress"></a>
 
-## useLookupAddress =>
+## useLookupAddress
 
 Gets ENS name from given address and provider
 
@@ -201,7 +199,7 @@ Gets ENS name from given address and provider
 
 <a name="useResolveEnsName"></a>
 
-## useResolveEnsName =>
+## useResolveEnsName
 
 Gets the address from an ENS name and provider
 
@@ -215,7 +213,7 @@ Gets the address from an ENS name and provider
 
 <a name="useTokenBalance"></a>
 
-## useTokenBalance =>
+## useTokenBalance
 
 Get the balance of an ERC20 token in an address
 
@@ -236,7 +234,7 @@ Get the balance of an ERC20 token in an address
 
 <a name="useEventListener"></a>
 
-## useEventListener =>
+## useEventListener
 
 Enables you to keep track of events
 
@@ -260,7 +258,7 @@ Enables you to keep track of events
 
 <a name="parseProviderOrSigner"></a>
 
-## parseProviderOrSigner =>
+## parseProviderOrSigner
 
 Parse TEthersProviderOrSigner to TProviderAndSigner
 
@@ -273,7 +271,7 @@ Parse TEthersProviderOrSigner to TProviderAndSigner
 
 <a name="useBalance"></a>
 
-## useBalance =>
+## useBalance
 
 Gets your balance in ETH from given address and provider
 
@@ -294,7 +292,7 @@ Gets your balance in ETH from given address and provider
 
 <a name="useBlockNumber"></a>
 
-## useBlockNumber =>
+## useBlockNumber
 
 Get the current block number of the network
 
@@ -308,7 +306,7 @@ Get the current block number of the network
 
 <a name="useBurnerSigner"></a>
 
-## useBurnerSigner =>
+## useBurnerSigner
 
 A hook that creates a buner address and returns a Signer
 
@@ -321,7 +319,7 @@ A hook that creates a buner address and returns a Signer
 
 <a name="useContractExistsAtAddress"></a>
 
-## useContractExistsAtAddress =>
+## useContractExistsAtAddress
 
 Checks whether a contract exists on the blockchain, returns true if it exists, otherwise false
 
@@ -340,7 +338,7 @@ Checks whether a contract exists on the blockchain, returns true if it exists, o
 
 <a name="useContractLoader"></a>
 
-## useContractLoader =>
+## useContractLoader
 
 Loads your local contracts and gives options to read values from contracts
 or write transactions into them
@@ -373,7 +371,7 @@ config can include:
 
 <a name="useContractReader"></a>
 
-## useContractReader =>
+## useContractReader
 
 Enables you to call functions in contracts and read their values. It helps keep track of them in the local React states
 
@@ -395,12 +393,12 @@ Enables you to call functions in contracts and read their values. It helps keep 
 | functionName | (string) :: The function name in the contract                                |
 | functionArgs | (any[]) :: arguments to functions                                            |
 | pollTime     | (number) :: optional :: if >0 use polling, else use instead of onBlock event |
-| formatter    | ((\_value: T) => T) :: optional :: function to format the result             |
+| formatter    | ((\_value: T) T) :: optional :: function to format the result                |
 | onChange     | (string) :: optional :: callback to call with the function                   |
 
 <a name="useGasPrice"></a>
 
-## useGasPrice =>
+## useGasPrice
 
 Gets the gas price from Eth Gas Station
 
@@ -415,7 +413,7 @@ Gets the gas price from Eth Gas Station
 
 <a name="useNonce"></a>
 
-## useNonce =>
+## useNonce
 
 Get the current nonce of the address provided
 
@@ -476,7 +474,7 @@ helper hook to call a function regularly in time intervals
 
 <a name="useTimestamp"></a>
 
-## useTimestamp =>
+## useTimestamp
 
 Get the current timestamp from the latest block
 
@@ -490,7 +488,7 @@ Get the current timestamp from the latest block
 
 <a name="useUserAddress"></a>
 
-## useUserAddress =>
+## useUserAddress
 
 Get the address from the current signer or provider
 
@@ -503,7 +501,7 @@ Get the address from the current signer or provider
 
 <a name="useUserProviderAndSigner"></a>
 
-## useUserProviderAndSigner =>
+## useUserProviderAndSigner
 
 Gets user provider/signer from injected provider or local provider
 Use your injected provider from ≡ƒªè Metamask
