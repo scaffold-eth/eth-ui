@@ -11,13 +11,12 @@ import { TEthersProvider } from '~~/models';
   - Specify the name of the contract, in this case it is "YourContract"
   - Specify the name of the event in the contract, in this case we keep track of "SetPurpose" event
   - Specify the provider
- * @param contracts
- * @param contractName
- * @param eventName
- * @param provider
- * @param startBlock
- * @param args
- * @returns
+ * @param contracts (Record<string, Contract>) :: record of current contractname/contract
+ * @param contractName (string) :: name of the contract you are interested in
+ * @param eventName (string) :: name of the event
+ * @param provider (TEthersProvider)
+ * @param startBlock (number) string block of events
+ * @returns (ethers->Event)
  */
 export const useEventListener = (
   contracts: Record<string, Contract>,

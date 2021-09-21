@@ -5,10 +5,10 @@ import { useOnRepetition } from '~~/useOnRepetition';
 
 /**
  * Get the current nonce of the address provided
- * @param provider
- * @param address
- * @param pollTime
- * @returns
+ * @param provider (TEthersProvider)
+ * @param address (string)
+ * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
+ * @returns (number) nonce
  */
 export const useNonce = (provider: TEthersProvider, address: string, pollTime: number = 0): number => {
   const [nonce, setNonce] = useState<number>(0);

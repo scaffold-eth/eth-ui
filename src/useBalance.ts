@@ -13,10 +13,10 @@ const zero = BigNumber.from(0);
   - Provide address and get balance corresponding to given address
   - Change provider to access balance on different chains (ex. mainnetProvider)
   - If no pollTime is passed, the balance will update on every new block
- * @param provider 
- * @param address 
- * @param pollTime 
- * @returns 
+ * @param provider (ethers->Provider)
+ * @param address (string)
+ * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
+ * @returns (Bignumber) ::  current balance
  */
 export const useBalance = (provider: Provider | undefined, address: string, pollTime: number = 0): BigNumber => {
   const [balance, setBalance] = useState<BigNumber>();

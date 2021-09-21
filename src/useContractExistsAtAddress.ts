@@ -9,8 +9,8 @@ import { TEthersProvider } from '~~/models/providerTypes';
   ~ Features ~
   - Provide contractAddress to check if the contract is deployed
   - Change provider to check contract address on different chains (ex. mainnetProvider)
- * @param provider 
- * @param contractAddress 
+ * @param provider (TEthersProvider)
+ * @param contractAddress (string) 
  * @returns 
  */
 export const useContractExistsAtAddress = (provider: TEthersProvider | undefined, contractAddress: string): boolean => {

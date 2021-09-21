@@ -6,7 +6,7 @@ import { useOnRepetition } from '~~/useOnRepetition';
 const DEBUG = false;
 
 /**
- * Enables you to read values from contracts and keep track of them in the local React states
+ * Enables you to call functions in contracts and read their values.  It helps keep track of them in the local React states
  * 
   ~ Features ~
   - Provide readContracts by loading contracts (see more on ContractLoader.js)
@@ -14,13 +14,13 @@ const DEBUG = false;
   - Specify the name of the variable in the contract, in this case we keep track of "purpose" variable
   - Pass an args array if the function requires
   - Pass pollTime - if no pollTime is specified, the function will update on every new block
- * @param contracts hash of all [contractName]: Contract
- * @param contractName contractName
- * @param functionName functionName
- * @param functionArgs arguments to functions
- * @param pollTime 
- * @param formatter 
- * @param onChange callback for value change
+ * @param contracts (Record<string, Contract>) :: a record of contractName/contract
+ * @param contractName (string) :: The contract name
+ * @param functionName (string) :: The function name in the contract
+ * @param functionArgs (any[]) :: arguments to functions
+ * @param pollTime (number) :: optional :: if >0 use polling, else use instead of onBlock event
+ * @param formatter ((_value: T) => T) :: optional :: function to format the result
+ * @param onChange (string) :: optional :: callback to call with the function
  * @returns 
  */
 export const useContractReader = <T>(

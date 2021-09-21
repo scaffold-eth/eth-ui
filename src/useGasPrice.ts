@@ -15,10 +15,10 @@ export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
 
 /**
  * Gets the gas price from Eth Gas Station
- * @param targetNetwork
- * @param speed 'slow' | 'fast' | 'fastest' | 'average'
- * @param pollTime
- * @returns
+ * @param targetNetwork (TNetwork)
+ * @param speed (TGasStationSpeed) 'fast' | 'fastest' | 'safeLow' | 'average'
+ * @param pollTime (number) :: if > 0 use polling, else use instead of onBlock event
+ * @returns (number) gas price in gwei
  */
 export const useGasPrice = (
   targetNetwork: TNetwork,

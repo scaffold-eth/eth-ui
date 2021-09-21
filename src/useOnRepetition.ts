@@ -3,6 +3,21 @@ import { useCallback, useEffect, useRef } from 'react';
 
 const DEBUG = false;
 
+interface TOptions {
+  /**
+   * (number) :: if >0 use polling, else use instead of onBlock event
+   */
+  pollTime?: number;
+  /**
+   * (TEthersProvider)
+   */
+  provider?: Provider | undefined;
+  /**
+   * (boolean) :: invoke the callback after initialization
+   */
+  leadingTrigger?: boolean;
+}
+
 /**
  * A combination of useOnBlock and usePoller
  * helper hook to call a function regularly at time intervals when the block changes
@@ -15,17 +30,13 @@ const DEBUG = false;
  * - the hook will invoke a callback regularly on the "block" event.  If a pollTime is provided,
  * it will use that instead.
  * - the hook will invoke the callback when the leadTrigger changes state to true as a leading invokation
- * @param callback
- * @param options pollTime?: number; provider?: Provider | undefined; leadTrigger?: boolean;
+ * @param callback (func) :: callback funciton, can have variable args
+ * @param options (TOptions)
  * @param args varargs callback function arguments
  */
 export const useOnRepetition = (
   callback: (..._args: any[]) => void | Promise<void>,
-  options: {
-    pollTime?: number;
-    provider?: Provider | undefined;
-    leadingTrigger?: boolean;
-  },
+  options: TOptions,
   ...args: any[]
 ): void => {
   const polling = options?.pollTime && options.pollTime > 0;

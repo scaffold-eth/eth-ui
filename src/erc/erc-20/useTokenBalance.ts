@@ -11,10 +11,10 @@ import { useOnRepetition } from '~~/useOnRepetition';
   - Provide address and get balance corresponding to given address
   - Change provider to access balance on different chains (ex. mainnetProvider)
   - If no pollTime is passed, the balance will update on every new block
- * @param contract contract object for the ERC20 token
- * @param address
- * @param pollTime
- * @returns
+ * @param contract (ethers->Contract) contract object for the ERC20 token
+ * @param address (string)
+ * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
+ * @returns (BigNumber) :: balance
  */
 export const useTokenBalance = (contract: Contract, address: string, pollTime: number = 0): BigNumber => {
   const [balance, setBalance] = useState<BigNumber>(BigNumber.from(0));

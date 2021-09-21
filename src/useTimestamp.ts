@@ -5,9 +5,9 @@ import { TEthersProvider } from '~~/models';
 
 /**
  * Get the current timestamp from the latest block
- * @param provider
- * @param pollTime
- * @returns date in
+ * @param provider (TEthersProvider)
+ * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
+ * @returns (number) :: timestamp
  */
 export const useTimestamp = (provider: TEthersProvider, pollTime?: number): number => {
   const blockNumber = useBlockNumber(provider, pollTime);

@@ -26,9 +26,9 @@ const lookupAddress = async (provider: TEthersProvider, address: string): Promis
 
 /**
  * Gets ENS name from given address and provider
- * @param provider
- * @param address
- * @returns
+ * @param provider (TEthersProvider)
+ * @param address (string)
+ * @returns (string) ens name
  */
 export const useLookupAddress = (provider: TEthersProvider, address: string): string => {
   const [ensName, setEnsName] = useState(address);

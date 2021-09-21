@@ -24,16 +24,18 @@ const syncBurnerKeyFromStorage = (): void => {
 };
 
 /**
- * Gets user provider or Signer
+ *  Gets user provider/signer from injected provider or local provider
+ *  Use your injected provider from 🦊 Metamask 
+ *  If you don't have it then instantly generate a 🔥 burner wallet from a local provider
  *
   ~ Features ~
   - Specify the injected provider from Metamask
   - Specify the local provider
   - Usage examples:
     const tx = Transactor(userSigner, gasPrice)
- * @param injectedProviderOrSigner
- * @param localProvider
- * @returns
+ * @param injectedProviderOrSigner (TEthersProviderOrSigner) :: injected provider/signer from metamask etc..
+ * @param localProvider (TEthersProvider) local provider to generate a burner wallet from
+ * @returns (TProviderAndSigner) 
  */
 export const useUserProviderAndSigner = (
   injectedProviderOrSigner: TEthersProviderOrSigner | undefined,
