@@ -32,7 +32,7 @@
     "pre-publish": "yarn clean && yarn build && shx cp -R package.json ./lib && shx cp -R README.md ./lib",
     "publish:next": "yarn pre-publish && cd lib && npm publish --tag next",
     "publish:latest": "yarn pre-publish && cd lib && npm publish --tag latest",
-    "docs": "yarn pre-publish && yarn jsdoc2md ./lib/**/*.{js,jsx}",
+    "docs": "yarn pre-publish && yarn jsdoc2md -t README.hsb.md ./lib/**/*.{js,jsx} > README.md",
     "watch": "watch 'yarn build' ./src",
     "clean": "shx rm -rf ./lib",
     "deprecate": "npm deprecate",
