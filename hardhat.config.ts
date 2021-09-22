@@ -22,7 +22,7 @@ const config: HardhatUserConfig = {
     timeout: 10000,
     reporter: process.env.GITHUB_ACTIONS === 'true' ? 'mocha-junit-reporter' : 'spec',
     reporterOptions: {
-      mochaFile: './test/testresult.xml',
+      mochaFile: 'testresult.xml',
     },
   },
 };
