@@ -1,6 +1,0 @@
-{
-  "spec": "test/**/*.test.{ts,tsx}",
-  "require": "ts-node/register mochawesome/register",
-  "timeout": 10000,
-  "reporter": "mochawesome"
-}
