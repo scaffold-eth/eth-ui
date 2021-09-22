@@ -1,6 +1,6 @@
 # 🖇 Eth-Hooks Overview
 
-Commonly used Ethereum hooks. 
+Commonly used Ethereum hooks.
 
 Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
 
@@ -410,9 +410,9 @@ Gets the gas price from Eth Gas Station
 **Returns**: (number) gas price in gwei
 
 | Param         | Description                                                       |
-| ------------- | ----------------------------------------------------------------- | --------- | --------- | --------- |
+| ------------- | ----------------------------------------------------------------- |
 | targetNetwork | (TNetwork)                                                        |
-| speed         | (TGasStationSpeed) 'fast'                                         | 'fastest' | 'safeLow' | 'average' |
+| speed         | (TGasStationSpeed) 'fast', 'fastest', 'safeLow', 'average'        |
 | pollTime      | (number) :: if > 0 use polling, else use instead of onBlock event |
 
 <a name="useNonce"></a>
