@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [master, develop]
   pull_request:
-    types: [sychronize, opened ]
+    types: [synchronize, opened]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,21 +19,21 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: 'cache'
-      uses: actions/cache@v2
-      with:
-        path: |
-           ~/.yarn
-           ~/node_modules
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-           ${{ runner.os }}-yarn-
-    - run: npm ci
-    - run: npm run build --if-present
-    # - run: npm test # enable later
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: 'cache'
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.yarn
+            ~/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm hardhat:test # enable later
