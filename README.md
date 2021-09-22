@@ -1,6 +1,10 @@
 # 🖇 Eth-Hooks Overview
 
-A list of commonly used Ethereum hooks. 🧪 Quickly experiment with Solidity using a frontend that adapts to your smart contracts: Used by [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)!
+Commonly used Ethereum hooks.
+
+Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
+
+Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
 ## Install
 
@@ -406,9 +410,9 @@ Gets the gas price from Eth Gas Station
 **Returns**: (number) gas price in gwei
 
 | Param         | Description                                                       |
-| ------------- | ----------------------------------------------------------------- | --------- | --------- | --------- |
+| ------------- | ----------------------------------------------------------------- |
 | targetNetwork | (TNetwork)                                                        |
-| speed         | (TGasStationSpeed) 'fast'                                         | 'fastest' | 'safeLow' | 'average' |
+| speed         | (TGasStationSpeed) 'fast', 'fastest', 'safeLow', 'average'        |
 | pollTime      | (number) :: if > 0 use polling, else use instead of onBlock event |
 
 <a name="useNonce"></a>
