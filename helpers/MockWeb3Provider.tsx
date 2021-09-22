@@ -9,12 +9,6 @@ import { TEthersProvider } from '~~/models';
 export interface IMockEthersWrapper {
   mockProvider: MockProvider | TEthersProvider;
 }
-
-const setupMock = (provider: MockProvider): MockProvider | TEthersProvider => {
-  // mockProvider.pollingInterval = 200;
-  return provider;
-};
-
 const ActivateWrapper: FC<IMockEthersWrapper> = (props) => {
   const { activate } = useEthersProvider();
 
@@ -27,6 +21,10 @@ const ActivateWrapper: FC<IMockEthersWrapper> = (props) => {
 };
 
 export const MockEthersWrapper: FC<IMockEthersWrapper> = (props) => {
+  const setupMock = (): MockProvider | TEthersProvider => {
+    return props.mockProvider;
+  };
+
   return (
     <Web3ReactProvider getLibrary={setupMock}>
       <ActivateWrapper mockProvider={props.mockProvider}>{props.children}</ActivateWrapper>
