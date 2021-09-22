@@ -9,13 +9,15 @@ import { TEthersProvider } from '~~/models';
 export interface IMockEthersWrapper {
   mockProvider: MockProvider | TEthersProvider;
 }
-const ActivateWrapper: FC<IMockEthersWrapper> = (props) => {
-  const { activate } = useEthersProvider();
+const ActivateWrapper: FC = (props) => {
+  const { activate, library } = useEthersProvider();
 
   useEffect(() => {
-    const connector = new MockConnector(props.mockProvider);
-    void activate(connector, console.error);
-  }, []);
+    if (library && activate) {
+      const connector = new MockConnector(library);
+      void activate(connector, console.error);
+    }
+  }, [activate, library]);
 
   return <>{props.children}</>;
 };
@@ -27,7 +29,7 @@ export const MockEthersWrapper: FC<IMockEthersWrapper> = (props) => {
 
   return (
     <Web3ReactProvider getLibrary={setupMock}>
-      <ActivateWrapper mockProvider={props.mockProvider}>{props.children}</ActivateWrapper>
+      <ActivateWrapper>{props.children}</ActivateWrapper>
     </Web3ReactProvider>
   );
 };
