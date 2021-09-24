@@ -1,8 +1,7 @@
 import { Web3ReactProvider } from '@web3-react/core';
 import { MockProvider } from 'ethereum-waffle';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
-import { MockConnector } from '~helpers/MockConnector';
 import { useEthersProvider } from '~helpers/useEthersProvider';
 import { TEthersProvider } from '~~/models';
 
@@ -10,26 +9,42 @@ export interface IMockEthersWrapper {
   mockProvider: MockProvider | TEthersProvider;
 }
 const ActivateWrapper: FC = (props) => {
-  const { activate, library } = useEthersProvider();
+  const { activate, library, deactivate } = useEthersProvider();
 
   useEffect(() => {
     if (library && activate) {
-      const connector = new MockConnector(library);
-      void activate(connector, console.error);
+      // const connector = new MockConnector(library);
+      // void activate(connector, console.error);
     }
   }, [activate, library]);
+
+  useEffect(() => {
+    () => {
+      return (): void => {
+        deactivate && deactivate();
+      };
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <>{props.children}</>;
 };
 
 export const MockEthersWrapper: FC<IMockEthersWrapper> = (props) => {
-  const setupMock = (): MockProvider | TEthersProvider => {
-    return props.mockProvider;
-  };
+  const [setupMock, setSetupMock] = useState<() => MockProvider | TEthersProvider>();
+  useEffect(() => {
+    setSetupMock((): MockProvider | TEthersProvider => {
+      return props.mockProvider;
+    });
+  }, []);
 
   return (
-    <Web3ReactProvider getLibrary={setupMock}>
-      <ActivateWrapper>{props.children}</ActivateWrapper>
-    </Web3ReactProvider>
+    <>
+      {setupMock != null && (
+        <Web3ReactProvider getLibrary={setupMock}>
+          <ActivateWrapper>{props.children}</ActivateWrapper>
+        </Web3ReactProvider>
+      )}
+    </>
   );
 };
