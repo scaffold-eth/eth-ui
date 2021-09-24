@@ -17,7 +17,7 @@ export const useBlockNumber = (provider: TEthersProvider, pollTime: number = 0):
     if (nextBlockNumber !== blockNumber) {
       setBlockNumber(nextBlockNumber);
     }
-  }, [blockNumber, provider]);
+  }, [provider]);
 
   useOnRepetition(getBlockNumber, { provider, pollTime });
 

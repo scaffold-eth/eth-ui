@@ -20,14 +20,14 @@
     "plugin:import/warnings",
     "plugin:import/typescript",
     "plugin:react-hooks/recommended",
-    // 'plugin:jest/recommended',
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:mocha/recommended"
   ],
-  "plugins": ["prettier", "react", "react-hooks", "unused-imports", "testing-library"],
+  "plugins": ["prettier", "react", "react-hooks", "unused-imports", "testing-library", "mocha"],
   "rules": {
     "eqeqeq": ["error", "smart"],
     "react/jsx-wrap-multilines": "warn",

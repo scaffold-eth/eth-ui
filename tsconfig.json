@@ -5,6 +5,7 @@
     "outDir": "lib",
     "lib": ["dom", "ESNext", "ES2017"],
     "sourceMap": false,
+    "jsx": "react-jsxdev",
     "allowJs": false,
     "declaration": true,
     "declarationDir": "lib",
@@ -20,29 +21,29 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strict": true,
-    "rootDir": "./src",
+    "rootDir": ".",
     "baseUrl": ".",
     "typeRoots": ["node_modules/@types", "helpers/types"],
     "paths": {
       "~~": ["./src/"],
-      "~~/*": ["./src/*"]
+      "~~/*": ["./src/*"],
+      "~helpers": ["./helpers/"],
+      "~helpers/*": ["./helpers/*"]
     },
     "plugins": [
-      // Transform paths in output .js files
       { "transform": "typescript-transform-paths" },
-      // Transform paths in output .d.ts files (Include this line if you output declarations files)
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]
   },
-  "include": ["src", "src/**/*.json", "src/**/*.ts"],
+  "include": ["src", "helpers", "test"],
   "exclude": [
-    "lib/**/*.ts",
-    "lib/**/*.tsx",
+    "lib/**/*",
     "node_modules",
     "**/node_modules",
     "**/node_modules/**",
     "../../node_modules/**/*",
     "useOnBlock.ts",
     "usePoller.ts"
-  ]
+  ],
+  "files": ["hardhat.config.ts"]
 }

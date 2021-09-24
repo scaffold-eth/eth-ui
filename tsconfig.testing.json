@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "files": ["hardhat.config.ts"],
+  "compilerOptions": {
+    "module": "commonjs"
+  },
+  "include": ["src", "src/**/*.json", "src/**/*.{ts,tsx}", "test/**/*.{ts,tsx}", "helpers/**/*.{ts,tsx}"]
+}

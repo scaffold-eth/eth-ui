@@ -39,11 +39,12 @@ export const useOnRepetition = (
   options: TOptions,
   ...args: any[]
 ): void => {
-  const polling = options?.pollTime && options.pollTime > 0;
+  const polling = options?.pollTime != null && options.pollTime > 0;
   const leadingCall = useRef(true);
 
-  // save the input function provided
+  // create a callback for the input function
   const callFunctionWithArgs = useCallback(() => {
+    if (DEBUG) console.log('create callback');
     if (callback) {
       if (args && args.length > 0) {
         void callback(...args);
@@ -59,10 +60,11 @@ export const useOnRepetition = (
       if (DEBUG) console.log('listen block event', _blockNumber, ...args);
       if (options.provider) callFunctionWithArgs();
     },
-    [callFunctionWithArgs, options.provider, args]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [callFunctionWithArgs, options.provider]
   );
 
-  // connect a listener for block changes
+  // connect a listener to the network to listen for changes
   useEffect(() => {
     if (options.provider && !polling) {
       if (DEBUG) console.log('register block event', ...args);
@@ -76,7 +78,8 @@ export const useOnRepetition = (
         /* do nothing */
       };
     }
-  }, [options.provider, polling, listener, args]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [options.provider, polling, listener]);
 
   // Set up the interval if its using polling
   useEffect(() => {
@@ -94,11 +97,13 @@ export const useOnRepetition = (
     }
   }, [options.pollTime, polling, callFunctionWithArgs]);
 
-  // call if triggered by extra watch, however only on inital call
+  // trigger a first call to populate data.  Only if leadingTrigger is true
   useEffect(() => {
     if (options.leadingTrigger && callFunctionWithArgs != null && leadingCall?.current === true) {
-      leadingCall.current = false;
-      callFunctionWithArgs();
+      if (polling || (!polling && options.provider)) {
+        leadingCall.current = false;
+        callFunctionWithArgs();
+      }
     }
-  }, [options.leadingTrigger, callFunctionWithArgs]);
+  }, [options.leadingTrigger, callFunctionWithArgs, options.provider, polling]);
 };

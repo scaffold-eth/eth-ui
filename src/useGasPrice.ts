@@ -23,7 +23,7 @@ export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
 export const useGasPrice = (
   targetNetwork: TNetwork,
   speed: TGasStationSpeed,
-  pollTime: number = 39999
+  pollTime: number = 0
 ): number | undefined => {
   const multiplier = 100000000;
   const [gasPrice, setGasPrice] = useState<number | undefined>();
