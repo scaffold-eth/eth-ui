@@ -1,4 +1,3 @@
-import { waitFor } from '@testing-library/react';
 import { expect } from 'chai';
 import { MockProvider } from 'ethereum-waffle';
 
@@ -13,14 +12,22 @@ describe('useBlockNumber', function () {
     const hook = renderTestHook(mockProvider, (provider: MockProvider) => useBlockNumber(provider));
     hook.rerender(mockProvider);
 
-    await mineBlock(mockProvider);
-    await waitFor(async () => expect(await mockProvider.getBlockNumber()).equal(1));
-    await hook.waitForNextUpdate({ timeout: 10000 });
-    expect(hook.result.current).equal(1);
+    let blockNumber = await mockProvider.getBlockNumber();
 
+    // mine a block
     await mineBlock(mockProvider);
-    await waitFor(async () => expect(await mockProvider.getBlockNumber()).equal(2));
     await hook.waitForNextUpdate({ timeout: 10000 });
-    expect(hook.result.current).equal(2);
+    expect(blockNumber).not.equal(hook.result.current);
+
+    blockNumber = await mockProvider.getBlockNumber();
+    expect(hook.result.current).equal(blockNumber);
+
+    // mine an another block
+    await mineBlock(mockProvider);
+    await hook.waitForNextUpdate({ timeout: 10000 });
+    expect(blockNumber).not.equal(hook.result.current);
+
+    blockNumber = await mockProvider.getBlockNumber();
+    expect(hook.result.current).equal(blockNumber);
   });
 });

@@ -34,17 +34,19 @@ describe('useBalance', function () {
     const hook = renderTestHook(mockProvider, (provider: MockProvider) => useBalance(provider, wallet.address));
     hook.rerender(mockProvider);
 
+    const oldBalance = await wallet.getBalance();
+
     const valueToSend = fromEther(1);
-    console.log(valueToSend);
     // await expect(
-    //   await wallet.sendTransaction({
-    //     to: secondWallet.address,
-    //     value: valueToSend,
-    //   })
-    // ).to.changeEtherBalances([wallet], [fromEther(-1)]);
+    await wallet.sendTransaction({
+      to: secondWallet.address,
+      value: valueToSend,
+    });
+    // ).to.changeEtherBalances([wallet], [fromEther(-1)]); // commented out since the waffle chai matcher doesn't work with london hardform
 
     await hook.waitForNextUpdate({ timeout: singleTimeout });
-    const balance = await wallet.getBalance();
-    expect(hook.result.current).to.equal(balance);
+    const newBalance = await wallet.getBalance();
+    expect(hook.result.current).to.equal(newBalance);
+    expect(hook.result.current).to.not.equal(oldBalance);
   });
 });
