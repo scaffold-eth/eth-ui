@@ -2,7 +2,7 @@ import { Provider } from '@ethersproject/providers';
 import { BigNumber } from 'ethers';
 import { useState, useCallback } from 'react';
 
-import { useMounted } from '~helpers/useMounted';
+import { useMounted } from '~helpers/hooks/useMounted';
 import { useOnRepetition } from '~~/useOnRepetition';
 
 const zero = BigNumber.from(0);

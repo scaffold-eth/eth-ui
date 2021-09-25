@@ -2,9 +2,9 @@ import { waitFor } from '@testing-library/react';
 import { expect } from 'chai';
 import { MockProvider } from 'ethereum-waffle';
 
-import { getMockProvider } from '~helpers/getMockProvider';
-import { mineBlock as mineBlock } from '~helpers/hardhatActions';
-import { renderTestHook } from '~helpers/renderTestHook';
+import { mineBlock as mineBlock } from '~helpers/hooks/hardhatActions';
+import { getMockProvider } from '~helpers/test-harness/getMockProvider';
+import { renderTestHook } from '~helpers/test-harness/renderTestHook';
 import { useBlockNumber } from '~~/useBlockNumber';
 
 describe('useBlockNumber', function () {

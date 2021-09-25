@@ -2,7 +2,7 @@ import { Renderer, renderHook, RenderHookResult } from '@testing-library/react-h
 import { MockProvider } from 'ethereum-waffle';
 import { FC } from 'react';
 
-import { MockEthersWrapper } from '~helpers/MockWeb3Provider';
+import { MockEthersWrapper } from '~helpers/test-harness/MockWeb3Provider';
 
 type TTestHookResult<TProps, TResult> = RenderHookResult<TProps, TResult, Renderer<TProps>> & {
   mockProvider: MockProvider;
