@@ -19,6 +19,14 @@ yarn add eth-hooks
 [@shravansunder](https://github.com/ShravanSunder)
 [@calvinbores](https://github.com/calvbore)
 
+## Peer Dependencies
+
+- react & general
+  - react
+  - react-dom
+- web3
+  - @uniswap/sdk
+
 # API
 
 {{>global-index-kinds kind="constant" title="Hooks & Helpers" ~}}
