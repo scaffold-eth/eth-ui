@@ -30,7 +30,7 @@ const lookupAddress = async (provider: TEthersProvider, address: string): Promis
  * @param address (string)
  * @returns (string) ens name
  */
-export const useLookupAddress = (provider: TEthersProvider, address: string): string => {
+export const useLookupAddress = (provider: TEthersProvider | undefined, address: string): string => {
   const [ensName, setEnsName] = useState(address);
 
   useEffect(() => {
