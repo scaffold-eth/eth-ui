@@ -3,6 +3,7 @@
 Commonly used Ethereum hooks.
 
 Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
+Used by ⚙ [eth-components](https://github.com/scaffold-eth/eth-components)
 
 Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
@@ -17,6 +18,14 @@ yarn add eth-hooks
 [@austinGriffith](https://github.com/austintgriffith)
 [@shravansunder](https://github.com/ShravanSunder)
 [@calvinbores](https://github.com/calvbore)
+
+## Peer Dependencies
+
+- react & general
+  - react
+  - react-dom
+- web3
+  - @uniswap/sdk
 
 # API
 
@@ -125,10 +134,9 @@ tx( writeContracts.YourContract.setPurpose(newPurpose) )</li>
 <dt><a href="#useOnBlock">useOnBlock</a></dt>
 <dd></dd>
 <dt><a href="#useOnRepetition">useOnRepetition</a></dt>
-<dd><p>A combination of useOnBlock and usePoller</p>
+<dd><p>A hook will invoke a callback regularly on the &quot;block&quot; event.
+Alternatively, If a pollTime is provided, it will use that instead. The minumum polling time is 10s</p>
 <ul>
-<li>the hook will invoke a callback regularly on the &quot;block&quot; event.  If a pollTime is provided,
-it will use that instead.</li>
 <li>the hook will invoke the callback when the leadTrigger changes state to true as a leading invokation</li>
 </ul>
 </dd>
@@ -448,10 +456,9 @@ helper hook to call a function regularly at time intervals when the block change
 
 ## useOnRepetition
 
-A combination of useOnBlock and usePoller
+A hook will invoke a callback regularly on the "block" event.
+Alternatively, If a pollTime is provided, it will use that instead. The minumum polling time is 10s
 
-- the hook will invoke a callback regularly on the "block" event. If a pollTime is provided,
-  it will use that instead.
 - the hook will invoke the callback when the leadTrigger changes state to true as a leading invokation
 
 **Kind**: global constant
