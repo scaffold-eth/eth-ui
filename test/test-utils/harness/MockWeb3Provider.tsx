@@ -19,10 +19,8 @@ const ActivateWrapper: FC = (props) => {
   }, [activate, library]);
 
   useEffect(() => {
-    () => {
-      return (): void => {
-        deactivate && deactivate();
-      };
+    return (): void => {
+      deactivate && deactivate();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
