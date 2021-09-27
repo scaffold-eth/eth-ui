@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { MockProvider } from 'ethereum-waffle';
 
-import { mineBlock as mineBlock } from '~helpers/hooks/hardhatActions';
-import { getMockProvider } from '~helpers/test-harness/getMockProvider';
-import { renderTestHook } from '~helpers/test-harness/renderTestHook';
+import { getMockProvider } from '~test-utils/harness/getMockProvider';
+import { renderTestHook } from '~test-utils/harness/renderTestHook';
+import { mineBlock } from '~test-utils/hooks/hardhatActions';
 import { useBlockNumber } from '~~/useBlockNumber';
 
 describe('useBlockNumber', function () {

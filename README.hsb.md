@@ -3,6 +3,7 @@
 Commonly used Ethereum hooks.
 
 Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
+Used by ⚙ [eth-components](https://github.com/scaffold-eth/eth-components)
 
 Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 

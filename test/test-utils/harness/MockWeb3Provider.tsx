@@ -2,7 +2,7 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { MockProvider } from 'ethereum-waffle';
 import React, { FC, useEffect, useState } from 'react';
 
-import { useEthersProvider } from '~helpers/hooks/useEthersProvider';
+import { useEthersProvider } from '~test-utils/hooks/useEthersProvider';
 import { TEthersProvider } from '~~/models';
 
 export interface IMockEthersWrapper {

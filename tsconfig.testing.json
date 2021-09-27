@@ -4,5 +4,5 @@
   "compilerOptions": {
     "module": "commonjs"
   },
-  "include": ["src", "src/**/*.json", "src/**/*.{ts,tsx}", "test/**/*.{ts,tsx}", "helpers/**/*.{ts,tsx}"]
+  "include": ["src", "src/**/*.json", "src/**/*.{ts,tsx}", "test/**/*.{ts,tsx}"]
 }

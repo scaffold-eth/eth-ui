@@ -16,7 +16,6 @@ const config: HardhatUserConfig = {
     },
   },
   mocha: {
-    // asyncOnly: true,
     bail: false,
     require: ['ts-node/register'],
     timeout: 20000,

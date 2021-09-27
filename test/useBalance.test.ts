@@ -4,10 +4,10 @@
 import { expect } from 'chai';
 import { MockProvider } from 'ethereum-waffle';
 
-import { singleTimeout } from '~helpers/constants/testConstants';
-import { fromEther } from '~helpers/functions/conversions';
-import { getMockProvider } from '~helpers/test-harness/getMockProvider';
-import { renderTestHook } from '~helpers/test-harness/renderTestHook';
+import { singleTimeout } from '~test-utils/constants/testConstants';
+import { fromEther } from '~test-utils/functions/conversions';
+import { getMockProvider } from '~test-utils/harness/getMockProvider';
+import { renderTestHook } from '~test-utils/harness/renderTestHook';
 import { useBalance } from '~~/useBalance';
 
 // import { getMockProvider } from '~helpers/getMockProvider';
