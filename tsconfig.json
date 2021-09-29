@@ -45,5 +45,5 @@
     "useOnBlock.ts",
     "usePoller.ts"
   ],
-  "files": ["hardhat.config.ts"]
+  "files": ["hardhat.config.ts", "src/_global.ts"]
 }

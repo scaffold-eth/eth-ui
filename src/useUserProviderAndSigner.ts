@@ -18,13 +18,17 @@ import { TProviderAndSigner, TEthersProvider } from '~~/models';
  * @param localProvider (TEthersProvider) local provider to generate a burner wallet from
  * @returns (TProviderAndSigner) 
  */
-export const useUserProviderAndSigner = (...providers: TEthersProvider[]): TProviderAndSigner | undefined => {
+export const useUserProviderAndSigner = (
+  currentProvider: TEthersProvider | undefined,
+  ...moreProviders: TEthersProvider[]
+): TProviderAndSigner => {
   const [signer, setSigner] = useState<Signer>();
   const [provider, setProvider] = useState<TEthersProvider>();
   const [providerNetwork, setProviderNetwork] = useState<ethers.providers.Network>();
   const [address, setAddress] = useState<string>();
 
-  const providerDeps: string = providers
+  const allProviders = [currentProvider, ...moreProviders].filter((f) => f != null) as TEthersProvider[];
+  const providerDeps: string = allProviders
     .map((m) => {
       return `${m?.network?.name}_${m?.network?.chainId}`;
     })
@@ -34,7 +38,7 @@ export const useUserProviderAndSigner = (...providers: TEthersProvider[]): TProv
     }, '');
 
   useMemo(() => {
-    const foundSigner = providers.some(async (provider) => {
+    const foundSigner = allProviders.some(async (provider) => {
       console.log('🦊 Using provider');
       const result = await parseProviderOrSigner(provider);
 
@@ -49,8 +53,8 @@ export const useUserProviderAndSigner = (...providers: TEthersProvider[]): TProv
       return false;
     });
 
-    if (!foundSigner && providers?.length > 1) {
-      setProvider(providers[0]);
+    if (!foundSigner && currentProvider != null) {
+      setProvider(currentProvider);
       setSigner(undefined);
       setProviderNetwork(undefined);
       setAddress(undefined);

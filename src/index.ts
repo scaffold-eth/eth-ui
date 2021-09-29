@@ -12,3 +12,4 @@ export * from './useOnRepetition';
 export * from './useTimestamp';
 export * from './useUserProviderAndSigner';
 export * from './useUserAddress';
+export * from './useWeb3Modal';

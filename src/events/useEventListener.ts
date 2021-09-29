@@ -22,7 +22,7 @@ export const useEventListener = (
   contracts: Record<string, Contract>,
   contractName: string,
   eventName: string,
-  provider: TEthersProvider,
+  provider: TEthersProvider | undefined,
   startBlock: number
 ): any[] => {
   const [updates, setUpdates] = useState<Event[]>([]);

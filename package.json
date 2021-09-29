@@ -30,10 +30,11 @@
     "commit": "git-cz",
     "build": "ts-patch i && tsc -p tsconfig.json",
     "clean": "shx rm -rf ./lib",
-    "pre-publish": "yarn clean && yarn build && shx cp -R package.json ./lib && shx cp -R README.md ./lib && shx mv ./lib/src\\* ./lib/ && shx rm -rf ./lib/src && shx rm -rf ./lib/test",
-    "publish:next": "yarn pre-publish && cd lib && npm publish --tag next",
-    "publish:latest": "yarn pre-publish && cd lib && npm publish --tag latest",
-    "docs": "yarn pre-publish && yarn jsdoc2md -t README.hsb.md ./lib/**/*.{js,jsx} > README.md",
+    "prepublish": "yarn clean && yarn build && shx cp -R package.json ./lib && shx cp -R README.md ./lib && shx mv ./lib/src\\* ./lib/ && shx rm -rf ./lib/src && shx rm -rf ./lib/test",
+    "publish:yalc": "yarn prepublish && cd lib && yalc publish --no-script --push",
+    "publish:next": "yarn prepublish && cd lib && npm publish --tag next",
+    "publish:latest": "yarn prepublish && cd lib && npm publish --tag latest",
+    "docs": "yarn prepublish && yarn jsdoc2md -t README.hsb.md ./lib/**/*.{js,jsx} > README.md",
     "deprecate": "npm deprecate",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*",
     "hardhat:test": "cross-env TS_NODE_PROJECT=tsconfig.testing.json yarn hardhat test  --network hardhat",
@@ -57,9 +58,11 @@
   "peerDependencies": {
     "@uniswap/sdk": "^3.0.3",
     "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+    "react-dom": ">=17.0.2",
+    "web3modal": ">=1.9.4"
   },
   "devDependencies": {
+    "web3modal": ">=1.9.4",
     "@atixlabs/hardhat-time-n-mine": "^0.0.5",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
