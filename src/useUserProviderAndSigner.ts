@@ -2,9 +2,8 @@ import { Provider } from '@ethersproject/providers';
 import { ethers, Signer } from 'ethers';
 import { useMemo, useState } from 'react';
 
-import { useBurnerSigner } from '~~';
-import { parseProviderOrSigner } from '~~/functions/providerOrSigner';
-import { TEthersProvider, TProviderAndSigner, TEthersProviderOrSigner } from '~~/models';
+import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
+import { TProviderAndSigner, TEthersProvider } from '~~/models';
 
 const syncBurnerKeyFromStorage = (): void => {
   if (window.location.pathname && window.location.pathname.includes('/pk')) {
@@ -33,43 +32,39 @@ const syncBurnerKeyFromStorage = (): void => {
   - Specify the local provider
   - Usage examples:
     const tx = Transactor(userSigner, gasPrice)
- * @param injectedProviderOrSigner (TEthersProviderOrSigner) :: injected provider/signer from metamask etc..
+ * @param provider (TEthersProviderOrSigner) :: injected provider/signer from metamask etc..
  * @param localProvider (TEthersProvider) local provider to generate a burner wallet from
  * @returns (TProviderAndSigner) 
  */
-export const useUserProviderAndSigner = (
-  injectedProviderOrSigner: TEthersProviderOrSigner | undefined,
-  localProvider: TEthersProvider
-): TProviderAndSigner | undefined => {
+export const useUserProviderAndSigner = (providers: TEthersProvider[]): TProviderAndSigner | undefined => {
   const [signer, setSigner] = useState<Signer>();
   const [provider, setProvider] = useState<Provider>();
   const [providerNetwork, setProviderNetwork] = useState<ethers.providers.Network>();
-  const burnerSigner = useBurnerSigner(localProvider);
+
+  const providerDeps: string = providers
+    .map((m) => {
+      return `${m?.network?.name} :: ${m?.network?.chainId}`;
+    })
+    .reduce((acc, value) => {
+      if (!acc) return '';
+      return acc + value ?? '';
+    });
 
   useMemo(() => {
-    if (injectedProviderOrSigner) {
-      console.log('🦊 Using injected provider');
-      void parseProviderOrSigner(injectedProviderOrSigner).then((result) => {
-        if (result != null) setSigner(result.signer);
-      });
-    } else if (!localProvider) {
-      setSigner(undefined);
-    } else {
-      syncBurnerKeyFromStorage();
-      console.log('🔥 Using burner signer', burnerSigner);
-      setSigner(burnerSigner);
-    }
-  }, [injectedProviderOrSigner, localProvider, burnerSigner]);
+    providers.some(async (provider) => {
+      console.log('🦊 Using provider');
+      const result = await parseProviderOrSigner(provider);
 
-  useMemo(() => {
-    if (signer) {
-      const result = parseProviderOrSigner(signer);
-      void result.then((r) => {
-        setProvider(r.provider);
-        setProviderNetwork(r.providerNetwork);
-      });
-    }
-  }, [signer]);
+      if (result.provider && result.providerNetwork && result.signer) {
+        setSigner(result.signer);
+        setProvider(result.provider);
+        setProviderNetwork(result.providerNetwork);
+        return true;
+      }
+      return false;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [providerDeps]);
 
   return { signer, provider, providerNetwork };
 };

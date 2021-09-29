@@ -1,6 +1,5 @@
 import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider, Provider } from '@ethersproject/providers';
 import { ethers, Signer } from 'ethers';
-
 /**
  * A union of various providers in ethers to give maximum flexibility
  */
