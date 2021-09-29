@@ -91,6 +91,7 @@ export const useBurnerSigner = (provider: TEthersProvider | undefined): IBurnerS
       console.log('🔑 Create new burner wallet...');
       const wallet = ethers.Wallet.createRandom();
       setPrivateKey((_v) => {
+        console.log('📝 ...Set key');
         creatingBurnerRef.current = false;
         return wallet.privateKey;
       });

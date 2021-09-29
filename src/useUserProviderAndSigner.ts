@@ -26,12 +26,12 @@ export const useUserProviderAndSigner = (...providers: TEthersProvider[]): TProv
 
   const providerDeps: string = providers
     .map((m) => {
-      return `${m?.network?.name} :: ${m?.network?.chainId}`;
+      return `${m?.network?.name}_${m?.network?.chainId}`;
     })
     .reduce((acc, value) => {
-      if (!acc) return '';
+      if (!acc) return value ?? '';
       return acc + value ?? '';
-    });
+    }, '');
 
   useMemo(() => {
     const foundSigner = providers.some(async (provider) => {
