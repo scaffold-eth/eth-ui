@@ -21,4 +21,5 @@ export type TProviderAndSigner = {
   signer: Signer | undefined;
   provider: TAbstractProvider | undefined;
   providerNetwork: ethers.providers.Network | undefined;
+  address: string | undefined;
 };

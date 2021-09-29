@@ -19,14 +19,18 @@ import { TProviderAndSigner, TEthersProvider } from '~~/models';
  * @param localProvider (TEthersProvider) local provider to generate a burner wallet from
  * @returns (TProviderAndSigner) 
  */
-export const useUserProviderAndSigner = (providers: TEthersProvider[]): TProviderAndSigner | undefined => {
+export const useUserProviderAndSigner = (
+  ...providers: TEthersProvider[] | Provider[]
+): TProviderAndSigner | undefined => {
   const [signer, setSigner] = useState<Signer>();
-  const [provider, setProvider] = useState<Provider>();
+  const [provider, setProvider] = useState<TEthersProvider>();
   const [providerNetwork, setProviderNetwork] = useState<ethers.providers.Network>();
+  const [address, setAddress] = useState<string>();
 
   const providerDeps: string = providers
     .map((m) => {
-      return `${m?.network?.name} :: ${m?.network?.chainId}`;
+      const casted = m as TEthersProvider;
+      return `${casted?.network?.name} :: ${casted?.network?.chainId}`;
     })
     .reduce((acc, value) => {
       if (!acc) return '';
@@ -34,20 +38,30 @@ export const useUserProviderAndSigner = (providers: TEthersProvider[]): TProvide
     });
 
   useMemo(() => {
-    providers.some(async (provider) => {
+    const foundSigner = providers.some(async (provider) => {
       console.log('🦊 Using provider');
-      const result = await parseProviderOrSigner(provider);
+      const casted = provider as TEthersProvider;
+      const result = await parseProviderOrSigner(casted);
 
       if (result.provider && result.providerNetwork && result.signer) {
         setSigner(result.signer);
-        setProvider(result.provider);
+        setProvider(result.provider as TEthersProvider);
         setProviderNetwork(result.providerNetwork);
+        const address = await result.signer.getAddress();
+        setAddress(address);
         return true;
       }
       return false;
     });
+
+    if (!foundSigner && providers?.length > 1) {
+      setProvider(providers[0] as TEthersProvider);
+      setSigner(undefined);
+      setProviderNetwork(undefined);
+      setAddress(undefined);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [providerDeps]);
 
-  return { signer, provider, providerNetwork };
+  return { signer, provider, providerNetwork, address };
 };

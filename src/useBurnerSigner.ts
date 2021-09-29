@@ -1,5 +1,5 @@
 import { BytesLike, ethers, Signer } from 'ethers';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { TEthersProvider } from '~~/models/providerTypes';
 
@@ -28,7 +28,8 @@ export const loadBurnerKeyFromStorage = (): string | null => {
 export interface IBurnerSignerManager {
   signer: Signer | undefined;
   saveToStorage: () => void;
-  loadFromStorage: () => void;
+  loadFromStorageOrCreate: () => void;
+  createBurnerSigner: () => void;
 }
 
 /**
@@ -36,14 +37,15 @@ export interface IBurnerSignerManager {
  * @param provider (TEthersProvider)
  * @returns (ethers.signer) :: signer of the wallet
  */
-export const useBurnerSigner = (provider: TEthersProvider): IBurnerSignerManager => {
+export const useBurnerSigner = (provider: TEthersProvider | undefined): IBurnerSignerManager => {
   const key = 'metaPrivateKey';
   const [signer, setSigner] = useState<Signer>();
-  const [privateKeyValue, setPrivateKeyValue] = useState<BytesLike>();
+  const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
+  const creatingBurnerRef = useRef(false);
 
   const setValue = (value: any): void => {
     try {
-      setPrivateKeyValue(value);
+      setPrivateKey(value);
       window.localStorage.setItem(key, value);
     } catch (error) {
       console.log(error);
@@ -80,13 +82,37 @@ export const useBurnerSigner = (provider: TEthersProvider): IBurnerSignerManager
     }
   }, [privateKeyValue]);
 
-  const loadFromStorage = useCallback(() => {
-    const pk = loadBurnerKeyFromStorage();
-    if (pk && isValidPk(pk)) {
-      console.log('🔑 ...Loaded Private Key');
-      setPrivateKeyValue(pk);
+  /**
+   * create a new burnerkey
+   */
+  const createBurnerSigner = useCallback(() => {
+    if (provider && !creatingBurnerRef.current) {
+      creatingBurnerRef.current = true;
+      console.log('🔑 Create new burner wallet...');
+      const wallet = ethers.Wallet.createRandom();
+      setPrivateKey((_v) => {
+        creatingBurnerRef.current = false;
+        return wallet.privateKey;
+      });
+    } else {
+      console.log('⚠ Could not create burner wallet');
     }
-  }, []);
+  }, [provider]);
 
-  return { signer, saveToStorage, loadFromStorage };
+  /**
+   * Load burner key from storage
+   */
+  const loadFromStorageOrCreate = useCallback(() => {
+    if (setPrivateKey != null) {
+      const pk = loadBurnerKeyFromStorage();
+      if (pk && isValidPk(pk)) {
+        console.log('🔑 ...Loaded Private Key');
+        setPrivateKey(pk);
+      } else {
+        createBurnerSigner();
+      }
+    }
+  }, [createBurnerSigner]);
+
+  return { signer, saveToStorage, loadFromStorageOrCreate, createBurnerSigner };
 };
