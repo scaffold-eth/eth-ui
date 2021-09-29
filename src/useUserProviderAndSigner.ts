@@ -1,4 +1,3 @@
-import { Provider } from '@ethersproject/providers';
 import { ethers, Signer } from 'ethers';
 import { useMemo, useState } from 'react';
 
@@ -19,9 +18,7 @@ import { TProviderAndSigner, TEthersProvider } from '~~/models';
  * @param localProvider (TEthersProvider) local provider to generate a burner wallet from
  * @returns (TProviderAndSigner) 
  */
-export const useUserProviderAndSigner = (
-  ...providers: TEthersProvider[] | Provider[]
-): TProviderAndSigner | undefined => {
+export const useUserProviderAndSigner = (...providers: TEthersProvider[]): TProviderAndSigner | undefined => {
   const [signer, setSigner] = useState<Signer>();
   const [provider, setProvider] = useState<TEthersProvider>();
   const [providerNetwork, setProviderNetwork] = useState<ethers.providers.Network>();
@@ -29,8 +26,7 @@ export const useUserProviderAndSigner = (
 
   const providerDeps: string = providers
     .map((m) => {
-      const casted = m as TEthersProvider;
-      return `${casted?.network?.name} :: ${casted?.network?.chainId}`;
+      return `${m?.network?.name} :: ${m?.network?.chainId}`;
     })
     .reduce((acc, value) => {
       if (!acc) return '';
@@ -40,12 +36,11 @@ export const useUserProviderAndSigner = (
   useMemo(() => {
     const foundSigner = providers.some(async (provider) => {
       console.log('🦊 Using provider');
-      const casted = provider as TEthersProvider;
-      const result = await parseProviderOrSigner(casted);
+      const result = await parseProviderOrSigner(provider);
 
       if (result.provider && result.providerNetwork && result.signer) {
         setSigner(result.signer);
-        setProvider(result.provider as TEthersProvider);
+        setProvider(result.provider);
         setProviderNetwork(result.providerNetwork);
         const address = await result.signer.getAddress();
         setAddress(address);
@@ -55,7 +50,7 @@ export const useUserProviderAndSigner = (
     });
 
     if (!foundSigner && providers?.length > 1) {
-      setProvider(providers[0] as TEthersProvider);
+      setProvider(providers[0]);
       setSigner(undefined);
       setProviderNetwork(undefined);
       setAddress(undefined);

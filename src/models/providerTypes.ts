@@ -19,7 +19,7 @@ export type TAbstractProvider = Provider;
 //  the perse functions need to be change dtoo
 export type TProviderAndSigner = {
   signer: Signer | undefined;
-  provider: TAbstractProvider | undefined;
+  provider: TEthersProvider | undefined;
   providerNetwork: ethers.providers.Network | undefined;
   address: string | undefined;
 };
