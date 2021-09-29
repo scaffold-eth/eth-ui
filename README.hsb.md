@@ -3,6 +3,7 @@
 Commonly used Ethereum hooks.
 
 Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
+Used by ⚙ [eth-components](https://github.com/scaffold-eth/eth-components)
 
 Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
@@ -17,6 +18,14 @@ yarn add eth-hooks
 [@austinGriffith](https://github.com/austintgriffith)
 [@shravansunder](https://github.com/ShravanSunder)
 [@calvinbores](https://github.com/calvbore)
+
+## Peer Dependencies
+
+- react & general
+  - react
+  - react-dom
+- web3
+  - @uniswap/sdk
 
 # API
 

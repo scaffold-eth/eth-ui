@@ -27,8 +27,8 @@
     "paths": {
       "~~": ["./src/"],
       "~~/*": ["./src/*"],
-      "~helpers": ["./helpers/"],
-      "~helpers/*": ["./helpers/*"]
+      "~test-utils": ["./test/test-utils/"],
+      "~test-utils/*": ["./test/test-utils/*"]
     },
     "plugins": [
       { "transform": "typescript-transform-paths" },
