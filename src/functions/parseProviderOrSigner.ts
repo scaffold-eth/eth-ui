@@ -1,7 +1,7 @@
 import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { ethers, Signer } from 'ethers';
 
-import { TProviderAndSigner, TEthersProviderOrSigner } from '~~/models';
+import { TEthersUser, TEthersProviderOrSigner } from '~~/models';
 
 /**
  * Parse TEthersProviderOrSigner to TProviderAndSigner
@@ -10,7 +10,7 @@ import { TProviderAndSigner, TEthersProviderOrSigner } from '~~/models';
  */
 export const parseProviderOrSigner = async (
   providerOrSigner: TEthersProviderOrSigner | undefined
-): Promise<TProviderAndSigner> => {
+): Promise<TEthersUser> => {
   let signer: Signer | undefined;
   let provider: ethers.providers.Provider | undefined;
   let providerNetwork: ethers.providers.Network | undefined;
@@ -35,5 +35,5 @@ export const parseProviderOrSigner = async (
     providerNetwork = provider && (await provider.getNetwork());
   }
 
-  return { signer, provider, providerNetwork } as TProviderAndSigner;
+  return { signer, provider, providerNetwork } as TEthersUser;
 };

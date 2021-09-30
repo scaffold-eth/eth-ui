@@ -17,7 +17,7 @@ export type TAbstractProvider = Provider;
 
 // TODO: perhaps? provider should be TEthersProvider, what impact does this have?
 //  the perse functions need to be change dtoo
-export type TProviderAndSigner = {
+export type TEthersUser = {
   signer: Signer | undefined;
   provider: TEthersProvider | undefined;
   providerNetwork: ethers.providers.Network | undefined;

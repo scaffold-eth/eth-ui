@@ -10,6 +10,7 @@ export * from './useOnBlock';
 export * from './usePoller';
 export * from './useOnRepetition';
 export * from './useTimestamp';
-export * from './useUserProviderAndSigner';
+export * from './useGetUserFromProviders';
+export * from './useGetUserFromSigners';
 export * from './useUserAddress';
 export * from './useWeb3Modal';

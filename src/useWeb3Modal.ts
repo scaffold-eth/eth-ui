@@ -7,7 +7,7 @@ import './helpers/_global';
 import { TEthersProvider } from '~~/models';
 
 export interface IWeb3ModalState {
-  initialized: boolean;
+  initializing: boolean;
   openWeb3ModalCallback: () => void;
   logoutOfWeb3ModalCallback: () => void;
   updateWeb3ModalThemeCallback: (theme: ThemeColors | string) => void;
@@ -19,7 +19,7 @@ export const useWeb3Modal = (
   setCurrentProvider: React.Dispatch<React.SetStateAction<TEthersProvider | undefined>>
 ): IWeb3ModalState => {
   const web3ModalProviderRef = useRef<Web3Modal>();
-  const initalizedRef = useRef<boolean>();
+  const initalizingRef = useRef<boolean>();
 
   /**
    * initalize web3 object and save it to state
@@ -29,7 +29,7 @@ export const useWeb3Modal = (
       throw 'Web3Modal is a peer dependancy to use this hook';
     }
     web3ModalProviderRef.current = new Web3Modal(web3ModalConfig ?? {});
-    initalizedRef.current = false;
+    initalizingRef.current = true;
     setCurrentProvider(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3ModalConfig]);
@@ -51,6 +51,7 @@ export const useWeb3Modal = (
    */
   const logoutOfWeb3ModalCallback = useCallback(
     (reload: boolean = false): void => {
+      initalizingRef.current = false;
       web3ModalProviderRef.current?.clearCachedProvider();
       setCurrentProvider(undefined);
       if (reload) {
@@ -68,9 +69,9 @@ export const useWeb3Modal = (
    */
   const loadWeb3Modal = useCallback(async () => {
     try {
+      initalizingRef.current = true;
       const provider = await web3ModalProviderRef.current?.connect();
       setCurrentProvider(new Web3Provider(provider));
-      initalizedRef.current = true;
 
       if (provider?.on) {
         provider.on('chainChanged', (chainId: number) => {
@@ -92,9 +93,12 @@ export const useWeb3Modal = (
       }
     } catch (e) {
       if ((e as string).includes(const_web3DialogClosedByUser)) {
-        initalizedRef.current = true;
+        console.log(e);
+      } else {
+        throw e;
       }
-      console.log(e);
+    } finally {
+      initalizingRef.current = false;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setCurrentProvider]);
@@ -139,7 +143,7 @@ export const useWeb3Modal = (
   }, [window?.ethereum]);
 
   return {
-    initialized: initalizedRef.current ?? false,
+    initializing: initalizingRef.current ?? false,
     openWeb3ModalCallback,
     logoutOfWeb3ModalCallback,
     updateWeb3ModalThemeCallback,

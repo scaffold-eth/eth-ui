@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { parseProviderOrSigner } from '~~/functions';
-import { TProviderAndSigner, TEthersProviderOrSigner } from '~~/models';
+import { TEthersUser, TEthersProviderOrSigner } from '~~/models';
 
 /**
  * Get the address from the current signer or provider
@@ -13,7 +13,7 @@ export const useUserAddress = (providerOrSigner: TEthersProviderOrSigner | undef
 
   useEffect(() => {
     const getUserAddress = async (providerOrSigner: TEthersProviderOrSigner): Promise<void> => {
-      const result: TProviderAndSigner = await parseProviderOrSigner(providerOrSigner);
+      const result: TEthersUser = await parseProviderOrSigner(providerOrSigner);
       if (result.signer) {
         const address = await result.signer?.getAddress();
         setUserAddress(address);
