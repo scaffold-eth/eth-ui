@@ -6,8 +6,6 @@ export * from './useContractLoader';
 export * from './useContractReader';
 export * from './useGasPrice';
 export * from './useNonce';
-export * from './useOnBlock';
-export * from './usePoller';
 export * from './useOnRepetition';
 export * from './useTimestamp';
 export * from './useGetUserFromProviders';
