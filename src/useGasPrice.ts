@@ -30,6 +30,7 @@ export const useGasPrice = (
   pollTime: number = 0
 ): number | undefined => {
   const [gasPrice, setGasPrice] = useState<number | undefined>();
+  const [fallback, setFallback] = useState(false);
 
   const loadGasPrice = useCallback((): void => {
     if (!chainId) {
@@ -56,9 +57,13 @@ export const useGasPrice = (
         .then((fee: FeeData) => {
           console.log(fee);
           const price = fee.gasPrice ?? fee.maxFeePerGas;
-          if (price) {
+          if (price && price?.toBigInt() > 0) {
             const result = parseInt(utils.formatUnits(price, 'gwei')) ?? 0;
             setGasPrice(result);
+          } else if (currentNetwork?.gasPrice) {
+            setGasPrice(currentNetwork.gasPrice);
+          } else if (price) {
+            setGasPrice(0);
           } else {
             setGasPrice(undefined);
           }
