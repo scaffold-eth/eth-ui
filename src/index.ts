@@ -14,3 +14,4 @@ export * from './useGetUserFromProviders';
 export * from './useGetUserFromSigners';
 export * from './useUserAddress';
 export * from './useWeb3Modal';
+export * from './useEventListener';
