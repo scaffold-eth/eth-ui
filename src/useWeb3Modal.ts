@@ -87,6 +87,7 @@ export const useWeb3Modal = (
         provider.on('disconnect', (code: any, reason: any) => {
           console.log(code, reason);
           void logoutOfWeb3ModalCallback();
+          setCurrentProvider(undefined);
         });
       }
     } catch (e) {
@@ -95,6 +96,7 @@ export const useWeb3Modal = (
       }
       console.log(e);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setCurrentProvider]);
 
   /**

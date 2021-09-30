@@ -13,7 +13,10 @@ import { TEthersProvider } from '~~/models/providerTypes';
  * @param contractAddress (string) 
  * @returns (boolean)
  */
-export const useContractExistsAtAddress = (provider: TEthersProvider | undefined, contractAddress: string): boolean => {
+export const useContractExistsAtAddress = (
+  provider: TEthersProvider | undefined,
+  contractAddress: string | undefined
+): boolean => {
   const [contractIsDeployed, setContractIsDeployed] = useState(false);
 
   useEffect(() => {
@@ -23,7 +26,7 @@ export const useContractExistsAtAddress = (provider: TEthersProvider | undefined
      * If we find nothing (0x0) then there is no contract deployed to that address
      */
     const checkDeployment = async (): Promise<void> => {
-      if (!utils.isAddress(contractAddress)) {
+      if (!contractAddress || !utils.isAddress(contractAddress)) {
         return;
       }
       if (provider) {
