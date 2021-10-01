@@ -1,12 +1,14 @@
 import { Web3Provider } from '@ethersproject/providers';
+import { AbstractConnector } from '@web3-react/abstract-connector';
 import { Web3ReactProvider, useWeb3React } from '@web3-react/core';
+import { Web3ReactManagerReturn } from '@web3-react/core/dist/types';
 import { FC, useCallback } from 'react';
 
 import { EthersAppConnector } from '~~/context/EthersAppConnector';
 import { TEthersProvider } from '~~/models';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const setEthersWeb3AppProvider = (provider: any): Web3Provider => {
+export const setEthersWeb3AppProvider = (provider: any, _connector: AbstractConnector | undefined): Web3Provider => {
   return new Web3Provider(provider);
 };
 
@@ -20,17 +22,14 @@ export const EthersWeb3Context: FC = (props) => {
   );
 };
 
-export type TEthersWeb3Context = {
+export interface IEthersWeb3Context extends Web3ReactManagerReturn {
   // changeEthersAppProvider: (provider: TEthersProvider) => void;
   connector?: EthersAppConnector;
   provider?: TEthersProvider;
-  chainId?: number;
-  address?: null | string;
-  active: boolean;
-  error?: Error;
   openWeb3Modal: () => void;
   logoutWeb3Modal: () => void;
-};
+  active: boolean;
+}
 
 // const changeEthersAppProvider = (ethersProvider: TEthersProvider) => {};
 
@@ -38,17 +37,25 @@ export type TEthersWeb3Context = {
  * A wrapper around useWeb3React that we can extend as required
  * @returns TEthersManager
  */
-export const useEthersProvider = (): TEthersWeb3Context => {
-  const { connector, library, ...result } = useWeb3React<TEthersProvider>();
+export const useEthersContext = (): IEthersWeb3Context => {
+  const { connector, activate, library, ...result } = useWeb3React<TEthersProvider>();
   const web3Connector = connector as EthersAppConnector;
 
   const openWeb3Modal = useCallback(() => {
-    web3Connector?.activate();
-  }, [web3Connector]);
+    web3Connector?.resetModal?.();
+    if (connector && activate) void activate(connector);
+  }, [connector, activate, web3Connector]);
 
   const logoutWeb3Modal = useCallback(() => {
-    web3Connector.deactivate();
-  }, [web3Connector]);
+    result.deactivate();
+  }, [result]);
 
-  return { connector: connector as EthersAppConnector, provider: library, openWeb3Modal, logoutWeb3Modal, ...result };
+  return {
+    connector: connector as EthersAppConnector,
+    provider: library,
+    openWeb3Modal,
+    logoutWeb3Modal,
+    activate,
+    ...result,
+  };
 };
