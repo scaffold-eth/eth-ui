@@ -31,7 +31,7 @@ export const useGetUserFromProviders = (
   const allProviders = [currentProvider, ...moreProviders].filter((f) => f != null) as TEthersProvider[];
   const providerDeps: string = allProviders
     .map((m) => {
-      return `${m?.network?.name}_${m?.network?.chainId}`;
+      return `${m?.network?.name}_${m?.network?.chainId}_${m?.connection.url}`;
     })
     .reduce((acc, value) => {
       if (!acc) return value ?? '';
