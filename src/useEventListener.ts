@@ -1,7 +1,8 @@
 import { Contract, Event } from '@ethersproject/contracts';
 import { useState, useEffect, useCallback } from 'react';
 
-import { TEthersProvider } from '~~/models';
+import { useEthersContext } from '~~/context';
+import { useMounted } from '~~/helpers/hooks/useMounted';
 
 /**
  * Enables you to keep track of events
@@ -19,37 +20,37 @@ import { TEthersProvider } from '~~/models';
  * @returns (ethers->Event)
  */
 export const useEventListener = (
-  contracts: Record<string, Contract>,
-  contractName: string,
+  contract: Contract | undefined,
   eventName: string,
-  provider: TEthersProvider | undefined,
-  startBlock: number
+  startBlock: number,
+  providerKey?: string
 ): any[] => {
+  const isMounted = useMounted();
+  const { ethersProvider } = useEthersContext(providerKey);
   const [updates, setUpdates] = useState<Event[]>([]);
 
   const addNewEvent = useCallback((...events: Event[]) => {
-    if (events != null && events.length > 0) {
+    if (events?.length > 0) {
       const last = events[events.length - 1];
-      setUpdates((value) => [last, ...value]);
+      if (isMounted()) setUpdates((value) => [last, ...value]);
     }
   }, []);
 
   useEffect(() => {
-    if (provider) {
+    if (ethersProvider) {
       // if you want to read _all_ events from your contracts, set this to the block number it is deployed
-      provider.resetEventsBlock(startBlock);
+      ethersProvider.resetEventsBlock(startBlock);
     }
-    if (contracts?.[contractName] != null) {
-      try {
-        contracts[contractName].on(eventName, addNewEvent);
-        return (): void => {
-          contracts[contractName].off(eventName, addNewEvent);
-        };
-      } catch (e) {
-        console.log(e);
-      }
+
+    try {
+      contract?.on(eventName, addNewEvent);
+      return (): void => {
+        contract?.off(eventName, addNewEvent);
+      };
+    } catch (e) {
+      console.log(e);
     }
-  }, [provider, startBlock, contracts, contractName, eventName, addNewEvent]);
+  }, [addNewEvent, contract, ethersProvider, eventName, startBlock]);
 
   return updates;
 };

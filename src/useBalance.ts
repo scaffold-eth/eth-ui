@@ -1,8 +1,9 @@
-import { Provider } from '@ethersproject/providers';
 import { BigNumber } from 'ethers';
 import { useState, useCallback } from 'react';
 
+import { useEthersContext } from '~~/context';
 import { useMounted } from '~~/helpers/hooks/useMounted';
+import { TEthersProvider } from '~~/models';
 import { useOnRepetition } from '~~/useOnRepetition';
 
 const zero = BigNumber.from(0);
@@ -14,31 +15,33 @@ const zero = BigNumber.from(0);
   - Provide address and get balance corresponding to given address
   - Change provider to access balance on different chains (ex. mainnetProvider)
   - If no pollTime is passed, the balance will update on every new block
- * @param provider (ethers->Provider)
+ * @param ethersProvider (ethers->Provider)
  * @param address (string)
  * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
  * @returns (Bignumber) ::  current balance
  */
-export const useBalance = (provider: Provider | undefined, address: string, pollTime: number = 0): BigNumber => {
+export const useBalance = (address: string, providerKey?: string, pollTime: number = 0): BigNumber => {
   const [balance, setBalance] = useState<BigNumber>(zero);
   const isMounted = useMounted();
+  const { ethersProvider } = useEthersContext(providerKey);
 
-  const pollBalance = useCallback(async (provider?: Provider, address?: string): Promise<void> => {
+  const pollBalance = useCallback(async (provider?: TEthersProvider, address?: string): Promise<void> => {
     if (provider && address) {
       const newBalance = await provider.getBalance(address);
       if (isMounted()) {
         setBalance((value) => {
-          if (value._hex !== newBalance._hex) return newBalance;
+          if (value.toHexString() !== newBalance.toHexString()) return newBalance;
           return value;
         });
       }
     }
   }, []);
 
+  const activateLeadingTrigger = address != null && address !== '' && ethersProvider != null;
   useOnRepetition(
     pollBalance,
-    { pollTime, provider, leadingTrigger: address != null && address !== '' && provider != null },
-    provider,
+    { pollTime, provider: ethersProvider, leadingTrigger: activateLeadingTrigger },
+    ethersProvider,
     address
   );
   return balance ?? zero;

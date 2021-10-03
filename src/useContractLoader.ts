@@ -1,9 +1,10 @@
 import { Contract } from '@ethersproject/contracts';
-import { ethers } from 'ethers';
+import { ethers, Signer } from 'ethers';
 import { useEffect, useMemo, useState } from 'react';
 
-import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
-import { TDeployedContracts, TExternalContracts, TEthersProviderOrSigner } from '~~/models';
+import { useEthersContext } from '~~/context';
+import { useMounted } from '~~/helpers/hooks/useMounted';
+import { TDeployedContracts, TExternalContracts } from '~~/models';
 
 /**
  * Configuration for useContractLoader
@@ -34,93 +35,78 @@ export type TContractConfig = {
   - customAddresses: { contractName: 0xCustomAddress } to hardcode the address for a given named contract
   - hardhatContracts: object following the hardhat deploy export format (Json with chainIds as keys, which have hardhat network names as keys, which contain arrays of contracts for each)
   - externalContracts: object with chainIds as keys, with an array of contracts for each
- * @param providerOrSigner (TEthersProviderOrSigner)
+ * @param ethersProvider (TEthersProviderOrSigner)
  * @param config (TContractConfig) :: configuration for loader
  * @returns (Record<string, Contract>) :: a record of contractName:contract
  */
 export const useContractLoader = (
-  providerOrSigner: TEthersProviderOrSigner | undefined,
   config: TContractConfig = {},
-  chainId?: number
+  signer?: Signer,
+  providerKey?: string
 ): Record<string, Contract> => {
+  const isMounted = useMounted();
+  const { ethersProvider } = useEthersContext(providerKey);
+
   const [contracts, setContracts] = useState<Record<string, Contract>>({});
   const configDep: string = useMemo(() => JSON.stringify(config ?? {}), [config]);
 
   useEffect(() => {
-    let active = true;
-
-    const loadContracts = async (): Promise<void> => {
-      if (providerOrSigner && typeof providerOrSigner !== 'undefined') {
-        console.log(`loading contracts`);
-        console.log(providerOrSigner, config);
+    const loadContracts = (): void => {
+      const currentChainId = ethersProvider?.network?.chainId;
+      if (ethersProvider && currentChainId && currentChainId > 0) {
+        console.log(`🌀 loading contracts..`);
         try {
-          // we need to check to see if this providerOrSigner has a signer or not
-          if (typeof providerOrSigner !== 'undefined') {
-            // we need to check to see if this providerOrSigner has a signer or not
-
-            const { providerNetwork } = await parseProviderOrSigner(providerOrSigner);
-            // find the current chainId based on this order:
-            //  - chainId passed in or a fallback of provider chainId
-            const currentChainId: number = chainId ?? providerNetwork?.chainId ?? 0;
-
-            // Type definition
-            //  Record<string, Record<string, Contract>>
-            //  { chainId: { contractName: Contract } }
-            const contractList: TDeployedContracts = { ...(config.deployedContracts ?? {}) };
-            const externalContractList: TExternalContracts = {
-              ...(config.externalContracts ?? {}),
-            };
-            let combinedContracts: Record<string, Contract> = {};
-
-            // combine partitioned contracts based on all the available and chain id.
-            if (contractList?.[currentChainId] != null) {
-              for (const hardhatNetwork in contractList[currentChainId]) {
-                if (Object.prototype.hasOwnProperty.call(contractList[currentChainId], hardhatNetwork)) {
-                  if (!config.hardhatNetworkName || hardhatNetwork === config.hardhatNetworkName) {
-                    combinedContracts = {
-                      ...combinedContracts,
-                      ...contractList?.[currentChainId]?.[hardhatNetwork]?.contracts,
-                    };
-                  }
+          const contractList: TDeployedContracts = { ...(config.deployedContracts ?? {}) };
+          const externalContractList: TExternalContracts = {
+            ...(config.externalContracts ?? {}),
+          };
+          let combinedContracts: Record<string, Contract> = {};
+          // combine partitioned contracts based on all the available and chain id.
+          if (contractList?.[currentChainId] != null) {
+            for (const hardhatNetwork in contractList[currentChainId]) {
+              if (Object.prototype.hasOwnProperty.call(contractList[currentChainId], hardhatNetwork)) {
+                if (!config.hardhatNetworkName || hardhatNetwork === config.hardhatNetworkName) {
+                  const chainContracts = contractList?.[currentChainId]?.[hardhatNetwork]?.contracts;
+                  combinedContracts = {
+                    ...combinedContracts,
+                    ...chainContracts,
+                  };
                 }
               }
             }
-
-            if (externalContractList?.[currentChainId] != null) {
-              combinedContracts = { ...combinedContracts, ...externalContractList[currentChainId].contracts };
-            }
-
-            const newContracts = Object.keys(combinedContracts).reduce(
-              (accumulator: Record<string, any>, contractName: string) => {
-                const address: string =
-                  config.customAddresses && Object.keys(config.customAddresses).includes(contractName)
-                    ? config.customAddresses[contractName]
-                    : combinedContracts[contractName].address;
-                accumulator[contractName] = new ethers.Contract(
-                  address,
-                  combinedContracts[contractName].abi,
-                  providerOrSigner
-                );
-                return accumulator;
-              },
-              {}
-            );
-            if (active) setContracts(newContracts);
           }
+
+          if (externalContractList?.[currentChainId] != null) {
+            combinedContracts = { ...combinedContracts, ...externalContractList[currentChainId].contracts };
+          }
+
+          const newContracts = Object.keys(combinedContracts).reduce(
+            (accumulator: Record<string, any>, contractName: string) => {
+              const address: string =
+                config.customAddresses && Object.keys(config.customAddresses).includes(contractName)
+                  ? config.customAddresses[contractName]
+                  : combinedContracts[contractName].address;
+              accumulator[contractName] = new ethers.Contract(
+                address,
+                combinedContracts[contractName].abi,
+                ethersProvider
+              );
+              return accumulator;
+            },
+            {}
+          );
+
+          if (isMounted()) setContracts(newContracts);
         } catch (e) {
-          console.log('ERROR LOADING CONTRACTS!!', e);
+          console.log('⚠ ERROR LOADING CONTRACTS!!', e);
         }
       }
     };
 
     void loadContracts();
-
-    return (): void => {
-      active = false;
-    };
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [providerOrSigner, configDep]);
+  }, [ethersProvider, configDep]);
 
   return contracts;
 };

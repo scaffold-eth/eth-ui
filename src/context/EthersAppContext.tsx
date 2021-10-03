@@ -4,42 +4,47 @@ import { Web3ReactProvider, useWeb3React } from '@web3-react/core';
 import { Web3ReactManagerReturn } from '@web3-react/core/dist/types';
 import { FC, useCallback } from 'react';
 
-import { EthersAppConnector } from '~~/context/EthersAppConnector';
+import { EthersModalConnector } from '~~/context/EthersModalConnector';
 import { TEthersProvider } from '~~/models';
 
+/**
+ * Convert the provider obtained from web3Modal into a ethers.web3provider
+ * @param provider
+ * @param _connector
+ * @returns
+ */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const setEthersWeb3AppProvider = (provider: any, _connector: AbstractConnector | undefined): Web3Provider => {
+const setEthersAppProvider = (provider: any, _connector: AbstractConnector | undefined): Web3Provider => {
   return new Web3Provider(provider);
 };
 
-export const EthersWeb3Context: FC = (props) => {
-  // comments
-
+export const EthersAppContext: FC = (props) => {
+  // this is a wrapper
   return (
     <>
-      <Web3ReactProvider getLibrary={setEthersWeb3AppProvider}>{props.children}</Web3ReactProvider>
+      <Web3ReactProvider getLibrary={setEthersAppProvider}>{props.children}</Web3ReactProvider>
     </>
   );
 };
 
 export interface IEthersWeb3Context extends Web3ReactManagerReturn {
-  // changeEthersAppProvider: (provider: TEthersProvider) => void;
-  connector?: EthersAppConnector;
-  provider?: TEthersProvider;
+  connector?: EthersModalConnector;
+  ethersProvider?: TEthersProvider;
+  library?: TEthersProvider;
   openWeb3Modal: () => void;
   logoutWeb3Modal: () => void;
   active: boolean;
 }
 
-// const changeEthersAppProvider = (ethersProvider: TEthersProvider) => {};
-
 /**
- * A wrapper around useWeb3React that we can extend as required
- * @returns TEthersManager
+ * A wrapper around useWeb3React that provides functionality for web3modal
+ * and eth-hooks compatability
+ * @param providerKey (string) :: (optional) :: used if you want a secondary provider context, for example to mainnet
+ * @returns (IEthersWeb3Context)
  */
-export const useEthersContext = (): IEthersWeb3Context => {
-  const { connector, activate, library, ...result } = useWeb3React<TEthersProvider>();
-  const web3Connector = connector as EthersAppConnector;
+export const useEthersContext = (providerKey?: string): IEthersWeb3Context => {
+  const { connector, activate, library, ...result } = useWeb3React<TEthersProvider>(providerKey);
+  const web3Connector = connector as EthersModalConnector;
 
   const openWeb3Modal = useCallback(() => {
     web3Connector?.resetModal?.();
@@ -51,11 +56,12 @@ export const useEthersContext = (): IEthersWeb3Context => {
   }, [result]);
 
   return {
-    connector: connector as EthersAppConnector,
-    provider: library,
+    connector: connector as EthersModalConnector,
+    ethersProvider: library,
     openWeb3Modal,
     logoutWeb3Modal,
     activate,
+    library,
     ...result,
   };
 };

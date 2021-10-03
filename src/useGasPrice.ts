@@ -3,7 +3,8 @@ import axios, { AxiosResponse } from 'axios';
 import { utils } from 'ethers';
 import { useCallback, useState } from 'react';
 
-import { TEthersProvider, TNetworkInfo } from '~~/models';
+import { useEthersContext } from '~~/context';
+import { TNetworkInfo } from '~~/models';
 import { useOnRepetition } from '~~/useOnRepetition';
 
 /**
@@ -25,10 +26,12 @@ export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
 export const useGasPrice = (
   chainId: number | undefined,
   speed: TGasStationSpeed,
-  provider: TEthersProvider | undefined,
   currentNetwork?: TNetworkInfo,
+  providerKey?: string,
   pollTime: number = 0
 ): number | undefined => {
+  const { ethersProvider } = useEthersContext(providerKey);
+
   const [gasPrice, setGasPrice] = useState<number | undefined>();
   const [fallback, setFallback] = useState(false);
 
@@ -51,8 +54,8 @@ export const useGasPrice = (
             setGasPrice(undefined);
           });
       }
-    } else if (provider) {
-      void provider
+    } else if (ethersProvider) {
+      void ethersProvider
         .getFeeData()
         .then((fee: FeeData) => {
           console.log(fee);
@@ -62,23 +65,25 @@ export const useGasPrice = (
             setGasPrice(result);
           } else if (currentNetwork?.gasPrice) {
             setGasPrice(currentNetwork.gasPrice);
-          } else if (price) {
-            setGasPrice(0);
           } else {
             setGasPrice(undefined);
           }
         })
         .catch((_error) => {
           console.log('⚠ Could not estimate gas!');
-          setGasPrice(undefined);
+          if (currentNetwork?.gasPrice) {
+            setGasPrice(currentNetwork.gasPrice);
+          } else {
+            setGasPrice(undefined);
+          }
         });
     } else if (currentNetwork?.gasPrice) {
       setGasPrice(currentNetwork.gasPrice);
     } else {
       setGasPrice(undefined);
     }
-  }, [chainId, provider, currentNetwork?.gasPrice, speed]);
+  }, [chainId, ethersProvider, currentNetwork?.gasPrice, speed]);
 
-  useOnRepetition(loadGasPrice, { pollTime, leadingTrigger: true, provider });
+  useOnRepetition(loadGasPrice, { pollTime, leadingTrigger: true, provider: ethersProvider });
   return gasPrice;
 };

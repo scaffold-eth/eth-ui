@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react';
 
+import { useEthersContext } from '~~/context';
+import { useMounted } from '~~/helpers/hooks/useMounted';
 import { TEthersProvider } from '~~/models';
 import { useOnRepetition } from '~~/useOnRepetition';
 
@@ -10,17 +12,31 @@ import { useOnRepetition } from '~~/useOnRepetition';
  * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
  * @returns (number) nonce
  */
-export const useNonce = (provider: TEthersProvider, address: string, pollTime: number = 0): number => {
+export const useNonce = (address: string, providerKey?: string, pollTime: number = 0): number => {
+  const isMounted = useMounted();
+  const { ethersProvider } = useEthersContext(providerKey);
+
   const [nonce, setNonce] = useState<number>(0);
 
-  const getTransactionCount = useCallback(async (): Promise<void> => {
-    const nextNonce = await provider?.getTransactionCount(address);
-    if (nextNonce !== nonce && nextNonce >= 0) {
-      setNonce(nextNonce);
-    }
-  }, [nonce]);
+  const getTransactionCount = useCallback(
+    async (provider: TEthersProvider): Promise<void> => {
+      const nextNonce: number = (await provider?.getTransactionCount(address)) ?? 0;
+      if (isMounted()) {
+        setNonce((value) => {
+          if (value !== nextNonce) return nextNonce;
+          return value;
+        });
+      }
+    },
+    [address, isMounted]
+  );
 
-  useOnRepetition(getTransactionCount, { pollTime, leadingTrigger: provider != null });
+  const leadingTrigger = ethersProvider != null;
+  useOnRepetition(
+    getTransactionCount,
+    { pollTime, leadingTrigger: leadingTrigger, provider: ethersProvider },
+    ethersProvider
+  );
 
   return nonce;
 };

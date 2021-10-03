@@ -1,27 +1,25 @@
 import { useState, useEffect } from 'react';
 
-import { parseProviderOrSigner } from '~~/functions';
-import { TEthersUser, TEthersProviderOrSigner } from '~~/models';
+import { useMounted } from '~~/helpers/hooks/useMounted';
 
 /**
  * Get the address from the current signer or provider
  * @param providerOrSigner (TEthersProviderOrSigner)
  * @returns (string) :: address
  */
-export const useUserAddress = (providerOrSigner: TEthersProviderOrSigner | undefined): string => {
-  const [userAddress, setUserAddress] = useState<string>('');
+export const useUserAddress = (signer: Signer): string | undefined => {
+  const isMounted = useMounted();
+  const [userAddress, setUserAddress] = useState<string>();
 
   useEffect(() => {
-    const getUserAddress = async (providerOrSigner: TEthersProviderOrSigner): Promise<void> => {
-      const result: TEthersUser = await parseProviderOrSigner(providerOrSigner);
-      if (result.signer) {
-        const address = await result.signer?.getAddress();
-        setUserAddress(address);
+    const getUserAddress = async (): Promise<void> => {
+      if (signer) {
+        const address = await signer?.getAddress();
+        if (isMounted()) setUserAddress(address);
       }
     };
-
-    if (providerOrSigner) void getUserAddress(providerOrSigner);
-  }, [providerOrSigner]);
+    void getUserAddress();
+  }, [isMounted, signer]);
 
   return userAddress;
 };

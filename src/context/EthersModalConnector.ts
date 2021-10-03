@@ -6,7 +6,7 @@ import type { default as Web3Modal, ICoreOptions } from 'web3modal';
 
 import { TEthersProvider } from '~~/models';
 
-export class EthersAppConnector extends AbstractConnector {
+export class EthersModalConnector extends AbstractConnector {
   public options: Partial<ICoreOptions>;
   public provider?: any;
   public ethersProvider?: TEthersProvider;

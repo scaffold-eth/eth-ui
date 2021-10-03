@@ -14,9 +14,16 @@ export interface IWeb3ModalState {
 }
 
 const const_web3DialogClosedByUser = 'Modal closed by user';
+
+/**
+ * A hook that makes it easy to use web3Modal
+ * @param web3ModalConfig
+ * @param setCurrentEthersProvider
+ * @returns
+ */
 export const useWeb3Modal = (
   web3ModalConfig: Partial<ICoreOptions>,
-  setCurrentProvider: React.Dispatch<React.SetStateAction<TEthersProvider | undefined>>
+  setCurrentEthersProvider: (newEthersProvider: TEthersProvider | undefined) => void
 ): IWeb3ModalState => {
   const web3ModalProviderRef = useRef<Web3Modal>();
   const initalizingRef = useRef<boolean>();
@@ -30,14 +37,14 @@ export const useWeb3Modal = (
     }
     web3ModalProviderRef.current = new Web3Modal(web3ModalConfig ?? {});
     initalizingRef.current = true;
-    setCurrentProvider(undefined);
+    setCurrentEthersProvider(undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [web3ModalConfig]);
 
   /**
    * a callback to reload the page and clear cache
    */
-  const reload = useCallback(() => {
+  const reloadPage = useCallback(() => {
     return (_param: any): void => {
       web3ModalProviderRef.current?.cachedProvider &&
         setTimeout(() => {
@@ -52,16 +59,13 @@ export const useWeb3Modal = (
   const logoutOfWeb3ModalCallback = useCallback(
     (reload: boolean = false): void => {
       initalizingRef.current = false;
-      web3ModalProviderRef.current?.clearCachedProvider();
-      setCurrentProvider(undefined);
+      setCurrentEthersProvider(undefined);
       if (reload) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1);
+        reloadPage();
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [setCurrentProvider]
+    [setCurrentEthersProvider]
   );
 
   /**
@@ -71,24 +75,24 @@ export const useWeb3Modal = (
     try {
       initalizingRef.current = true;
       const provider = await web3ModalProviderRef.current?.connect();
-      setCurrentProvider(new Web3Provider(provider));
+      setCurrentEthersProvider(new Web3Provider(provider));
 
       if (provider?.on) {
         provider.on('chainChanged', (chainId: number) => {
           console.log(`chain changed to ${chainId}! updating providers`);
-          setCurrentProvider(new Web3Provider(provider));
+          setCurrentEthersProvider(new Web3Provider(provider));
         });
 
         provider.on('accountsChanged', () => {
           console.log(`account changed!`);
-          setCurrentProvider(new Web3Provider(provider));
+          setCurrentEthersProvider(new Web3Provider(provider));
         });
 
         // Subscribe to session disconnection
         provider.on('disconnect', (code: any, reason: any) => {
           console.log(code, reason);
           void logoutOfWeb3ModalCallback();
-          setCurrentProvider(undefined);
+          setCurrentEthersProvider(undefined);
         });
       }
     } catch (e) {
@@ -101,7 +105,7 @@ export const useWeb3Modal = (
       initalizingRef.current = false;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setCurrentProvider]);
+  }, [setCurrentEthersProvider]);
 
   /**
    * On initalization, load modal
@@ -113,10 +117,10 @@ export const useWeb3Modal = (
   }, [loadWeb3Modal]);
 
   /**
-   * a callback to open
+   * a callback to open the modal
    */
   const openWeb3ModalCallback = useCallback(() => {
-    setCurrentProvider(undefined);
+    setCurrentEthersProvider(undefined);
     web3ModalProviderRef.current?.clearCachedProvider();
     void loadWeb3Modal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -132,11 +136,11 @@ export const useWeb3Modal = (
   useEffect(() => {
     /* eslint-disable */
     if (window?.ethereum?.on && window?.ethereum?.off) {
-      window.ethereum.on('chainChanged', reload);
-      window.ethereum.on('accountsChanged', reload);
+      window.ethereum.on('chainChanged', reloadPage);
+      window.ethereum.on('accountsChanged', reloadPage);
       return () => {
-        window.ethereum.off('chainChanged', reload);
-        window.ethereum.off('accountsChanged', reload);
+        window.ethereum.off('chainChanged', reloadPage);
+        window.ethereum.off('accountsChanged', reloadPage);
       };
     }
     /* eslint-disable */

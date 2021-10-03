@@ -1,7 +1,7 @@
 import { BytesLike, ethers, Signer } from 'ethers';
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-import { TEthersProvider } from '~~/models/providerTypes';
+import { TEthersProvider } from '~~/models';
 
 const isValidPk = (pk: BytesLike | undefined | null): boolean => {
   return pk?.length === 64 || pk?.length === 66;
@@ -34,10 +34,10 @@ export interface IBurnerSignerManager {
 
 /**
  * A hook that creates a buner address and returns a Signer
- * @param provider (TEthersProvider)
+ * @param ethersProvider (TEthersProvider)
  * @returns (ethers.signer) :: signer of the wallet
  */
-export const useBurnerSigner = (provider: TEthersProvider | undefined): IBurnerSignerManager => {
+export const useBurnerSigner = (ethersProvider: TEthersProvider): IBurnerSignerManager => {
   const key = 'metaPrivateKey';
   const [signer, setSigner] = useState<Signer>();
   const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
@@ -65,12 +65,12 @@ export const useBurnerSigner = (provider: TEthersProvider | undefined): IBurnerS
   }, []);
 
   useEffect(() => {
-    if (privateKeyValue && provider) {
+    if (privateKeyValue && ethersProvider) {
       const wallet = new ethers.Wallet(privateKeyValue);
-      const newSigner = wallet.connect(provider);
+      const newSigner = wallet.connect(ethersProvider);
       setSigner(newSigner);
     }
-  }, [privateKeyValue, provider]);
+  }, [privateKeyValue, ethersProvider]);
 
   /**
    * if valid save burner key to storage
@@ -86,7 +86,7 @@ export const useBurnerSigner = (provider: TEthersProvider | undefined): IBurnerS
    * create a new burnerkey
    */
   const createBurnerSigner = useCallback(() => {
-    if (provider && !creatingBurnerRef.current) {
+    if (ethersProvider && !creatingBurnerRef.current) {
       creatingBurnerRef.current = true;
       console.log('🔑 Create new burner wallet...');
       const wallet = ethers.Wallet.createRandom();
@@ -98,7 +98,7 @@ export const useBurnerSigner = (provider: TEthersProvider | undefined): IBurnerS
     } else {
       console.log('⚠ Could not create burner wallet');
     }
-  }, [provider]);
+  }, [ethersProvider]);
 
   /**
    * Load burner key from storage
