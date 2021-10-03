@@ -2,7 +2,7 @@ import { Contract } from '@ethersproject/contracts';
 import { ethers } from 'ethers';
 import { useEffect, useMemo, useState } from 'react';
 
-import { parseProviderOrSigner } from '~~/functions/providerOrSigner';
+import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
 import { TDeployedContracts, TExternalContracts, TEthersProviderOrSigner } from '~~/models';
 
 /**

@@ -1,7 +1,7 @@
 /**
  * Simple type to describe a network in scaffold-eth
  */
-export type TNetwork = {
+export type TNetworkInfo = {
   name: string;
   color: string;
   chainId: number;

@@ -2,7 +2,7 @@ import { Token, WETH, Fetcher, Route } from '@uniswap/sdk';
 import { useCallback, useState } from 'react';
 
 import { useOnRepetition } from '~~';
-import { TNetwork } from '~~/models';
+import { TNetworkInfo } from '~~/models';
 import { TEthersProvider } from '~~/models/providerTypes';
 
 /**
@@ -12,8 +12,8 @@ import { TEthersProvider } from '~~/models/providerTypes';
  * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
  * @returns (number) :: price
  */
-export const useExchangeEthPrice = (
-  targetNetwork: TNetwork,
+export const useDexEthPrice = (
+  targetNetwork: TNetworkInfo,
   mainnetProvider: TEthersProvider,
   pollTime: number = 0
 ): number => {

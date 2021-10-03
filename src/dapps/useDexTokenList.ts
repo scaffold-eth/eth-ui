@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
  * @param chainId (number)
  * @returns (TokenInfo[])
  */
-export const useTokenList = (
+export const useDexTokenList = (
   tokenListUri: string = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org',
   chainId?: number
 ): TokenInfo[] => {

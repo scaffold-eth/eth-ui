@@ -1,1 +1,1 @@
-export * from './providerOrSigner';
+export * from './parseProviderOrSigner';
