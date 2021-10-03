@@ -21,9 +21,10 @@ const zero = BigNumber.from(0);
  * @returns (Bignumber) ::  current balance
  */
 export const useBalance = (address: string, providerKey?: string, pollTime: number = 0): BigNumber => {
-  const [balance, setBalance] = useState<BigNumber>(zero);
   const isMounted = useMounted();
   const { ethersProvider } = useEthersContext(providerKey);
+
+  const [balance, setBalance] = useState<BigNumber>(zero);
 
   const pollBalance = useCallback(async (provider?: TEthersProvider, address?: string): Promise<void> => {
     if (provider && address) {

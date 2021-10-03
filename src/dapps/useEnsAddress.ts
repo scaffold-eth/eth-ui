@@ -26,11 +26,11 @@ const lookupAddress = async (provider: TEthersProvider, address: string): Promis
 
 /**
  * Gets ENS name from given address and provider
- * @param provider (TEthersProvider)
+ * @param mainnetProvider (TEthersProvider)
  * @param address (string)
  * @returns (string) ens name
  */
-export const useEnsAddress = (provider: TEthersProvider | undefined, address: string): string => {
+export const useEnsAddress = (mainnetProvider: TEthersProvider | undefined, address: string): string => {
   const [ensName, setEnsName] = useState(address);
 
   useEffect(() => {
@@ -39,8 +39,8 @@ export const useEnsAddress = (provider: TEthersProvider | undefined, address: st
 
     if (cache && cache?.name && cache?.timestamp > Date.now()) {
       setEnsName(cache?.name);
-    } else if (provider) {
-      void lookupAddress(provider, address).then((name) => {
+    } else if (mainnetProvider) {
+      void lookupAddress(mainnetProvider, address).then((name) => {
         if (name) {
           setEnsName(name);
           window.localStorage.setItem(
@@ -53,7 +53,7 @@ export const useEnsAddress = (provider: TEthersProvider | undefined, address: st
         }
       });
     }
-  }, [address, provider, setEnsName]);
+  }, [address, mainnetProvider]);
 
   return ensName;
 };

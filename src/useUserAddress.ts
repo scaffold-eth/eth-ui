@@ -1,3 +1,4 @@
+import { Signer } from 'ethers';
 import { useState, useEffect } from 'react';
 
 import { useMounted } from '~~/helpers/hooks/useMounted';
