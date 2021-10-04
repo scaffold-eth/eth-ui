@@ -1,9 +1,8 @@
 import { Contract, ContractFunction } from 'ethers';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useEthersContext } from '~~/context';
+import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 import { useMounted } from '~~/helpers/hooks/useMounted';
-import { useOnRepetition } from '~~/useOnRepetition';
 
 const DEBUG = false;
 
@@ -27,27 +26,25 @@ const DEBUG = false;
  */
 export const useContractReader = <T>(
   contractList: Record<string, Contract>,
-  contract: { contractName: string; functionName: string; functionArgs: any[] },
+  contract: { contractName: string; functionName: string; functionArgs?: any[] },
   formatter?: (_value: T) => T,
-  onChange?: (_value?: T) => void,
-  providerKey?: string,
-  pollTime?: number
+  onChange?: (_value?: T) => void
 ): T | undefined => {
   const isMounted = useMounted();
-  const { ethersProvider } = useEthersContext(providerKey);
   const [value, setValue] = useState<T>();
+  const blockNumber = useBlockNumberContext();
 
   const contractFunction = useMemo(() => {
     return contractList?.[contract.contractName]?.[contract.functionName] as ContractFunction<T>;
   }, [contract.functionName, contractList?.[contract.contractName]]);
 
-  const callFunction = useCallback(async () => {
+  const callFunc = useCallback(async () => {
     if (contractFunction != null) {
       let newResult: T | undefined = undefined;
       if (contract.functionArgs && contract.functionArgs.length > 0) {
         newResult = await contractFunction(...contract.functionArgs);
       } else {
-        newResult = await contractFunction(...contract.functionArgs);
+        newResult = await contractFunction();
       }
 
       if (formatter != null) {
@@ -61,11 +58,9 @@ export const useContractReader = <T>(
     }
   }, [contract.functionArgs, contractFunction, formatter, isMounted, onChange]);
 
-  useOnRepetition(callFunction, {
-    pollTime,
-    leadingTrigger: contractList?.[contract.contractName]?.[contract.functionName] != null,
-    provider: ethersProvider,
-  });
+  useEffect(() => {
+    void callFunc();
+  }, [blockNumber, callFunc]);
 
   return value;
 };

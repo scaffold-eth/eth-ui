@@ -1,10 +1,9 @@
 import { BigNumber } from 'ethers';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import { useEthersContext } from '~~/context';
+import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 import { useMounted } from '~~/helpers/hooks/useMounted';
-import { TEthersProvider } from '~~/models';
-import { useOnRepetition } from '~~/useOnRepetition';
 
 const zero = BigNumber.from(0);
 
@@ -20,15 +19,16 @@ const zero = BigNumber.from(0);
  * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
  * @returns (Bignumber) ::  current balance
  */
-export const useBalance = (address: string, providerKey?: string, pollTime: number = 0): BigNumber => {
+export const useBalance = (address: string, providerKey?: string): BigNumber => {
   const isMounted = useMounted();
   const { ethersProvider } = useEthersContext(providerKey);
+  const blockNumber = useBlockNumberContext();
 
   const [balance, setBalance] = useState<BigNumber>(zero);
 
-  const pollBalance = useCallback(async (provider?: TEthersProvider, address?: string): Promise<void> => {
-    if (provider && address) {
-      const newBalance = await provider.getBalance(address);
+  const callFunc = useCallback(async (): Promise<void> => {
+    if (ethersProvider && address) {
+      const newBalance = await ethersProvider.getBalance(address);
       if (isMounted()) {
         setBalance((value) => {
           if (value.toHexString() !== newBalance.toHexString()) return newBalance;
@@ -36,14 +36,11 @@ export const useBalance = (address: string, providerKey?: string, pollTime: numb
         });
       }
     }
-  }, []);
+  }, [address, ethersProvider, isMounted]);
 
-  const activateLeadingTrigger = address != null && address !== '' && ethersProvider != null;
-  useOnRepetition(
-    pollBalance,
-    { pollTime, provider: ethersProvider, leadingTrigger: activateLeadingTrigger },
-    ethersProvider,
-    address
-  );
+  useEffect(() => {
+    void callFunc();
+  }, [blockNumber, callFunc]);
+
   return balance ?? zero;
 };

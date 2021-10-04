@@ -1,12 +1,12 @@
+import { Web3Provider } from '@ethersproject/providers';
 import { Web3ReactProvider } from '@web3-react/core';
 import { MockProvider } from 'ethereum-waffle';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 
 import { useEthersProvider } from '~test-utils/hooks/useEthersProvider';
-import { TEthersProvider } from '~~/models';
 
 export interface IMockEthersWrapper {
-  mockProvider: MockProvider | TEthersProvider;
+  mockProvider: MockProvider;
 }
 const ActivateWrapper: FC = (props) => {
   const { activate, library, deactivate } = useEthersProvider();
@@ -29,17 +29,14 @@ const ActivateWrapper: FC = (props) => {
 };
 
 export const MockEthersWrapper: FC<IMockEthersWrapper> = (props) => {
-  const [setupMock, setSetupMock] = useState<() => MockProvider | TEthersProvider>();
-  useEffect(() => {
-    setSetupMock((): MockProvider | TEthersProvider => {
-      return props.mockProvider;
-    });
-  }, []);
+  const getLibrary = useCallback(() => {
+    new Web3Provider(props.mockProvider as any);
+  }, [props.mockProvider]);
 
   return (
     <>
-      {setupMock != null && (
-        <Web3ReactProvider getLibrary={setupMock}>
+      {getLibrary != null && props.mockProvider != null && (
+        <Web3ReactProvider getLibrary={getLibrary}>
           <ActivateWrapper>{props.children}</ActivateWrapper>
         </Web3ReactProvider>
       )}

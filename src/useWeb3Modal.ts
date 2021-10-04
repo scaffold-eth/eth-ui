@@ -57,7 +57,7 @@ export const useWeb3Modal = (
    * log out of web3modal provider
    */
   const logoutOfWeb3ModalCallback = useCallback(
-    (reload: boolean = false): void => {
+    (reload: boolean = true): void => {
       initalizingRef.current = false;
       setCurrentEthersProvider(undefined);
       if (reload) {

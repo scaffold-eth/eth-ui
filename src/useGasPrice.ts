@@ -1,11 +1,11 @@
 import { FeeData } from '@ethersproject/providers';
 import axios, { AxiosResponse } from 'axios';
 import { utils } from 'ethers';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useEthersContext } from '~~/context';
+import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 import { TNetworkInfo } from '~~/models';
-import { useOnRepetition } from '~~/useOnRepetition';
 
 /**
  * Preset speeds for Eth Gas Station
@@ -27,15 +27,14 @@ export const useGasPrice = (
   chainId: number | undefined,
   speed: TGasStationSpeed,
   currentNetwork?: TNetworkInfo,
-  providerKey?: string,
-  pollTime: number = 0
+  providerKey?: string
 ): number | undefined => {
   const { ethersProvider } = useEthersContext(providerKey);
+  const blockNumber = useBlockNumberContext();
 
   const [gasPrice, setGasPrice] = useState<number | undefined>();
-  const [fallback, setFallback] = useState(false);
 
-  const loadGasPrice = useCallback((): void => {
+  const callFunc = useCallback((): void => {
     if (!chainId) {
       setGasPrice(undefined);
     } else if (chainId === 1) {
@@ -84,6 +83,8 @@ export const useGasPrice = (
     }
   }, [chainId, ethersProvider, currentNetwork?.gasPrice, speed]);
 
-  useOnRepetition(loadGasPrice, { pollTime, leadingTrigger: true, provider: ethersProvider });
+  useEffect(() => {
+    void callFunc();
+  }, [blockNumber, callFunc]);
   return gasPrice;
 };
