@@ -39,7 +39,7 @@ export interface IBurnerSigner {
  * @param ethersProvider (TEthersProvider)
  * @returns (ethers.signer) :: signer of the wallet
  */
-export const useBurnerSigner = (ethersProvider: TEthersProvider): IBurnerSigner => {
+export const useBurnerSigner = (ethersProvider: TEthersProvider | undefined): IBurnerSigner => {
   const key = 'scaffold-eth-privateKey';
   const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
   const walletRef = useRef<Wallet>();

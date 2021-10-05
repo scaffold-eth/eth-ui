@@ -17,6 +17,7 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
   changeAccount: ((signer: Signer) => Promise<void>) | undefined;
   active: boolean;
   signer: Signer | undefined;
+  account: string | undefined;
 }
 
 /**
@@ -26,17 +27,18 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
  * @returns (IEthersWeb3Context)
  */
 export const useEthersContext = (providerKey?: string): IEthersContext => {
-  const { connector, activate, library, ...result } = useWeb3React<TEthersProvider>(providerKey);
+  const { connector, activate, library, account, ...result } = useWeb3React<TEthersProvider>(providerKey);
   const web3Connector = connector as EthersModalConnector;
 
   const openWeb3Modal = useCallback(
     (modalConnector: EthersModalConnector) => {
       web3Connector?.resetModal?.();
       if (activate) {
+        result?.deactivate?.();
         void activate(modalConnector);
       }
     },
-    [activate, web3Connector]
+    [activate, result?.deactivate, web3Connector]
   );
 
   const logoutWeb3Modal = useCallback(() => {
@@ -54,6 +56,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     library,
     signer: ethersConnector?.signer,
     changeAccount: ethersConnector?.changeAccount,
+    account: account ?? undefined,
     ...result,
   };
 };

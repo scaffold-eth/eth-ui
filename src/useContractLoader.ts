@@ -44,15 +44,14 @@ export const useContractLoader = (
   providerKey?: string
 ): Record<string, Contract> => {
   const isMounted = useMounted();
-  const { ethersProvider } = useEthersContext(providerKey);
+  const { ethersProvider, chainId } = useEthersContext(providerKey);
 
   const [contracts, setContracts] = useState<Record<string, Contract>>({});
   const configDep: string = useMemo(() => JSON.stringify(config ?? {}), [config]);
 
   useEffect(() => {
     const loadContracts = (): void => {
-      const currentChainId = ethersProvider?.network?.chainId;
-      if (ethersProvider && currentChainId && currentChainId > 0) {
+      if (ethersProvider && chainId && chainId > 0) {
         console.log(`🌀 loading contracts..`);
         try {
           const contractList: TDeployedContracts = { ...(config.deployedContracts ?? {}) };
@@ -61,11 +60,11 @@ export const useContractLoader = (
           };
           let combinedContracts: Record<string, Contract> = {};
           // combine partitioned contracts based on all the available and chain id.
-          if (contractList?.[currentChainId] != null) {
-            for (const hardhatNetwork in contractList[currentChainId]) {
-              if (Object.prototype.hasOwnProperty.call(contractList[currentChainId], hardhatNetwork)) {
+          if (contractList?.[chainId] != null) {
+            for (const hardhatNetwork in contractList[chainId]) {
+              if (Object.prototype.hasOwnProperty.call(contractList[chainId], hardhatNetwork)) {
                 if (!config.hardhatNetworkName || hardhatNetwork === config.hardhatNetworkName) {
-                  const chainContracts = contractList?.[currentChainId]?.[hardhatNetwork]?.contracts;
+                  const chainContracts = contractList?.[chainId]?.[hardhatNetwork]?.contracts;
                   combinedContracts = {
                     ...combinedContracts,
                     ...chainContracts,
@@ -75,8 +74,8 @@ export const useContractLoader = (
             }
           }
 
-          if (externalContractList?.[currentChainId] != null) {
-            combinedContracts = { ...combinedContracts, ...externalContractList[currentChainId].contracts };
+          if (externalContractList?.[chainId] != null) {
+            combinedContracts = { ...combinedContracts, ...externalContractList[chainId].contracts };
           }
 
           const newContracts = Object.keys(combinedContracts).reduce(
