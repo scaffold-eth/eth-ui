@@ -3,7 +3,7 @@ import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 
 import { TEthersProvider } from '~~/models';
 
-export type TEthersManager = Web3ReactContextInterface<TEthersProvider>;
+type TEthersManager = Web3ReactContextInterface<TEthersProvider>;
 
 /**
  * A wrapper around useWeb3React that we can extend as required

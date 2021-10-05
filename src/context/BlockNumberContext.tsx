@@ -1,5 +1,5 @@
 import { createContext, FC, useContext, useEffect, useReducer } from 'react';
-import useDebounce from 'use-debounce/lib/useDebounce';
+import { useDebounce } from 'use-debounce';
 
 import { useEthersContext } from '~~/context';
 import { TEthersProvider } from '~~/models';

@@ -1,20 +1,20 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
-import { Web3ReactManagerReturn } from '@web3-react/core/dist/types';
+import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 import { Signer } from 'ethers';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback } from 'react';
 
 import { BlockNumberContext } from '~~/context/BlockNumberContext';
 import { EthersModalConnector } from '~~/context/EthersModalConnector';
 import { TEthersProvider } from '~~/models';
 
-export interface IEthersWeb3Context extends Web3ReactManagerReturn {
+export interface IEthersContext extends Web3ReactContextInterface<TEthersProvider> {
   connector: EthersModalConnector | undefined;
   ethersProvider: TEthersProvider | undefined;
-  library: TEthersProvider | undefined;
-  openWeb3Modal: () => void;
+  openWeb3Modal: (modalConnector: EthersModalConnector) => void;
   logoutWeb3Modal: () => void;
+  changeAccount: ((signer: Signer) => Promise<void>) | undefined;
   active: boolean;
   signer: Signer | undefined;
 }
@@ -25,39 +25,35 @@ export interface IEthersWeb3Context extends Web3ReactManagerReturn {
  * @param providerKey (string) :: (optional) :: used if you want a secondary provider context, for example to mainnet
  * @returns (IEthersWeb3Context)
  */
-export const useEthersContext = (providerKey?: string): IEthersWeb3Context => {
+export const useEthersContext = (providerKey?: string): IEthersContext => {
   const { connector, activate, library, ...result } = useWeb3React<TEthersProvider>(providerKey);
   const web3Connector = connector as EthersModalConnector;
-  const [signer, setSigner] = useState<Signer>();
 
-  const openWeb3Modal = useCallback(() => {
-    web3Connector?.resetModal?.();
-    if (connector && activate) void activate(connector);
-  }, [connector, activate, web3Connector]);
+  const openWeb3Modal = useCallback(
+    (modalConnector: EthersModalConnector) => {
+      web3Connector?.resetModal?.();
+      if (activate) {
+        void activate(modalConnector);
+      }
+    },
+    [activate, web3Connector]
+  );
 
   const logoutWeb3Modal = useCallback(() => {
     result.deactivate();
   }, [result]);
 
-  useEffect(() => {
-    if (library) {
-      if (result?.account && result.account !== '') {
-        setSigner(library.getSigner(result.account));
-      } else {
-        setSigner(undefined);
-      }
-    }
-    setSigner(undefined);
-  }, [library, result.account]);
+  const ethersConnector = connector as EthersModalConnector | undefined;
 
   return {
-    connector: connector as EthersModalConnector,
+    connector: ethersConnector,
     ethersProvider: library,
     openWeb3Modal,
     logoutWeb3Modal,
     activate,
     library,
-    signer,
+    signer: ethersConnector?.signer,
+    changeAccount: ethersConnector?.changeAccount,
     ...result,
   };
 };

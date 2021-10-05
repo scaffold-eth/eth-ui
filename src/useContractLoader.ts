@@ -1,5 +1,4 @@
-import { Contract } from '@ethersproject/contracts';
-import { ethers, Signer } from 'ethers';
+import { Contract, Signer } from 'ethers';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useEthersContext } from '~~/context';
@@ -86,10 +85,10 @@ export const useContractLoader = (
                 config.customAddresses && Object.keys(config.customAddresses).includes(contractName)
                   ? config.customAddresses[contractName]
                   : combinedContracts[contractName].address;
-              accumulator[contractName] = new ethers.Contract(
+              accumulator[contractName] = new Contract(
                 address,
                 combinedContracts[contractName].abi,
-                ethersProvider
+                signer ?? ethersProvider
               );
               return accumulator;
             },

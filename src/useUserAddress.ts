@@ -1,5 +1,6 @@
 import { Signer } from 'ethers';
 import { useState, useEffect } from 'react';
+import { useDebounce } from 'use-debounce';
 
 import { useMounted } from '~~/helpers/hooks/useMounted';
 
@@ -11,6 +12,7 @@ import { useMounted } from '~~/helpers/hooks/useMounted';
 export const useUserAddress = (signer: Signer): string | undefined => {
   const isMounted = useMounted();
   const [userAddress, setUserAddress] = useState<string>();
+  const [result] = useDebounce(userAddress, 100, { trailing: true });
 
   useEffect(() => {
     const getUserAddress = async (): Promise<void> => {
@@ -22,5 +24,5 @@ export const useUserAddress = (signer: Signer): string | undefined => {
     void getUserAddress();
   }, [isMounted, signer]);
 
-  return userAddress;
+  return result;
 };

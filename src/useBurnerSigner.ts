@@ -1,5 +1,6 @@
-import { BytesLike, ethers, Signer } from 'ethers';
+import { BytesLike, ethers, Signer, Wallet } from 'ethers';
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { useDebounce } from 'use-debounce';
 
 import { TEthersProvider } from '~~/models';
 
@@ -25,8 +26,9 @@ export const loadBurnerKeyFromStorage = (): string | null => {
   return currentPrivateKey;
 };
 
-export interface IBurnerSignerManager {
+export interface IBurnerSigner {
   signer: Signer | undefined;
+  account: string | undefined;
   saveToStorage: () => void;
   loadFromStorageOrCreate: () => void;
   createBurnerSigner: () => void;
@@ -37,11 +39,13 @@ export interface IBurnerSignerManager {
  * @param ethersProvider (TEthersProvider)
  * @returns (ethers.signer) :: signer of the wallet
  */
-export const useBurnerSigner = (ethersProvider: TEthersProvider): IBurnerSignerManager => {
-  const key = 'metaPrivateKey';
-  const [signer, setSigner] = useState<Signer>();
+export const useBurnerSigner = (ethersProvider: TEthersProvider): IBurnerSigner => {
+  const key = 'scaffold-eth-privateKey';
   const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
+  const walletRef = useRef<Wallet>();
   const creatingBurnerRef = useRef(false);
+  const [signer] = useDebounce(walletRef.current, 100, { trailing: true });
+  const [account] = useDebounce(walletRef.current?.address, 100, { trailing: true });
 
   const setValue = (value: any): void => {
     try {
@@ -68,7 +72,7 @@ export const useBurnerSigner = (ethersProvider: TEthersProvider): IBurnerSignerM
     if (privateKeyValue && ethersProvider) {
       const wallet = new ethers.Wallet(privateKeyValue);
       const newSigner = wallet.connect(ethersProvider);
-      setSigner(newSigner);
+      walletRef.current = newSigner;
     }
   }, [privateKeyValue, ethersProvider]);
 
@@ -89,7 +93,7 @@ export const useBurnerSigner = (ethersProvider: TEthersProvider): IBurnerSignerM
     if (ethersProvider && !creatingBurnerRef.current) {
       creatingBurnerRef.current = true;
       console.log('🔑 Create new burner wallet...');
-      const wallet = ethers.Wallet.createRandom();
+      const wallet = Wallet.createRandom();
       setPrivateKey((_v) => {
         console.log('📝 ...Set key');
         creatingBurnerRef.current = false;
@@ -115,5 +119,5 @@ export const useBurnerSigner = (ethersProvider: TEthersProvider): IBurnerSignerM
     }
   }, [createBurnerSigner]);
 
-  return { signer, saveToStorage, loadFromStorageOrCreate, createBurnerSigner };
+  return { signer, account, saveToStorage, loadFromStorageOrCreate, createBurnerSigner };
 };

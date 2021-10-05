@@ -23,7 +23,6 @@ export const useBalance = (address: string, providerKey?: string): BigNumber => 
   const isMounted = useMounted();
   const { ethersProvider } = useEthersContext(providerKey);
   const blockNumber = useBlockNumberContext();
-
   const [balance, setBalance] = useState<BigNumber>(zero);
 
   const callFunc = useCallback(async (): Promise<void> => {
