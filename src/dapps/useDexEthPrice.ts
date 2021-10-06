@@ -13,32 +13,33 @@ import { TEthersProvider } from '~~/models/providerTypes';
  * @returns (number) :: price
  */
 export const useDexEthPrice = (
-  targetNetwork: TNetworkInfo,
-  mainnetProvider: TEthersProvider,
+  mainnetProvider: TEthersProvider | undefined,
+  targetNetwork?: TNetworkInfo,
   pollTime: number = 0
 ): number => {
   const [price, setPrice] = useState(0);
 
-  const pollPrice = useCallback(() => {
+  const callFunc = useCallback(() => {
     const getPrice = async (): Promise<void> => {
-      if (!mainnetProvider) {
-        return;
-      } else if (targetNetwork.price) {
+      if (targetNetwork?.price) {
         setPrice(targetNetwork.price);
-      } else {
+      } else if (mainnetProvider) {
         const network = await mainnetProvider.getNetwork();
 
         const DAI = new Token(network ? network.chainId : 1, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18);
         const pair = await Fetcher.fetchPairData(DAI, WETH[DAI.chainId], mainnetProvider);
         const route = new Route([pair], WETH[DAI.chainId]);
         setPrice(parseFloat(route.midPrice.toSignificant(6)));
+      } else {
+        setPrice(-1);
+        console.warn('useDexEthPrice: mainnetProvider or targetNetwork not given');
       }
     };
 
     void getPrice();
-  }, [targetNetwork.price, mainnetProvider]);
+  }, [targetNetwork?.price, mainnetProvider]);
 
-  useOnRepetition(pollPrice, { pollTime, provider: mainnetProvider });
+  useOnRepetition(callFunc, { pollTime, provider: mainnetProvider });
 
   return price;
 };

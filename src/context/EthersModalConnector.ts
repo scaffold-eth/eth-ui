@@ -4,21 +4,23 @@ import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer } from 'ethers';
 import type { default as Web3Modal, ICoreOptions } from 'web3modal';
 
+import { IEthersConnector } from './IEthersConnector';
+
 import { TEthersProvider } from '~~/models';
 
 interface IEthersModalConfig {
   reloadOnNetworkChange: boolean;
 }
 
-export class EthersModalConnector extends AbstractConnector {
-  public options: Partial<ICoreOptions>;
-  public provider?: any;
-  public ethersProvider?: TEthersProvider;
-  public web3Modal?: Web3Modal;
-  public id: string | undefined;
-  public debug: boolean = false;
-  public config: IEthersModalConfig;
-  public signer: Signer | undefined;
+export class EthersModalConnector extends AbstractConnector implements IEthersConnector {
+  protected options: Partial<ICoreOptions>;
+  protected provider?: any;
+  protected ethersProvider?: TEthersProvider;
+  protected web3Modal?: Web3Modal;
+  protected id: string | undefined;
+  protected debug: boolean = false;
+  protected config: IEthersModalConfig;
+  protected signer: Signer | undefined;
 
   constructor(
     web3modalOptions: Partial<ICoreOptions>,
@@ -54,9 +56,9 @@ export class EthersModalConnector extends AbstractConnector {
 
   private handleChainChanged(chainId: number | string): void {
     this.log(`Handling chain changed to ${chainId}! updating providers`);
-    this.maybeReload();
     this.emitUpdate({ chainId, provider: this.provider });
     this.ethersProvider = new Web3Provider(this.provider);
+    this.maybeReload();
   }
 
   private handleAccountsChanged(accounts: string[]): void {
@@ -70,15 +72,12 @@ export class EthersModalConnector extends AbstractConnector {
 
   private handleDisconnect(code: any, reason: any): void {
     this.log(`Handling disconnected event`, code, reason);
-    this.emitDeactivate();
-    this.maybeReload();
+    this.deactivate();
   }
 
   private handleClose(code: number, reason: string): void {
     this.log("Handling 'close' event", code, reason);
-    this.emitDeactivate();
-    this.resetModal();
-    this.maybeReload();
+    this.deactivate();
   }
 
   public async load(): Promise<void> {
@@ -122,18 +121,21 @@ export class EthersModalConnector extends AbstractConnector {
   public deactivate(): void {
     /* eslint-disable @typescript-eslint/no-unsafe-member-access */
     /* eslint-disable @typescript-eslint/no-unsafe-call */
+    this.emitDeactivate();
+
     this.provider?.removeListener('disconnect', this.handleDisconnect);
     this.provider?.removeListener('chainChanged', this.handleChainChanged);
     this.provider?.removeListener('accountsChanged', this.handleAccountsChanged);
     this.provider?.removeListener('close', this.handleClose);
 
+    const provider = this.provider;
+
     // use disconnect function if exists
-    this.provider?.disconnect?.();
-
+    provider?.disconnect?.();
     // use close function if exists
-    this.provider?.close?.();
+    provider?.close?.();
 
-    this.resetModal();
+    this.maybeReload();
     /* eslint-enable @typescript-eslint/no-unsafe-call */
     /* eslint-enable @typescript-eslint/no-unsafe-member-access */
   }
@@ -160,6 +162,10 @@ export class EthersModalConnector extends AbstractConnector {
     }
   }
 
+  public getSigner(): Signer | undefined {
+    return this.signer;
+  }
+
   public async changeAccount(signer: Signer): Promise<void> {
     const account = await signer.getAddress();
     this.signer = signer;
@@ -168,9 +174,11 @@ export class EthersModalConnector extends AbstractConnector {
 
   public resetModal(): void {
     if (this.web3Modal) {
+      this.web3Modal.clearCachedProvider();
       this.provider = undefined;
       this.ethersProvider = undefined;
-      this.web3Modal.clearCachedProvider();
+      this.signer = undefined;
+      this.emitUpdate({ account: undefined, provider: undefined, chainId: undefined });
     }
   }
 }

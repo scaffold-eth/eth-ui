@@ -9,11 +9,13 @@ import { BlockNumberContext } from '~~/context/BlockNumberContext';
 import { EthersModalConnector } from '~~/context/EthersModalConnector';
 import { TEthersProvider } from '~~/models';
 
+export type CreateEthersModalConnector = () => EthersModalConnector | undefined;
+
 export interface IEthersContext extends Web3ReactContextInterface<TEthersProvider> {
   connector: EthersModalConnector | undefined;
   ethersProvider: TEthersProvider | undefined;
-  openWeb3Modal: (modalConnector: EthersModalConnector) => void;
-  logoutWeb3Modal: () => void;
+  openWeb3Modal: (ethersModalConnector: EthersModalConnector) => void;
+  disconnectWeb3Modal: () => void;
   changeAccount: ((signer: Signer) => Promise<void>) | undefined;
   active: boolean;
   signer: Signer | undefined;
@@ -27,34 +29,44 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
  * @returns (IEthersWeb3Context)
  */
 export const useEthersContext = (providerKey?: string): IEthersContext => {
-  const { connector, activate, library, account, ...result } = useWeb3React<TEthersProvider>(providerKey);
-  const web3Connector = connector as EthersModalConnector;
+  const { connector, activate, library, account, deactivate, ...result } = useWeb3React<TEthersProvider>(providerKey);
+  if (!(connector instanceof EthersModalConnector) && connector != null) {
+    throw 'Connector is not a EthersModalConnector';
+  }
+  const ethersConnector = connector as EthersModalConnector;
 
   const openWeb3Modal = useCallback(
-    (modalConnector: EthersModalConnector) => {
-      web3Connector?.resetModal?.();
-      if (activate) {
-        result?.deactivate?.();
-        void activate(modalConnector);
+    (ethersModalConnector: EthersModalConnector | undefined) => {
+      if (result.active) {
+        deactivate();
+      }
+
+      if (ethersModalConnector == null) {
+        console.error('A valid ethersModalConnector was not provided');
+      }
+      if (ethersModalConnector instanceof EthersModalConnector) {
+        if (ethersModalConnector) {
+          void activate(ethersModalConnector);
+        }
       }
     },
-    [activate, result?.deactivate, web3Connector]
+    [activate, deactivate, result.active]
   );
 
-  const logoutWeb3Modal = useCallback(() => {
-    result.deactivate();
-  }, [result]);
-
-  const ethersConnector = connector as EthersModalConnector | undefined;
+  const disconnectWeb3Modal = useCallback(() => {
+    ethersConnector.resetModal();
+    deactivate();
+  }, [deactivate, ethersConnector]);
 
   return {
     connector: ethersConnector,
     ethersProvider: library,
     openWeb3Modal,
-    logoutWeb3Modal,
+    disconnectWeb3Modal: disconnectWeb3Modal,
     activate,
+    deactivate,
     library,
-    signer: ethersConnector?.signer,
+    signer: ethersConnector?.getSigner(),
     changeAccount: ethersConnector?.changeAccount,
     account: account ?? undefined,
     ...result,

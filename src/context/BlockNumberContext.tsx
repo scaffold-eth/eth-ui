@@ -42,7 +42,7 @@ export const BlockNumberContext: FC<IProps> = (props) => {
   const ethersProvider = props.ethersProvider ?? context.ethersProvider;
 
   const [state, dispatch] = useReducer(reducer, {});
-  const [blockNumber] = useDebounce(chainId ? state[chainId] : undefined, 200);
+  const [blockNumber] = useDebounce(chainId ? state[chainId] : undefined, 250, { trailing: true });
 
   useEffect(() => {
     if (chainId && ethersProvider) {

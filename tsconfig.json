@@ -44,5 +44,5 @@
     "../../node_modules/**/*",
     "./.yalc/**/*"
   ],
-  "files": ["hardhat.config.ts"]
+  "files": ["hardhat.config.ts", "./src/context/IEthersConnector.ts"]
 }

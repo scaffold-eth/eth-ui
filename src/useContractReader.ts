@@ -1,6 +1,7 @@
 import { Contract, ContractFunction } from 'ethers';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 import { useMounted } from '~~/helpers/hooks/useMounted';
 
@@ -28,35 +29,49 @@ export const useContractReader = <T>(
   contractList: Record<string, Contract>,
   contract: { contractName: string; functionName: string; functionArgs?: any[] },
   formatter?: (_value: T) => T,
-  onChange?: (_value?: T) => void
+  onChange?: (_value?: T) => void,
+  providerKey?: string
 ): T | undefined => {
   const isMounted = useMounted();
   const [value, setValue] = useState<T>();
   const blockNumber = useBlockNumberContext();
-
-  const contractFunction = useMemo(() => {
-    return contractList?.[contract.contractName]?.[contract.functionName] as ContractFunction<T>;
-  }, [contract.functionName, contractList?.[contract.contractName]]);
+  const ethersContext = useEthersContext(providerKey);
 
   const callFunc = useCallback(async () => {
-    if (contractFunction != null) {
+    const contractFunction = contractList?.[contract.contractName]?.[contract.functionName] as ContractFunction<T>;
+    const contractChainId = await contractList?.[contract.contractName]?.signer?.getChainId();
+
+    if (contractFunction != null && contractChainId === ethersContext.chainId) {
       let newResult: T | undefined = undefined;
-      if (contract.functionArgs && contract.functionArgs.length > 0) {
-        newResult = await contractFunction(...contract.functionArgs);
-      } else {
-        newResult = await contractFunction();
-      }
+      try {
+        if (contract.functionArgs && contract.functionArgs.length > 0) {
+          newResult = await contractFunction?.(...contract.functionArgs);
+        } else {
+          newResult = await contractFunction?.();
+        }
 
-      if (formatter != null) {
-        newResult = formatter(newResult);
-      }
+        if (formatter != null) {
+          newResult = formatter(newResult);
+        }
 
-      if (isMounted()) {
-        setValue(newResult);
-        onChange?.(newResult);
+        if (isMounted()) {
+          setValue(newResult);
+          onChange?.(newResult);
+        }
+      } catch (error: any) {
+        console.warn(error);
       }
     }
-  }, [contract.functionArgs, contractFunction, formatter, isMounted, onChange]);
+  }, [
+    contractList,
+    contract.contractName,
+    contract.functionName,
+    contract.functionArgs,
+    ethersContext.chainId,
+    formatter,
+    isMounted,
+    onChange,
+  ]);
 
   useEffect(() => {
     void callFunc();

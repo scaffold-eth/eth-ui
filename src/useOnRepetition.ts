@@ -60,10 +60,10 @@ export const useOnRepetition = (
 
   // connect a listener to the network to listen for changes
   useEffect(() => {
-    if (options.provider && readyForEvents) {
-      options.provider.addListener('block', listener);
+    if (options?.provider != null && readyForEvents) {
+      options?.provider?.addListener?.('block', listener);
       return (): void => {
-        options?.provider?.removeListener('block', listener);
+        options?.provider?.removeListener?.('block', listener);
       };
     } else {
       return (): void => {

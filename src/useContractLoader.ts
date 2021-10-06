@@ -48,6 +48,7 @@ export const useContractLoader = (
 
   const [contracts, setContracts] = useState<Record<string, Contract>>({});
   const configDep: string = useMemo(() => JSON.stringify(config ?? {}), [config]);
+  const networkDeps = `${chainId ?? 0}_${ethersProvider?.network?.name ?? ''}`;
 
   useEffect(() => {
     const loadContracts = (): void => {
@@ -61,10 +62,10 @@ export const useContractLoader = (
           let combinedContracts: Record<string, Contract> = {};
           // combine partitioned contracts based on all the available and chain id.
           if (contractList?.[chainId] != null) {
-            for (const hardhatNetwork in contractList[chainId]) {
-              if (Object.prototype.hasOwnProperty.call(contractList[chainId], hardhatNetwork)) {
-                if (!config.hardhatNetworkName || hardhatNetwork === config.hardhatNetworkName) {
-                  const chainContracts = contractList?.[chainId]?.[hardhatNetwork]?.contracts;
+            for (const network in contractList[chainId]) {
+              if (Object.prototype.hasOwnProperty.call(contractList[chainId], network)) {
+                if (!config.hardhatNetworkName || network === config.hardhatNetworkName) {
+                  const chainContracts = contractList?.[chainId]?.[network]?.contracts;
                   combinedContracts = {
                     ...combinedContracts,
                     ...chainContracts,
@@ -104,7 +105,7 @@ export const useContractLoader = (
     void loadContracts();
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ethersProvider, configDep]);
+  }, [ethersProvider, configDep, networkDeps]);
 
   return contracts;
 };

@@ -57,7 +57,6 @@ export const useGasPrice = (
       void ethersProvider
         .getFeeData()
         .then((fee: FeeData) => {
-          console.log(fee);
           const price = fee.gasPrice ?? fee.maxFeePerGas;
           if (price && price?.toBigInt() > 0) {
             const result = parseInt(utils.formatUnits(price, 'gwei')) ?? 0;
