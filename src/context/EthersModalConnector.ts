@@ -87,7 +87,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
   public async load(): Promise<void> {
     if (!this.web3Modal) {
       const Web3Modal = await import('web3modal').then((m) => m.default);
-      this.web3Modal = new Web3Modal(this.options);
+      this.web3Modal = new Web3Modal({ ...this.options, theme: this.theme });
     }
   }
 
