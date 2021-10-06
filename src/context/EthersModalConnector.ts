@@ -181,4 +181,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
       this.emitUpdate({ account: undefined, provider: undefined, chainId: undefined });
     }
   }
+  public setModalTheme(theme: 'light' | 'dark'): void {
+    this.web3Modal?.updateTheme(theme);
+  }
 }

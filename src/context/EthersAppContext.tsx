@@ -14,12 +14,13 @@ export type CreateEthersModalConnector = () => EthersModalConnector | undefined;
 export interface IEthersContext extends Web3ReactContextInterface<TEthersProvider> {
   connector: EthersModalConnector | undefined;
   ethersProvider: TEthersProvider | undefined;
-  openWeb3Modal: (ethersModalConnector: EthersModalConnector) => void;
-  disconnectWeb3Modal: () => void;
-  changeAccount: ((signer: Signer) => Promise<void>) | undefined;
   active: boolean;
   signer: Signer | undefined;
   account: string | undefined;
+  changeAccount: ((signer: Signer) => Promise<void>) | undefined;
+  openModal: (ethersModalConnector: EthersModalConnector) => void;
+  disconnectModal: () => void;
+  setModalTheme: ((theme: 'light' | 'dark') => void) | undefined;
 }
 
 /**
@@ -61,8 +62,8 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
   return {
     connector: ethersConnector,
     ethersProvider: library,
-    openWeb3Modal,
-    disconnectWeb3Modal: disconnectWeb3Modal,
+    openModal: openWeb3Modal,
+    disconnectModal: disconnectWeb3Modal,
     activate,
     deactivate,
     library,
@@ -70,6 +71,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     changeAccount: ethersConnector?.changeAccount,
     account: account ?? undefined,
     ...result,
+    setModalTheme: ethersConnector?.setModalTheme,
   };
 };
 
