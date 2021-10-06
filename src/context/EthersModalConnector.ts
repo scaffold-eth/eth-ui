@@ -2,7 +2,7 @@ import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer } from 'ethers';
-import type { default as Web3Modal, ICoreOptions } from 'web3modal';
+import type { default as Web3Modal, ICoreOptions, ThemeColors } from 'web3modal';
 
 import { IEthersConnector } from './IEthersConnector';
 
@@ -11,6 +11,8 @@ import { TEthersProvider } from '~~/models';
 interface IEthersModalConfig {
   reloadOnNetworkChange: boolean;
 }
+
+type TModalTheme = 'light' | 'dark';
 
 export class EthersModalConnector extends AbstractConnector implements IEthersConnector {
   protected options: Partial<ICoreOptions>;
@@ -21,6 +23,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
   protected debug: boolean = false;
   protected config: IEthersModalConfig;
   protected signer: Signer | undefined;
+  protected theme: TModalTheme | ThemeColors;
 
   constructor(
     web3modalOptions: Partial<ICoreOptions>,
@@ -35,6 +38,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
     this.id = id;
     this.debug = debug;
     this.config = config;
+    this.theme = (web3modalOptions.theme as TModalTheme | ThemeColors) ?? 'light';
 
     this.handleChainChanged = this.handleChainChanged.bind(this);
     this.handleAccountsChanged = this.handleAccountsChanged.bind(this);
@@ -91,6 +95,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
     await this.load();
 
     if (this.web3Modal) {
+      await this.web3Modal.updateTheme(this.theme);
       if (this.id) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         this.provider = await this.web3Modal.connectTo(this.id);
@@ -182,6 +187,6 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
     }
   }
   public setModalTheme(theme: 'light' | 'dark'): void {
-    this.web3Modal?.updateTheme(theme);
+    this.theme = theme;
   }
 }
