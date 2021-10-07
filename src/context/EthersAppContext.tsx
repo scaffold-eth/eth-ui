@@ -5,6 +5,7 @@ import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 import { Signer } from 'ethers';
 import { FC, useCallback } from 'react';
 
+import { isEthersProvider } from '~~/context';
 import { BlockNumberContext } from '~~/context/BlockNumberContext';
 import { EthersModalConnector } from '~~/context/EthersModalConnector';
 import { TEthersProvider } from '~~/models';
@@ -81,8 +82,12 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
  * @param _connector
  * @returns
  */
-const setEthersAppProvider = (provider: any, _connector: AbstractConnector | undefined): Web3Provider => {
-  return new Web3Provider(provider);
+const setEthersAppProvider = (provider: any, _connector: AbstractConnector | undefined): TEthersProvider => {
+  if (isEthersProvider(provider)) {
+    return provider as TEthersProvider;
+  } else {
+    return new Web3Provider(provider);
+  }
 };
 
 interface IChildContextProps {

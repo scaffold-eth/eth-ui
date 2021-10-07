@@ -1,4 +1,4 @@
-import { Web3Provider } from '@ethersproject/providers';
+import { Web3Provider, StaticJsonRpcProvider, JsonRpcProvider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer } from 'ethers';
@@ -12,18 +12,26 @@ interface IEthersModalConfig {
   reloadOnNetworkChange: boolean;
 }
 
-type TModalTheme = 'light' | 'dark';
+type TWeb3ModalTheme = 'light' | 'dark';
+
+export const isEthersProvider = (providerBase: unknown): boolean => {
+  return (
+    providerBase instanceof Web3Provider ||
+    providerBase instanceof StaticJsonRpcProvider ||
+    providerBase instanceof JsonRpcProvider
+  );
+};
 
 export class EthersModalConnector extends AbstractConnector implements IEthersConnector {
   protected options: Partial<ICoreOptions>;
-  protected provider?: any;
+  protected providerBase?: any;
   protected ethersProvider?: TEthersProvider;
   protected web3Modal?: Web3Modal;
   protected id: string | undefined;
   protected debug: boolean = false;
   protected config: IEthersModalConfig;
   protected signer: Signer | undefined;
-  protected theme: TModalTheme | ThemeColors;
+  protected theme: TWeb3ModalTheme | ThemeColors;
 
   constructor(
     web3modalOptions: Partial<ICoreOptions>,
@@ -38,7 +46,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
     this.id = id;
     this.debug = debug;
     this.config = config;
-    this.theme = (web3modalOptions.theme as TModalTheme | ThemeColors) ?? 'light';
+    this.theme = (web3modalOptions.theme as TWeb3ModalTheme | ThemeColors) ?? 'light';
 
     this.handleChainChanged = this.handleChainChanged.bind(this);
     this.handleAccountsChanged = this.handleAccountsChanged.bind(this);
@@ -60,8 +68,8 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
 
   private handleChainChanged(chainId: number | string): void {
     this.log(`Handling chain changed to ${chainId}! updating providers`);
-    this.emitUpdate({ chainId, provider: this.provider });
-    this.ethersProvider = new Web3Provider(this.provider);
+    this.emitUpdate({ chainId, provider: this.providerBase });
+    this.ethersProvider = new Web3Provider(this.providerBase);
     this.maybeReload();
   }
 
@@ -92,35 +100,51 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
   }
 
   public async activate(): Promise<ConnectorUpdate> {
-    await this.load();
+    try {
+      await this.load();
 
-    if (this.web3Modal) {
-      await this.web3Modal.updateTheme(this.theme);
-      if (this.id) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        this.provider = await this.web3Modal.connectTo(this.id);
-      } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        this.provider = await this.web3Modal.connect();
+      if (this.web3Modal) {
+        await this.web3Modal.updateTheme(this.theme);
+        if (this.id) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          this.providerBase = await this.web3Modal.connectTo(this.id);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          this.providerBase = await this.web3Modal.connect();
+        }
+        /* eslint-disable */
+        this.providerBase.on('chainChanged', this.handleChainChanged);
+        this.providerBase.on('accountsChanged', this.handleAccountsChanged);
+        this.providerBase.on('disconnect', this.handleDisconnect as any);
+        this.providerBase.on('close', this.handleClose as any);
+        /* eslint-enable */
+
+        if (this.isEthersProvider()) {
+          this.ethersProvider = this.providerBase as TEthersProvider;
+        } else {
+          this.ethersProvider = new Web3Provider(this.providerBase);
+        }
       }
+
       /* eslint-disable */
-      this.provider.on('chainChanged', this.handleChainChanged);
-      this.provider.on('accountsChanged', this.handleAccountsChanged);
-      this.provider.on('disconnect', this.handleDisconnect as any);
-      this.provider.on('close', this.handleClose as any);
+      const account: string = this.providerBase?.selectedAddress ?? (await this.getAccount());
+      let chainId: number =
+        this.providerBase?.networkVersion ?? BigNumber.from(this.providerBase?.chainId ?? 0).toNumber();
+      if (chainId === 0) {
+        chainId = (await this.getChainId()) as number;
+      }
+      this.setSigner(account);
+
+      return { provider: this.providerBase, account, chainId };
       /* eslint-enable */
-      this.ethersProvider = new Web3Provider(this.provider);
+    } catch (error) {
+      console.error('EthersModalConnector: Could not activate provider', error, this.providerBase);
+      throw error;
     }
+  }
 
-    /* eslint-disable */
-    const account: string = this.provider?.selectedAddress ?? (await this.getAccount());
-    const chainId: number =
-      this.provider?.networkVersion ?? BigNumber.from(this.provider?.chainId).toNumber() ?? (await this.getChainId());
-
-    this.setSigner(account);
-
-    return { provider: this.provider, account, chainId };
-    /* eslint-enable */
+  private isEthersProvider(): boolean {
+    return isEthersProvider(this.providerBase);
   }
 
   public deactivate(): void {
@@ -128,12 +152,12 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
     /* eslint-disable @typescript-eslint/no-unsafe-call */
     this.emitDeactivate();
 
-    this.provider?.removeListener('disconnect', this.handleDisconnect);
-    this.provider?.removeListener('chainChanged', this.handleChainChanged);
-    this.provider?.removeListener('accountsChanged', this.handleAccountsChanged);
-    this.provider?.removeListener('close', this.handleClose);
+    this.providerBase?.removeListener('disconnect', this.handleDisconnect);
+    this.providerBase?.removeListener('chainChanged', this.handleChainChanged);
+    this.providerBase?.removeListener('accountsChanged', this.handleAccountsChanged);
+    this.providerBase?.removeListener('close', this.handleClose);
 
-    const provider = this.provider;
+    const provider = this.providerBase;
 
     // use disconnect function if exists
     provider?.disconnect?.();
@@ -180,7 +204,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
   public resetModal(): void {
     if (this.web3Modal) {
       this.web3Modal.clearCachedProvider();
-      this.provider = undefined;
+      this.providerBase = undefined;
       this.ethersProvider = undefined;
       this.signer = undefined;
       this.emitUpdate({ account: undefined, provider: undefined, chainId: undefined });
