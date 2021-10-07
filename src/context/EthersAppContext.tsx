@@ -5,9 +5,9 @@ import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 import { Signer } from 'ethers';
 import { FC, useCallback } from 'react';
 
-import { isEthersProvider } from '~~/context';
 import { BlockNumberContext } from '~~/context/BlockNumberContext';
 import { EthersModalConnector } from '~~/context/connectors/EthersModalConnector';
+import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
 
 export type CreateEthersModalConnector = () => EthersModalConnector | undefined;
@@ -69,7 +69,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     deactivate,
     library,
     signer: ethersConnector?.getSigner(),
-    changeAccount: ethersConnector?.changeAccount.bind(ethersConnector),
+    changeAccount: ethersConnector?.changeSigner.bind(ethersConnector),
     account: account ?? undefined,
     ...context,
     setModalTheme: ethersConnector?.setModalTheme.bind(ethersConnector),

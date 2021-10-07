@@ -1,8 +1,10 @@
-import { Web3Provider, StaticJsonRpcProvider, JsonRpcProvider } from '@ethersproject/providers';
+import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
-import { BigNumber, Signer } from 'ethers';
+import { BigNumber, Signer, utils } from 'ethers';
 import Core, { ICoreOptions, ThemeColors } from 'web3modal';
+
+import { isEthersProvider } from '../../functions/ethersHelpers';
 
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser } from '~~/models/constants/common';
@@ -12,14 +14,6 @@ interface IEthersModalConfig {
 }
 
 type TWeb3ModalTheme = 'light' | 'dark';
-
-export const isEthersProvider = (providerBase: unknown): boolean => {
-  return (
-    providerBase instanceof Web3Provider ||
-    providerBase instanceof StaticJsonRpcProvider ||
-    providerBase instanceof JsonRpcProvider
-  );
-};
 
 export class EthersModalConnector extends AbstractConnector {
   protected options: Partial<ICoreOptions>;
@@ -131,7 +125,7 @@ export class EthersModalConnector extends AbstractConnector {
       if (chainId === 0) {
         chainId = (await this.getChainId()) as number;
       }
-      this.setSigner(account);
+      this.setSignerFromAccount(account);
 
       return { provider: this.providerBase, account, chainId };
       /* eslint-enable */
@@ -181,17 +175,21 @@ export class EthersModalConnector extends AbstractConnector {
     return Promise.resolve(this.ethersProvider?.network?.chainId ?? 0) as Promise<number | string>;
   }
 
-  public async setSigner(account: string | null): Promise<void> {
-    const signerAccountPromise = this.signer?.getAddress();
-    if (account && account !== '' && (await signerAccountPromise) !== account) {
+  private async setSignerFromAccount(account: string | null): Promise<void> {
+    if (account && utils.isAddress(account) && (await this.signer?.getAddress()) !== account) {
       this.signer = this.ethersProvider?.getSigner(account);
     }
   }
 
   public async getAccount(): Promise<null | string> {
+    if (this.signer) {
+      const account = await this.signer.getAddress();
+      if (utils.isAddress(account)) return account;
+    }
+
     const accounts = await this.ethersProvider?.listAccounts();
     const account = accounts?.[0] ?? null;
-    await this.setSigner(account);
+    await this.setSignerFromAccount(account);
     return Promise.resolve(accounts?.[0] ?? null);
   }
 
@@ -199,10 +197,16 @@ export class EthersModalConnector extends AbstractConnector {
     return this.signer;
   }
 
-  public async changeAccount(signer: Signer): Promise<void> {
+  public async changeSigner(signer: Signer): Promise<void> {
     const account = await signer.getAddress();
-    await this.setSigner(account);
-    this.emitUpdate?.({ account });
+    if (utils.isAddress(account) && this.validState()) {
+      this.signer = signer;
+      this.handleAccountsChanged([account]);
+    }
+  }
+
+  protected validState(): boolean {
+    return this.providerBase != null && this.ethersProvider != null && this.web3Modal != null;
   }
 
   public resetModal(): void {
