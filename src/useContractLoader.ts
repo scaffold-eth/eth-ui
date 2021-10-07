@@ -1,8 +1,8 @@
 import { Contract, Signer } from 'ethers';
 import { useEffect, useMemo, useState } from 'react';
+import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { useMounted } from '~~/helpers/hooks/useMounted';
 import { TDeployedContracts, TExternalContracts } from '~~/models';
 
 /**
@@ -43,7 +43,7 @@ export const useContractLoader = (
   signer?: Signer,
   providerKey?: string
 ): Record<string, Contract> => {
-  const isMounted = useMounted();
+  const isMounted = useIsMounted();
   const { ethersProvider, chainId } = useEthersContext(providerKey);
 
   const [contracts, setContracts] = useState<Record<string, Contract>>({});

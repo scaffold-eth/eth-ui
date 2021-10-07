@@ -1,8 +1,7 @@
 import { Signer } from 'ethers';
 import { useState, useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
-
-import { useMounted } from '~~/helpers/hooks/useMounted';
+import { useIsMounted } from 'usehooks-ts';
 
 /**
  * Get the address from the current signer or provider
@@ -10,7 +9,7 @@ import { useMounted } from '~~/helpers/hooks/useMounted';
  * @returns (string) :: address
  */
 export const useUserAddress = (signer: Signer): string | undefined => {
-  const isMounted = useMounted();
+  const isMounted = useIsMounted();
   const [userAddress, setUserAddress] = useState<string>();
   const [result] = useDebounce(userAddress, 100, { trailing: true });
 

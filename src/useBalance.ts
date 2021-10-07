@@ -1,9 +1,9 @@
 import { BigNumber } from 'ethers';
 import { useState, useCallback, useEffect } from 'react';
+import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
-import { useMounted } from '~~/helpers/hooks/useMounted';
 
 const zero = BigNumber.from(0);
 
@@ -20,7 +20,7 @@ const zero = BigNumber.from(0);
  * @returns (Bignumber) ::  current balance
  */
 export const useBalance = (address: string, providerKey?: string): BigNumber => {
-  const isMounted = useMounted();
+  const isMounted = useIsMounted();
   const { ethersProvider } = useEthersContext(providerKey);
   const blockNumber = useBlockNumberContext();
   const [balance, setBalance] = useState<BigNumber>(zero);

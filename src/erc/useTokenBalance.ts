@@ -1,8 +1,8 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Contract } from '@ethersproject/contracts';
 import { useCallback, useState } from 'react';
+import { useIsMounted } from 'usehooks-ts';
 
-import { useMounted } from '~~/helpers/hooks/useMounted';
 import { useOnRepetition } from '~~/useOnRepetition';
 
 const zero = BigNumber.from(0);
@@ -19,7 +19,7 @@ const zero = BigNumber.from(0);
  * @returns (BigNumber) :: balance
  */
 export const useTokenBalance = (contract: Contract, address: string, pollTime: number = 0): BigNumber => {
-  const isMounted = useMounted();
+  const isMounted = useIsMounted();
   const [balance, setBalance] = useState<BigNumber>(zero);
 
   const pollBalance = useCallback(async (): Promise<void> => {

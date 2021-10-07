@@ -1,8 +1,8 @@
 import { utils } from 'ethers';
 import { useEffect, useState } from 'react';
+import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { useMounted } from '~~/helpers/hooks/useMounted';
 
 /**
  * Checks whether a contract exists on the blockchain, returns true if it exists, otherwise false
@@ -15,7 +15,7 @@ import { useMounted } from '~~/helpers/hooks/useMounted';
  * @returns (boolean)
  */
 export const useContractExistsAtAddress = (contractAddress: string | undefined, providerKey?: string): boolean => {
-  const isMounted = useMounted();
+  const isMounted = useIsMounted();
   const { ethersProvider } = useEthersContext(providerKey);
 
   const [contractIsDeployed, setContractIsDeployed] = useState(false);

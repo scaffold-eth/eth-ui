@@ -1,8 +1,8 @@
 import { Contract, Event } from '@ethersproject/contracts';
 import { useState, useEffect, useCallback } from 'react';
+import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { useMounted } from '~~/helpers/hooks/useMounted';
 
 /**
  * Enables you to keep track of events
@@ -25,7 +25,7 @@ export const useEventListener = (
   startBlock: number,
   providerKey?: string
 ): any[] => {
-  const isMounted = useMounted();
+  const isMounted = useIsMounted();
   const { ethersProvider } = useEthersContext(providerKey);
   const [updates, setUpdates] = useState<Event[]>([]);
 

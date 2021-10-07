@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
+import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { useMounted } from '~~/helpers/hooks/useMounted';
 import { TEthersProvider } from '~~/models';
 import { useOnRepetition } from '~~/useOnRepetition';
 
@@ -13,7 +13,7 @@ import { useOnRepetition } from '~~/useOnRepetition';
  */
 export const useBlockNumber = (providerKey?: string, pollTime: number = 0): number => {
   const [blockNumber, setBlockNumber] = useState<number>(0);
-  const isMounted = useMounted();
+  const isMounted = useIsMounted();
   const { ethersProvider } = useEthersContext(providerKey);
 
   const getBlockNumber = useCallback(

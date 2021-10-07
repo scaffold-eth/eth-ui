@@ -1,9 +1,9 @@
 import { Contract, ContractFunction } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
+import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
-import { useMounted } from '~~/helpers/hooks/useMounted';
 
 const DEBUG = false;
 
@@ -32,7 +32,7 @@ export const useContractReader = <T>(
   onChange?: (_value?: T) => void,
   providerKey?: string
 ): T | undefined => {
-  const isMounted = useMounted();
+  const isMounted = useIsMounted();
   const [value, setValue] = useState<T>();
   const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(providerKey);

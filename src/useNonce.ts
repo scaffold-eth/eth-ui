@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
-import { useMounted } from '~~/helpers/hooks/useMounted';
 
 /**
  * Get the current nonce of the address provided
@@ -12,7 +12,7 @@ import { useMounted } from '~~/helpers/hooks/useMounted';
  * @returns (number) nonce
  */
 export const useNonce = (address: string): number => {
-  const isMounted = useMounted();
+  const isMounted = useIsMounted();
   const { ethersProvider } = useEthersContext();
   const blockNumber = useBlockNumberContext();
 
