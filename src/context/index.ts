@@ -1,2 +1,2 @@
-export * from './EthersModalConnector';
+export * from './connectors/EthersModalConnector';
 export * from './EthersAppContext';

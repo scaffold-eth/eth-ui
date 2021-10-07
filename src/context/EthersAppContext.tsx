@@ -7,7 +7,7 @@ import { FC, useCallback } from 'react';
 
 import { isEthersProvider } from '~~/context';
 import { BlockNumberContext } from '~~/context/BlockNumberContext';
-import { EthersModalConnector } from '~~/context/EthersModalConnector';
+import { EthersModalConnector } from '~~/context/connectors/EthersModalConnector';
 import { TEthersProvider } from '~~/models';
 
 export type CreateEthersModalConnector = () => EthersModalConnector | undefined;
