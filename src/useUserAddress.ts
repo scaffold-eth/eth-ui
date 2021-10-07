@@ -11,7 +11,7 @@ import { useIsMounted } from 'usehooks-ts';
 export const useUserAddress = (signer: Signer): string | undefined => {
   const isMounted = useIsMounted();
   const [userAddress, setUserAddress] = useState<string>();
-  const [result] = useDebounce(userAddress, 100, { trailing: true });
+  const [result] = useDebounce(userAddress, 200, { trailing: true });
 
   useEffect(() => {
     const getUserAddress = async (): Promise<void> => {

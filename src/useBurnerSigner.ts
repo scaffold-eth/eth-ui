@@ -44,8 +44,8 @@ export const useBurnerSigner = (ethersProvider: TEthersProvider | undefined): IB
   const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
   const walletRef = useRef<Wallet>();
   const creatingBurnerRef = useRef(false);
-  const [signer] = useDebounce(walletRef.current, 100, { trailing: true });
-  const [account] = useDebounce(walletRef.current?.address, 100, { trailing: true });
+  const [signer] = useDebounce(walletRef.current, 200, { trailing: true });
+  const [account] = useDebounce(walletRef.current?.address, 200, { trailing: true });
 
   const setValue = (value: any): void => {
     try {

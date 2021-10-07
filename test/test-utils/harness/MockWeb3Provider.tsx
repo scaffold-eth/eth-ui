@@ -1,15 +1,13 @@
 import { Web3Provider } from '@ethersproject/providers';
-import { Web3ReactProvider } from '@web3-react/core';
+import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import { MockProvider } from 'ethereum-waffle';
 import React, { FC, useCallback, useEffect } from 'react';
-
-import { useEthersProvider } from '~test-utils/hooks/useEthersProvider';
 
 export interface IMockEthersWrapper {
   mockProvider: MockProvider;
 }
 const ActivateWrapper: FC = (props) => {
-  const { activate, library, deactivate } = useEthersProvider();
+  const { activate, library, deactivate } = useWeb3React();
 
   useEffect(() => {
     if (library && activate) {

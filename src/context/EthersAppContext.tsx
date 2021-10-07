@@ -31,15 +31,15 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
  * @returns (IEthersWeb3Context)
  */
 export const useEthersContext = (providerKey?: string): IEthersContext => {
-  const { connector, activate, library, account, deactivate, ...result } = useWeb3React<TEthersProvider>(providerKey);
-  if (!(connector instanceof EthersModalConnector) && connector != null) {
+  const { connector, activate, library, account, deactivate, ...context } = useWeb3React<TEthersProvider>(providerKey);
+  if (!(connector instanceof EthersModalConnector || connector instanceof AbstractConnector) && connector != null) {
     throw 'Connector is not a EthersModalConnector';
   }
   const ethersConnector = connector as EthersModalConnector;
 
   const openWeb3Modal = useCallback(
     (ethersModalConnector: EthersModalConnector | undefined) => {
-      if (result.active) {
+      if (context.active) {
         deactivate();
       }
 
@@ -52,7 +52,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
         }
       }
     },
-    [activate, deactivate, result.active]
+    [activate, deactivate, context.active]
   );
 
   const disconnectWeb3Modal = useCallback(() => {
@@ -69,10 +69,10 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     deactivate,
     library,
     signer: ethersConnector?.getSigner(),
-    changeAccount: ethersConnector?.changeAccount,
+    changeAccount: ethersConnector?.changeAccount.bind(ethersConnector),
     account: account ?? undefined,
-    ...result,
-    setModalTheme: ethersConnector?.setModalTheme,
+    ...context,
+    setModalTheme: ethersConnector?.setModalTheme.bind(ethersConnector),
   };
 };
 

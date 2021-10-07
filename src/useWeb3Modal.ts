@@ -5,6 +5,7 @@ import Web3Modal, { ICoreOptions, ThemeColors } from 'web3modal';
 import './helpers/_global';
 
 import { TEthersProvider } from '~~/models';
+import { const_web3DialogClosedByUser } from '~~/models/constants/common';
 
 export interface IWeb3ModalState {
   initializing: boolean;
@@ -12,9 +13,6 @@ export interface IWeb3ModalState {
   logoutOfWeb3ModalCallback: () => void;
   updateWeb3ModalThemeCallback: (theme: ThemeColors | string) => void;
 }
-
-const const_web3DialogClosedByUser = 'Modal closed by user';
-
 /**
  * A hook that makes it easy to use web3Modal
  * @param web3ModalConfig

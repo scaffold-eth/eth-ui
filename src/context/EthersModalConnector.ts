@@ -2,11 +2,10 @@ import { Web3Provider, StaticJsonRpcProvider, JsonRpcProvider } from '@etherspro
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer } from 'ethers';
-import type { default as Web3Modal, ICoreOptions, ThemeColors } from 'web3modal';
-
-import { IEthersConnector } from './IEthersConnector';
+import Core, { ICoreOptions, ThemeColors } from 'web3modal';
 
 import { TEthersProvider } from '~~/models';
+import { const_web3DialogClosedByUser } from '~~/models/constants/common';
 
 interface IEthersModalConfig {
   reloadOnNetworkChange: boolean;
@@ -22,11 +21,11 @@ export const isEthersProvider = (providerBase: unknown): boolean => {
   );
 };
 
-export class EthersModalConnector extends AbstractConnector implements IEthersConnector {
+export class EthersModalConnector extends AbstractConnector {
   protected options: Partial<ICoreOptions>;
   protected providerBase?: any;
   protected ethersProvider?: TEthersProvider;
-  protected web3Modal?: Web3Modal;
+  protected web3Modal?: Core;
   protected id: string | undefined;
   protected debug: boolean = false;
   protected config: IEthersModalConfig;
@@ -68,7 +67,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
 
   private handleChainChanged(chainId: number | string): void {
     this.log(`Handling chain changed to ${chainId}! updating providers`);
-    this.emitUpdate({ chainId, provider: this.providerBase });
+    this.emitUpdate?.({ chainId, provider: this.providerBase });
     this.ethersProvider = new Web3Provider(this.providerBase);
     this.maybeReload();
   }
@@ -76,9 +75,9 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
   private handleAccountsChanged(accounts: string[]): void {
     this.log(`Handling accounts changed`, accounts);
     if (accounts.length === 0) {
-      this.emitDeactivate();
+      this.emitDeactivate?.();
     } else {
-      this.emitUpdate({ account: accounts[0] });
+      this.emitUpdate?.({ account: accounts[0] });
     }
   }
 
@@ -92,16 +91,15 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
     this.deactivate();
   }
 
-  public async load(): Promise<void> {
+  public load(): void {
     if (!this.web3Modal) {
-      const Web3Modal = await import('web3modal').then((m) => m.default);
-      this.web3Modal = new Web3Modal({ ...this.options, theme: this.theme });
+      this.web3Modal = new Core({ ...this.options, theme: this.theme });
     }
   }
 
   public async activate(): Promise<ConnectorUpdate> {
     try {
-      await this.load();
+      this.load();
 
       if (this.web3Modal) {
         await this.web3Modal.updateTheme(this.theme);
@@ -138,8 +136,14 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
       return { provider: this.providerBase, account, chainId };
       /* eslint-enable */
     } catch (error) {
-      console.error('EthersModalConnector: Could not activate provider', error, this.providerBase);
-      throw error;
+      if ((error as string).includes(const_web3DialogClosedByUser)) {
+        console.log(error);
+        // @ts-ignore
+        return;
+      } else {
+        console.error('EthersModalConnector: Could not activate provider', error, this.providerBase);
+        throw error;
+      }
     }
   }
 
@@ -150,7 +154,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
   public deactivate(): void {
     /* eslint-disable @typescript-eslint/no-unsafe-member-access */
     /* eslint-disable @typescript-eslint/no-unsafe-call */
-    this.emitDeactivate();
+    this.emitDeactivate?.();
 
     this.providerBase?.removeListener('disconnect', this.handleDisconnect);
     this.providerBase?.removeListener('chainChanged', this.handleChainChanged);
@@ -177,18 +181,18 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
     return Promise.resolve(this.ethersProvider?.network?.chainId ?? 0) as Promise<number | string>;
   }
 
+  public async setSigner(account: string | null): Promise<void> {
+    const signerAccountPromise = this.signer?.getAddress();
+    if (account && account !== '' && (await signerAccountPromise) !== account) {
+      this.signer = this.ethersProvider?.getSigner(account);
+    }
+  }
+
   public async getAccount(): Promise<null | string> {
     const accounts = await this.ethersProvider?.listAccounts();
     const account = accounts?.[0] ?? null;
     await this.setSigner(account);
     return Promise.resolve(accounts?.[0] ?? null);
-  }
-
-  private async setSigner(account: string | null): Promise<void> {
-    const signerAccountPromise = this.signer?.getAddress();
-    if (account && account !== '' && (await signerAccountPromise) !== account) {
-      this.signer = this.ethersProvider?.getSigner(account);
-    }
   }
 
   public getSigner(): Signer | undefined {
@@ -197,8 +201,8 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
 
   public async changeAccount(signer: Signer): Promise<void> {
     const account = await signer.getAddress();
-    this.signer = signer;
-    this.emitUpdate({ account });
+    await this.setSigner(account);
+    this.emitUpdate?.({ account });
   }
 
   public resetModal(): void {
@@ -207,7 +211,7 @@ export class EthersModalConnector extends AbstractConnector implements IEthersCo
       this.providerBase = undefined;
       this.ethersProvider = undefined;
       this.signer = undefined;
-      this.emitUpdate({ account: undefined, provider: undefined, chainId: undefined });
+      this.emitUpdate?.({ account: undefined, provider: undefined, chainId: undefined });
     }
   }
   public setModalTheme(theme: 'light' | 'dark'): void {
