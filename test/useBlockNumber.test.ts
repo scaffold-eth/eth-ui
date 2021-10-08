@@ -5,7 +5,7 @@ import { renderTestHook } from '~test-utils/harness/renderTestHook';
 import { mineBlock } from '~test-utils/hooks/hardhatActions';
 import { useBlockNumber } from '~~/useBlockNumber';
 
-describe('useBlockNumber', function () {
+describe.skip('useBlockNumber', function () {
   it('When the provider receives a new block, then the block returns the block number', async () => {
     const mockProvider = getMockProvider();
     const hook = renderTestHook(mockProvider, () => useBlockNumber());
