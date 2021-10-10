@@ -94,5 +94,9 @@ export const useOnRepetition = (
       isFirstCall.current = false;
       callFunctionWithArgs();
     }
-  }, [callFunctionWithArgs, readyForLeadTrigger]);
+  }, [callFunctionWithArgs, readyForLeadTrigger, isFirstCall.current]);
+  
+  useEffect(()=> {
+  isFirstCall.current = true;
+  },[JSON.stringify(args)]);
 };
