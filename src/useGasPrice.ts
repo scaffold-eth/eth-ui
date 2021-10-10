@@ -2,6 +2,7 @@ import { FeeData } from '@ethersproject/providers';
 import axios, { AxiosResponse } from 'axios';
 import { utils } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 
 import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
@@ -30,10 +31,16 @@ export const useGasPrice = (
 ): number | undefined => {
   const { ethersProvider } = useEthersContext();
   const blockNumber = useBlockNumberContext();
-
+  const [currentChainId, setCurrentChainId] = useState<number>();
   const [gasPrice, setGasPrice] = useState<number | undefined>();
+  const [gasPriceDebounced] = useDebounce(gasPrice, 250, { trailing: true });
 
   const callFunc = useCallback((): void => {
+    if (currentChainId !== chainId) {
+      setCurrentChainId(chainId);
+      setGasPrice(undefined);
+    }
+
     if (!chainId) {
       setGasPrice(undefined);
     } else if (chainId === 1) {
@@ -79,10 +86,10 @@ export const useGasPrice = (
     } else {
       setGasPrice(undefined);
     }
-  }, [chainId, ethersProvider, currentNetwork?.gasPrice, speed]);
+  }, [currentChainId, chainId, ethersProvider, currentNetwork?.gasPrice, speed]);
 
   useEffect(() => {
     void callFunc();
   }, [blockNumber, callFunc]);
-  return gasPrice;
+  return gasPriceDebounced;
 };
