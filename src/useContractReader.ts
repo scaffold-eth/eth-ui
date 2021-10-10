@@ -4,6 +4,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
+import { TContractFunctionInfo } from '~~/models';
 
 const DEBUG = false;
 
@@ -26,8 +27,8 @@ const DEBUG = false;
  * @returns (<T>) :: generic return type 
  */
 export const useContractReader = <T>(
-  contractList: Record<string, Contract>,
-  contract: { contractName: string; functionName: string; functionArgs?: any[] },
+  contract: Contract,
+  contractFunctionInfo: TContractFunctionInfo,
   formatter?: (_value: T) => T,
   onChange?: (_value?: T) => void
 ): T | undefined => {
@@ -37,14 +38,14 @@ export const useContractReader = <T>(
   const ethersContext = useEthersContext();
 
   const callFunc = useCallback(async () => {
-    const contractFunction = contractList?.[contract.contractName]?.[contract.functionName] as ContractFunction<T>;
-    const contractChainId = await contractList?.[contract.contractName]?.signer?.getChainId();
+    const contractFunction = contract?.[contractFunctionInfo.functionName] as ContractFunction<T>;
+    const contractChainId = await contract?.signer?.getChainId();
 
     if (contractFunction != null && contractChainId === ethersContext.chainId) {
       let newResult: T | undefined = undefined;
       try {
-        if (contract.functionArgs && contract.functionArgs.length > 0) {
-          newResult = await contractFunction?.(...contract.functionArgs);
+        if (contractFunctionInfo.functionArgs && contractFunctionInfo.functionArgs.length > 0) {
+          newResult = await contractFunction?.(...contractFunctionInfo.functionArgs);
         } else {
           newResult = await contractFunction?.();
         }
@@ -58,19 +59,11 @@ export const useContractReader = <T>(
           onChange?.(newResult);
         }
       } catch (error: any) {
+        console.warn('Could not read form contract function', contractFunctionInfo);
         console.warn(error);
       }
     }
-  }, [
-    contractList,
-    contract.contractName,
-    contract.functionName,
-    contract.functionArgs,
-    ethersContext.chainId,
-    formatter,
-    isMounted,
-    onChange,
-  ]);
+  }, [contract, contractFunctionInfo, ethersContext.chainId, formatter, isMounted, onChange]);
 
   useEffect(() => {
     void callFunc();

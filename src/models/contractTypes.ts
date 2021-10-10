@@ -23,3 +23,9 @@ export type TExternalContracts = {
     contracts?: Record<string, Contract>;
   };
 };
+
+export type TContractFunctionInfo = {
+  contractName: string;
+  functionName: string;
+  functionArgs?: any[];
+};
