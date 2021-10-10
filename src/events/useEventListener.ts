@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { TEthersProvider } from '~~/models';
 
 const getEventKey = (m: Event): string => {
-  return `${m.transactionHash}_${m.event ?? ''}_${m.logIndex}`;
+  return `${m.transactionHash}_${m.logIndex}`;
 };
 
 /**
