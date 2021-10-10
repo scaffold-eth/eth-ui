@@ -35,6 +35,8 @@ export const useOnRepetition = (
   const readyForEvents = options?.provider && !isPolling;
   const readyForLeadTrigger = (readyForEvents || isPolling) && options?.leadingTrigger;
   const isFirstCall = useRef(true);
+  // created a strigified args to use for deps
+  const argDeps = JSON.stringify(args ?? []);
 
   // create a callback for the input function
   const callFunctionWithArgs = useCallback(() => {
@@ -46,12 +48,12 @@ export const useOnRepetition = (
         void callback();
       }
     }
-  }, [callback, args]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callback, argDeps, args]);
 
   // If event based, create a listener if we have a function & a provider
   const listener = useCallback(
     (_blockNumber: number): void => {
-      if (DEBUG) console.log('listen block event', _blockNumber, ...args);
       if (readyForEvents) callFunctionWithArgs();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
