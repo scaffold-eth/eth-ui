@@ -10,11 +10,11 @@ import { useEthersContext } from '~~/context';
  * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
  * @returns (number) :: timestamp
  */
-export const useTimestamp = (providerKey?: string, pollTime?: number): number => {
+export const useTimestamp = (pollTime?: number): number => {
   const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext(providerKey);
+  const { ethersProvider } = useEthersContext();
 
-  const blockNumber = useBlockNumber(providerKey, pollTime);
+  const blockNumber = useBlockNumber(pollTime);
   const [timestamp, setTimestamp] = useState<number>(0);
 
   useEffect((): void => {

@@ -1,8 +1,6 @@
-import { utils } from 'ethers';
+import { Contract, utils } from 'ethers';
 import { useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
-
-import { useEthersContext } from '~~/context';
 
 /**
  * Checks whether a contract exists on the blockchain, returns true if it exists, otherwise false
@@ -11,12 +9,11 @@ import { useEthersContext } from '~~/context';
   - Provide contractAddress to check if the contract is deployed
   - Change provider to check contract address on different chains (ex. mainnetProvider)
  * @param provider (TEthersProvider)
- * @param contractAddress (string) 
+ * @param contract (string) 
  * @returns (boolean)
  */
-export const useContractExistsAtAddress = (contractAddress: string | undefined, providerKey?: string): boolean => {
+export const useContractExistsAtAddress = (contract: Contract | undefined): boolean => {
   const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext(providerKey);
 
   const [contractIsDeployed, setContractIsDeployed] = useState(false);
 
@@ -27,16 +24,17 @@ export const useContractExistsAtAddress = (contractAddress: string | undefined, 
      * If we find nothing (0x0) then there is no contract deployed to that address
      */
     const checkDeployment = async (): Promise<void> => {
-      if (!contractAddress || !utils.isAddress(contractAddress) || !ethersProvider) {
+      if (!contract?.provider || !utils.isAddress(contract.address)) {
+        if (isMounted()) setContractIsDeployed(false);
         return;
       }
 
-      const bytecode = await ethersProvider.getCode(contractAddress);
+      const bytecode = await contract.provider.getCode(contract.address);
       if (isMounted()) setContractIsDeployed(bytecode !== '0x');
     };
 
     void checkDeployment();
-  }, [ethersProvider, contractAddress, isMounted]);
+  }, [contract, isMounted]);
 
   return contractIsDeployed;
 };

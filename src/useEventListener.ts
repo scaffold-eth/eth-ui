@@ -19,14 +19,9 @@ import { useEthersContext } from '~~/context';
  * @param startBlock (number) string block of events
  * @returns (ethers->Event)
  */
-export const useEventListener = (
-  contract: Contract | undefined,
-  eventName: string,
-  startBlock: number,
-  providerKey?: string
-): any[] => {
+export const useEventListener = (contract: Contract | undefined, eventName: string, startBlock: number): any[] => {
   const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext(providerKey);
+  const { ethersProvider } = useEthersContext();
   const [updates, setUpdates] = useState<Event[]>([]);
 
   const addNewEvent = useCallback((...events: Event[]) => {

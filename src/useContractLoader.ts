@@ -1,9 +1,9 @@
-import { Contract, Signer } from 'ethers';
+import { Contract } from 'ethers';
 import { useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { TDeployedContracts, TExternalContracts } from '~~/models';
+import { TDeployedContracts, TEthersProviderOrSigner, TExternalContracts } from '~~/models';
 
 /**
  * Configuration for useContractLoader
@@ -40,11 +40,12 @@ export type TContractConfig = {
  */
 export const useContractLoader = (
   config: TContractConfig = {},
-  signer?: Signer,
-  providerKey?: string
+  providerOrSigner?: TEthersProviderOrSigner,
+  configChainId?: number
 ): Record<string, Contract> => {
   const isMounted = useIsMounted();
-  const { ethersProvider, chainId } = useEthersContext(providerKey);
+  const { ethersProvider, chainId: contextChainId } = useEthersContext();
+  const chainId = configChainId ?? contextChainId;
 
   const [contracts, setContracts] = useState<Record<string, Contract>>({});
   const configDep: string = useMemo(() => JSON.stringify(config ?? {}), [config]);
@@ -60,6 +61,7 @@ export const useContractLoader = (
             ...(config.externalContracts ?? {}),
           };
           let combinedContracts: Record<string, Contract> = {};
+
           // combine partitioned contracts based on all the available and chain id.
           if (contractList?.[chainId] != null) {
             for (const network in contractList[chainId]) {
@@ -75,6 +77,7 @@ export const useContractLoader = (
             }
           }
 
+          // load external contracts if its the right chain
           if (externalContractList?.[chainId] != null) {
             combinedContracts = { ...combinedContracts, ...externalContractList[chainId].contracts };
           }
@@ -85,11 +88,10 @@ export const useContractLoader = (
                 config.customAddresses && Object.keys(config.customAddresses).includes(contractName)
                   ? config.customAddresses[contractName]
                   : combinedContracts[contractName].address;
-              accumulator[contractName] = new Contract(
-                address,
-                combinedContracts[contractName].abi,
-                signer ?? ethersProvider
-              );
+
+              // use providerOrSigner, or ethersContext provider or undefined if appropriate
+              const provider = providerOrSigner ?? (chainId === contextChainId ? ethersProvider : undefined);
+              accumulator[contractName] = new Contract(address, combinedContracts[contractName].abi, provider);
               return accumulator;
             },
             {}

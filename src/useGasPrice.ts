@@ -26,10 +26,9 @@ export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
 export const useGasPrice = (
   chainId: number | undefined,
   speed: TGasStationSpeed,
-  currentNetwork?: TNetworkInfo,
-  providerKey?: string
+  currentNetwork?: TNetworkInfo
 ): number | undefined => {
-  const { ethersProvider } = useEthersContext(providerKey);
+  const { ethersProvider } = useEthersContext();
   const blockNumber = useBlockNumberContext();
 
   const [gasPrice, setGasPrice] = useState<number | undefined>();

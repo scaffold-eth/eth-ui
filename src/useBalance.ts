@@ -19,9 +19,9 @@ const zero = BigNumber.from(0);
  * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
  * @returns (Bignumber) ::  current balance
  */
-export const useBalance = (address: string, providerKey?: string): BigNumber => {
+export const useBalance = (address: string): BigNumber => {
   const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext(providerKey);
+  const { ethersProvider } = useEthersContext();
   const blockNumber = useBlockNumberContext();
   const [balance, setBalance] = useState<BigNumber>(zero);
 

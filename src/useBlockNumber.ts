@@ -11,10 +11,10 @@ import { useOnRepetition } from '~~/useOnRepetition';
  * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
  * @returns (number) :: block number
  */
-export const useBlockNumber = (providerKey?: string, pollTime: number = 0): number => {
+export const useBlockNumber = (pollTime: number = 0): number => {
   const [blockNumber, setBlockNumber] = useState<number>(0);
   const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext(providerKey);
+  const { ethersProvider } = useEthersContext();
 
   const getBlockNumber = useCallback(
     async (provider: TEthersProvider): Promise<void> => {

@@ -29,13 +29,12 @@ export const useContractReader = <T>(
   contractList: Record<string, Contract>,
   contract: { contractName: string; functionName: string; functionArgs?: any[] },
   formatter?: (_value: T) => T,
-  onChange?: (_value?: T) => void,
-  providerKey?: string
+  onChange?: (_value?: T) => void
 ): T | undefined => {
   const isMounted = useIsMounted();
   const [value, setValue] = useState<T>();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(providerKey);
+  const ethersContext = useEthersContext();
 
   const callFunc = useCallback(async () => {
     const contractFunction = contractList?.[contract.contractName]?.[contract.functionName] as ContractFunction<T>;
