@@ -41,7 +41,6 @@ export const useOnRepetition = (
 ): void => {
   const polling = options?.pollTime && options.pollTime > 0;
   const leadingCall = useRef(true);
-  const argDeps = JSON.stringify(args ?? []);
 
   // save the input function provided
   const callFunctionWithArgs = useCallback(() => {
@@ -52,15 +51,15 @@ export const useOnRepetition = (
         void callback();
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callback, argDeps, args]);
+  }, [callback, args]);
 
   // Turn on the listener if we have a function & a provider
   const listener = useCallback(
     (_blockNumber: number): void => {
+      if (DEBUG) console.log('listen block event', _blockNumber, ...args);
       if (options.provider) callFunctionWithArgs();
     },
-    [callFunctionWithArgs, options.provider]
+    [callFunctionWithArgs, options.provider, args]
   );
 
   // connect a listener for block changes
