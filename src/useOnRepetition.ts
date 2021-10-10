@@ -41,6 +41,7 @@ export const useOnRepetition = (
 ): void => {
   const polling = options?.pollTime && options.pollTime > 0;
   const leadingCall = useRef(true);
+  // created a strigified args to use for deps
   const argDeps = JSON.stringify(args ?? []);
 
   // save the input function provided
