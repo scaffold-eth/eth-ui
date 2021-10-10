@@ -31,7 +31,7 @@ export const useEventListener = (
 ): Event[] => {
   const [eventMap, setEventMap] = useState<Map<string, Event>>(new Map<string, Event>());
 
-  const deps = JSON.stringify(eventMap.keys());
+  const deps = JSON.stringify([...eventMap]);
   const events = useMemo(() => [...eventMap].map((m) => m[1]), [deps]);
 
   const addNewEvent = useCallback(
