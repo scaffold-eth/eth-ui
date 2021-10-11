@@ -1,7 +1,11 @@
 import { Contract, Event } from '@ethersproject/contracts';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 
 import { TEthersProvider } from '~~/models';
+
+const getEventKey = (m: Event): string => {
+  return `${m.transactionHash}_${m.logIndex}`;
+};
 
 /**
  * Enables you to keep track of events
@@ -24,15 +28,22 @@ export const useEventListener = (
   eventName: string,
   provider: TEthersProvider | undefined,
   startBlock: number
-): any[] => {
-  const [updates, setUpdates] = useState<Event[]>([]);
+): Event[] => {
+  const [eventMap, setEventMap] = useState<Map<string, Event>>(new Map<string, Event>());
 
-  const addNewEvent = useCallback((...events: Event[]) => {
-    if (events != null && events.length > 0) {
-      const last = events[events.length - 1];
-      setUpdates((value) => [last, ...value]);
-    }
-  }, []);
+  const deps = JSON.stringify([...eventMap]);
+  const events = useMemo(() => [...eventMap].map((m) => m[1]), [deps]);
+
+  const addNewEvent = useCallback(
+    (events: Event[]) => {
+      if (events != null && events.length > 0) {
+        const newMap = new Map(events.map((m) => [getEventKey(m), m]));
+
+        setEventMap((oldMap) => new Map([...oldMap, ...newMap]));
+      }
+    },
+    [setEventMap]
+  );
 
   useEffect(() => {
     if (provider) {
@@ -51,5 +62,5 @@ export const useEventListener = (
     }
   }, [provider, startBlock, contracts, contractName, eventName, addNewEvent]);
 
-  return updates;
+  return events;
 };
