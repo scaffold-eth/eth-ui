@@ -46,13 +46,16 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
       if (ethersModalConnector == null) {
         console.error('A valid ethersModalConnector was not provided');
       }
-      if (ethersModalConnector instanceof EthersModalConnector) {
-        if (ethersModalConnector) {
-          void activate(ethersModalConnector);
-        }
+      if (ethersModalConnector != null && ethersModalConnector instanceof EthersModalConnector) {
+        console.log('activate ethersModalConnector');
+        const onError = (error: Error): void => {
+          connector?.deactivate?.();
+          console.warn(error);
+        };
+        void activate(ethersModalConnector, onError).catch(onError);
       }
     },
-    [activate, deactivate, context.active]
+    [context.active, deactivate, activate, connector]
   );
 
   const disconnectWeb3Modal = useCallback(() => {

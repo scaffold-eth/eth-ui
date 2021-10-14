@@ -14,6 +14,21 @@ interface IEthersModalConfig {
 }
 
 type TWeb3ModalTheme = 'light' | 'dark';
+export class UserClosedModalError extends Error {
+  public constructor() {
+    super();
+    this.name = this.constructor.name;
+    this.message = 'EthersModalConnector: The user closed the modal with selecting a provider.';
+  }
+}
+
+export class CouldNotActivateError extends Error {
+  public constructor(error: any) {
+    super();
+    this.name = this.constructor.name;
+    this.message = `EthersModalConnector: Could not activate provider.  ${(error as string) ?? ''}`;
+  }
+}
 
 export class EthersModalConnector extends AbstractConnector {
   protected options: Partial<ICoreOptions>;
@@ -96,6 +111,8 @@ export class EthersModalConnector extends AbstractConnector {
       this.load();
 
       if (this.web3Modal) {
+        if (this.options.cacheProvider === false) this.resetModal();
+        console.log('Open provider modal');
         await this.web3Modal.updateTheme(this.theme);
         if (this.id) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -132,11 +149,11 @@ export class EthersModalConnector extends AbstractConnector {
     } catch (error) {
       if ((error as string).includes(const_web3DialogClosedByUser)) {
         console.log(error);
-        // @ts-ignore
-        return;
+        this.deactivate();
+        throw new UserClosedModalError();
       } else {
         console.error('EthersModalConnector: Could not activate provider', error, this.providerBase);
-        throw error;
+        throw new CouldNotActivateError(error);
       }
     }
   }

@@ -46,7 +46,9 @@ export const BlockNumberContext: FC<IProps> = (props) => {
 
   useEffect(() => {
     if (chainId && ethersProvider) {
-      const update = (blockNumber: number): void => dispatch({ chainId, blockNumber });
+      const update = (blockNumber: number): void => {
+        dispatch({ chainId, blockNumber });
+      };
       ethersProvider.on('block', update);
       return (): void => {
         ethersProvider.on('block', update);

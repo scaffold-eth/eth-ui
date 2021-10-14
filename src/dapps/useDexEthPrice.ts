@@ -7,22 +7,22 @@ import { TEthersProvider } from '~~/models/providerTypes';
 
 /**
  * Get the Exchange price of ETH/USD (extrapolated from WETH/DAI)
- * @param targetNetwork (TNetwork)
+ * @param targetNetworkInfo (TNetwork)
  * @param mainnetProvider (TEthersProvider)
  * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
  * @returns (number) :: price
  */
 export const useDexEthPrice = (
   mainnetProvider: TEthersProvider | undefined,
-  targetNetwork?: TNetworkInfo,
+  targetNetworkInfo?: TNetworkInfo,
   pollTime: number = 0
 ): number => {
   const [price, setPrice] = useState(0);
 
   const callFunc = useCallback(() => {
     const getPrice = async (): Promise<void> => {
-      if (targetNetwork?.price) {
-        setPrice(targetNetwork.price);
+      if (targetNetworkInfo?.price) {
+        setPrice(targetNetworkInfo.price);
       } else if (mainnetProvider) {
         const network = await mainnetProvider.getNetwork();
 
@@ -37,7 +37,7 @@ export const useDexEthPrice = (
     };
 
     void getPrice();
-  }, [targetNetwork?.price, mainnetProvider]);
+  }, [targetNetworkInfo?.price, mainnetProvider]);
 
   useOnRepetition(callFunc, { pollTime, provider: mainnetProvider });
 

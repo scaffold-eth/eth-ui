@@ -20,14 +20,14 @@ export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
 /**
  * Gets the gas price from Eth Gas Station.  as gwei
  * @param speed (TGasStationSpeed) 'fast', 'fastest', 'safeLow', 'average'
- * @param currentNetwork (TNetwork) fallback config with gas price
+ * @param currentNetworkInfo (TNetwork) fallback config with gas price
  * @param pollTime (number) :: if > 0 use polling, else use instead of onBlock event
  * @returns (number) gas price in gwei
  */
 export const useGasPrice = (
   chainId: number | undefined,
   speed: TGasStationSpeed,
-  currentNetwork?: TNetworkInfo
+  currentNetworkInfo?: TNetworkInfo
 ): number | undefined => {
   const { ethersProvider } = useEthersContext();
   const blockNumber = useBlockNumberContext();
@@ -67,26 +67,26 @@ export const useGasPrice = (
           if (price && price?.toBigInt() > 0) {
             const result = parseInt(utils.formatUnits(price, 'gwei')) ?? 0;
             setGasPrice(result);
-          } else if (currentNetwork?.gasPrice) {
-            setGasPrice(currentNetwork.gasPrice);
+          } else if (currentNetworkInfo?.gasPrice) {
+            setGasPrice(currentNetworkInfo.gasPrice);
           } else {
             setGasPrice(undefined);
           }
         })
         .catch((_error) => {
           console.log('⚠ Could not estimate gas!');
-          if (currentNetwork?.gasPrice) {
-            setGasPrice(currentNetwork.gasPrice);
+          if (currentNetworkInfo?.gasPrice) {
+            setGasPrice(currentNetworkInfo.gasPrice);
           } else {
             setGasPrice(undefined);
           }
         });
-    } else if (currentNetwork?.gasPrice) {
-      setGasPrice(currentNetwork.gasPrice);
+    } else if (currentNetworkInfo?.gasPrice) {
+      setGasPrice(currentNetworkInfo.gasPrice);
     } else {
       setGasPrice(undefined);
     }
-  }, [currentChainId, chainId, ethersProvider, currentNetwork?.gasPrice, speed]);
+  }, [currentChainId, chainId, ethersProvider, currentNetworkInfo?.gasPrice, speed]);
 
   useEffect(() => {
     void callFunc();

@@ -8,7 +8,7 @@ import { useIsMounted } from 'usehooks-ts';
  * @param providerOrSigner (TEthersProviderOrSigner)
  * @returns (string) :: address
  */
-export const useUserAddress = (signer: Signer): string | undefined => {
+export const useUserAddress = (signer: Signer | undefined): string | undefined => {
   const isMounted = useIsMounted();
   const [userAddress, setUserAddress] = useState<string>();
   const [result] = useDebounce(userAddress, 200, { trailing: true });

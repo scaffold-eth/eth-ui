@@ -29,9 +29,22 @@ export const loadBurnerKeyFromStorage = (): string | null => {
 export interface IBurnerSigner {
   signer: Signer | undefined;
   account: string | undefined;
-  saveToStorage: () => void;
-  loadFromStorageOrCreate: () => void;
-  createBurnerSigner: () => void;
+  /**
+   * save to local storage
+   */
+  saveBurner: () => void;
+  /**
+   * load from local storage, or if it doesn't exist, create
+   */
+  loadOrGenerateBurner: () => void;
+  /**
+   * create a new burner signer
+   */
+  generateBurnerSigner: () => void;
+  /**
+   * get your current burner pk
+   */
+  getBurnerPrivateKey: () => BytesLike | undefined;
 }
 
 /**
@@ -40,7 +53,7 @@ export interface IBurnerSigner {
  * @returns (ethers.signer) :: signer of the wallet
  */
 export const useBurnerSigner = (ethersProvider: TEthersProvider | undefined): IBurnerSigner => {
-  const key = 'scaffold-eth-privateKey';
+  const key = 'scaffold-eth-burner-privateKey';
   const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
   const walletRef = useRef<Wallet>();
   const creatingBurnerRef = useRef(false);
@@ -89,7 +102,7 @@ export const useBurnerSigner = (ethersProvider: TEthersProvider | undefined): IB
   /**
    * create a new burnerkey
    */
-  const createBurnerSigner = useCallback(() => {
+  const generateBurnerSigner = useCallback(() => {
     if (ethersProvider && !creatingBurnerRef.current) {
       creatingBurnerRef.current = true;
       console.log('🔑 Create new burner wallet...');
@@ -107,17 +120,28 @@ export const useBurnerSigner = (ethersProvider: TEthersProvider | undefined): IB
   /**
    * Load burner key from storage
    */
-  const loadFromStorageOrCreate = useCallback(() => {
+  const loadOrGenerateBurner = useCallback(() => {
     if (setPrivateKey != null) {
       const pk = loadBurnerKeyFromStorage();
       if (pk && isValidPk(pk)) {
         console.log('🔑 ...Loaded Private Key');
         setPrivateKey(pk);
       } else {
-        createBurnerSigner();
+        generateBurnerSigner();
       }
     }
-  }, [createBurnerSigner]);
+  }, [generateBurnerSigner]);
 
-  return { signer, account, saveToStorage, loadFromStorageOrCreate, createBurnerSigner };
+  const getBurnerPrivateKey = (): BytesLike | undefined => {
+    return privateKeyValue;
+  };
+
+  return {
+    signer,
+    account,
+    saveBurner: saveToStorage,
+    loadOrGenerateBurner,
+    generateBurnerSigner,
+    getBurnerPrivateKey,
+  };
 };
