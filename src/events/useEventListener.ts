@@ -35,11 +35,13 @@ export const useEventListener = (
   const events = useMemo(() => [...eventMap].map((m) => m[1]), [deps]);
 
   const addNewEvent = useCallback(
-    (events: Event[]) => {
-      if (events != null && events.length > 0) {
-        const newMap = new Map(events.map((m) => [getEventKey(m), m]));
-
-        setEventMap((oldMap) => new Map([...oldMap, ...newMap]));
+    (listenerArgs: any[]) => {
+      if (listenerArgs != null && listenerArgs.length > 0) {
+        const newEvent = listenerArgs[listenerArgs.length - 1] as Event;
+        if (newEvent.event != null && newEvent.logIndex != null && newEvent.transactionHash != null) {
+          const newMap = new Map([[getEventKey(newEvent), newEvent]]);
+          setEventMap((oldMap) => new Map([...oldMap, ...newMap]));
+        }
       }
     },
     [setEventMap]
