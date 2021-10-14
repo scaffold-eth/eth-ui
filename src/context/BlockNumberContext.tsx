@@ -42,16 +42,17 @@ export const BlockNumberContext: FC<IProps> = (props) => {
   const ethersProvider = props.ethersProvider ?? context.ethersProvider;
 
   const [state, dispatch] = useReducer(reducer, {});
-  const [blockNumber] = useDebounce(chainId ? state[chainId] : undefined, 250, { trailing: true });
+  const [blockNumber] = useDebounce(chainId ? state[chainId] : undefined, 100, { trailing: true });
 
   useEffect(() => {
     if (chainId && ethersProvider) {
       const update = (blockNumber: number): void => {
+        console.log('BlockNumberContext: updated block ', blockNumber, ' for chainId ', chainId);
         dispatch({ chainId, blockNumber });
       };
-      ethersProvider.on('block', update);
+      ethersProvider.addListener?.('block', update);
       return (): void => {
-        ethersProvider.on('block', update);
+        ethersProvider.removeListener?.('block', update);
       };
     }
   }, [chainId, ethersProvider]);
