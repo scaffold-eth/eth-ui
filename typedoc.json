@@ -4,15 +4,7 @@
   "categorizeByGroup": true,
   "cleanOutputDir": true,
   "readme": "README.tsdoc.md",
-  "entryPoints": [
-    "./src/",
-    "./src/models",
-    "./src/context",
-    "./src/dapps",
-    "./src/erc",
-    "./src/functions",
-    "./src/helpers"
-  ],
+  "entryPoints": ["./src/index.docs.ts"],
   "out": "docs",
   "includeVersion": true,
   "sort": ["source-order"],

@@ -1,32 +1,30 @@
-[eth-hooks - v3.2.0beta09](../README.md) / [Modules](../modules.md) / [context](../modules/context.md) / CouldNotActivateError
+[eth-hooks - v3.2.0beta09](../README.md) / [Exports](../modules.md) / UserClosedModalError
 
-# Class: CouldNotActivateError
-
-[context](../modules/context.md).CouldNotActivateError
+# Class: UserClosedModalError
 
 ## Hierarchy
 
 - `Error`
 
-  ↳ **`CouldNotActivateError`**
+  ↳ **`UserClosedModalError`**
 
 ## Table of contents
 
 ### Methods
 
-- [captureStackTrace](context.CouldNotActivateError.md#capturestacktrace)
+- [captureStackTrace](UserClosedModalError.md#capturestacktrace)
 
 ### Properties
 
-- [prepareStackTrace](context.CouldNotActivateError.md#preparestacktrace)
-- [stackTraceLimit](context.CouldNotActivateError.md#stacktracelimit)
-- [name](context.CouldNotActivateError.md#name)
-- [message](context.CouldNotActivateError.md#message)
-- [stack](context.CouldNotActivateError.md#stack)
+- [prepareStackTrace](UserClosedModalError.md#preparestacktrace)
+- [stackTraceLimit](UserClosedModalError.md#stacktracelimit)
+- [name](UserClosedModalError.md#name)
+- [message](UserClosedModalError.md#message)
+- [stack](UserClosedModalError.md#stack)
 
 ### Constructors
 
-- [constructor](context.CouldNotActivateError.md#constructor)
+- [constructor](UserClosedModalError.md#constructor)
 
 ## Methods
 
@@ -146,13 +144,7 @@ node_modules/typescript/lib/lib.es5.d.ts:975
 
 ### constructor
 
-• **new CouldNotActivateError**(`error`)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `error` | `any` |
+• **new UserClosedModalError**()
 
 #### Overrides
 
@@ -160,4 +152,4 @@ Error.constructor
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L26)
+[src/context/connectors/EthersModalConnector.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L18)

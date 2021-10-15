@@ -1,8 +1,6 @@
-[eth-hooks - v3.2.0beta09](../README.md) / [Modules](../modules.md) / [context](../modules/context.md) / EthersModalConnector
+[eth-hooks - v3.2.0beta09](../README.md) / [Exports](../modules.md) / EthersModalConnector
 
 # Class: EthersModalConnector
-
-[context](../modules/context.md).EthersModalConnector
 
 ## Hierarchy
 
@@ -14,60 +12,60 @@
 
 ### Methods
 
-- [once](context.EthersModalConnector.md#once)
-- [on](context.EthersModalConnector.md#on)
-- [listenerCount](context.EthersModalConnector.md#listenercount)
-- [getEventListeners](context.EthersModalConnector.md#geteventlisteners)
-- [addListener](context.EthersModalConnector.md#addlistener)
-- [on](context.EthersModalConnector.md#on)
-- [once](context.EthersModalConnector.md#once)
-- [removeListener](context.EthersModalConnector.md#removelistener)
-- [off](context.EthersModalConnector.md#off)
-- [removeAllListeners](context.EthersModalConnector.md#removealllisteners)
-- [setMaxListeners](context.EthersModalConnector.md#setmaxlisteners)
-- [getMaxListeners](context.EthersModalConnector.md#getmaxlisteners)
-- [listeners](context.EthersModalConnector.md#listeners)
-- [rawListeners](context.EthersModalConnector.md#rawlisteners)
-- [emit](context.EthersModalConnector.md#emit)
-- [listenerCount](context.EthersModalConnector.md#listenercount)
-- [prependListener](context.EthersModalConnector.md#prependlistener)
-- [prependOnceListener](context.EthersModalConnector.md#prependoncelistener)
-- [eventNames](context.EthersModalConnector.md#eventnames)
-- [emitUpdate](context.EthersModalConnector.md#emitupdate)
-- [emitError](context.EthersModalConnector.md#emiterror)
-- [emitDeactivate](context.EthersModalConnector.md#emitdeactivate)
-- [load](context.EthersModalConnector.md#load)
-- [activate](context.EthersModalConnector.md#activate)
-- [deactivate](context.EthersModalConnector.md#deactivate)
-- [getProvider](context.EthersModalConnector.md#getprovider)
-- [getChainId](context.EthersModalConnector.md#getchainid)
-- [getAccount](context.EthersModalConnector.md#getaccount)
-- [getSigner](context.EthersModalConnector.md#getsigner)
-- [changeSigner](context.EthersModalConnector.md#changesigner)
-- [validState](context.EthersModalConnector.md#validstate)
-- [resetModal](context.EthersModalConnector.md#resetmodal)
-- [setModalTheme](context.EthersModalConnector.md#setmodaltheme)
+- [once](EthersModalConnector.md#once)
+- [on](EthersModalConnector.md#on)
+- [listenerCount](EthersModalConnector.md#listenercount)
+- [getEventListeners](EthersModalConnector.md#geteventlisteners)
+- [addListener](EthersModalConnector.md#addlistener)
+- [on](EthersModalConnector.md#on)
+- [once](EthersModalConnector.md#once)
+- [removeListener](EthersModalConnector.md#removelistener)
+- [off](EthersModalConnector.md#off)
+- [removeAllListeners](EthersModalConnector.md#removealllisteners)
+- [setMaxListeners](EthersModalConnector.md#setmaxlisteners)
+- [getMaxListeners](EthersModalConnector.md#getmaxlisteners)
+- [listeners](EthersModalConnector.md#listeners)
+- [rawListeners](EthersModalConnector.md#rawlisteners)
+- [emit](EthersModalConnector.md#emit)
+- [listenerCount](EthersModalConnector.md#listenercount)
+- [prependListener](EthersModalConnector.md#prependlistener)
+- [prependOnceListener](EthersModalConnector.md#prependoncelistener)
+- [eventNames](EthersModalConnector.md#eventnames)
+- [emitUpdate](EthersModalConnector.md#emitupdate)
+- [emitError](EthersModalConnector.md#emiterror)
+- [emitDeactivate](EthersModalConnector.md#emitdeactivate)
+- [load](EthersModalConnector.md#load)
+- [activate](EthersModalConnector.md#activate)
+- [deactivate](EthersModalConnector.md#deactivate)
+- [getProvider](EthersModalConnector.md#getprovider)
+- [getChainId](EthersModalConnector.md#getchainid)
+- [getAccount](EthersModalConnector.md#getaccount)
+- [getSigner](EthersModalConnector.md#getsigner)
+- [changeSigner](EthersModalConnector.md#changesigner)
+- [validState](EthersModalConnector.md#validstate)
+- [resetModal](EthersModalConnector.md#resetmodal)
+- [setModalTheme](EthersModalConnector.md#setmodaltheme)
 
 ### Properties
 
-- [errorMonitor](context.EthersModalConnector.md#errormonitor)
-- [captureRejectionSymbol](context.EthersModalConnector.md#capturerejectionsymbol)
-- [captureRejections](context.EthersModalConnector.md#capturerejections)
-- [defaultMaxListeners](context.EthersModalConnector.md#defaultmaxlisteners)
-- [supportedChainIds](context.EthersModalConnector.md#supportedchainids)
-- [options](context.EthersModalConnector.md#options)
-- [providerBase](context.EthersModalConnector.md#providerbase)
-- [ethersProvider](context.EthersModalConnector.md#ethersprovider)
-- [web3Modal](context.EthersModalConnector.md#web3modal)
-- [id](context.EthersModalConnector.md#id)
-- [debug](context.EthersModalConnector.md#debug)
-- [config](context.EthersModalConnector.md#config)
-- [signer](context.EthersModalConnector.md#signer)
-- [theme](context.EthersModalConnector.md#theme)
+- [errorMonitor](EthersModalConnector.md#errormonitor)
+- [captureRejectionSymbol](EthersModalConnector.md#capturerejectionsymbol)
+- [captureRejections](EthersModalConnector.md#capturerejections)
+- [defaultMaxListeners](EthersModalConnector.md#defaultmaxlisteners)
+- [supportedChainIds](EthersModalConnector.md#supportedchainids)
+- [options](EthersModalConnector.md#options)
+- [providerBase](EthersModalConnector.md#providerbase)
+- [ethersProvider](EthersModalConnector.md#ethersprovider)
+- [web3Modal](EthersModalConnector.md#web3modal)
+- [id](EthersModalConnector.md#id)
+- [debug](EthersModalConnector.md#debug)
+- [config](EthersModalConnector.md#config)
+- [signer](EthersModalConnector.md#signer)
+- [theme](EthersModalConnector.md#theme)
 
 ### Constructors
 
-- [constructor](context.EthersModalConnector.md#constructor)
+- [constructor](EthersModalConnector.md#constructor)
 
 ## Methods
 
@@ -379,7 +377,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`eventName`, `listener`): [`EthersModalConnector`](context.EthersModalConnector.md)
+▸ **addListener**(`eventName`, `listener`): [`EthersModalConnector`](EthersModalConnector.md)
 
 Alias for `emitter.on(eventName, listener)`.
 
@@ -394,7 +392,7 @@ Alias for `emitter.on(eventName, listener)`.
 
 #### Returns
 
-[`EthersModalConnector`](context.EthersModalConnector.md)
+[`EthersModalConnector`](EthersModalConnector.md)
 
 #### Inherited from
 
@@ -408,7 +406,7 @@ ___
 
 ### on
 
-▸ **on**(`eventName`, `listener`): [`EthersModalConnector`](context.EthersModalConnector.md)
+▸ **on**(`eventName`, `listener`): [`EthersModalConnector`](EthersModalConnector.md)
 
 Adds the `listener` function to the end of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -447,7 +445,7 @@ myEE.emit('foo');
 
 #### Returns
 
-[`EthersModalConnector`](context.EthersModalConnector.md)
+[`EthersModalConnector`](EthersModalConnector.md)
 
 #### Inherited from
 
@@ -461,7 +459,7 @@ ___
 
 ### once
 
-▸ **once**(`eventName`, `listener`): [`EthersModalConnector`](context.EthersModalConnector.md)
+▸ **once**(`eventName`, `listener`): [`EthersModalConnector`](EthersModalConnector.md)
 
 Adds a **one-time**`listener` function for the event named `eventName`. The
 next time `eventName` is triggered, this listener is removed and then invoked.
@@ -498,7 +496,7 @@ myEE.emit('foo');
 
 #### Returns
 
-[`EthersModalConnector`](context.EthersModalConnector.md)
+[`EthersModalConnector`](EthersModalConnector.md)
 
 #### Inherited from
 
@@ -512,7 +510,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`eventName`, `listener`): [`EthersModalConnector`](context.EthersModalConnector.md)
+▸ **removeListener**(`eventName`, `listener`): [`EthersModalConnector`](EthersModalConnector.md)
 
 Removes the specified `listener` from the listener array for the event named`eventName`.
 
@@ -602,7 +600,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`EthersModalConnector`](context.EthersModalConnector.md)
+[`EthersModalConnector`](EthersModalConnector.md)
 
 #### Inherited from
 
@@ -616,7 +614,7 @@ ___
 
 ### off
 
-▸ **off**(`eventName`, `listener`): [`EthersModalConnector`](context.EthersModalConnector.md)
+▸ **off**(`eventName`, `listener`): [`EthersModalConnector`](EthersModalConnector.md)
 
 Alias for `emitter.removeListener()`.
 
@@ -631,7 +629,7 @@ Alias for `emitter.removeListener()`.
 
 #### Returns
 
-[`EthersModalConnector`](context.EthersModalConnector.md)
+[`EthersModalConnector`](EthersModalConnector.md)
 
 #### Inherited from
 
@@ -645,7 +643,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`EthersModalConnector`](context.EthersModalConnector.md)
+▸ **removeAllListeners**(`event?`): [`EthersModalConnector`](EthersModalConnector.md)
 
 Removes all listeners, or those of the specified `eventName`.
 
@@ -665,7 +663,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`EthersModalConnector`](context.EthersModalConnector.md)
+[`EthersModalConnector`](EthersModalConnector.md)
 
 #### Inherited from
 
@@ -679,7 +677,7 @@ ___
 
 ### setMaxListeners
 
-▸ **setMaxListeners**(`n`): [`EthersModalConnector`](context.EthersModalConnector.md)
+▸ **setMaxListeners**(`n`): [`EthersModalConnector`](EthersModalConnector.md)
 
 By default `EventEmitter`s will print a warning if more than `10` listeners are
 added for a particular event. This is a useful default that helps finding
@@ -698,7 +696,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`EthersModalConnector`](context.EthersModalConnector.md)
+[`EthersModalConnector`](EthersModalConnector.md)
 
 #### Inherited from
 
@@ -715,7 +713,7 @@ ___
 ▸ **getMaxListeners**(): `number`
 
 Returns the current max listener value for the `EventEmitter` which is either
-set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](context.EthersModalConnector.md#defaultmaxlisteners).
+set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](EthersModalConnector.md#defaultmaxlisteners).
 
 **`since`** v1.0.0
 
@@ -917,7 +915,7 @@ ___
 
 ### prependListener
 
-▸ **prependListener**(`eventName`, `listener`): [`EthersModalConnector`](context.EthersModalConnector.md)
+▸ **prependListener**(`eventName`, `listener`): [`EthersModalConnector`](EthersModalConnector.md)
 
 Adds the `listener` function to the _beginning_ of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -943,7 +941,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`EthersModalConnector`](context.EthersModalConnector.md)
+[`EthersModalConnector`](EthersModalConnector.md)
 
 #### Inherited from
 
@@ -957,7 +955,7 @@ ___
 
 ### prependOnceListener
 
-▸ **prependOnceListener**(`eventName`, `listener`): [`EthersModalConnector`](context.EthersModalConnector.md)
+▸ **prependOnceListener**(`eventName`, `listener`): [`EthersModalConnector`](EthersModalConnector.md)
 
 Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
 listener is removed, and then invoked.
@@ -981,7 +979,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`EthersModalConnector`](context.EthersModalConnector.md)
+[`EthersModalConnector`](EthersModalConnector.md)
 
 #### Inherited from
 
@@ -1105,7 +1103,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:103](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L103)
+[src/context/connectors/EthersModalConnector.ts:103](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L103)
 
 ___
 
@@ -1123,7 +1121,7 @@ AbstractConnector.activate
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:109](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L109)
+[src/context/connectors/EthersModalConnector.ts:109](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L109)
 
 ___
 
@@ -1141,17 +1139,17 @@ AbstractConnector.deactivate
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:165](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L165)
+[src/context/connectors/EthersModalConnector.ts:165](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L165)
 
 ___
 
 ### getProvider
 
-▸ **getProvider**(): `Promise`<`undefined` \| [`TEthersProvider`](../modules/models.md#tethersprovider)\>
+▸ **getProvider**(): `Promise`<`undefined` \| [`TEthersProvider`](../modules.md#tethersprovider)\>
 
 #### Returns
 
-`Promise`<`undefined` \| [`TEthersProvider`](../modules/models.md#tethersprovider)\>
+`Promise`<`undefined` \| [`TEthersProvider`](../modules.md#tethersprovider)\>
 
 #### Overrides
 
@@ -1159,7 +1157,7 @@ AbstractConnector.getProvider
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:187](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L187)
+[src/context/connectors/EthersModalConnector.ts:187](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L187)
 
 ___
 
@@ -1177,7 +1175,7 @@ AbstractConnector.getChainId
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:191](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L191)
+[src/context/connectors/EthersModalConnector.ts:191](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L191)
 
 ___
 
@@ -1195,7 +1193,7 @@ AbstractConnector.getAccount
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:201](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L201)
+[src/context/connectors/EthersModalConnector.ts:201](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L201)
 
 ___
 
@@ -1209,7 +1207,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:213](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L213)
+[src/context/connectors/EthersModalConnector.ts:213](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L213)
 
 ___
 
@@ -1229,7 +1227,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:217](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L217)
+[src/context/connectors/EthersModalConnector.ts:217](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L217)
 
 ___
 
@@ -1243,7 +1241,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:225](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L225)
+[src/context/connectors/EthersModalConnector.ts:225](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L225)
 
 ___
 
@@ -1257,7 +1255,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:229](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L229)
+[src/context/connectors/EthersModalConnector.ts:229](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L229)
 
 ___
 
@@ -1277,13 +1275,13 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:238](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L238)
+[src/context/connectors/EthersModalConnector.ts:238](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L238)
 
 ## Properties
 
 ### errorMonitor
 
-▪ `Static` `Readonly` **errorMonitor**: typeof [`errorMonitor`](context.EthersModalConnector.md#errormonitor)
+▪ `Static` `Readonly` **errorMonitor**: typeof [`errorMonitor`](EthersModalConnector.md#errormonitor)
 
 This symbol shall be used to install a listener for only monitoring `'error'`
 events. Listeners installed using this symbol are called before the regular
@@ -1305,7 +1303,7 @@ ___
 
 ### captureRejectionSymbol
 
-▪ `Static` `Readonly` **captureRejectionSymbol**: typeof [`captureRejectionSymbol`](context.EthersModalConnector.md#capturerejectionsymbol)
+▪ `Static` `Readonly` **captureRejectionSymbol**: typeof [`captureRejectionSymbol`](EthersModalConnector.md#capturerejectionsymbol)
 
 #### Inherited from
 
@@ -1367,7 +1365,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L34)
+[src/context/connectors/EthersModalConnector.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L34)
 
 ___
 
@@ -1377,17 +1375,17 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L35)
+[src/context/connectors/EthersModalConnector.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L35)
 
 ___
 
 ### ethersProvider
 
-• `Protected` `Optional` **ethersProvider**: [`TEthersProvider`](../modules/models.md#tethersprovider)
+• `Protected` `Optional` **ethersProvider**: [`TEthersProvider`](../modules.md#tethersprovider)
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L36)
+[src/context/connectors/EthersModalConnector.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L36)
 
 ___
 
@@ -1397,7 +1395,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L37)
+[src/context/connectors/EthersModalConnector.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L37)
 
 ___
 
@@ -1407,7 +1405,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L38)
+[src/context/connectors/EthersModalConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L38)
 
 ___
 
@@ -1417,7 +1415,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L39)
+[src/context/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L39)
 
 ___
 
@@ -1427,7 +1425,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L40)
+[src/context/connectors/EthersModalConnector.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L40)
 
 ___
 
@@ -1437,7 +1435,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L41)
+[src/context/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L41)
 
 ___
 
@@ -1447,7 +1445,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L42)
+[src/context/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L42)
 
 ## Constructors
 
@@ -1470,4 +1468,4 @@ AbstractConnector.constructor
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/EthersModalConnector.ts#L44)
+[src/context/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L44)
