@@ -35,6 +35,5 @@ yarn add eth-hooks
 
 # API
 
-## Hooks &amp; Helpers
-
-[eth-hooks docs](https://github.com/scaffold-eth/eth-hooks/tree/develop/docs/modules.md)
+{{>global-index-kinds kind="constant" title="Hooks & Helpers" ~}}
+{{>all-docs~}}

@@ -1,7 +1,9 @@
 import { Contract } from 'ethers';
 
 /**
- * A type for deployed contract, used by useContractLoader
+ * Contracts deployed by hardhat
+ * - {chainIds: { networkNames: {contracts} }}, contains an record of contracts
+ * - Used by {@link useContractLoader}
  */
 export type TDeployedContracts = {
   [key: string]: {
@@ -14,7 +16,9 @@ export type TDeployedContracts = {
 };
 
 /**
- * A type for external contracts, used by useContractLoader
+ * A type for external contracts
+ * - {chainId: {contracts}}, contains an record of contracts
+ * - Used by {@link useContractLoader}
  */
 export type TExternalContracts = {
   [key: number]: {
@@ -24,6 +28,9 @@ export type TExternalContracts = {
   };
 };
 
+/**
+ * Contract function information
+ */
 export type TContractFunctionInfo = {
   contractName: string;
   functionName: string;
