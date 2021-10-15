@@ -35,7 +35,7 @@ yarn add eth-hooks
 <dt><a href="#useLookupAddress">useLookupAddress</a> ⇒</dt>
 <dd><p>Gets ENS name from given address and provider</p>
 </dd>
-<dt><a href="#useResolveEnsName">useResolveEnsName</a> ⇒</dt>
+<dt><a href="#useEnsResolveName">useEnsResolveName</a> ⇒</dt>
 <dd><p>Gets the address from an ENS name and provider</p>
 </dd>
 <dt><a href="#useTokenBalance">useTokenBalance</a> ⇒</dt>
@@ -201,9 +201,9 @@ Gets ENS name from given address and provider
 | provider | (TEthersProvider) |
 | address  | (string)          |
 
-<a name="useResolveEnsName"></a>
+<a name="useEnsResolveName"></a>
 
-## useResolveEnsName ⇒
+## useEnsResolveName ⇒
 
 Gets the address from an ENS name and provider
 
