@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/functions/asyncSome.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/functions/asyncSome.ts#L1)
+[src/functions/asyncSome.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/functions/asyncSome.ts#L1)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[src/functions/ethersHelpers.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/functions/ethersHelpers.ts#L3)
+[src/functions/ethersHelpers.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/functions/ethersHelpers.ts#L3)
 
 ___
 
@@ -79,4 +79,4 @@ TProviderAndSigner
 
 #### Defined in
 
-[src/functions/parseProviderOrSigner.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/functions/parseProviderOrSigner.ts#L11)
+[src/functions/parseProviderOrSigner.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/functions/parseProviderOrSigner.ts#L11)

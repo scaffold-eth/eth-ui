@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:22](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L22)
+[src/context/EthersAppContext.tsx:22](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L22)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:23](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L23)
+[src/context/EthersAppContext.tsx:23](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L23)
 
 ## Properties
 
@@ -189,7 +189,7 @@ Web3ReactContextInterface.connector
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:16](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L16)
+[src/context/EthersAppContext.tsx:16](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L16)
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:17](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L17)
+[src/context/EthersAppContext.tsx:17](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L17)
 
 ___
 
@@ -213,7 +213,7 @@ Web3ReactContextInterface.active
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:18](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L18)
+[src/context/EthersAppContext.tsx:18](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L18)
 
 ___
 
@@ -223,7 +223,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:19](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L19)
+[src/context/EthersAppContext.tsx:19](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L19)
 
 ___
 
@@ -237,7 +237,7 @@ Web3ReactContextInterface.account
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:20](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L20)
+[src/context/EthersAppContext.tsx:20](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L20)
 
 ___
 
@@ -247,7 +247,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:21](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L21)
+[src/context/EthersAppContext.tsx:21](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L21)
 
 ___
 
@@ -257,4 +257,4 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:24](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L24)
+[src/context/EthersAppContext.tsx:24](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L24)

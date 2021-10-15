@@ -31,7 +31,7 @@ Contracts deployed by hardhat
 
 #### Defined in
 
-[src/models/contractTypes.ts:8](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/models/contractTypes.ts#L8)
+[src/models/contractTypes.ts:8](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/models/contractTypes.ts#L8)
 
 ___
 
@@ -49,7 +49,7 @@ A type for external contracts
 
 #### Defined in
 
-[src/models/contractTypes.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/models/contractTypes.ts#L23)
+[src/models/contractTypes.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/models/contractTypes.ts#L23)
 
 ___
 
@@ -69,7 +69,7 @@ Contract function information
 
 #### Defined in
 
-[src/models/contractTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/models/contractTypes.ts#L34)
+[src/models/contractTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/models/contractTypes.ts#L34)
 
 ___
 
@@ -94,7 +94,7 @@ Simple type to describe a network in scaffold-eth
 
 #### Defined in
 
-[src/models/networkTypes.ts:4](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/models/networkTypes.ts#L4)
+[src/models/networkTypes.ts:4](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/models/networkTypes.ts#L4)
 
 ___
 
@@ -106,7 +106,7 @@ A union of various providers in ethers to give maximum flexibility
 
 #### Defined in
 
-[src/models/providerTypes.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/models/providerTypes.ts#L6)
+[src/models/providerTypes.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/models/providerTypes.ts#L6)
 
 ___
 
@@ -118,7 +118,7 @@ A union of various providers and signers in ethers to give maximum flexibility
 
 #### Defined in
 
-[src/models/providerTypes.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/models/providerTypes.ts#L11)
+[src/models/providerTypes.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/models/providerTypes.ts#L11)
 
 ___
 
@@ -130,7 +130,7 @@ A union of abstract, non initalizable providers, used by some functions
 
 #### Defined in
 
-[src/models/providerTypes.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/models/providerTypes.ts#L16)
+[src/models/providerTypes.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/models/providerTypes.ts#L16)
 
 ___
 
@@ -149,4 +149,4 @@ ___
 
 #### Defined in
 
-[src/models/providerTypes.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/models/providerTypes.ts#L20)
+[src/models/providerTypes.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/models/providerTypes.ts#L20)

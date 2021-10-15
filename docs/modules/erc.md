@@ -37,4 +37,4 @@ Get the balance of an ERC20 token in an address
 
 #### Defined in
 
-[src/erc/useTokenBalance.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/erc/useTokenBalance.ts#L21)
+[src/erc/useTokenBalance.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/erc/useTokenBalance.ts#L21)

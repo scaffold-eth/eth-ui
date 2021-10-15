@@ -35,7 +35,7 @@ Get the Exchange price of ETH/USD (extrapolated from WETH/DAI)
 
 #### Defined in
 
-[src/dapps/useDexEthPrice.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/dapps/useDexEthPrice.ts#L15)
+[src/dapps/useDexEthPrice.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/dapps/useDexEthPrice.ts#L15)
 
 ___
 
@@ -64,7 +64,7 @@ const tokenList = useTokenList("https://gateway.ipfs.io/ipns/tokens.uniswap.org"
 
 #### Defined in
 
-[src/dapps/useDexTokenList.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/dapps/useDexTokenList.ts#L15)
+[src/dapps/useDexTokenList.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/dapps/useDexTokenList.ts#L15)
 
 ___
 
@@ -89,7 +89,7 @@ Gets ENS name from given address and provider
 
 #### Defined in
 
-[src/dapps/useEnsAddress.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/dapps/useEnsAddress.ts#L33)
+[src/dapps/useEnsAddress.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/dapps/useEnsAddress.ts#L33)
 
 ___
 
@@ -114,4 +114,4 @@ Gets the address from an ENS name and provider
 
 #### Defined in
 
-[src/dapps/useEnsResolveName.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/dapps/useEnsResolveName.ts#L12)
+[src/dapps/useEnsResolveName.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/dapps/useEnsResolveName.ts#L12)

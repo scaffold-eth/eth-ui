@@ -59,7 +59,7 @@ current balance
 
 #### Defined in
 
-[src/useBalance.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useBalance.ts#L17)
+[src/useBalance.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useBalance.ts#L17)
 
 ___
 
@@ -86,7 +86,7 @@ block number
 
 #### Defined in
 
-[src/useBlockNumber.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useBlockNumber.ts#L17)
+[src/useBlockNumber.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useBlockNumber.ts#L17)
 
 ___
 
@@ -110,7 +110,7 @@ IBurnerSigner
 
 #### Defined in
 
-[src/useBurnerSigner.ts:79](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useBurnerSigner.ts#L79)
+[src/useBurnerSigner.ts:79](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useBurnerSigner.ts#L79)
 
 ___
 
@@ -143,7 +143,7 @@ Record of contractName:Contracts
 
 #### Defined in
 
-[src/useContractLoader.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useContractLoader.ts#L46)
+[src/useContractLoader.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useContractLoader.ts#L46)
 
 ___
 
@@ -167,7 +167,7 @@ Checks whether a contract exists on the blockchain
 
 #### Defined in
 
-[src/useContractExistsAtAddress.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useContractExistsAtAddress.ts#L9)
+[src/useContractExistsAtAddress.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useContractExistsAtAddress.ts#L9)
 
 ___
 
@@ -207,7 +207,7 @@ Enables you to call functions in contracts and read their values.  It helps keep
 
 #### Defined in
 
-[src/useContractReader.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useContractReader.ts#L29)
+[src/useContractReader.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useContractReader.ts#L29)
 
 ___
 
@@ -239,7 +239,7 @@ Enables you to keep track of events
 
 #### Defined in
 
-[src/useEventListener.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useEventListener.ts#L26)
+[src/useEventListener.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useEventListener.ts#L26)
 
 ___
 
@@ -265,7 +265,7 @@ Gets the gas price from Eth Gas Station.  as gwei
 
 #### Defined in
 
-[src/useGasPrice.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useGasPrice.ts#L27)
+[src/useGasPrice.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useGasPrice.ts#L27)
 
 ___
 
@@ -298,7 +298,7 @@ const tx = Transactor(userSigner, gasPrice)
 
 #### Defined in
 
-[src/useGetUserFromProviders.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useGetUserFromProviders.ts#L22)
+[src/useGetUserFromProviders.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useGetUserFromProviders.ts#L22)
 
 ___
 
@@ -330,7 +330,7 @@ const tx = Transactor(userSigner, gasPrice)
 
 #### Defined in
 
-[src/useGetUserFromSigners.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useGetUserFromSigners.ts#L21)
+[src/useGetUserFromSigners.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useGetUserFromSigners.ts#L21)
 
 ___
 
@@ -354,7 +354,7 @@ Get the current nonce of the address provided
 
 #### Defined in
 
-[src/useNonce.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useNonce.ts#L14)
+[src/useNonce.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useNonce.ts#L14)
 
 ___
 
@@ -380,7 +380,7 @@ Alternatively, If a pollTime is provided, it will use that instead. The minumum 
 
 #### Defined in
 
-[src/useOnRepetition.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useOnRepetition.ts#L29)
+[src/useOnRepetition.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useOnRepetition.ts#L29)
 
 ___
 
@@ -404,7 +404,7 @@ Get the current timestamp from the latest block
 
 #### Defined in
 
-[src/useTimestamp.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useTimestamp.ts#L13)
+[src/useTimestamp.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useTimestamp.ts#L13)
 
 ___
 
@@ -428,7 +428,7 @@ Get the address from the current signer or provider
 
 #### Defined in
 
-[src/useUserAddress.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useUserAddress.ts#L11)
+[src/useUserAddress.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useUserAddress.ts#L11)
 
 ___
 
@@ -451,7 +451,7 @@ A hook that makes it easy to use web3Modal
 
 #### Defined in
 
-[src/useWeb3Modal.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useWeb3Modal.ts#L22)
+[src/useWeb3Modal.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useWeb3Modal.ts#L22)
 
 ## Type aliases
 
@@ -472,7 +472,7 @@ Configuration for useContractLoader
 
 #### Defined in
 
-[src/useContractLoader.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useContractLoader.ts#L11)
+[src/useContractLoader.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useContractLoader.ts#L11)
 
 ___
 
@@ -488,4 +488,4 @@ average: Recommended average(expected to be mined in < 5 minutes) gas price in x
 
 #### Defined in
 
-[src/useGasPrice.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useGasPrice.ts#L18)
+[src/useGasPrice.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useGasPrice.ts#L18)

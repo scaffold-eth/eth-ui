@@ -31,7 +31,7 @@ Return of useBurnerSigner:
 
 #### Defined in
 
-[src/useBurnerSigner.ts:52](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useBurnerSigner.ts#L52)
+[src/useBurnerSigner.ts:52](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useBurnerSigner.ts#L52)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/useBurnerSigner.ts:53](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useBurnerSigner.ts#L53)
+[src/useBurnerSigner.ts:53](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useBurnerSigner.ts#L53)
 
 ## Methods
 
@@ -57,7 +57,7 @@ save to local storage
 
 #### Defined in
 
-[src/useBurnerSigner.ts:57](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useBurnerSigner.ts#L57)
+[src/useBurnerSigner.ts:57](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useBurnerSigner.ts#L57)
 
 ___
 
@@ -73,7 +73,7 @@ load from local storage, or if it doesn't exist, create
 
 #### Defined in
 
-[src/useBurnerSigner.ts:61](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useBurnerSigner.ts#L61)
+[src/useBurnerSigner.ts:61](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useBurnerSigner.ts#L61)
 
 ___
 
@@ -89,7 +89,7 @@ create a new burner signer
 
 #### Defined in
 
-[src/useBurnerSigner.ts:65](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useBurnerSigner.ts#L65)
+[src/useBurnerSigner.ts:65](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useBurnerSigner.ts#L65)
 
 ___
 
@@ -105,4 +105,4 @@ get your current burner pk
 
 #### Defined in
 
-[src/useBurnerSigner.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useBurnerSigner.ts#L69)
+[src/useBurnerSigner.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useBurnerSigner.ts#L69)

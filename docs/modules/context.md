@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/context/BlockNumberContext.tsx:18](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/BlockNumberContext.tsx#L18)
+[src/context/BlockNumberContext.tsx:18](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/BlockNumberContext.tsx#L18)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/context/BlockNumberContext.tsx:29](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/BlockNumberContext.tsx#L29)
+[src/context/BlockNumberContext.tsx:29](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/BlockNumberContext.tsx#L29)
 
 ___
 
@@ -89,7 +89,7 @@ and eth-hooks compatability
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:33](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L33)
+[src/context/EthersAppContext.tsx:33](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L33)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/StaticJsonRpcProviderConnector.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/connectors/StaticJsonRpcProviderConnector.ts#L9)
+[src/context/connectors/StaticJsonRpcProviderConnector.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/connectors/StaticJsonRpcProviderConnector.ts#L9)
 
 ## Variables
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/context/BlockNumberContext.tsx:39](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/BlockNumberContext.tsx#L39)
+[src/context/BlockNumberContext.tsx:39](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/BlockNumberContext.tsx#L39)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:109](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L109)
+[src/context/EthersAppContext.tsx:109](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L109)
 
 ## Type aliases
 
@@ -148,4 +148,4 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:13](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/context/EthersAppContext.tsx#L13)
+[src/context/EthersAppContext.tsx:13](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/context/EthersAppContext.tsx#L13)

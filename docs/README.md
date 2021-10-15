@@ -1,5 +1,3 @@
-eth-hooks - v3.2.0beta09 / [Modules](modules.md)
-
 # 🖇 Eth-Hooks Overview
 
 Commonly used Ethereum hooks.
@@ -39,4 +37,4 @@ yarn add eth-hooks
 
 ## Hooks &amp; Helpers
 
-[eth-hooks docs](https://github.com/scaffold-eth/eth-hooks/tree/develop/docs/modules.md)
+eth-hooks - v3.2.0beta09 / [Modules](modules.md)

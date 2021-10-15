@@ -36,4 +36,4 @@ e.g. export const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'Exa
 
 #### Defined in
 
-[src/helpers/lazier.ts:10](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/helpers/lazier.ts#L10)
+[src/helpers/lazier.ts:10](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/helpers/lazier.ts#L10)

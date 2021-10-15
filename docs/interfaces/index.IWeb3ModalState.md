@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/useWeb3Modal.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useWeb3Modal.ts#L11)
+[src/useWeb3Modal.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useWeb3Modal.ts#L11)
 
 ## Methods
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[src/useWeb3Modal.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useWeb3Modal.ts#L12)
+[src/useWeb3Modal.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useWeb3Modal.ts#L12)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/useWeb3Modal.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useWeb3Modal.ts#L13)
+[src/useWeb3Modal.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useWeb3Modal.ts#L13)
 
 ___
 
@@ -72,4 +72,4 @@ ___
 
 #### Defined in
 
-[src/useWeb3Modal.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/9f8998d/src/useWeb3Modal.ts#L14)
+[src/useWeb3Modal.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/b739a97/src/useWeb3Modal.ts#L14)
