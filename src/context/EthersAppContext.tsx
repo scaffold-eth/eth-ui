@@ -6,7 +6,7 @@ import { Signer } from 'ethers';
 import { FC, useCallback } from 'react';
 
 import { BlockNumberContext } from '~~/context/BlockNumberContext';
-import { EthersModalConnector } from '~~/context/connectors/EthersModalConnector';
+import { EthersModalConnector, TEthersModalConnector } from '~~/context/connectors/EthersModalConnector';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
 
@@ -19,7 +19,7 @@ import { TEthersProvider } from '~~/models';
  *
  * @category EthersContext
  */
-export type CreateEthersModalConnector = () => EthersModalConnector | undefined;
+export type CreateEthersModalConnector = () => TEthersModalConnector | undefined;
 
 /**
  * #### Summary
@@ -32,13 +32,13 @@ export type CreateEthersModalConnector = () => EthersModalConnector | undefined;
  * @category EthersContext
  */
 export interface IEthersContext extends Web3ReactContextInterface<TEthersProvider> {
-  connector: EthersModalConnector | undefined;
+  connector: TEthersModalConnector | undefined;
   ethersProvider: TEthersProvider | undefined;
   active: boolean;
   signer: Signer | undefined;
   account: string | undefined;
   changeAccount: ((signer: Signer) => Promise<void>) | undefined;
-  openModal: (ethersModalConnector: EthersModalConnector) => void;
+  openModal: (ethersModalConnector: TEthersModalConnector) => void;
   disconnectModal: () => void;
   setModalTheme: ((theme: 'light' | 'dark') => void) | undefined;
 }
@@ -78,7 +78,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
   const ethersConnector = connector as EthersModalConnector;
 
   const openWeb3Modal = useCallback(
-    (ethersModalConnector: EthersModalConnector | undefined) => {
+    (ethersModalConnector: TEthersModalConnector | undefined) => {
       if (context.active) {
         deactivate();
       }
@@ -86,7 +86,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
       if (ethersModalConnector == null) {
         console.error('A valid ethersModalConnector was not provided');
       }
-      if (ethersModalConnector != null && ethersModalConnector instanceof EthersModalConnector) {
+      if (ethersModalConnector != null) {
         console.log('activate ethersModalConnector');
         const onError = (error: Error): void => {
           connector?.deactivate?.();
@@ -103,7 +103,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     deactivate();
   }, [deactivate, ethersConnector]);
 
-  return {
+  const result: IEthersContext = {
     connector: ethersConnector,
     ethersProvider: library,
     activate,
@@ -117,6 +117,8 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     setModalTheme: ethersConnector?.setModalTheme.bind(ethersConnector),
     ...context,
   };
+
+  return result;
 };
 
 /**
@@ -128,7 +130,11 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
  * @param _connector
  * @returns
  */
-const setEthersAppProvider = (provider: any, _connector: AbstractConnector | undefined): TEthersProvider => {
+export const getEthersAppProviderLibrary = (
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  provider: any,
+  _connector: AbstractConnector | undefined
+): TEthersProvider => {
   if (isEthersProvider(provider)) {
     return provider as TEthersProvider;
   } else {
@@ -170,7 +176,7 @@ const ChildContexts: FC<IChildContextProps> = (props) => {
  */
 export const EthersAppContext: FC = (props) => {
   return (
-    <Web3ReactProvider getLibrary={setEthersAppProvider}>
+    <Web3ReactProvider getLibrary={getEthersAppProviderLibrary}>
       <ChildContexts>{props.children}</ChildContexts>
     </Web3ReactProvider>
   );

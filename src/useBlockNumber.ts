@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { TEthersProvider } from '~~/models';
 import { useOnRepetition } from '~~/useOnRepetition';
 
 /**
@@ -24,20 +23,17 @@ export const useBlockNumber = (pollTime: number = 0): number => {
   const isMounted = useIsMounted();
   const { ethersProvider } = useEthersContext();
 
-  const getBlockNumber = useCallback(
-    async (provider: TEthersProvider): Promise<void> => {
-      const nextBlockNumber = await provider?.getBlockNumber();
-      if (isMounted()) {
-        setBlockNumber((value) => {
-          if (value !== nextBlockNumber) return nextBlockNumber;
-          return value;
-        });
-      }
-    },
-    [isMounted]
-  );
+  const getBlockNumber = useCallback(async (): Promise<void> => {
+    const nextBlockNumber = await ethersProvider?.getBlockNumber();
+    if (isMounted() && ethersProvider != null) {
+      setBlockNumber((value) => {
+        if (value !== nextBlockNumber) return nextBlockNumber ?? 0;
+        return value;
+      });
+    }
+  }, [ethersProvider, isMounted]);
 
-  useOnRepetition(getBlockNumber, { provider: ethersProvider, pollTime }, ethersProvider);
+  useOnRepetition(getBlockNumber, { provider: ethersProvider, pollTime });
 
   return blockNumber;
 };
