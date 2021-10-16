@@ -3,11 +3,10 @@
 ## API Overview
 
 - [API Overview](api-typedocs/api-overview.md)
-  - [Hooks](api-typedocs/modules/hooks.md)
-  - [EthersContext](api-typedocs/modules/ethersContext.md)
-  - [Models](api-typedocs/modules/models.md)
+  - [EthersContext](api-typedocs/modules/EthersContext.md)
   - [Helpers](api-typedocs/modules/Helpers.md)
-  - [API Overview](api-typedocs/api-overview.md)
+  - [Hooks](api-typedocs/modules/Hooks.md)
+  - [Models](api-typedocs/modules/Models.md)
 
 ## Definitions
 
