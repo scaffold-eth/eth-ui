@@ -1,8 +1,13 @@
 import { lazy, ComponentType, LazyExoticComponent } from 'react';
 
 /**
- * modified react lazy to allow for named exports
- * e.g. export const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
+ * ### Summary
+ * A function that modifies react lazy to allow for named exports
+ *
+ * ### Example
+ * ```typescript
+ * const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
+ * ```
  * @param importFactory a callback that imports e.g. () => import('./exampleui/ExampleUI')
  * @param importName the named export you want to import.
  * @returns

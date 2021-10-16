@@ -2,6 +2,10 @@
 
 # Interface: IStaticJsonRpcProviderConnectorOptions
 
+#### Summary
+A web3modal CustomProvider Options
+- Options for web3modal that allows you to connect to a StaticJsonRpcProvider such as localhost
+
 ## Hierarchy
 
 - `IAbstractConnectorOptions`
@@ -42,7 +46,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/StaticJsonRpcProviderConnector.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/connectors/StaticJsonRpcProviderConnector.ts#L5)
+[src/context/connectors/StaticJsonRpcProviderConnector.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/context/connectors/StaticJsonRpcProviderConnector.ts#L12)
 
 ___
 
@@ -52,4 +56,4 @@ ___
 
 #### Defined in
 
-[src/context/connectors/StaticJsonRpcProviderConnector.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/connectors/StaticJsonRpcProviderConnector.ts#L6)
+[src/context/connectors/StaticJsonRpcProviderConnector.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/context/connectors/StaticJsonRpcProviderConnector.ts#L13)

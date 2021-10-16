@@ -6,6 +6,8 @@ import Core, { ICoreOptions, ThemeColors } from 'web3modal';
 
 import { isEthersProvider } from '../../functions/ethersHelpers';
 
+import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
+
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser } from '~~/models/constants/common';
 
@@ -14,22 +16,21 @@ interface IEthersModalConfig {
 }
 
 type TWeb3ModalTheme = 'light' | 'dark';
-export class UserClosedModalError extends Error {
-  public constructor() {
-    super();
-    this.name = this.constructor.name;
-    this.message = 'EthersModalConnector: The user closed the modal with selecting a provider.';
-  }
-}
 
-export class CouldNotActivateError extends Error {
-  public constructor(error: unknown) {
-    super();
-    this.name = this.constructor.name;
-    this.message = `EthersModalConnector: Could not activate provider.  ${(error as string) ?? ''}`;
-  }
-}
-
+/**
+ * #### Summary
+ * This is a connector for (web3-react)[https://github.com/NoahZinsmeister/web3-react] that allows it to interface with [web3Modal](https://github.com/Web3Modal/web3modal).
+ * The provider selected by user via web3modal is interfaced to the web3-react context.
+ *
+ * #### Features
+ * - This connector used with {@link useEthersContext} allows the app and all the hooks to effortlessly access the current network, provider, signer, address information {@link IEthersContext}
+ * - The connector centralizes and takes care of management of the web3 interaction and provides a consistent exprience for your app.
+ *
+ * #### Notes
+ * - inherits from web3-react class AbstractConnector
+ *
+ * @category EthersContext
+ */
 export class EthersModalConnector extends AbstractConnector {
   protected options: Partial<ICoreOptions>;
   protected providerBase?: any;
@@ -41,13 +42,18 @@ export class EthersModalConnector extends AbstractConnector {
   protected signer: Signer | undefined;
   protected theme: TWeb3ModalTheme | ThemeColors;
 
+  /**
+   * @param web3modalOptions see [web3modal docs](https://github.com/Web3Modal/web3modal#provider-options) for details.  You can also check the [scaffold-eth-typescript web3config](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/main/packages/vite-app-ts/src/config/web3ModalConfig.ts) for an example.
+   * @param config Configuration for EthersModalConnector
+   * @param id allows you to connect directly to a specific provider.  [See docs](https://github.com/Web3Modal/web3modal#connect-to-specific-provider)
+   * @param debug turn on debug logging
+   */
   constructor(
     web3modalOptions: Partial<ICoreOptions>,
     config: IEthersModalConfig,
     id?: string,
     debug: boolean = false
   ) {
-    // super({supportedChainIds: options.network ? });
     super();
 
     this.options = web3modalOptions;
@@ -101,12 +107,27 @@ export class EthersModalConnector extends AbstractConnector {
     this.deactivate();
   }
 
-  public load(): void {
+  private load(): void {
     if (!this.web3Modal) {
       this.web3Modal = new Core({ ...this.options, theme: this.theme });
     }
   }
 
+  /**
+   * #### Summary
+   * Inherits from AbstractConnector.  This activates web3Modal and opens the modal.
+   *
+   * #### Notes
+   * Once the user selects a provider
+   * - this will activate the provider and attach the appropriate event listeners.
+   * - get the account and signer
+   * - gets the ethers compatable provider
+   *
+   * #### Errors
+   * - {@link UserClosedModalError}
+   * - {@link CouldNotActivateError}
+   * @returns
+   */
   public async activate(): Promise<ConnectorUpdate> {
     try {
       this.load();
@@ -164,6 +185,10 @@ export class EthersModalConnector extends AbstractConnector {
     return isEthersProvider(this.providerBase);
   }
 
+  /**
+   * #### Summary
+   * Safely deactivates the current provider and removes all event listeners
+   */
   public deactivate(): void {
     /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call  */
     this.emitDeactivate?.();
@@ -214,11 +239,19 @@ export class EthersModalConnector extends AbstractConnector {
     return this.signer;
   }
 
+  /**
+   * #### Summary
+   * Change the current signer and account used by the connector
+   * @param signer
+   */
   public async changeSigner(signer: Signer): Promise<void> {
     const account = await signer.getAddress();
     if (utils.isAddress(account) && this.validState()) {
       this.signer = signer;
       this.handleAccountsChanged([account]);
+
+      console.log(`changeSigner: provider chainId ${await this.getChainId()}`);
+      console.log(`new signer chainId ${(await signer.provider?.getNetwork())?.chainId ?? ''}`);
     }
   }
 
@@ -226,6 +259,10 @@ export class EthersModalConnector extends AbstractConnector {
     return this.providerBase != null && this.ethersProvider != null && this.web3Modal != null;
   }
 
+  /**
+   * #### Summary
+   * Resets the web3Modal and clears the cache
+   */
   public resetModal(): void {
     if (this.web3Modal) {
       this.web3Modal.clearCachedProvider();
@@ -235,7 +272,13 @@ export class EthersModalConnector extends AbstractConnector {
       this.emitUpdate?.({ account: undefined, provider: undefined, chainId: undefined });
     }
   }
-  public setModalTheme(theme: 'light' | 'dark'): void {
+
+  /**
+   * #### Summary
+   * Sets the web3modal theme: light | dark | ThemeColors
+   * @param theme
+   */
+  public setModalTheme(theme: TWeb3ModalTheme | ThemeColors): void {
     this.theme = theme;
   }
 }

@@ -20,54 +20,66 @@
 - [useTimestamp](modules.md#usetimestamp)
 - [useUserAddress](modules.md#useuseraddress)
 
-### Misc Functions
+### EthersContext Functions
 
-- [reducer](modules.md#reducer)
 - [useBlockNumberContext](modules.md#useblocknumbercontext)
 - [useEthersContext](modules.md#useetherscontext)
 - [ConnectToStaticJsonRpcProvider](modules.md#connecttostaticjsonrpcprovider)
+
+### Functions Functions
+
+- [asyncSome](modules.md#asyncsome)
+- [parseProviderOrSigner](modules.md#parseproviderorsigner)
+
+### Misc Functions
+
 - [useDexEthPrice](modules.md#usedexethprice)
 - [useDexTokenList](modules.md#usedextokenlist)
 - [useEnsAddress](modules.md#useensaddress)
 - [useEnsResolveName](modules.md#useensresolvename)
 - [useTokenBalance](modules.md#usetokenbalance)
-- [asyncSome](modules.md#asyncsome)
 - [isEthersProvider](modules.md#isethersprovider)
-- [parseProviderOrSigner](modules.md#parseproviderorsigner)
 - [lazier](modules.md#lazier)
 - [useOnRepetition](modules.md#useonrepetition)
 - [useWeb3Modal](modules.md#useweb3modal)
 
-### Variables
+### EthersContext Variables
 
 - [BlockNumberContext](modules.md#blocknumbercontext)
 - [EthersAppContext](modules.md#ethersappcontext)
 
-### Type aliases
+### Models Type aliases
 
-- [CreateEthersModalConnector](modules.md#createethersmodalconnector)
 - [TDeployedContracts](modules.md#tdeployedcontracts)
 - [TExternalContracts](modules.md#texternalcontracts)
 - [TContractFunctionInfo](modules.md#tcontractfunctioninfo)
 - [TNetworkInfo](modules.md#tnetworkinfo)
+
+### Misc Type aliases
+
+- [CreateEthersModalConnector](modules.md#createethersmodalconnector)
+- [TContractConfig](modules.md#tcontractconfig)
+- [TGasStationSpeed](modules.md#tgasstationspeed)
+
+### Type Definition Type aliases
+
 - [TEthersProvider](modules.md#tethersprovider)
 - [TEthersProviderOrSigner](modules.md#tethersproviderorsigner)
 - [TAbstractProvider](modules.md#tabstractprovider)
 - [TEthersUser](modules.md#tethersuser)
-- [TContractConfig](modules.md#tcontractconfig)
-- [TGasStationSpeed](modules.md#tgasstationspeed)
 
-### Interfaces
+### EthersContext Interfaces
+
+- [IStaticJsonRpcProviderConnectorOptions](interfaces/IStaticJsonRpcProviderConnectorOptions.md)
+
+### Misc Interfaces
 
 - [IEthersContext](interfaces/IEthersContext.md)
-- [IStaticJsonRpcProviderConnectorOptions](interfaces/IStaticJsonRpcProviderConnectorOptions.md)
 - [IBurnerSigner](interfaces/IBurnerSigner.md)
 - [IWeb3ModalState](interfaces/IWeb3ModalState.md)
 
-### Classes
+### EthersContext Classes
 
-- [UserClosedModalError](classes/UserClosedModalError.md)
-- [CouldNotActivateError](classes/CouldNotActivateError.md)
 - [EthersModalConnector](classes/EthersModalConnector.md)
 
 ## Hooks Functions
@@ -97,7 +109,7 @@ current balance
 
 #### Defined in
 
-[src/useBalance.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useBalance.ts#L22)
+[src/useBalance.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useBalance.ts#L22)
 
 ___
 
@@ -126,7 +138,7 @@ block number
 
 #### Defined in
 
-[src/useBlockNumber.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useBlockNumber.ts#L21)
+[src/useBlockNumber.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useBlockNumber.ts#L21)
 
 ___
 
@@ -152,7 +164,7 @@ IBurnerSigner
 
 #### Defined in
 
-[src/useBurnerSigner.ts:85](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useBurnerSigner.ts#L85)
+[src/useBurnerSigner.ts:85](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useBurnerSigner.ts#L85)
 
 ___
 
@@ -179,7 +191,7 @@ Checks whether a contract exists on the blockchain
 
 #### Defined in
 
-[src/useContractExistsAtAddress.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useContractExistsAtAddress.ts#L17)
+[src/useContractExistsAtAddress.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useContractExistsAtAddress.ts#L17)
 
 ___
 
@@ -216,7 +228,7 @@ Record of contractName:Contracts
 
 #### Defined in
 
-[src/useContractLoader.ts:52](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useContractLoader.ts#L52)
+[src/useContractLoader.ts:52](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useContractLoader.ts#L52)
 
 ___
 
@@ -253,7 +265,7 @@ Enables you to call a contract function with arguments and receive the output.  
 
 #### Defined in
 
-[src/useContractReader.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useContractReader.ts#L26)
+[src/useContractReader.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useContractReader.ts#L25)
 
 ___
 
@@ -282,7 +294,7 @@ Tracks the events of associated with a contract
 
 #### Defined in
 
-[src/useEventListener.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useEventListener.ts#L25)
+[src/useEventListener.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useEventListener.ts#L25)
 
 ___
 
@@ -317,7 +329,7 @@ gas as gwei
 
 #### Defined in
 
-[src/useGasPrice.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useGasPrice.ts#L38)
+[src/useGasPrice.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useGasPrice.ts#L38)
 
 ___
 
@@ -344,7 +356,7 @@ Gets the user [TEthersUser](modules.md#tethersuser) from from the current provid
 
 #### Defined in
 
-[src/useGetUserFromProviders.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useGetUserFromProviders.ts#L21)
+[src/useGetUserFromProviders.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useGetUserFromProviders.ts#L21)
 
 ___
 
@@ -367,7 +379,7 @@ Gets the user [TEthersUser](modules.md#tethersuser) for a signer or wallet
 
 #### Defined in
 
-[src/useGetUserFromSigners.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useGetUserFromSigners.ts#L16)
+[src/useGetUserFromSigners.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useGetUserFromSigners.ts#L16)
 
 ___
 
@@ -394,7 +406,7 @@ Get the current nonce for the address provided
 
 #### Defined in
 
-[src/useNonce.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useNonce.ts#L20)
+[src/useNonce.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useNonce.ts#L20)
 
 ___
 
@@ -415,7 +427,7 @@ Get the current timestamp from the latest block
 
 #### Defined in
 
-[src/useTimestamp.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useTimestamp.ts#L19)
+[src/useTimestamp.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useTimestamp.ts#L19)
 
 ___
 
@@ -438,44 +450,37 @@ Get the address from the signer
 
 #### Defined in
 
-[src/useUserAddress.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useUserAddress.ts#L15)
+[src/useUserAddress.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useUserAddress.ts#L15)
 
 ___
 
-## Misc Functions
-
-### reducer
-
-▸ `Const` **reducer**(`state?`, `payload`): `State`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `state` | `State` |
-| `payload` | `Payload` |
-
-#### Returns
-
-`State`
-
-#### Defined in
-
-[src/context/BlockNumberContext.tsx:18](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/BlockNumberContext.tsx#L18)
-
-___
+## EthersContext Functions
 
 ### useBlockNumberContext
 
 ▸ `Const` **useBlockNumberContext**(): `undefined` \| `number`
 
+#### Summary
+A hook that gets you the current blocknumber via react context
+- can be shared by your whole app.
+
+#### Use
+Make sure to wrap your main app with the [EthersAppContext](modules.md#ethersappcontext).
+- See [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/0225179a2a8bb7b3a255d6eff4802b47d72809dd/packages/vite-app-ts/src/components/routes/App.tsx#L38)
+
+#### Notes
+- this extensively used by eth-hooks to trigger hooks when a new block arrives
+- uses the current provider [ethersProvider](interfaces/IEthersContext.md#ethersprovider) from [useEthersContext](modules.md#useetherscontext)
+
 #### Returns
 
 `undefined` \| `number`
 
+current block number
+
 #### Defined in
 
-[src/context/BlockNumberContext.tsx:29](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/BlockNumberContext.tsx#L29)
+[src/context/BlockNumberContext.tsx:63](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/context/BlockNumberContext.tsx#L63)
 
 ___
 
@@ -483,24 +488,33 @@ ___
 
 ▸ `Const` **useEthersContext**(`providerKey?`): [`IEthersContext`](interfaces/IEthersContext.md)
 
-A wrapper around useWeb3React that provides functionality for web3modal
-and eth-hooks compatability
+#### Summary
+This Hook provides you with access to the current Ethers Provider Context.
+This provider would be the one selected by using {@link EthersModalConnect} and Web3Modal
+
+#### Features
+Gives you access to consistent interface to get the current provider information [EthersModalConnector](classes/EthersModalConnector.md)
+- ethers compatable provider [TEthersProvider](modules.md#tethersprovider)
+- a callback to change the current account (signer)
+- the current account, chainId and signer
+- callbacks to open the web3Modal, logout or change theme
+
+#### Notes
+- currently providerKey isnt being used
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `providerKey?` | `string` | (string) :: (optional) :: used if you want a secondary provider context, for example to mainnet |
+| Name | Type |
+| :------ | :------ |
+| `providerKey?` | `string` |
 
 #### Returns
 
 [`IEthersContext`](interfaces/IEthersContext.md)
 
-(IEthersWeb3Context)
-
 #### Defined in
 
-[src/context/EthersAppContext.tsx:33](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/EthersAppContext.tsx#L33)
+[src/context/EthersAppContext.tsx:69](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/context/EthersAppContext.tsx#L69)
 
 ___
 
@@ -508,12 +522,20 @@ ___
 
 ▸ `Const` **ConnectToStaticJsonRpcProvider**(`_package`, `opts`): `Promise`<`StaticJsonRpcProvider`\>
 
+#### Summary
+A connector that can be used by apps to connect let web3Modal connect to a StaticJsonRpcProvider
+- For example you can use this to connect to a localhost provider
+
+#### Notes
+See scaffold-eth-typescript for an example that uses it to connect to a localhost burner wallet.
+- [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/0225179a2a8bb7b3a255d6eff4802b47d72809dd/packages/vite-app-ts/src/config/web3ModalConfig.ts#L86)
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `_package` | `any` |
-| `opts` | [`IStaticJsonRpcProviderConnectorOptions`](interfaces/IStaticJsonRpcProviderConnectorOptions.md) |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `_package` | `unknown` | not used |
+| `opts` | [`IStaticJsonRpcProviderConnectorOptions`](interfaces/IStaticJsonRpcProviderConnectorOptions.md) |  |
 
 #### Returns
 
@@ -521,9 +543,69 @@ ___
 
 #### Defined in
 
-[src/context/connectors/StaticJsonRpcProviderConnector.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/connectors/StaticJsonRpcProviderConnector.ts#L9)
+[src/context/connectors/StaticJsonRpcProviderConnector.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/context/connectors/StaticJsonRpcProviderConnector.ts#L31)
 
 ___
+
+## Functions Functions
+
+### asyncSome
+
+▸ `Const` **asyncSome**<`T`\>(`arr`, `predicate`): `Promise`<`undefined` \| `T`\>
+
+#### Summary
+js .some function that can be used with async predicates
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `arr` | `T`[] |
+| `predicate` | (`item`: `T`) => `Promise`<`boolean`\> |
+
+#### Returns
+
+`Promise`<`undefined` \| `T`\>
+
+#### Defined in
+
+[src/functions/asyncSome.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/functions/asyncSome.ts#L11)
+
+___
+
+### parseProviderOrSigner
+
+▸ `Const` **parseProviderOrSigner**(`providerOrSigner`): `Promise`<[`TEthersUser`](modules.md#tethersuser)\>
+
+#### Summary
+Parse [TEthersProviderOrSigner](modules.md#tethersproviderorsigner) to {@link TProviderAndSigner}
+Get the TProviderAndSigner from a provider or signer
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `providerOrSigner` | `undefined` \| [`TEthersProviderOrSigner`](modules.md#tethersproviderorsigner) | TEthersProviderOrSigner |
+
+#### Returns
+
+`Promise`<[`TEthersUser`](modules.md#tethersuser)\>
+
+TProviderAndSigner
+
+#### Defined in
+
+[src/functions/parseProviderOrSigner.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/functions/parseProviderOrSigner.ts#L16)
+
+___
+
+## Misc Functions
 
 ### useDexEthPrice
 
@@ -547,7 +629,7 @@ Get the Exchange price of ETH/USD (extrapolated from WETH/DAI)
 
 #### Defined in
 
-[src/dapps/useDexEthPrice.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/dapps/useDexEthPrice.ts#L15)
+[src/dapps/useDexEthPrice.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/dapps/useDexEthPrice.ts#L15)
 
 ___
 
@@ -576,7 +658,7 @@ const tokenList = useTokenList("https://gateway.ipfs.io/ipns/tokens.uniswap.org"
 
 #### Defined in
 
-[src/dapps/useDexTokenList.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/dapps/useDexTokenList.ts#L15)
+[src/dapps/useDexTokenList.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/dapps/useDexTokenList.ts#L15)
 
 ___
 
@@ -601,7 +683,7 @@ Gets ENS name from given address and provider
 
 #### Defined in
 
-[src/dapps/useEnsAddress.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/dapps/useEnsAddress.ts#L33)
+[src/dapps/useEnsAddress.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/dapps/useEnsAddress.ts#L33)
 
 ___
 
@@ -626,7 +708,7 @@ Gets the address from an ENS name and provider
 
 #### Defined in
 
-[src/dapps/useEnsResolveName.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/dapps/useEnsResolveName.ts#L12)
+[src/dapps/useEnsResolveName.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/dapps/useEnsResolveName.ts#L12)
 
 ___
 
@@ -657,40 +739,16 @@ Get the balance of an ERC20 token in an address
 
 #### Defined in
 
-[src/erc/useTokenBalance.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/erc/useTokenBalance.ts#L21)
-
-___
-
-### asyncSome
-
-▸ `Const` **asyncSome**<`T`\>(`arr`, `predicate`): `Promise`<`undefined` \| `T`\>
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `arr` | `T`[] |
-| `predicate` | (`item`: `T`) => `Promise`<`boolean`\> |
-
-#### Returns
-
-`Promise`<`undefined` \| `T`\>
-
-#### Defined in
-
-[src/functions/asyncSome.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/functions/asyncSome.ts#L1)
+[src/erc/useTokenBalance.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/erc/useTokenBalance.ts#L21)
 
 ___
 
 ### isEthersProvider
 
 ▸ `Const` **isEthersProvider**(`providerBase`): `boolean`
+
+#### Summary
+Is it a ethers compatable provider
 
 #### Parameters
 
@@ -704,31 +762,7 @@ ___
 
 #### Defined in
 
-[src/functions/ethersHelpers.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/functions/ethersHelpers.ts#L3)
-
-___
-
-### parseProviderOrSigner
-
-▸ `Const` **parseProviderOrSigner**(`providerOrSigner`): `Promise`<[`TEthersUser`](modules.md#tethersuser)\>
-
-Parse TEthersProviderOrSigner to TProviderAndSigner
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `providerOrSigner` | `undefined` \| [`TEthersProviderOrSigner`](modules.md#tethersproviderorsigner) | TEthersProviderOrSigner |
-
-#### Returns
-
-`Promise`<[`TEthersUser`](modules.md#tethersuser)\>
-
-TProviderAndSigner
-
-#### Defined in
-
-[src/functions/parseProviderOrSigner.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/functions/parseProviderOrSigner.ts#L11)
+[src/functions/ethersHelpers.ts:10](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/functions/ethersHelpers.ts#L10)
 
 ___
 
@@ -736,8 +770,13 @@ ___
 
 ▸ `Const` **lazier**<`T`\>(`importFactory`, `importName`): `LazyExoticComponent`<`T`\>
 
-modified react lazy to allow for named exports
-e.g. export const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
+### Summary
+A function that modifies react lazy to allow for named exports
+
+### Example
+```typescript
+const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
+```
 
 #### Type parameters
 
@@ -758,7 +797,7 @@ e.g. export const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'Exa
 
 #### Defined in
 
-[src/helpers/lazier.ts:10](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/helpers/lazier.ts#L10)
+[src/helpers/lazier.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/helpers/lazier.ts#L15)
 
 ___
 
@@ -791,7 +830,7 @@ The callback can be invoked once on leading edge when leadTrigger conditions are
 
 #### Defined in
 
-[src/useOnRepetition.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useOnRepetition.ts#L40)
+[src/useOnRepetition.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useOnRepetition.ts#L40)
 
 ___
 
@@ -800,7 +839,7 @@ ___
 ▸ `Const` **useWeb3Modal**(`web3ModalConfig`, `setCurrentEthersProvider`): [`IWeb3ModalState`](interfaces/IWeb3ModalState.md)
 
 #### Summary
-A hook that makes it easy to interact and use (web3Modal)[https://github.com/Web3Modal/web3modal]
+A hook that makes it easy to interact and use [web3Modal](https://github.com/Web3Modal/web3modal)
 - provides callback to open, logout and update the modal theme
 
 #### Notes
@@ -819,17 +858,24 @@ A hook that makes it easy to interact and use (web3Modal)[https://github.com/Web
 
 #### Defined in
 
-[src/useWeb3Modal.ts:43](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useWeb3Modal.ts#L43)
+[src/useWeb3Modal.ts:43](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useWeb3Modal.ts#L43)
 
-## Variables
+## EthersContext Variables
 
 ### BlockNumberContext
 
 • **BlockNumberContext**: `FC`<`IProps`\>
 
+#### Summary
+A context that works with [useBlockNumberContext](modules.md#useblocknumbercontext) to give access to the current provider's block number in any place in your app
+
+**`param`**
+
+**`returns`**
+
 #### Defined in
 
-[src/context/BlockNumberContext.tsx:39](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/BlockNumberContext.tsx#L39)
+[src/context/BlockNumberContext.tsx:82](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/context/BlockNumberContext.tsx#L82)
 
 ___
 
@@ -837,34 +883,25 @@ ___
 
 • **EthersAppContext**: `FC`
 
-#### Defined in
+#### Summary
+Ethers App Context for your react app to be used with [useEthersContext](modules.md#useetherscontext).
+This is a wrapper around Web3ReactProvider that provides additional functionality such as a [BlockNumberContext](modules.md#blocknumbercontext) and access to [IEthersContext](interfaces/IEthersContext.md)
 
-[src/context/EthersAppContext.tsx:109](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/EthersAppContext.tsx#L109)
+**`param`**
 
-## Type aliases
-
-### CreateEthersModalConnector
-
-Ƭ **CreateEthersModalConnector**: () => [`EthersModalConnector`](classes/EthersModalConnector.md) \| `undefined`
-
-#### Type declaration
-
-▸ (): [`EthersModalConnector`](classes/EthersModalConnector.md) \| `undefined`
-
-##### Returns
-
-[`EthersModalConnector`](classes/EthersModalConnector.md) \| `undefined`
+**`returns`**
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:13](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/EthersAppContext.tsx#L13)
+[src/context/EthersAppContext.tsx:167](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/context/EthersAppContext.tsx#L167)
 
-___
+## Models Type aliases
 
 ### TDeployedContracts
 
 Ƭ **TDeployedContracts**: `Object`
 
+#### Summary
 Contracts deployed by hardhat
 - {chainIds: { networkNames: {contracts} }}, contains an record of contracts
 - Used by [useContractLoader](modules.md#usecontractloader)
@@ -875,7 +912,7 @@ Contracts deployed by hardhat
 
 #### Defined in
 
-[src/models/contractTypes.ts:8](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/models/contractTypes.ts#L8)
+[src/models/contractTypes.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/models/contractTypes.ts#L11)
 
 ___
 
@@ -883,6 +920,7 @@ ___
 
 Ƭ **TExternalContracts**: `Object`
 
+#### Summary
 A type for external contracts
 - {chainId: {contracts}}, contains an record of contracts
 - Used by [useContractLoader](modules.md#usecontractloader)
@@ -893,7 +931,7 @@ A type for external contracts
 
 #### Defined in
 
-[src/models/contractTypes.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/models/contractTypes.ts#L23)
+[src/models/contractTypes.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/models/contractTypes.ts#L29)
 
 ___
 
@@ -901,6 +939,7 @@ ___
 
 Ƭ **TContractFunctionInfo**: `Object`
 
+#### Summary
 Contract function information:
 - contractName
 - functionname
@@ -916,7 +955,7 @@ Contract function information:
 
 #### Defined in
 
-[src/models/contractTypes.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/models/contractTypes.ts#L37)
+[src/models/contractTypes.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/models/contractTypes.ts#L46)
 
 ___
 
@@ -942,62 +981,33 @@ A type that describes a network for applications
 
 #### Defined in
 
-[src/models/networkTypes.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/models/networkTypes.ts#L6)
+[src/models/networkTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/models/networkTypes.ts#L7)
 
 ___
 
-### TEthersProvider
+## Misc Type aliases
 
-Ƭ **TEthersProvider**: `JsonRpcProvider` \| `Web3Provider` \| `StaticJsonRpcProvider`
+### CreateEthersModalConnector
 
-A union of various providers in ethers to give maximum flexibility
-
-#### Defined in
-
-[src/models/providerTypes.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/models/providerTypes.ts#L6)
-
-___
-
-### TEthersProviderOrSigner
-
-Ƭ **TEthersProviderOrSigner**: `JsonRpcProvider` \| `Web3Provider` \| `StaticJsonRpcProvider` \| `Signer`
-
-A union of various providers and signers in ethers to give maximum flexibility
-
-#### Defined in
-
-[src/models/providerTypes.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/models/providerTypes.ts#L11)
-
-___
-
-### TAbstractProvider
-
-Ƭ **TAbstractProvider**: `Provider`
-
-A union of abstract, non initalizable providers, used by some functions
-
-#### Defined in
-
-[src/models/providerTypes.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/models/providerTypes.ts#L16)
-
-___
-
-### TEthersUser
-
-Ƭ **TEthersUser**: `Object`
+Ƭ **CreateEthersModalConnector**: () => [`EthersModalConnector`](classes/EthersModalConnector.md) \| `undefined`
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
-| `signer` | `Signer` \| `undefined` |
-| `provider` | [`TEthersProvider`](modules.md#tethersprovider) \| `undefined` |
-| `providerNetwork` | `ethers.providers.Network` \| `undefined` |
-| `address` | `string` \| `undefined` |
+▸ (): [`EthersModalConnector`](classes/EthersModalConnector.md) \| `undefined`
+
+#### Summary
+A callback type that returns a EthersModalConnector
+
+#### Notes
+- can be used by components that need to give a connector to [IEthersContext.openModal](interfaces/IEthersContext.md#openmodal)
+
+##### Returns
+
+[`EthersModalConnector`](classes/EthersModalConnector.md) \| `undefined`
 
 #### Defined in
 
-[src/models/providerTypes.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/models/providerTypes.ts#L20)
+[src/context/EthersAppContext.tsx:20](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/context/EthersAppContext.tsx#L20)
 
 ___
 
@@ -1019,7 +1029,7 @@ Configuration for useContractLoader
 
 #### Defined in
 
-[src/useContractLoader.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useContractLoader.ts#L12)
+[src/useContractLoader.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useContractLoader.ts#L12)
 
 ___
 
@@ -1035,4 +1045,70 @@ Preset speeds for Eth Gas Station API
 
 #### Defined in
 
-[src/useGasPrice.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useGasPrice.ts#L18)
+[src/useGasPrice.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useGasPrice.ts#L18)
+
+___
+
+## Type Definition Type aliases
+
+### TEthersProvider
+
+Ƭ **TEthersProvider**: `JsonRpcProvider` \| `Web3Provider` \| `StaticJsonRpcProvider`
+
+#### Summary
+A union of various ethers providers for ease of use and maximum flexiblity
+
+#### Notes
+Used by eth-hooks, eth-components and scaffold-eth-typescript
+
+#### Defined in
+
+[src/models/providerTypes.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/models/providerTypes.ts#L12)
+
+___
+
+### TEthersProviderOrSigner
+
+Ƭ **TEthersProviderOrSigner**: `JsonRpcProvider` \| `Web3Provider` \| `StaticJsonRpcProvider` \| `Signer`
+
+#### Summary
+A union of various providers and signers in ethers to give maximum flexibility
+
+#### Defined in
+
+[src/models/providerTypes.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/models/providerTypes.ts#L20)
+
+___
+
+### TAbstractProvider
+
+Ƭ **TAbstractProvider**: `Provider`
+
+#### Summary
+A union of abstract, non initalizable providers, used by some functions
+
+#### Defined in
+
+[src/models/providerTypes.ts:28](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/models/providerTypes.ts#L28)
+
+___
+
+### TEthersUser
+
+Ƭ **TEthersUser**: `Object`
+
+#### Summary
+Essentially a provider and signer and network information for ease of use.
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `signer` | `Signer` \| `undefined` |
+| `provider` | [`TEthersProvider`](modules.md#tethersprovider) \| `undefined` |
+| `providerNetwork` | `ethers.providers.Network` \| `undefined` |
+| `address` | `string` \| `undefined` |
+
+#### Defined in
+
+[src/models/providerTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/models/providerTypes.ts#L36)

@@ -30,7 +30,7 @@ export interface IWeb3ModalState {
 }
 /**
  * #### Summary
- * A hook that makes it easy to interact and use (web3Modal)[https://github.com/Web3Modal/web3modal]
+ * A hook that makes it easy to interact and use [web3Modal](https://github.com/Web3Modal/web3modal)
  * - provides callback to open, logout and update the modal theme
  *
  * #### Notes

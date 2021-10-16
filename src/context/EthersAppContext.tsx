@@ -10,8 +10,23 @@ import { EthersModalConnector } from '~~/context/connectors/EthersModalConnector
 import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
 
+/**
+ * #### Summary
+ * A callback type that returns a EthersModalConnector
+ *
+ * #### Notes
+ * - can be used by components that need to give a connector to {@link IEthersContext.openModal}
+ */
 export type CreateEthersModalConnector = () => EthersModalConnector | undefined;
 
+/**
+ * #### Summary
+ * The return type of {@link EthersModalConnector}
+ * - ethers compatable provider {@link TEthersProvider}
+ * - a callback to change the current signer
+ * - the current account, chainId and signer
+ * - callbacks to open the web3Modal, logout or change theme
+ */
 export interface IEthersContext extends Web3ReactContextInterface<TEthersProvider> {
   connector: EthersModalConnector | undefined;
   ethersProvider: TEthersProvider | undefined;
@@ -29,6 +44,27 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
  * and eth-hooks compatability
  * @param providerKey (string) :: (optional) :: used if you want a secondary provider context, for example to mainnet
  * @returns (IEthersWeb3Context)
+ */
+
+/**
+ * #### Summary
+ * This Hook provides you with access to the current Ethers Provider Context.
+ * This provider would be the one selected by using {@link EthersModalConnect} and Web3Modal
+ *
+ * #### Features
+ * Gives you access to consistent interface to get the current provider information {@link EthersModalConnector}
+ * - ethers compatable provider {@link TEthersProvider}
+ * - a callback to change the current account (signer)
+ * - the current account, chainId and signer
+ * - callbacks to open the web3Modal, logout or change theme
+ *
+ * #### Notes
+ * - currently providerKey isnt being used
+ *
+ * @category EthersContext
+ *
+ * @param providerKey
+ * @returns
  */
 export const useEthersContext = (providerKey?: string): IEthersContext => {
   const { connector, activate, library, account, deactivate, ...context } = useWeb3React<TEthersProvider>(providerKey);
@@ -66,21 +102,24 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
   return {
     connector: ethersConnector,
     ethersProvider: library,
-    openModal: openWeb3Modal,
-    disconnectModal: disconnectWeb3Modal,
     activate,
     deactivate,
     library,
+    account: account ?? undefined,
     signer: ethersConnector?.getSigner(),
     changeAccount: ethersConnector?.changeSigner.bind(ethersConnector),
-    account: account ?? undefined,
-    ...context,
+    openModal: openWeb3Modal,
+    disconnectModal: disconnectWeb3Modal,
     setModalTheme: ethersConnector?.setModalTheme.bind(ethersConnector),
+    ...context,
   };
 };
 
 /**
  * Convert the provider obtained from web3Modal into a ethers.web3provider
+ *
+ * @internal
+ *
  * @param provider
  * @param _connector
  * @returns
@@ -93,10 +132,19 @@ const setEthersAppProvider = (provider: any, _connector: AbstractConnector | und
   }
 };
 
+/**
+ * @internal
+ */
 interface IChildContextProps {
   providerKey?: string;
 }
 
+/**
+ * @internal
+ *
+ * @param props
+ * @returns
+ */
 const ChildContexts: FC<IChildContextProps> = (props) => {
   const { chainId, ethersProvider } = useEthersContext();
   return (
@@ -106,6 +154,16 @@ const ChildContexts: FC<IChildContextProps> = (props) => {
   );
 };
 
+/**
+ * #### Summary
+ * Ethers App Context for your react app to be used with {@link useEthersContext}.
+ * This is a wrapper around Web3ReactProvider that provides additional functionality such as a {@link BlockNumberContext} and access to {@link IEthersContext}
+ *
+ * @category EthersContext
+ *
+ * @param props
+ * @returns
+ */
 export const EthersAppContext: FC = (props) => {
   return (
     <Web3ReactProvider getLibrary={setEthersAppProvider}>
