@@ -14,6 +14,8 @@ import { TNetworkInfo } from '~~/models';
     - fastest: Recommended fastest(expected to be mined in < 30 seconds) gas price in x10 Gwei(divite by 10 to convert it to gwei)
     - safeLow: Recommended safe(expected to be mined in < 30 minutes) gas price in x10 Gwei(divite by 10 to convert it to gwei)
     - average: Recommended average(expected to be mined in < 5 minutes) gas price in x10 Gwei(divite by 10 to convert it to gwei)
+
+    @category Hooks
  */
 export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
 

@@ -28,6 +28,8 @@ const zero = BigNumber.from(0);
  * #### Notes
  * - uses useOnRepetition
  *
+ * @category Hooks
+ *
  * @param contract ethers.Contract class
  * @param address
  * @param pollTime if >0 use polling, else use instead of onBlock event

@@ -16,6 +16,8 @@ import { TEthersProvider } from '~~/models';
  *
  * #### Notes
  * - can be used by components that need to give a connector to {@link IEthersContext.openModal}
+ *
+ * @category EthersContext
  */
 export type CreateEthersModalConnector = () => EthersModalConnector | undefined;
 
@@ -26,6 +28,8 @@ export type CreateEthersModalConnector = () => EthersModalConnector | undefined;
  * - a callback to change the current signer
  * - the current account, chainId and signer
  * - callbacks to open the web3Modal, logout or change theme
+ *
+ * @category EthersContext
  */
 export interface IEthersContext extends Web3ReactContextInterface<TEthersProvider> {
   connector: EthersModalConnector | undefined;

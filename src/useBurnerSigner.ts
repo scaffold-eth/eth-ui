@@ -50,6 +50,8 @@ const loadBurnerKeyFromStorage = (): string | null => {
  * - provides signer
  * - methods of interacting with burner signer
  * - methods to save and loadd signer from local storage
+ *
+ * @category Hooks
  */
 export interface IBurnerSigner {
   signer: Signer | undefined;

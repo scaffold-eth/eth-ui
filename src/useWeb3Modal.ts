@@ -9,6 +9,8 @@ import { const_web3DialogClosedByUser } from '~~/models/constants/common';
 
 /**
  * The current state of Web3Modal
+ *
+ * @category Hooks
  */
 export interface IWeb3ModalState {
   /**

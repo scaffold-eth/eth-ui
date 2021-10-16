@@ -8,6 +8,8 @@ import { TDeployedContracts, TEthersProviderOrSigner, TExternalContracts } from 
 /**
  * #### Summary
  * Configuration for useContractLoader
+ *
+ * @category Hooks
  */
 export type TContractConfig = {
   /**
