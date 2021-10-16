@@ -43,9 +43,3 @@ jobs:
         if: always()
         with:
           files: testresult.xml
-
-      - name: Run eslint
-        uses: wearerequired/lint-action@v1
-        with:
-          eslint: true
-          eslint_args: '--config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*'
