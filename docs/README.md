@@ -1,5 +1,3 @@
-eth-hooks - v3.2.0beta10 / [Modules](modules.md)
-
 # 🖇 Eth-Hooks Overview
 
 Commonly used Ethereum hooks.
@@ -32,6 +30,6 @@ yarn add eth-hooks
 - web3-react
 - web3modal
 
-# API
+# API Docs
 
-[Eth-Hooks API](modules.md)
+[Eth-Hooks API Overview](./generated-api/api-overview.md)

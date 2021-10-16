@@ -36,4 +36,4 @@ yarn add eth-hooks
 
 ## Hooks &amp; Helpers
 
-[eth-hooks docs](https://github.com/scaffold-eth/eth-hooks/tree/develop/docs/modules.md)
+[eth-hooks docs](https://app.gitbook.com/o/-McvAUhjwrhDs8exT9Bh/s/2D7c1twywYxZyD6sOEaS/)

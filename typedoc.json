@@ -3,7 +3,7 @@
   "categoryOrder": ["Hooks", "EthersContext", "Helpers", "Models", "*"],
   "categorizeByGroup": true,
   "cleanOutputDir": true,
-  "readme": "README.tsdoc.md",
+  "readme": "none",
   "entryPoints": [
     "./src/typedoc/hooks.docs.ts",
     "./src/typedoc/context.docs.ts",
@@ -11,7 +11,7 @@
     "./src/typedoc/helpers.docs.ts"
   ],
   "entryPointStrategy": "expand",
-  "out": "docs",
+  "out": "./docs/generated-api",
   "includeVersion": true,
   "sort": ["source-order"],
   "excludePrivate": true,

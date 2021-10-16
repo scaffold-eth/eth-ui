@@ -1,4 +1,4 @@
-[eth-hooks - v3.2.0beta10](../README.md) / [Modules](../modules.md) / [Hooks](../modules/Hooks.md) / IBurnerSigner
+[eth-hooks - v3.2.0beta10](../README.md) / [Hooks](../modules/Hooks.md) / IBurnerSigner
 
 # Interface: IBurnerSigner
 
@@ -34,7 +34,7 @@ Return type of useBurnerSigner:
 
 #### Defined in
 
-[src/useBurnerSigner.ts:57](https://github.com/scaffold-eth/eth-hooks/blob/323e316/src/useBurnerSigner.ts#L57)
+[src/useBurnerSigner.ts:57](https://github.com/scaffold-eth/eth-hooks/blob/52473fd/src/useBurnerSigner.ts#L57)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/useBurnerSigner.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/323e316/src/useBurnerSigner.ts#L58)
+[src/useBurnerSigner.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/52473fd/src/useBurnerSigner.ts#L58)
 
 ## Methods
 
@@ -60,7 +60,7 @@ save to local storage
 
 #### Defined in
 
-[src/useBurnerSigner.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/323e316/src/useBurnerSigner.ts#L62)
+[src/useBurnerSigner.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/52473fd/src/useBurnerSigner.ts#L62)
 
 ___
 
@@ -76,7 +76,7 @@ load from local storage, or if it doesn't exist, create
 
 #### Defined in
 
-[src/useBurnerSigner.ts:66](https://github.com/scaffold-eth/eth-hooks/blob/323e316/src/useBurnerSigner.ts#L66)
+[src/useBurnerSigner.ts:66](https://github.com/scaffold-eth/eth-hooks/blob/52473fd/src/useBurnerSigner.ts#L66)
 
 ___
 
@@ -92,7 +92,7 @@ create a new burner signer
 
 #### Defined in
 
-[src/useBurnerSigner.ts:70](https://github.com/scaffold-eth/eth-hooks/blob/323e316/src/useBurnerSigner.ts#L70)
+[src/useBurnerSigner.ts:70](https://github.com/scaffold-eth/eth-hooks/blob/52473fd/src/useBurnerSigner.ts#L70)
 
 ___
 
@@ -108,4 +108,4 @@ get your current burner pk
 
 #### Defined in
 
-[src/useBurnerSigner.ts:74](https://github.com/scaffold-eth/eth-hooks/blob/323e316/src/useBurnerSigner.ts#L74)
+[src/useBurnerSigner.ts:74](https://github.com/scaffold-eth/eth-hooks/blob/52473fd/src/useBurnerSigner.ts#L74)

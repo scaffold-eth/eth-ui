@@ -1,4 +1,4 @@
-[eth-hooks - v3.2.0beta10](README.md) / Modules
+eth-hooks - v3.2.0beta10
 
 # eth-hooks - v3.2.0beta10
 
