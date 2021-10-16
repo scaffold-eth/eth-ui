@@ -11,11 +11,24 @@ import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser } from '~~/models/constants/common';
 
-interface IEthersModalConfig {
+type TEthersModalConfig = {
   reloadOnNetworkChange: boolean;
-}
+};
 
 type TWeb3ModalTheme = 'light' | 'dark';
+
+/**
+ * #### Summary
+ * An interface implemented by {@link EthersModalConnector} in addition to AbstractConnector
+ */
+export interface ICommonModalConnector {
+  getSigner(): Signer | undefined;
+  setModalTheme(theme: TWeb3ModalTheme | ThemeColors): void;
+  resetModal(): void;
+  changeSigner(signer: Signer): Promise<void>;
+}
+
+export type TEthersModalConnector = ICommonModalConnector & AbstractConnector;
 
 /**
  * #### Summary
@@ -31,14 +44,14 @@ type TWeb3ModalTheme = 'light' | 'dark';
  *
  * @category EthersContext
  */
-export class EthersModalConnector extends AbstractConnector {
+export class EthersModalConnector extends AbstractConnector implements ICommonModalConnector {
   protected options: Partial<ICoreOptions>;
   protected providerBase?: any;
   protected ethersProvider?: TEthersProvider;
   protected web3Modal?: Core;
   protected id: string | undefined;
   protected debug: boolean = false;
-  protected config: IEthersModalConfig;
+  protected config: TEthersModalConfig;
   protected signer: Signer | undefined;
   protected theme: TWeb3ModalTheme | ThemeColors;
 
@@ -50,7 +63,7 @@ export class EthersModalConnector extends AbstractConnector {
    */
   constructor(
     web3modalOptions: Partial<ICoreOptions>,
-    config: IEthersModalConfig,
+    config: TEthersModalConfig,
     id?: string,
     debug: boolean = false
   ) {
@@ -68,7 +81,7 @@ export class EthersModalConnector extends AbstractConnector {
     this.handleClose = this.handleClose.bind(this);
   }
 
-  private log(...args: any[]): void {
+  protected log(...args: any[]): void {
     if (this.debug) {
       console.log('🔌 ', args);
     }
