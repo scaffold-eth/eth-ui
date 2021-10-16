@@ -2,10 +2,13 @@
 
 # Interface: IBurnerSigner
 
-Return of useBurnerSigner:
+#### Summary
+Return type of useBurnerSigner:
+
+#### Notes
 - provides signer
 - methods of interacting with burner signer
-- methods to save and laod signer from local storage
+- methods to save and loadd signer from local storage
 
 ## Table of contents
 
@@ -29,7 +32,7 @@ Return of useBurnerSigner:
 
 #### Defined in
 
-[src/useBurnerSigner.ts:52](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useBurnerSigner.ts#L52)
+[src/useBurnerSigner.ts:55](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useBurnerSigner.ts#L55)
 
 ___
 
@@ -39,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/useBurnerSigner.ts:53](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useBurnerSigner.ts#L53)
+[src/useBurnerSigner.ts:56](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useBurnerSigner.ts#L56)
 
 ## Methods
 
@@ -55,7 +58,7 @@ save to local storage
 
 #### Defined in
 
-[src/useBurnerSigner.ts:57](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useBurnerSigner.ts#L57)
+[src/useBurnerSigner.ts:60](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useBurnerSigner.ts#L60)
 
 ___
 
@@ -71,7 +74,7 @@ load from local storage, or if it doesn't exist, create
 
 #### Defined in
 
-[src/useBurnerSigner.ts:61](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useBurnerSigner.ts#L61)
+[src/useBurnerSigner.ts:64](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useBurnerSigner.ts#L64)
 
 ___
 
@@ -87,7 +90,7 @@ create a new burner signer
 
 #### Defined in
 
-[src/useBurnerSigner.ts:65](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useBurnerSigner.ts#L65)
+[src/useBurnerSigner.ts:68](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useBurnerSigner.ts#L68)
 
 ___
 
@@ -103,4 +106,4 @@ get your current burner pk
 
 #### Defined in
 
-[src/useBurnerSigner.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useBurnerSigner.ts#L69)
+[src/useBurnerSigner.ts:72](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useBurnerSigner.ts#L72)

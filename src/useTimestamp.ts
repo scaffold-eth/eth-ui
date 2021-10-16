@@ -1,28 +1,36 @@
 import { useState, useEffect } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useBlockNumber } from '~~';
-import { useEthersContext } from '~~/context';
+import { useBlockNumberContext, useEthersContext } from '~~/context';
 
 /**
+ * #### Summary
  * Get the current timestamp from the latest block
- * @param provider (TEthersProvider)
- * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
- * @returns (number) :: timestamp
+ *
+ * #### Notes
+ * - updates triggered by {@link BlockNumberContext}
+ * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
+ *
+ * @category Hooks
+ *
+ * @param pollTime
+ * @returns
  */
-export const useTimestamp = (pollTime?: number): number => {
+export const useTimestamp = (): number => {
   const isMounted = useIsMounted();
   const { ethersProvider } = useEthersContext();
+  const blockNumber = useBlockNumberContext();
 
-  const blockNumber = useBlockNumber(pollTime);
   const [timestamp, setTimestamp] = useState<number>(0);
 
   useEffect((): void => {
     const getTimestamp = async (): Promise<void> => {
-      const nextBlock = await ethersProvider?.getBlock(blockNumber);
-      if (nextBlock?.timestamp != null) {
-        const nextTimestamp = nextBlock.timestamp;
-        if (isMounted()) setTimestamp(nextTimestamp);
+      if (blockNumber) {
+        const nextBlock = await ethersProvider?.getBlock(blockNumber);
+        if (nextBlock?.timestamp != null) {
+          const nextTimestamp = nextBlock.timestamp;
+          if (isMounted()) setTimestamp(nextTimestamp);
+        }
       }
     };
 

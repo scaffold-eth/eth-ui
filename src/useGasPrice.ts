@@ -9,20 +9,31 @@ import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 import { TNetworkInfo } from '~~/models';
 
 /**
- * Preset speeds for Eth Gas Station
-    fast: Recommended fast(expected to be mined in < 2 minutes) gas price in x10 Gwei(divite by 10 to convert it to gwei)
-    fastest: Recommended fastest(expected to be mined in < 30 seconds) gas price in x10 Gwei(divite by 10 to convert it to gwei)
-    safeLow: Recommended safe(expected to be mined in < 30 minutes) gas price in x10 Gwei(divite by 10 to convert it to gwei)
-    average: Recommended average(expected to be mined in < 5 minutes) gas price in x10 Gwei(divite by 10 to convert it to gwei)
+ * Preset speeds for Eth Gas Station API
+    - fast: Recommended fast(expected to be mined in < 2 minutes) gas price in x10 Gwei(divite by 10 to convert it to gwei)
+    - fastest: Recommended fastest(expected to be mined in < 30 seconds) gas price in x10 Gwei(divite by 10 to convert it to gwei)
+    - safeLow: Recommended safe(expected to be mined in < 30 minutes) gas price in x10 Gwei(divite by 10 to convert it to gwei)
+    - average: Recommended average(expected to be mined in < 5 minutes) gas price in x10 Gwei(divite by 10 to convert it to gwei)
  */
 export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
 
 /**
- * Gets the gas price from Eth Gas Station.  as gwei
- * @param speed (TGasStationSpeed) 'fast', 'fastest', 'safeLow', 'average'
- * @param currentNetworkInfo (TNetwork) fallback config with gas price
- * @param pollTime (number) :: if > 0 use polling, else use instead of onBlock event
- * @returns (number) gas price in gwei
+ * #### Summary
+ * Gets the gas price for the current network as gwei
+ * - uses EthGasStation for mainnet
+ * - uses ethers.estimateGas other networks
+ * - can use currentNetworkInfo {@link TNetworkInfo.gasPrice} gasPrice as fallback
+ *
+ * #### Notes
+ * - if the gas price is unknown it returns undefined
+ * - updates triggered by {@link BlockNumberContext}
+ * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
+ *
+ * @category Hooks
+ *
+ * @param speed
+ * @param currentNetworkInfo uses gasPrice as a fallback
+ * @returns gas as gwei
  */
 export const useGasPrice = (
   chainId: number | undefined,

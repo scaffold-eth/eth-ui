@@ -7,10 +7,15 @@ import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 
 const zero = BigNumber.from(0);
 /**
+ * #### Summary
  * Gets your balance in ETH for the given address.
- * - uses the current ethersProvider from context
- * - updates with {@link BlockNumberContext}
+ *
+ * #### Notes
+ * - updates triggered by {@link BlockNumberContext}
+ * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
+ *
  * @category Hooks
+ *
  * @param address
  * @returns current balance
  */

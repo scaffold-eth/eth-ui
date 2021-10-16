@@ -158,4 +158,4 @@ Error.constructor
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/context/connectors/EthersModalConnector.ts#L26)
+[src/context/connectors/EthersModalConnector.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/context/connectors/EthersModalConnector.ts#L26)

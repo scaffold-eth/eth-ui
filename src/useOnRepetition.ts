@@ -3,7 +3,10 @@ import { useCallback, useEffect, useRef } from 'react';
 
 const DEBUG = false;
 
-interface TOptions {
+/**
+ * Options for useOnRepetition
+ */
+interface IUseOnRepetitionOptions {
   /**
    * (number) :: if >0 use polling, else use instead of onBlock event.  the minimum polling time is 10s.
    */
@@ -19,16 +22,24 @@ interface TOptions {
 }
 
 /**
- * A hook will invoke a callback regularly on the "block" event.
- * Alternatively, If a pollTime is provided, it will use that instead. The minumum polling time is 10s
- * - the hook will invoke the callback when the leadTrigger changes state to true as a leading invokation
- * @param callback (func) :: callback funciton, can have variable args
- * @param options (TOptions)
- * @param args varargs callback function arguments
+ * #### Summary
+ * A hook that will periodically invoke a callback.
+ * It can use one of the two options to do so
+ * - onBlock: the block event is used to invoke callback
+ * - Polling: invoke the callback periodically via polling. The minimum time is 10s.
+ *
+ * #### Notes
+ * The callback can be invoked once on leading edge when leadTrigger conditions are satisfied
+ * - For example you may want to wait for the provider to initalize before first invocation.
+ * - 👩🏽‍🏫 A provider is needed for onBlock.
+ *
+ * @param callback
+ * @param options
+ * @param args variable arguments for callback
  */
 export const useOnRepetition = (
   callback: (..._args: any[]) => void | Promise<void>,
-  options: TOptions,
+  options: IUseOnRepetitionOptions,
   ...args: any[]
 ): void => {
   const isPolling = options?.pollTime != null && options.pollTime > 0;
@@ -64,6 +75,7 @@ export const useOnRepetition = (
   useEffect(() => {
     if (options?.provider != null && readyForEvents) {
       options?.provider?.addListener?.('block', listener);
+      listener(0);
       return (): void => {
         options?.provider?.removeListener?.('block', listener);
       };

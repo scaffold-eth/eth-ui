@@ -7,42 +7,39 @@ import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 import { TContractFunctionInfo } from '~~/models';
 
 const DEBUG = false;
-
 /**
- * Enables you to call functions in contracts and read their values.  It helps keep track of them in the local React states
- * 
-  ~ Features ~
-  - Provide readContracts by loading contracts (see more on ContractLoader.js)
-  - Specify the name of the contract, in this case it is "YourContract"
-  - Specify the name of the variable in the contract, in this case we keep track of "purpose" variable
-  - Pass an args array if the function requires
-  - Pass pollTime - if no pollTime is specified, the function will update on every new block
- * @param contractList (Record<string, Contract>) :: a record of contractName/contract
- * @param contractName (string) :: The contract name
- * @param functionName (string) :: The function name in the contract
- * @param functionArgs (any[]) :: arguments to functions
- * @param pollTime (number) :: optional :: if >0 use polling, else use instead of onBlock event
- * @param formatter ((_value: T) => T) :: optional :: function to format the result
- * @param onChange (string) :: optional :: callback to call with the function
- * @returns (<T>) :: generic return type 
+ * #### Summary
+ * Enables you to call a contract function with arguments and receive the output.  You can use this to easily track of contract outputs in react states
+ *
+ * #### Notes
+ * - formatter is a function that can change the format of the output
+ *
+ * @category Hooks
+ *
+ * @template OutputT return type
+ * @param contract ethers.Contract class
+ * @param contractFunctionInfo
+ * @param formatter <OutputT> a function that can format the output
+ * @param onChange callback with result as a parameter
+ * @returns <OutputT>
  */
-export const useContractReader = <T>(
+export const useContractReader = <OutputT>(
   contract: Contract,
   contractFunctionInfo: TContractFunctionInfo,
-  formatter?: (_value: T) => T,
-  onChange?: (_value?: T) => void
-): T | undefined => {
+  formatter?: (_value: OutputT) => OutputT,
+  onChange?: (_value?: OutputT) => void
+): OutputT | undefined => {
   const isMounted = useIsMounted();
-  const [value, setValue] = useState<T>();
+  const [value, setValue] = useState<OutputT>();
   const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext();
 
   const callFunc = useCallback(async () => {
-    const contractFunction = contract?.[contractFunctionInfo.functionName] as ContractFunction<T>;
+    const contractFunction = contract?.[contractFunctionInfo.functionName] as ContractFunction<OutputT>;
     const contractChainId = await contract?.signer?.getChainId();
 
     if (contractFunction != null && contractChainId === ethersContext.chainId) {
-      let newResult: T | undefined = undefined;
+      let newResult: OutputT | undefined = undefined;
       try {
         if (contractFunctionInfo.functionArgs && contractFunctionInfo.functionArgs.length > 0) {
           newResult = await contractFunction?.(...contractFunctionInfo.functionArgs);

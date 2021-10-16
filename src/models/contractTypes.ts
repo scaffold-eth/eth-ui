@@ -29,7 +29,10 @@ export type TExternalContracts = {
 };
 
 /**
- * Contract function information
+ * Contract function information:
+ * - contractName
+ * - functionname
+ * - functionArgs: functionArguments, an array
  */
 export type TContractFunctionInfo = {
   contractName: string;

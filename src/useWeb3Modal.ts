@@ -7,14 +7,35 @@ import './helpers/_global';
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser } from '~~/models/constants/common';
 
+/**
+ * The current state of Web3Modal
+ */
 export interface IWeb3ModalState {
+  /**
+   * Is the modal initalizing
+   */
   initializing: boolean;
+  /**
+   * A callback to open the modal
+   */
   openWeb3ModalCallback: () => void;
+  /**
+   * A callback to close the modal
+   */
   logoutOfWeb3ModalCallback: () => void;
+  /**
+   * A callback to change the modal theme
+   */
   updateWeb3ModalThemeCallback: (theme: ThemeColors | string) => void;
 }
 /**
- * A hook that makes it easy to use web3Modal
+ * #### Summary
+ * A hook that makes it easy to interact and use (web3Modal)[https://github.com/Web3Modal/web3modal]
+ * - provides callback to open, logout and update the modal theme
+ *
+ * #### Notes
+ * - 🤚🏽 Consider using the context provider {@link ethersProvider} and {@link EthersModalConnector} instead.
+ *
  * @param web3ModalConfig
  * @param setCurrentEthersProvider
  * @returns
@@ -128,21 +149,21 @@ export const useWeb3Modal = (
     web3ModalProviderRef.current?.updateTheme(theme);
   }, []);
 
-  /**
-   * add hooks to reload page if required
-   */
-  useEffect(() => {
-    /* eslint-disable */
-    if (window?.ethereum?.on && window?.ethereum?.off) {
-      window.ethereum.on('chainChanged', reloadPage);
-      window.ethereum.on('accountsChanged', reloadPage);
-      return () => {
-        window.ethereum.off('chainChanged', reloadPage);
-        window.ethereum.off('accountsChanged', reloadPage);
-      };
-    }
-    /* eslint-disable */
-  }, [window?.ethereum]);
+  // /**
+  //  * add hooks to reload page if required
+  //  */
+  // useEffect(() => {
+  //   /* eslint-disable */
+  //   if (window?.ethereum?.on && window?.ethereum?.off) {
+  //     window.ethereum.on('chainChanged', reloadPage);
+  //     window.ethereum.on('accountsChanged', reloadPage);
+  //     return () => {
+  //       window.ethereum.off('chainChanged', reloadPage);
+  //       window.ethereum.off('accountsChanged', reloadPage);
+  //     };
+  //   }
+  //   /* eslint-disable */
+  // }, [window?.ethereum]);
 
   return {
     initializing: initalizingRef.current ?? false,

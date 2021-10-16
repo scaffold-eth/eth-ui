@@ -2,6 +2,8 @@
 
 # Interface: IWeb3ModalState
 
+The current state of Web3Modal
+
 ## Table of contents
 
 ### Properties
@@ -20,9 +22,11 @@
 
 • **initializing**: `boolean`
 
+Is the modal initalizing
+
 #### Defined in
 
-[src/useWeb3Modal.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useWeb3Modal.ts#L11)
+[src/useWeb3Modal.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useWeb3Modal.ts#L17)
 
 ## Methods
 
@@ -30,13 +34,15 @@
 
 ▸ **openWeb3ModalCallback**(): `void`
 
+A callback to open the modal
+
 #### Returns
 
 `void`
 
 #### Defined in
 
-[src/useWeb3Modal.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useWeb3Modal.ts#L12)
+[src/useWeb3Modal.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useWeb3Modal.ts#L21)
 
 ___
 
@@ -44,19 +50,23 @@ ___
 
 ▸ **logoutOfWeb3ModalCallback**(): `void`
 
+A callback to close the modal
+
 #### Returns
 
 `void`
 
 #### Defined in
 
-[src/useWeb3Modal.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useWeb3Modal.ts#L13)
+[src/useWeb3Modal.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useWeb3Modal.ts#L25)
 
 ___
 
 ### updateWeb3ModalThemeCallback
 
 ▸ **updateWeb3ModalThemeCallback**(`theme`): `void`
+
+A callback to change the modal theme
 
 #### Parameters
 
@@ -70,4 +80,4 @@ ___
 
 #### Defined in
 
-[src/useWeb3Modal.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/23917e9/src/useWeb3Modal.ts#L14)
+[src/useWeb3Modal.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/69b2981/src/useWeb3Modal.ts#L29)

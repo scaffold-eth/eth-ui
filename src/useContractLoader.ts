@@ -6,6 +6,7 @@ import { useEthersContext } from '~~/context';
 import { TDeployedContracts, TEthersProviderOrSigner, TExternalContracts } from '~~/models';
 
 /**
+ * #### Summary
  * Configuration for useContractLoader
  */
 export type TContractConfig = {
@@ -28,19 +29,24 @@ export type TContractConfig = {
 };
 
 /**
+ * #### Summary
  *  Loads your contracts returns them and gives options to read values from contracts
  * or write transactions into them
- * - remember to use a signer for write contracts
- * - if chain id is not given, it will use the chainId of the provider
  *
+ * #### Notes
  * A optional providerOrSigner is needed to initalize the contract class
  * - if none is given, the context providerOrSigner is used if the chainId is the same.
  * - A signer is required for write contracts
+ * Provider
+ * - uses the current ethersProvider from context
+ * ChainId
+ * - if chain id is not given, it will use the chainId of the provider
  *
  * @category Hooks
+ *
  * @param config
  * @param providerOrSigner (optional) used to initalize the contract class
- * @param configChainId (optional) can be used to specific a particular network such as mainnet instead of the current provider
+ * @param configChainId (optional) can be used to target specific a particular network (such as mainnet) instead of the current provider
  * @returns Record of contractName:Contracts
  */
 export const useContractLoader = (
@@ -54,7 +60,6 @@ export const useContractLoader = (
 
   const [contracts, setContracts] = useState<Record<string, Contract>>({});
   const configDep: string = useMemo(() => JSON.stringify(config ?? {}), [config]);
-  const networkDeps = `${chainId ?? 0}_${ethersProvider?.network?.name ?? ''}`;
 
   useEffect(() => {
     const loadContracts = (): void => {
@@ -112,7 +117,7 @@ export const useContractLoader = (
     void loadContracts();
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ethersProvider, configDep, networkDeps]);
+  }, [ethersProvider, configDep, chainId]);
 
   return contracts;
 };

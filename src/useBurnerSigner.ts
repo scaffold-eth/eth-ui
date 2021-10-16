@@ -43,10 +43,13 @@ const loadBurnerKeyFromStorage = (): string | null => {
 };
 
 /**
- * Return of useBurnerSigner:
+ * #### Summary
+ * Return type of useBurnerSigner:
+ *
+ * #### Notes
  * - provides signer
  * - methods of interacting with burner signer
- * - methods to save and laod signer from local storage
+ * - methods to save and loadd signer from local storage
  */
 export interface IBurnerSigner {
   signer: Signer | undefined;
@@ -70,9 +73,12 @@ export interface IBurnerSigner {
 }
 
 /**
- * A hook that creates a buner address and returns a Signer
+ * #### Summary
+ * A hook that creates a burner signer/address and provides ways of interacting with
+ * and updating the signer
  *
  * @category Hooks
+ *
  * @param localProvider localhost provider
  * @returns IBurnerSigner
  */

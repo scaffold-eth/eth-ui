@@ -6,11 +6,15 @@ import { TEthersProvider } from '~~/models';
 import { useOnRepetition } from '~~/useOnRepetition';
 
 /**
+ * #### Summary
  * Get the current block number of the network.
+ *
+ * #### Notes
+ * - ✋🏽 For app wide block number access use {@link BlockNumberContext} instead
  * - uses the current ethersProvider from context
  *
- * ✋🏽 For app wide block number access use {@link BlockNumberContext}
  * @category Hooks
+ *
  * @param pollTime if > 0 uses polling, else it uses onBlock event
  * @returns block number
  */
