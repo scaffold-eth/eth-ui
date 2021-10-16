@@ -17,7 +17,6 @@ yarn add eth-hooks
 
 [@austinGriffith](https://github.com/austintgriffith)
 [@shravansunder](https://github.com/ShravanSunder)
-[@calvinbores](https://github.com/calvbore)
 
 ## Peer Dependencies
 
