@@ -29,7 +29,7 @@
     "publish:yalc": "yarn prepublish && cd lib && yalc publish --no-script --push",
     "publish:next": "yarn prepublish && cd lib && npm publish --tag next",
     "publish:latest": "yarn prepublish && cd lib && npm publish --tag latest",
-    "docs:ts": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/generated-api/readme.md ./docs/generated-api/api-overview.md",
+    "docs:ts": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/api-typedocs/readme.md ./docs/api-typedocs/api-overview.md",
     "deprecate": "npm deprecate",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*",
     "hardhat:test": "cross-env TS_NODE_PROJECT=tsconfig.testing.json yarn hardhat test  --network hardhat",

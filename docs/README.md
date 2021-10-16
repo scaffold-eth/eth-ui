@@ -32,4 +32,4 @@ yarn add eth-hooks
 
 # API Docs
 
-[Eth-Hooks API Overview](./generated-api/api-overview.md)
+[Eth-Hooks API Overview](./api-typedocs/api-overview.md)

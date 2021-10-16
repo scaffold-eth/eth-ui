@@ -11,7 +11,7 @@
     "./src/typedoc/helpers.docs.ts"
   ],
   "entryPointStrategy": "expand",
-  "out": "./docs/generated-api",
+  "out": "./docs/api-typedocs",
   "includeVersion": true,
   "sort": ["source-order"],
   "excludePrivate": true,
