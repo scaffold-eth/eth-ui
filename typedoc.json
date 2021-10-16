@@ -1,10 +1,16 @@
 {
   "defaultCategory": "Misc",
-  "categoryOrder": ["Hooks", "EthersContext", "Helpers", "Models", "Constants", "*"],
+  "categoryOrder": ["Hooks", "EthersContext", "Helpers", "Models", "*"],
   "categorizeByGroup": true,
   "cleanOutputDir": true,
   "readme": "README.tsdoc.md",
-  "entryPoints": ["./src/index.docs.ts"],
+  "entryPoints": [
+    "./src/typedoc/hooks.docs.ts",
+    "./src/typedoc/context.docs.ts",
+    "./src/typedoc/models.docs.ts",
+    "./src/typedoc/helpers.docs.ts"
+  ],
+  "entryPointStrategy": "expand",
   "out": "docs",
   "includeVersion": true,
   "sort": ["source-order"],

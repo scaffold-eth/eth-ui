@@ -1,4 +1,4 @@
-eth-hooks - v3.2.0beta09 / [Exports](modules.md)
+eth-hooks - v3.2.0beta10 / [Modules](modules.md)
 
 # 🖇 Eth-Hooks Overview
 
