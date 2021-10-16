@@ -1,9 +1,7 @@
 /**
- * @module Hooks
- *
- * ### Summary
- *
  * Commonly used ethereum hooks to turbocharge your development!  Works with {@link useEthersContext}.
+ *
+ * @module Hooks
  */
 // ///////
 
