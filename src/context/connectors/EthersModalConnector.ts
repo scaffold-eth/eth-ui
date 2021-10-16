@@ -23,7 +23,7 @@ export class UserClosedModalError extends Error {
 }
 
 export class CouldNotActivateError extends Error {
-  public constructor(error: any) {
+  public constructor(error: unknown) {
     super();
     this.name = this.constructor.name;
     this.message = `EthersModalConnector: Could not activate provider.  ${(error as string) ?? ''}`;
@@ -76,6 +76,7 @@ export class EthersModalConnector extends AbstractConnector {
 
   private handleChainChanged(chainId: number | string): void {
     this.log(`Handling chain changed to ${chainId}! updating providers`);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.emitUpdate?.({ chainId, provider: this.providerBase });
     this.ethersProvider = new Web3Provider(this.providerBase);
     this.maybeReload();
@@ -114,14 +115,15 @@ export class EthersModalConnector extends AbstractConnector {
         if (this.options.cacheProvider === false) this.resetModal();
         console.log('Open provider modal');
         await this.web3Modal.updateTheme(this.theme);
+        /* eslint-disable @typescript-eslint/no-unsafe-assignment*/
         if (this.id) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           this.providerBase = await this.web3Modal.connectTo(this.id);
         } else {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           this.providerBase = await this.web3Modal.connect();
         }
-        /* eslint-disable */
+        /* eslint-enable */
+
+        /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call*/
         this.providerBase.on('chainChanged', this.handleChainChanged);
         this.providerBase.on('accountsChanged', this.handleAccountsChanged);
         this.providerBase.on('disconnect', this.handleDisconnect as any);
@@ -163,8 +165,7 @@ export class EthersModalConnector extends AbstractConnector {
   }
 
   public deactivate(): void {
-    /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-    /* eslint-disable @typescript-eslint/no-unsafe-call */
+    /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call  */
     this.emitDeactivate?.();
 
     this.providerBase?.removeListener('disconnect', this.handleDisconnect);
@@ -180,8 +181,7 @@ export class EthersModalConnector extends AbstractConnector {
     provider?.close?.();
 
     this.maybeReload();
-    /* eslint-enable @typescript-eslint/no-unsafe-call */
-    /* eslint-enable @typescript-eslint/no-unsafe-member-access */
+    /* eslint-enable  */
   }
 
   public getProvider(): Promise<TEthersProvider | undefined> {

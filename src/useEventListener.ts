@@ -28,6 +28,7 @@ export const useEventListener = (contract: Contract | undefined, eventName: stri
 
   const [eventMap, setEventMap] = useState<Map<string, Event>>(new Map<string, Event>());
   const deps = JSON.stringify([...eventMap]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const events = useMemo(() => [...eventMap].map((m) => m[1]), [deps]);
 
   const addNewEvent = useCallback(

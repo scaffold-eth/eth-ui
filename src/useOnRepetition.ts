@@ -67,7 +67,6 @@ export const useOnRepetition = (
     (_blockNumber: number): void => {
       if (readyForEvents) callFunctionWithArgs();
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [callFunctionWithArgs, readyForEvents]
   );
 

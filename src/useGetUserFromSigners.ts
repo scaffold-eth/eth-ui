@@ -36,7 +36,6 @@ export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEth
     };
 
     void getData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer]);
 
   return { signer: resolvedSigner, provider, providerNetwork, address };

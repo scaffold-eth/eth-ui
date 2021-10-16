@@ -7,7 +7,7 @@ export interface IStaticJsonRpcProviderConnectorOptions extends IAbstractConnect
 }
 
 export const ConnectToStaticJsonRpcProvider = async (
-  _package: any,
+  _package: unknown,
   opts: IStaticJsonRpcProviderConnectorOptions
 ): Promise<StaticJsonRpcProvider> => {
   const url = opts.rpc[opts.currentChainId];

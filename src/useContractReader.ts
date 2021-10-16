@@ -6,7 +6,6 @@ import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 import { TContractFunctionInfo } from '~~/models';
 
-const DEBUG = false;
 /**
  * #### Summary
  * Enables you to call a contract function with arguments and receive the output.  You can use this to easily track of contract outputs in react states

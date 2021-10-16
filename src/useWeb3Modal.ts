@@ -96,6 +96,7 @@ export const useWeb3Modal = (
       const provider = await web3ModalProviderRef.current?.connect();
       setCurrentEthersProvider(new Web3Provider(provider));
 
+      /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
       if (provider?.on) {
         provider.on('chainChanged', (chainId: number) => {
           console.log(`chain changed to ${chainId}! updating providers`);
@@ -114,6 +115,7 @@ export const useWeb3Modal = (
           setCurrentEthersProvider(undefined);
         });
       }
+      /* eslint-enable */
     } catch (e) {
       if ((e as string).includes(const_web3DialogClosedByUser)) {
         console.log(e);
