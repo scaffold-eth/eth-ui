@@ -2,7 +2,7 @@
  * #### Summary
  * js .some function that can be used with async predicates
  *
- * @category Functions
+ * @category Helpers
  *
  * @param arr
  * @param predicate

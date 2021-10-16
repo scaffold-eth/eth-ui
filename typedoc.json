@@ -1,6 +1,6 @@
 {
   "defaultCategory": "Misc",
-  "categoryOrder": ["Hooks", "EthersContext", "Functions", "Models", "Constants", "*"],
+  "categoryOrder": ["Hooks", "EthersContext", "Helpers", "Models", "Constants", "*"],
   "categorizeByGroup": true,
   "cleanOutputDir": true,
   "readme": "README.tsdoc.md",

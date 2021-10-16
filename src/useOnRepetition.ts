@@ -33,6 +33,8 @@ interface IUseOnRepetitionOptions {
  * - For example you may want to wait for the provider to initalize before first invocation.
  * - 👩🏽‍🏫 A provider is needed for onBlock.
  *
+ * @category Hooks
+ *
  * @param callback
  * @param options
  * @param args variable arguments for callback

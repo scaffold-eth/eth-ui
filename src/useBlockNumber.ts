@@ -11,6 +11,7 @@ import { useOnRepetition } from '~~/useOnRepetition';
  *
  * #### Notes
  * - ✋🏽 For app wide block number access use {@link BlockNumberContext} instead
+ * - ⚠ Deprecated
  * - uses the current ethersProvider from context
  *
  * @category Hooks

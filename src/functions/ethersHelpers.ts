@@ -4,7 +4,7 @@ import { Web3Provider, StaticJsonRpcProvider, JsonRpcProvider } from '@etherspro
  * #### Summary
  * Is it a ethers compatable provider
  *
- * @category Functions
+ * @category Helpers
  *
  * @param providerBase
  * @returns

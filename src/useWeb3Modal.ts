@@ -36,6 +36,8 @@ export interface IWeb3ModalState {
  * #### Notes
  * - 🤚🏽 Consider using the context provider {@link ethersProvider} and {@link EthersModalConnector} instead.
  *
+ * @category Hooks
+ *
  * @param web3ModalConfig
  * @param setCurrentEthersProvider
  * @returns

@@ -8,7 +8,7 @@ import { TEthersUser, TEthersProviderOrSigner } from '~~/models';
  * Parse {@link TEthersProviderOrSigner} to {@link TEthersUser}
  * Get the TEthersUser from a provider or signer
  *
- * @category Functions
+ * @category Helpers
  *
  * @param providerOrSigner TEthersProviderOrSigner
  * @returns TProviderAndSigner

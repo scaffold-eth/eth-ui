@@ -3,6 +3,7 @@ import { Contract } from '@ethersproject/contracts';
 import { useCallback, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
+import { useEthersContext } from '~~/context';
 import { useOnRepetition } from '~~/useOnRepetition';
 
 const zero = BigNumber.from(0);
@@ -18,26 +19,44 @@ const zero = BigNumber.from(0);
  * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
  * @returns (BigNumber) :: balance
  */
+
+/**
+ * #### Summary
+ * Get the balance of an ERC20 token in an address
+ * - uses the ethers.Contract object's provider to access the network
+ *
+ * #### Notes
+ * - uses useOnRepetition
+ *
+ * @param contract ethers.Contract class
+ * @param address
+ * @param pollTime if >0 use polling, else use instead of onBlock event
+ * @returns
+ */
 export const useTokenBalance = (contract: Contract, address: string, pollTime: number = 0): BigNumber => {
   const isMounted = useIsMounted();
   const [balance, setBalance] = useState<BigNumber>(zero);
+  const ethersContext = useEthersContext();
 
   const pollBalance = useCallback(async (): Promise<void> => {
     if (contract != null) {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-        const newBalance: BigNumber = (await contract?.balanceOf?.(address)) ?? zero;
-        if (isMounted()) {
-          setBalance((value) => {
-            if (value.toHexString() !== newBalance.toHexString()) return newBalance;
-            return value;
-          });
+        const contractChainId = await contract?.signer?.getChainId();
+        if (ethersContext.chainId === contractChainId) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+          const newBalance: BigNumber = (await contract?.balanceOf?.(address)) ?? zero;
+          if (isMounted()) {
+            setBalance((value) => {
+              if (value.toHexString() !== newBalance.toHexString()) return newBalance;
+              return value;
+            });
+          }
         }
       } catch (e) {
         console.log('⚠ Could not get token balance', e);
       }
     }
-  }, [address, contract, isMounted]);
+  }, [address, contract, ethersContext.chainId, isMounted]);
 
   useOnRepetition(pollBalance, { pollTime, leadingTrigger: contract?.provider != null, provider: contract.provider });
 

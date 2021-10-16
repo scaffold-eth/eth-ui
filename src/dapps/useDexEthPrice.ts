@@ -6,11 +6,18 @@ import { TNetworkInfo } from '~~/models';
 import { TEthersProvider } from '~~/models/providerTypes';
 
 /**
- * Get the Exchange price of ETH/USD (extrapolated from WETH/DAI)
- * @param targetNetworkInfo (TNetwork)
- * @param mainnetProvider (TEthersProvider)
- * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
- * @returns (number) :: price
+ * #### Summary
+ * Get the Exchange price of ETH/USD (extrapolated from WETH/DAI) from uniswap
+ *
+ * #### Notes
+ * - uses useOnRepetition, does not use context
+ *
+ * @category Hooks
+ *
+ * @param mainnetProvider
+ * @param targetNetworkInfo
+ * @param pollTime if >0 use polling, else use instead of onBlock event
+ * @returns price in USD
  */
 export const useDexEthPrice = (
   mainnetProvider: TEthersProvider | undefined,

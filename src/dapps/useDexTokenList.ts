@@ -1,16 +1,18 @@
 import { TokenInfo, TokenList } from '@uniswap/token-lists';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-
 /**
- * Gets a tokenlist (see more at https://tokenlists.org/), returning the .tokens only
+ * #### Summary
+ * Gets a tokenlist from uniswap ipfs tokenlist
  *
- * ~ How can I use? ~
-  const tokenList = useTokenList(); <- default returns the Unsiwap tokens
-  const tokenList = useTokenList("https://gateway.ipfs.io/ipns/tokens.uniswap.org");
- * @param tokenListUri (string)
- * @param chainId (number)
- * @returns (TokenInfo[])
+ * #### Note
+ * - you can also point it to another URI
+ *
+ * @category Hooks
+ *
+ * @param tokenListUri
+ * @param chainId optional, you can filter by a particular chainId
+ * @returns (TokenInfo[]) from '@uniswap/token-lists'
  */
 export const useDexTokenList = (
   tokenListUri: string = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org',
