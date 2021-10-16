@@ -9,7 +9,6 @@
   - [🔗 Hooks](api-typedocs/modules/Hooks.md)
   - [😎 Models](api-typedocs/modules/Models.md)
   - [🤝🏽 Helpers](api-typedocs/modules/Helpers.md)
-  - [😎 Models](api-typedocs/modules/Models.md)
 
 ## Definitions
 
