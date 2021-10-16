@@ -27,15 +27,12 @@
 - [useUserAddress](Hooks.md#useuseraddress)
 - [useWeb3Modal](Hooks.md#useweb3modal)
 
-### Hooks Interfaces
-
-- [IBurnerSigner](../interfaces/Hooks.IBurnerSigner.md)
-- [IWeb3ModalState](../interfaces/Hooks.IWeb3ModalState.md)
-
 ### Hooks Type aliases
 
+- [TBurnerSigner](Hooks.md#tburnersigner)
 - [TContractConfig](Hooks.md#tcontractconfig)
 - [TGasStationSpeed](Hooks.md#tgasstationspeed)
+- [TWeb3ModalState](Hooks.md#tweb3modalstate)
 
 ## Hooks Functions
 
@@ -65,7 +62,7 @@ price in USD
 
 #### Defined in
 
-[src/dapps/useDexEthPrice.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/dapps/useDexEthPrice.ts#L22)
+[src/dapps/useDexEthPrice.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/dapps/useDexEthPrice.ts#L22)
 
 ___
 
@@ -94,7 +91,7 @@ Gets a tokenlist from uniswap ipfs tokenlist
 
 #### Defined in
 
-[src/dapps/useDexTokenList.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/dapps/useDexTokenList.ts#L17)
+[src/dapps/useDexTokenList.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/dapps/useDexTokenList.ts#L17)
 
 ___
 
@@ -118,7 +115,7 @@ Gets ENS name for given address
 
 #### Defined in
 
-[src/dapps/useEnsAddress.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/dapps/useEnsAddress.ts#L44)
+[src/dapps/useEnsAddress.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/dapps/useEnsAddress.ts#L44)
 
 ___
 
@@ -142,7 +139,7 @@ Gets the address from an ENS name
 
 #### Defined in
 
-[src/dapps/useEnsResolveName.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/dapps/useEnsResolveName.ts#L16)
+[src/dapps/useEnsResolveName.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/dapps/useEnsResolveName.ts#L16)
 
 ___
 
@@ -171,7 +168,7 @@ Get the balance of an ERC20 token in an address
 
 #### Defined in
 
-[src/erc/useTokenBalance.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/erc/useTokenBalance.ts#L38)
+[src/erc/useTokenBalance.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/erc/useTokenBalance.ts#L38)
 
 ___
 
@@ -200,7 +197,7 @@ current balance
 
 #### Defined in
 
-[src/useBalance.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useBalance.ts#L22)
+[src/useBalance.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useBalance.ts#L22)
 
 ___
 
@@ -230,13 +227,13 @@ block number
 
 #### Defined in
 
-[src/useBlockNumber.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useBlockNumber.ts#L22)
+[src/useBlockNumber.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useBlockNumber.ts#L22)
 
 ___
 
 ### useBurnerSigner
 
-▸ `Const` **useBurnerSigner**(`localProvider`): [`IBurnerSigner`](../interfaces/Hooks.IBurnerSigner.md)
+▸ `Const` **useBurnerSigner**(`localProvider`): [`TBurnerSigner`](Hooks.md#tburnersigner)
 
 #### Summary
 A hook that creates a burner signer/address and provides ways of interacting with
@@ -250,13 +247,13 @@ and updating the signer
 
 #### Returns
 
-[`IBurnerSigner`](../interfaces/Hooks.IBurnerSigner.md)
+[`TBurnerSigner`](Hooks.md#tburnersigner)
 
 IBurnerSigner
 
 #### Defined in
 
-[src/useBurnerSigner.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useBurnerSigner.ts#L87)
+[src/useBurnerSigner.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useBurnerSigner.ts#L87)
 
 ___
 
@@ -283,7 +280,7 @@ Checks whether a contract exists on the blockchain
 
 #### Defined in
 
-[src/useContractExistsAtAddress.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useContractExistsAtAddress.ts#L17)
+[src/useContractExistsAtAddress.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useContractExistsAtAddress.ts#L17)
 
 ___
 
@@ -320,7 +317,7 @@ Record of contractName:Contracts
 
 #### Defined in
 
-[src/useContractLoader.ts:54](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useContractLoader.ts#L54)
+[src/useContractLoader.ts:54](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useContractLoader.ts#L54)
 
 ___
 
@@ -358,7 +355,7 @@ Enables you to call a contract function with arguments and receive the output.  
 
 #### Defined in
 
-[src/useContractReader.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useContractReader.ts#L26)
+[src/useContractReader.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useContractReader.ts#L26)
 
 ___
 
@@ -387,7 +384,7 @@ Tracks the events of associated with a contract
 
 #### Defined in
 
-[src/useEventListener.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useEventListener.ts#L25)
+[src/useEventListener.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useEventListener.ts#L25)
 
 ___
 
@@ -422,7 +419,7 @@ gas as gwei
 
 #### Defined in
 
-[src/useGasPrice.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useGasPrice.ts#L40)
+[src/useGasPrice.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useGasPrice.ts#L40)
 
 ___
 
@@ -449,7 +446,7 @@ Gets the user [TEthersUser](Models.md#tethersuser) from from the current provide
 
 #### Defined in
 
-[src/useGetUserFromProviders.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useGetUserFromProviders.ts#L21)
+[src/useGetUserFromProviders.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useGetUserFromProviders.ts#L21)
 
 ___
 
@@ -472,7 +469,7 @@ Gets the user [TEthersUser](Models.md#tethersuser) for a signer or wallet
 
 #### Defined in
 
-[src/useGetUserFromSigners.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useGetUserFromSigners.ts#L16)
+[src/useGetUserFromSigners.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useGetUserFromSigners.ts#L16)
 
 ___
 
@@ -499,7 +496,7 @@ Get the current nonce for the address provided
 
 #### Defined in
 
-[src/useNonce.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useNonce.ts#L20)
+[src/useNonce.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useNonce.ts#L20)
 
 ___
 
@@ -532,7 +529,7 @@ The callback can be invoked once on leading edge when leadTrigger conditions are
 
 #### Defined in
 
-[src/useOnRepetition.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useOnRepetition.ts#L42)
+[src/useOnRepetition.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useOnRepetition.ts#L42)
 
 ___
 
@@ -553,7 +550,7 @@ Get the current timestamp from the latest block
 
 #### Defined in
 
-[src/useTimestamp.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useTimestamp.ts#L19)
+[src/useTimestamp.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useTimestamp.ts#L19)
 
 ___
 
@@ -576,13 +573,13 @@ Get the address from the signer
 
 #### Defined in
 
-[src/useUserAddress.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useUserAddress.ts#L15)
+[src/useUserAddress.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useUserAddress.ts#L15)
 
 ___
 
 ### useWeb3Modal
 
-▸ `Const` **useWeb3Modal**(`web3ModalConfig`, `setCurrentEthersProvider`): [`IWeb3ModalState`](../interfaces/Hooks.IWeb3ModalState.md)
+▸ `Const` **useWeb3Modal**(`web3ModalConfig`, `setCurrentEthersProvider`): [`TWeb3ModalState`](Hooks.md#tweb3modalstate)
 
 #### Summary
 A hook that makes it easy to interact and use [web3Modal](https://github.com/Web3Modal/web3modal)
@@ -600,13 +597,42 @@ A hook that makes it easy to interact and use [web3Modal](https://github.com/Web
 
 #### Returns
 
-[`IWeb3ModalState`](../interfaces/Hooks.IWeb3ModalState.md)
+[`TWeb3ModalState`](Hooks.md#tweb3modalstate)
 
 #### Defined in
 
-[src/useWeb3Modal.ts:47](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useWeb3Modal.ts#L47)
+[src/useWeb3Modal.ts:47](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useWeb3Modal.ts#L47)
 
 ## Hooks Type aliases
+
+### TBurnerSigner
+
+Ƭ **TBurnerSigner**: `Object`
+
+#### Summary
+Return type of useBurnerSigner:
+
+#### Notes
+- provides signer
+- methods of interacting with burner signer
+- methods to save and loadd signer from local storage
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `signer` | `Signer` \| `undefined` |
+| `account` | `string` \| `undefined` |
+| `saveBurner` | () => `void` |
+| `loadOrGenerateBurner` | () => `void` |
+| `generateBurnerSigner` | () => `void` |
+| `getBurnerPrivateKey` | () => `undefined` \| `BytesLike` |
+
+#### Defined in
+
+[src/useBurnerSigner.ts:56](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useBurnerSigner.ts#L56)
+
+___
 
 ### TContractConfig
 
@@ -626,7 +652,7 @@ Configuration for useContractLoader
 
 #### Defined in
 
-[src/useContractLoader.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useContractLoader.ts#L14)
+[src/useContractLoader.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useContractLoader.ts#L14)
 
 ___
 
@@ -642,4 +668,25 @@ Preset speeds for Eth Gas Station API
 
 #### Defined in
 
-[src/useGasPrice.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/useGasPrice.ts#L20)
+[src/useGasPrice.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useGasPrice.ts#L20)
+
+___
+
+### TWeb3ModalState
+
+Ƭ **TWeb3ModalState**: `Object`
+
+The current state of Web3Modal
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `initializing` | `boolean` | Is the modal initalizing |
+| `openWeb3ModalCallback` | () => `void` | - |
+| `logoutOfWeb3ModalCallback` | () => `void` | - |
+| `updateWeb3ModalThemeCallback` | (`theme`: `string` \| `ThemeColors`) => `void` | - |
+
+#### Defined in
+
+[src/useWeb3Modal.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/useWeb3Modal.ts#L15)

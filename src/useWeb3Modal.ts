@@ -12,7 +12,7 @@ import { const_web3DialogClosedByUser } from '~~/models/constants/common';
  *
  * @category Hooks
  */
-export interface IWeb3ModalState {
+export type TWeb3ModalState = {
   /**
    * Is the modal initalizing
    */
@@ -29,7 +29,7 @@ export interface IWeb3ModalState {
    * A callback to change the modal theme
    */
   updateWeb3ModalThemeCallback: (theme: ThemeColors | string) => void;
-}
+};
 /**
  * #### Summary
  * A hook that makes it easy to interact and use [web3Modal](https://github.com/Web3Modal/web3modal)
@@ -47,7 +47,7 @@ export interface IWeb3ModalState {
 export const useWeb3Modal = (
   web3ModalConfig: Partial<ICoreOptions>,
   setCurrentEthersProvider: (newEthersProvider: TEthersProvider | undefined) => void
-): IWeb3ModalState => {
+): TWeb3ModalState => {
   const web3ModalProviderRef = useRef<Web3Modal>();
   const initalizingRef = useRef<boolean>();
 

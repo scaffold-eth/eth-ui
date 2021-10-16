@@ -39,7 +39,7 @@ js .some function that can be used with async predicates
 
 #### Defined in
 
-[src/functions/asyncSome.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/functions/asyncSome.ts#L11)
+[src/functions/asyncSome.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/functions/asyncSome.ts#L11)
 
 ___
 
@@ -62,7 +62,7 @@ Is it a ethers compatable provider
 
 #### Defined in
 
-[src/functions/ethersHelpers.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/functions/ethersHelpers.ts#L12)
+[src/functions/ethersHelpers.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/functions/ethersHelpers.ts#L12)
 
 ___
 
@@ -88,7 +88,7 @@ TProviderAndSigner
 
 #### Defined in
 
-[src/functions/parseProviderOrSigner.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/functions/parseProviderOrSigner.ts#L16)
+[src/functions/parseProviderOrSigner.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/functions/parseProviderOrSigner.ts#L16)
 
 ___
 
@@ -123,4 +123,4 @@ const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
 
 #### Defined in
 
-[src/helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/a2bd0ae/src/helpers/lazier.ts#L18)
+[src/helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/5fa0148/src/helpers/lazier.ts#L18)

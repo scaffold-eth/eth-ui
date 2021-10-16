@@ -53,7 +53,7 @@ const loadBurnerKeyFromStorage = (): string | null => {
  *
  * @category Hooks
  */
-export interface IBurnerSigner {
+export type TBurnerSigner = {
   signer: Signer | undefined;
   account: string | undefined;
   /**
@@ -72,7 +72,7 @@ export interface IBurnerSigner {
    * get your current burner pk
    */
   getBurnerPrivateKey: () => BytesLike | undefined;
-}
+};
 
 /**
  * #### Summary
@@ -84,7 +84,7 @@ export interface IBurnerSigner {
  * @param localProvider localhost provider
  * @returns IBurnerSigner
  */
-export const useBurnerSigner = (localProvider: TEthersProvider | undefined): IBurnerSigner => {
+export const useBurnerSigner = (localProvider: TEthersProvider | undefined): TBurnerSigner => {
   const key = 'scaffold-eth-burner-privateKey';
   const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
   const walletRef = useRef<Wallet>();
