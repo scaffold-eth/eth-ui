@@ -4,11 +4,22 @@ import { useDebounce } from 'use-debounce';
 
 import { TEthersProvider } from '~~/models';
 
+/**
+ * Is the private key valid
+ * @internal
+ * @param pk
+ * @returns
+ */
 const isValidPk = (pk: BytesLike | undefined | null): boolean => {
   return pk?.length === 64 || pk?.length === 66;
 };
 
-export const saveBurnerKeyToStorage = (incomingPK: BytesLike): void => {
+/**
+ * Save the current burner private key to storage
+ * @internal
+ * @param incomingPK
+ */
+const saveBurnerKeyToStorage = (incomingPK: BytesLike): void => {
   if (isValidPk(incomingPK)) {
     const rawPK = incomingPK;
     window.history.pushState({}, '', '/');
@@ -21,11 +32,27 @@ export const saveBurnerKeyToStorage = (incomingPK: BytesLike): void => {
   }
 };
 
-export const loadBurnerKeyFromStorage = (): string | null => {
+/**
+ * Gets the current burner private key from storage
+ * @internal
+ * @returns
+ */
+const loadBurnerKeyFromStorage = (): string | null => {
   const currentPrivateKey = window.localStorage.getItem('metaPrivateKey');
   return currentPrivateKey;
 };
 
+/**
+ * #### Summary
+ * Return type of useBurnerSigner:
+ *
+ * #### Notes
+ * - provides signer
+ * - methods of interacting with burner signer
+ * - methods to save and loadd signer from local storage
+ *
+ * @category Hooks
+ */
 export interface IBurnerSigner {
   signer: Signer | undefined;
   account: string | undefined;
@@ -48,11 +75,16 @@ export interface IBurnerSigner {
 }
 
 /**
- * A hook that creates a buner address and returns a Signer
- * @param ethersProvider (TEthersProvider)
- * @returns (ethers.signer) :: signer of the wallet
+ * #### Summary
+ * A hook that creates a burner signer/address and provides ways of interacting with
+ * and updating the signer
+ *
+ * @category Hooks
+ *
+ * @param localProvider localhost provider
+ * @returns IBurnerSigner
  */
-export const useBurnerSigner = (ethersProvider: TEthersProvider | undefined): IBurnerSigner => {
+export const useBurnerSigner = (localProvider: TEthersProvider | undefined): IBurnerSigner => {
   const key = 'scaffold-eth-burner-privateKey';
   const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
   const walletRef = useRef<Wallet>();
@@ -82,12 +114,12 @@ export const useBurnerSigner = (ethersProvider: TEthersProvider | undefined): IB
   }, []);
 
   useEffect(() => {
-    if (privateKeyValue && ethersProvider) {
+    if (privateKeyValue && localProvider) {
       const wallet = new ethers.Wallet(privateKeyValue);
-      const newSigner = wallet.connect(ethersProvider);
+      const newSigner = wallet.connect(localProvider);
       walletRef.current = newSigner;
     }
-  }, [privateKeyValue, ethersProvider]);
+  }, [privateKeyValue, localProvider]);
 
   /**
    * if valid save burner key to storage
@@ -103,7 +135,7 @@ export const useBurnerSigner = (ethersProvider: TEthersProvider | undefined): IB
    * create a new burnerkey
    */
   const generateBurnerSigner = useCallback(() => {
-    if (ethersProvider && !creatingBurnerRef.current) {
+    if (localProvider && !creatingBurnerRef.current) {
       creatingBurnerRef.current = true;
       console.log('🔑 Create new burner wallet...');
       const wallet = Wallet.createRandom();
@@ -115,7 +147,7 @@ export const useBurnerSigner = (ethersProvider: TEthersProvider | undefined): IB
     } else {
       console.log('⚠ Could not create burner wallet');
     }
-  }, [ethersProvider]);
+  }, [localProvider]);
 
   /**
    * Load burner key from storage

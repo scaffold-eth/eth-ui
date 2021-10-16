@@ -3,6 +3,13 @@ import { useState, useEffect } from 'react';
 
 import { TEthersProvider } from '~~/models';
 
+/**
+ * @internal
+ *
+ * @param provider
+ * @param address
+ * @returns
+ */
 const lookupAddress = async (provider: TEthersProvider, address: string): Promise<string> => {
   if (utils.isAddress(address)) {
     try {
@@ -25,10 +32,14 @@ const lookupAddress = async (provider: TEthersProvider, address: string): Promis
 };
 
 /**
- * Gets ENS name from given address and provider
- * @param mainnetProvider (TEthersProvider)
- * @param address (string)
- * @returns (string) ens name
+ * #### Summary
+ * Gets ENS name for given address
+ *
+ * @category Hooks
+ *
+ * @param mainnetProvider mainnet provider
+ * @param address
+ * @returns
  */
 export const useEnsAddress = (mainnetProvider: TEthersProvider | undefined, address: string): string => {
   const [ensName, setEnsName] = useState(address);

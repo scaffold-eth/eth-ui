@@ -6,18 +6,17 @@ import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
 import { TEthersUser as TEthersUser, TEthersProvider } from '~~/models';
 
 /**
- *  Gets user provider/signer from injected provider or local provider
- *  Use your injected provider from 🦊 Metamask 
- *  If you don't have it then instantly generate a 🔥 burner wallet from a local provider
+ * #### Summary
+ * Gets the user {@link TEthersUser} from from the current provider or array of fallback providers
  *
-  ~ Features ~
-  - Specify the injected provider from Metamask
-  - Specify the local provider
-  - Usage examples:
-    const tx = Transactor(userSigner, gasPrice)
- * @param provider (TEthersProviderOrSigner) :: injected provider/signer from metamask etc..
- * @param localProvider (TEthersProvider) local provider to generate a burner wallet from
- * @returns (TProviderAndSigner) 
+ * #### Notes
+ * - 🤚🏽 Consider using the context provider {@link ethersProvider}
+ *
+ * @category Hooks
+ *
+ * @param currentProvider
+ * @param moreProviders
+ * @returns
  */
 export const useGetUserFromProviders = (
   currentProvider: TEthersProvider | undefined,

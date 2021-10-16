@@ -4,10 +4,14 @@ import { useState, useEffect } from 'react';
 import { TEthersProvider } from '~~/models';
 
 /**
- * Gets the address from an ENS name and provider
- * @param mainnetProvider (TEthersProvider)
- * @param ensName (string)
- * @returns (string) :: address
+ * #### Summary
+ * Gets the address from an ENS name
+ *
+ * @category Hooks
+ *
+ * @param mainnetProvider mainnet provider
+ * @param ensName
+ * @returns
  */
 export const useEnsResolveName = (mainnetProvider: TEthersProvider, ensName: string): string => {
   const [address, setAddress] = useState<string>(constants.AddressZero);

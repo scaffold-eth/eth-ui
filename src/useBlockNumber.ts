@@ -6,10 +6,18 @@ import { TEthersProvider } from '~~/models';
 import { useOnRepetition } from '~~/useOnRepetition';
 
 /**
- * Get the current block number of the network
- * @param ethersProvider (TEthersProvider)
- * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
- * @returns (number) :: block number
+ * #### Summary
+ * Get the current block number of the network.
+ *
+ * #### Notes
+ * - ✋🏽 For app wide block number access use {@link BlockNumberContext} instead
+ * - ⚠ Deprecated
+ * - uses the current ethersProvider from context
+ *
+ * @category Hooks
+ *
+ * @param pollTime if > 0 uses polling, else it uses onBlock event
+ * @returns block number
  */
 export const useBlockNumber = (pollTime: number = 0): number => {
   const [blockNumber, setBlockNumber] = useState<number>(0);

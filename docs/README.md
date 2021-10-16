@@ -1,3 +1,5 @@
+eth-hooks - v3.2.0beta09 / [Exports](modules.md)
+
 # 🖇 Eth-Hooks Overview
 
 Commonly used Ethereum hooks.
@@ -20,9 +22,7 @@ yarn add eth-hooks
 
 ## Peer Dependencies
 
-- react & general
-  - react
-  - react-dom
+- react
 - web3
   - @uniswap/sdk
 
@@ -34,6 +34,4 @@ yarn add eth-hooks
 
 # API
 
-## Hooks &amp; Helpers
-
-[eth-hooks docs](https://github.com/scaffold-eth/eth-hooks/tree/develop/docs/modules.md)
+[Eth-Hooks API](modules.md)

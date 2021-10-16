@@ -7,21 +7,20 @@ import { useEthersContext } from '~~/context';
 const getEventKey = (m: Event): string => {
   return `${m.transactionHash}_${m.logIndex}`;
 };
-
 /**
- * Enables you to keep track of events
+ * #### Summary
+ * Tracks the events of associated with a contract
  *
- * ~ Features ~
-  - Provide readContracts by loading contracts (see more on ContractLoader.js)
-  - Specify the name of the contract, in this case it is "YourContract"
-  - Specify the name of the event in the contract, in this case we keep track of "SetPurpose" event
-  - Specify the provider
- * @param contracts (Record<string, Contract>) :: record of current contractname/contract
- * @param contractName (string) :: name of the contract you are interested in
- * @param eventName (string) :: name of the event
- * @param provider (TEthersProvider)
- * @param startBlock (number) starting block
- * @returns (ethers->Event)
+ * #### Notes
+ * - updates triggered through ethers event listener
+ * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
+ *
+ * @category Hooks
+ *
+ * @param contract ethers.Contract
+ * @param eventName
+ * @param startBlock
+ * @returns
  */
 export const useEventListener = (contract: Contract | undefined, eventName: string, startBlock: number): Event[] => {
   const isMounted = useIsMounted();
@@ -29,10 +28,11 @@ export const useEventListener = (contract: Contract | undefined, eventName: stri
 
   const [eventMap, setEventMap] = useState<Map<string, Event>>(new Map<string, Event>());
   const deps = JSON.stringify([...eventMap]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const events = useMemo(() => [...eventMap].map((m) => m[1]), [deps]);
 
   const addNewEvent = useCallback(
-    (events: Event[]) => {
+    (...events: Event[]) => {
       if (events != null && events.length > 0) {
         const newMap = new Map(events.map((m) => [getEventKey(m), m]));
         if (isMounted()) setEventMap((oldMap) => new Map([...oldMap, ...newMap]));

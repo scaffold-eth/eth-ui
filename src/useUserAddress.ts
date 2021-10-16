@@ -4,9 +4,13 @@ import { useDebounce } from 'use-debounce';
 import { useIsMounted } from 'usehooks-ts';
 
 /**
- * Get the address from the current signer or provider
- * @param providerOrSigner (TEthersProviderOrSigner)
- * @returns (string) :: address
+ * #### Summary
+ * Get the address from the signer
+ *
+ * @category Hooks
+ *
+ * @param signer
+ * @returns
  */
 export const useUserAddress = (signer: Signer | undefined): string | undefined => {
   const isMounted = useIsMounted();

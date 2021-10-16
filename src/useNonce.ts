@@ -5,11 +5,17 @@ import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 
 /**
- * Get the current nonce of the address provided
- * @param provider (TEthersProvider)
- * @param address (string)
- * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
- * @returns (number) nonce
+ * #### Summary
+ * Get the current nonce for the address provided
+ *
+ * #### Notes
+ * - updates triggered by {@link BlockNumberContext}
+ * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
+ *
+ * @category Hooks
+ *
+ * @param address
+ * @returns
  */
 export const useNonce = (address: string): number => {
   const isMounted = useIsMounted();

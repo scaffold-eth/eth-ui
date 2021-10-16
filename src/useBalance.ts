@@ -6,18 +6,18 @@ import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
 
 const zero = BigNumber.from(0);
-
 /**
- * Gets your balance in ETH from given address and provider
- *   
- * ~ Features ~
-  - Provide address and get balance corresponding to given address
-  - Change provider to access balance on different chains (ex. mainnetProvider)
-  - If no pollTime is passed, the balance will update on every new block
- * @param ethersProvider (ethers->Provider)
- * @param address (string)
- * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
- * @returns (Bignumber) ::  current balance
+ * #### Summary
+ * Gets your balance in ETH for the given address.
+ *
+ * #### Notes
+ * - updates triggered by {@link BlockNumberContext}
+ * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
+ *
+ * @category Hooks
+ *
+ * @param address
+ * @returns current balance
  */
 export const useBalance = (address: string | undefined): BigNumber => {
   const isMounted = useIsMounted();

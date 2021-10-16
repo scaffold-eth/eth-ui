@@ -1,5 +1,8 @@
 /**
- * Simple type to describe a network in scaffold-eth
+ * #### Summary
+ * A type that describes a network for applications
+ *
+ * @category Models
  */
 export type TNetworkInfo = {
   name: string;

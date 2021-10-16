@@ -6,16 +6,32 @@ import { TEthersProvider } from '~~/models';
 
 const Context = createContext<number | undefined>(undefined);
 
+/** *
+ * @internal
+ */
 interface State {
   [chainId: number]: number | undefined;
 }
 
+/**
+ *
+ * @internal
+ *
+ */
 interface Payload {
   chainId: number;
   blockNumber: number;
 }
 
-export const reducer = (state: State = {}, payload: Payload): State => {
+/**
+ *
+ * @internal
+ *
+ * @param state
+ * @param payload
+ * @returns
+ */
+const reducer = (state: State = {}, payload: Payload): State => {
   const current = state[payload.chainId];
   if (!current || payload.blockNumber > current) {
     return {
@@ -26,6 +42,24 @@ export const reducer = (state: State = {}, payload: Payload): State => {
   return state;
 };
 
+/**
+ * #### Summary
+ * A hook that gets you the current blocknumber via react context
+ * - can be shared by your whole app.
+ *
+ * #### Use
+ * Make sure to wrap your main app with the {@link EthersAppContext}.
+ * - See [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/0225179a2a8bb7b3a255d6eff4802b47d72809dd/packages/vite-app-ts/src/components/routes/App.tsx#L38)
+ *
+ *
+ * #### Notes
+ * - this extensively used by eth-hooks to trigger hooks when a new block arrives
+ * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
+ *
+ * @category EthersContext
+ *
+ * @returns current block number
+ */
 export const useBlockNumberContext = (): number | undefined => {
   return useContext(Context);
 };
@@ -36,6 +70,15 @@ interface IProps {
   chainId?: number;
 }
 
+/**
+ * #### Summary
+ * A context that works with {@link useBlockNumberContext} to give access to the current provider's block number in any place in your app
+ *
+ * @category EthersContext
+ *
+ * @param props
+ * @returns
+ */
 export const BlockNumberContext: FC<IProps> = (props) => {
   const context = useEthersContext(props.providerKey);
   const chainId = props.chainId ?? context.chainId;

@@ -1,16 +1,18 @@
 import { Contract, utils } from 'ethers';
 import { useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
-
 /**
- * Checks whether a contract exists on the blockchain, returns true if it exists, otherwise false
- * 
-  ~ Features ~
-  - Provide contractAddress to check if the contract is deployed
-  - Change provider to check contract address on different chains (ex. mainnetProvider)
- * @param provider (TEthersProvider)
- * @param contract (string) 
- * @returns (boolean)
+ * #### Summary
+ * Checks whether a contract exists on the blockchain
+ *
+ * #### Notes
+ * - uses the ethers.Contract object's provider to access the network
+ * - checks the contract address to see if the contract is deployed
+ *
+ * @category Hooks
+ *
+ * @param contract ethers.Contract class
+ * @returns
  */
 export const useContractExistsAtAddress = (contract: Contract | undefined): boolean => {
   const isMounted = useIsMounted();

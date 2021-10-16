@@ -6,37 +6,50 @@ import { useEthersContext } from '~~/context';
 import { TDeployedContracts, TEthersProviderOrSigner, TExternalContracts } from '~~/models';
 
 /**
+ * #### Summary
  * Configuration for useContractLoader
+ *
+ * @category Hooks
  */
 export type TContractConfig = {
+  /**
+   * your local hardhat network name
+   */
   hardhatNetworkName?: string;
+  /**
+   * the address:contractName key value pair
+   */
   customAddresses?: Record<string, string>;
+  /**
+   * Hardhat deployed contracts
+   */
   deployedContracts?: TDeployedContracts;
+  /**
+   * External contracts (such as DAI)
+   */
   externalContracts?: TExternalContracts;
 };
 
 /**
- * Loads your local contracts and gives options to read values from contracts
-  or write transactions into them
-
-   ~ Features ~
-  - localProvider enables reading values from contracts
-  - userProvider enables writing transactions into contracts
-  - Example of keeping track of "purpose" variable by loading contracts into readContracts
-    and using ContractReader.js hook:
-    const purpose = useContractReader(readContracts,"YourContract", "purpose")
-  - Example of using setPurpose function from our contract and writing transactions by Transactor.js helper:
-    tx( writeContracts.YourContract.setPurpose(newPurpose) )
-
-  config can include:
-  - chainId - to hardcode the chainId, irrespective of the providerOrSigner chainId
-  - hardhatNetworkName - to hardcode the hardhat network of interest
-  - customAddresses: { contractName: 0xCustomAddress } to hardcode the address for a given named contract
-  - hardhatContracts: object following the hardhat deploy export format (Json with chainIds as keys, which have hardhat network names as keys, which contain arrays of contracts for each)
-  - externalContracts: object with chainIds as keys, with an array of contracts for each
- * @param ethersProvider (TEthersProviderOrSigner)
- * @param config (TContractConfig) :: configuration for loader
- * @returns (Record<string, Contract>) :: a record of contractName:contract
+ * #### Summary
+ *  Loads your contracts returns them and gives options to read values from contracts
+ * or write transactions into them
+ *
+ * #### Notes
+ * A optional providerOrSigner is needed to initalize the contract class
+ * - if none is given, the context providerOrSigner is used if the chainId is the same.
+ * - A signer is required for write contracts
+ * Provider
+ * - uses the current ethersProvider from context
+ * ChainId
+ * - if chain id is not given, it will use the chainId of the provider
+ *
+ * @category Hooks
+ *
+ * @param config
+ * @param providerOrSigner (optional) used to initalize the contract class
+ * @param configChainId (optional) can be used to target specific a particular network (such as mainnet) instead of the current provider
+ * @returns Record of contractName:Contracts
  */
 export const useContractLoader = (
   config: TContractConfig = {},
@@ -49,7 +62,6 @@ export const useContractLoader = (
 
   const [contracts, setContracts] = useState<Record<string, Contract>>({});
   const configDep: string = useMemo(() => JSON.stringify(config ?? {}), [config]);
-  const networkDeps = `${chainId ?? 0}_${ethersProvider?.network?.name ?? ''}`;
 
   useEffect(() => {
     const loadContracts = (): void => {
@@ -107,7 +119,7 @@ export const useContractLoader = (
     void loadContracts();
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ethersProvider, configDep, networkDeps]);
+  }, [ethersProvider, configDep, chainId]);
 
   return contracts;
 };

@@ -1,0 +1,13 @@
+{
+  "defaultCategory": "Misc",
+  "categoryOrder": ["Hooks", "EthersContext", "Helpers", "Models", "Constants", "*"],
+  "categorizeByGroup": true,
+  "cleanOutputDir": true,
+  "readme": "README.tsdoc.md",
+  "entryPoints": ["./src/index.docs.ts"],
+  "out": "docs",
+  "includeVersion": true,
+  "sort": ["source-order"],
+  "excludePrivate": true,
+  "excludeInternal": true
+}

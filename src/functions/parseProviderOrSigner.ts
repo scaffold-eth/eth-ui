@@ -4,7 +4,12 @@ import { ethers, Signer } from 'ethers';
 import { TEthersUser, TEthersProviderOrSigner } from '~~/models';
 
 /**
- * Parse TEthersProviderOrSigner to TProviderAndSigner
+ * #### Summary
+ * Parse {@link TEthersProviderOrSigner} to {@link TEthersUser}
+ * Get the TEthersUser from a provider or signer
+ *
+ * @category Helpers
+ *
  * @param providerOrSigner TEthersProviderOrSigner
  * @returns TProviderAndSigner
  */
