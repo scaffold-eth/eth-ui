@@ -26,7 +26,7 @@ Is the modal initalizing
 
 #### Defined in
 
-[src/useWeb3Modal.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useWeb3Modal.ts#L17)
+[src/useWeb3Modal.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/42de860/src/useWeb3Modal.ts#L17)
 
 ## Methods
 
@@ -42,7 +42,7 @@ A callback to open the modal
 
 #### Defined in
 
-[src/useWeb3Modal.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useWeb3Modal.ts#L21)
+[src/useWeb3Modal.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/42de860/src/useWeb3Modal.ts#L21)
 
 ___
 
@@ -58,7 +58,7 @@ A callback to close the modal
 
 #### Defined in
 
-[src/useWeb3Modal.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useWeb3Modal.ts#L25)
+[src/useWeb3Modal.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/42de860/src/useWeb3Modal.ts#L25)
 
 ___
 
@@ -80,4 +80,4 @@ A callback to change the modal theme
 
 #### Defined in
 
-[src/useWeb3Modal.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/c77a393/src/useWeb3Modal.ts#L29)
+[src/useWeb3Modal.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/42de860/src/useWeb3Modal.ts#L29)
