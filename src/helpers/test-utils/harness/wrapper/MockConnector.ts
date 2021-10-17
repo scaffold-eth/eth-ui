@@ -2,6 +2,7 @@ import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { MockProvider } from 'ethereum-waffle';
 import { Signer } from 'ethers';
+import { stub } from 'sinon';
 import { ThemeColors } from 'web3modal';
 
 import { ICommonModalConnector } from '~~/context';
@@ -9,26 +10,41 @@ import { const_DefaultTestChainId } from '~~/helpers/test-utils/constants';
 import { TEthersProvider } from '~~/models';
 
 export class MockConnector extends AbstractConnector implements ICommonModalConnector {
-  protected readonly provider: MockProvider | TEthersProvider;
-  protected readonly chainId: number;
-  protected signer: Signer | undefined;
+  protected provider: MockProvider | TEthersProvider;
+  protected mockChainId: number;
 
-  constructor(provider: MockProvider | TEthersProvider, chainId?: number) {
+  protected mockSigner: Signer | undefined;
+  protected mockAccount: string | undefined;
+
+  public mockResetModal = stub(this, 'resetModal');
+  public mockSetModalTheme = stub(this, 'setModalTheme');
+  public mockChangeSigner = stub(this, 'changeSigner');
+
+  constructor(provider: MockProvider) {
     super();
     this.provider = provider;
-    this.chainId = chainId ?? const_DefaultTestChainId;
+    this.mockChainId = const_DefaultTestChainId;
+    this.replaceWithStubs();
   }
-  getSigner(): Signer | undefined {
-    return this.signer;
+
+  public replaceWithStubs(): void {
+    this.resetModal = this.mockResetModal;
+    this.setModalTheme = this.mockSetModalTheme;
+    this.changeSigner = this.mockChangeSigner as any;
   }
-  setModalTheme(_theme: ('light' | 'dark') | ThemeColors): void {
-    return;
+
+  public getSigner(): Signer | undefined {
+    return this.mockSigner;
   }
-  resetModal(): void {
-    return;
+  public setModalTheme(_theme: ('light' | 'dark') | ThemeColors): void {
+    throw new Error('MockConnector: Method not implemented.');
   }
-  changeSigner(signer: Signer): Promise<void> {
-    throw new Error('Method not implemented.');
+  public resetModal(): void {
+    throw new Error('MockConnector: Method not implemented.');
+  }
+
+  public changeSigner(_signer: Signer): Promise<void> {
+    throw new Error('MockConnector: Method not implemented.');
   }
 
   private providerPromise = (): Promise<MockProvider | TEthersProvider> => {
@@ -36,10 +52,10 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   };
 
   public activate = async (): Promise<ConnectorUpdate> => {
-    const account = await this.getAccount();
-    this.signer = this.provider.getSigner(account);
+    const account = await this.setMockAccount(0);
+    this.mockSigner = this.provider.getSigner(account);
 
-    return { provider: await this.providerPromise(), chainId: this.chainId, account: account };
+    return { provider: await this.providerPromise(), chainId: this.mockChainId, account: account };
   };
 
   public getProvider = async (): Promise<MockProvider | TEthersProvider> => {
@@ -47,12 +63,23 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   };
 
   public getChainId = async (): Promise<number> => {
-    return await Promise.resolve(this.chainId);
+    return await Promise.resolve(this.mockChainId);
   };
 
   public async getAccount(): Promise<string> {
     const accounts = await this.provider.listAccounts();
-    return await Promise.resolve(accounts[0]);
+    return await Promise.resolve(this.mockAccount ?? accounts[0]);
+  }
+
+  public async setMockAccount(hardhatAccountIndex: number): Promise<string> {
+    const accounts = await this.provider.listAccounts();
+    if (accounts?.[hardhatAccountIndex] == null) {
+      const error = new Error('MockConnector: unknown mock hardhat account');
+      console.error(error);
+      throw error;
+    }
+    this.mockAccount = accounts[hardhatAccountIndex];
+    return accounts[hardhatAccountIndex];
   }
 
   public deactivate(): void {
