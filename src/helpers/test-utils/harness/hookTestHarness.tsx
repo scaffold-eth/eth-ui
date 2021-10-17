@@ -9,7 +9,7 @@ import { getMockProvider } from '~~/helpers/test-utils/harness/getMockProvider';
 import { MockAppWrapper } from '~~/helpers/test-utils/harness/wrapper/MockAppWrapper';
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper/MockConnector';
 
-type TTestHookResult<TProps, TResult> = RenderHookResult<TProps, TResult, Renderer<TProps>> & {
+type TTestHookResult<PropsT, TResult> = RenderHookResult<PropsT, TResult, Renderer<PropsT>> & {
   mockProvider: MockProvider;
 };
 
@@ -22,9 +22,9 @@ const mockConnector = new MockConnector(mockProvider);
  * @see renderHook from @link testing-library/react-hooks
  * @returns (TTestHookResult)
  */
-export const hookTestHarness = async <TInput, ResultT>(
-  callbackToHook: (input: TInput) => ResultT
-): Promise<TTestHookResult<TInput, ResultT>> => {
+export const hookTestHarness = async <InputT, ResultT>(
+  callbackToHook: (input: InputT) => ResultT
+): Promise<TTestHookResult<InputT, ResultT>> => {
   const createMockConnector: CreateEthersModalConnector = () => {
     return mockConnector;
   };
@@ -33,15 +33,7 @@ export const hookTestHarness = async <TInput, ResultT>(
     <MockAppWrapper createMockConnector={createMockConnector}>{props.children}</MockAppWrapper>
   );
 
-  const callbackWithErrorHandling = (input: TInput): ResultT => {
-    try {
-      return callbackToHook(input);
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
-  const result = renderHook(callbackWithErrorHandling, { wrapper: wrapper });
+  const result = renderHook(callbackToHook, { wrapper: wrapper });
   await waitForActivation(() => isActive(mockConnector));
 
   return {

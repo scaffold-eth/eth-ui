@@ -13,14 +13,14 @@ describe('useBlockNumber', function () {
     // mine a block
     await mineBlock(harness.mockProvider);
     await harness.waitForNextUpdate({ timeout: 10000 });
-    expect(blockNumber).not.equal(harness.result.current);
+    expect(blockNumber).not.to.equal(harness.result.current);
     blockNumber = await harness.mockProvider.getBlockNumber();
     expect(harness.result.current).equal(blockNumber);
 
     // mine an another block
     await mineBlock(harness.mockProvider);
     await harness.waitForNextUpdate({ timeout: 10000 });
-    expect(blockNumber).not.equal(harness.result.current);
+    expect(blockNumber).not.to.equal(harness.result.current);
     blockNumber = await harness.mockProvider.getBlockNumber();
     expect(harness.result.current).equal(blockNumber);
   });

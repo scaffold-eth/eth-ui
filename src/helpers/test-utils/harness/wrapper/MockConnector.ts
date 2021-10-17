@@ -5,6 +5,7 @@ import { Signer } from 'ethers';
 import { ThemeColors } from 'web3modal';
 
 import { ICommonModalConnector } from '~~/context';
+import { const_DefaultTestChainId } from '~~/helpers/test-utils/constants';
 import { TEthersProvider } from '~~/models';
 
 export class MockConnector extends AbstractConnector implements ICommonModalConnector {
@@ -15,7 +16,7 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   constructor(provider: MockProvider | TEthersProvider, chainId?: number) {
     super();
     this.provider = provider;
-    this.chainId = chainId ?? 1337;
+    this.chainId = chainId ?? const_DefaultTestChainId;
   }
   getSigner(): Signer | undefined {
     return this.signer;

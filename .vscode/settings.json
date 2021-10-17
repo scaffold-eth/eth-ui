@@ -2,5 +2,9 @@
   "mochaExplorer.files": "test/**/*.{j,t}s",
   "mochaExplorer.parallel": true,
   "mochaExplorer.timeout": 20000,
-  "terminal.integrated.fontSize": 12
+  "mochaExplorer.configFile": "./mocharc.json",
+  "mochaExplorer.esmLoader": false,
+  "terminal.integrated.fontSize": 12,
+  "editor.tabSize": 2,
+  "mochaExplorer.optsFile": ""
 }
