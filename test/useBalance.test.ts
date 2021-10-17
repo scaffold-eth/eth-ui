@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { hookTestHarness } from '~test-utils';
 import { singleTimeout } from '~test-utils/constants/testConstants';
 import { fromEther } from '~test-utils/functions/conversions';
-import { useBalance } from '~~/useBalance';
+import { useBalance } from '~~';
 
 describe('useBalance', function () {
   it('When the hook is called, then it returns the initial balance', async () => {

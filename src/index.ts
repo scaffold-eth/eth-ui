@@ -2,18 +2,18 @@
  * @module Hooks
  */
 
-export * from './useBalance';
-export * from './useBlockNumber';
-export * from './useBurnerSigner';
-export * from './useContractExistsAtAddress';
-export * from './useContractLoader';
-export * from './useContractReader';
-export * from './useEventListener';
-export * from './useGasPrice';
-export * from './useGetUserFromProviders';
-export * from './useGetUserFromSigners';
-export * from './useNonce';
-export * from './useOnRepetition';
-export * from './useTimestamp';
-export * from './useUserAddress';
-export * from './useWeb3Modal';
+export * from './hooks/useBalance';
+export * from './hooks/useBlockNumber';
+export * from './hooks/useBurnerSigner';
+export * from './hooks/useContractExistsAtAddress';
+export * from './hooks/useContractLoader';
+export * from './hooks/useContractReader';
+export * from './hooks/useEventListener';
+export * from './hooks/useGasPrice';
+export * from './hooks/useGetUserFromProviders';
+export * from './hooks/useGetUserFromSigners';
+export * from './hooks/useNonce';
+export * from './hooks/useOnRepetition';
+export * from './hooks/useTimestamp';
+export * from './hooks/useUserAddress';
+export * from './hooks/useWeb3Modal';

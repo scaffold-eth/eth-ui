@@ -6,5 +6,5 @@
 // ///////
 
 export * from '../..';
-export * from '../../dapps';
-export * from '../../erc';
+export * from '../../hooks/dapps';
+export * from '../../hooks/erc';
