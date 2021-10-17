@@ -27,15 +27,15 @@
     "paths": {
       "~~": ["./src/"],
       "~~/*": ["./src/*"],
-      "~test-utils": ["./test/test-utils/"],
-      "~test-utils/*": ["./test/test-utils/*"]
+      "~test-utils": ["./src/helpers/test-utils"],
+      "~test-utils/*": ["./src/helpers/test-utils/*"]
     },
     "plugins": [
       { "transform": "typescript-transform-paths" },
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ]
   },
-  "include": ["src", "helpers", "test"],
+  "include": ["src", "test"],
   "exclude": [
     "lib/**/*",
     "node_modules",

@@ -1,20 +1,13 @@
-// import { expect } from 'chai';
-// import { MockProvider } from 'ethereum-waffle';
-
 import { expect } from 'chai';
 
+import { hookTestHarness } from '~test-utils';
 import { singleTimeout } from '~test-utils/constants/testConstants';
 import { fromEther } from '~test-utils/functions/conversions';
-import { renderTestHook } from '~test-utils/harness/renderTestHarness';
 import { useBalance } from '~~/useBalance';
-
-// import { getMockProvider } from '~helpers/getMockProvider';
-// import { renderTestHook } from '~helpers/renderTestHook';
-// import { useBalance } from '~~/useBalance';
 
 describe('useBalance', function () {
   it('When the hook is called, then it returns the initial balance', async () => {
-    const harness = await renderTestHook((address: string) => useBalance(address));
+    const harness = await hookTestHarness((address: string) => useBalance(address));
     const [wallet, secondWallet] = harness.mockProvider.getWallets();
     harness.rerender(wallet.address);
     expect(wallet.address).be.not.empty;
@@ -26,7 +19,7 @@ describe('useBalance', function () {
   });
 
   it('When wallet balances changes, then the hook returns the new balance', async () => {
-    const harness = await renderTestHook((address: string) => useBalance(address));
+    const harness = await hookTestHarness((address: string) => useBalance(address));
     const [wallet, secondWallet] = harness.mockProvider.getWallets();
     harness.rerender(wallet.address);
 

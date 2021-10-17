@@ -23,13 +23,13 @@
     }
   ],
   "scripts": {
-    "build": "ts-patch i && tsc -p tsconfig.json",
+    "build": "ts-patch i && tsc -p tsconfig.build.json",
     "clean": "shx rm -rf ./lib",
     "prepublish": "yarn clean && yarn build && shx cp -R package.json ./lib && shx cp -R README.md ./lib && shx mv ./lib/src\\* ./lib/ && shx rm -rf ./lib/src && shx rm -rf ./lib/test",
     "publish:yalc": "yarn prepublish && cd lib && yalc publish --no-script --push",
     "publish:next": "yarn prepublish && cd lib && npm publish --tag next",
     "publish:latest": "yarn prepublish && cd lib && npm publish --tag latest",
-    "docs:ts": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/api-typedocs/readme.md ./docs/api-typedocs/api-overview.md",
+    "docs": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/api-typedocs/readme.md ./docs/api-typedocs/api-overview.md",
     "deprecate": "npm deprecate",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*",
     "test": "cross-env TS_NODE_PROJECT=tsconfig.testing.json yarn hardhat test  --network hardhat",

@@ -20,11 +20,13 @@ yarn add eth-hooks
 
 ## Peer Dependencies
 
-- react & general
-  - react
-  - react-dom
-- web3
-  - @uniswap/sdk
+- General Use:
+  - react/react-dom
+  - web3
+    - @uniswap/sdk
+- Testing: `/helpers/test-utils`
+  - hardhat/hardhat-waffle/hardhat-ethers
+  - waffle
 
 ## Dependencies
 

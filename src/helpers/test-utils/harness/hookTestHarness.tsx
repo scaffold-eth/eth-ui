@@ -4,10 +4,10 @@ import { FC } from 'react';
 
 import { waitForActivation, isActive } from './mockHelpers';
 
-import { getMockProvider } from '~test-utils/harness/getMockProvider';
-import { MockAppWrapper } from '~test-utils/harness/wrapper/MockAppWrapper';
-import { MockConnector } from '~test-utils/harness/wrapper/MockConnector';
 import { CreateEthersModalConnector } from '~~/context';
+import { getMockProvider } from '~~/helpers/test-utils/harness/getMockProvider';
+import { MockAppWrapper } from '~~/helpers/test-utils/harness/wrapper/MockAppWrapper';
+import { MockConnector } from '~~/helpers/test-utils/harness/wrapper/MockConnector';
 
 type TTestHookResult<TProps, TResult> = RenderHookResult<TProps, TResult, Renderer<TProps>> & {
   mockProvider: MockProvider;
@@ -22,7 +22,7 @@ const mockConnector = new MockConnector(mockProvider);
  * @see renderHook from @link testing-library/react-hooks
  * @returns (TTestHookResult)
  */
-export const renderTestHook = async <TInput, ResultT>(
+export const hookTestHarness = async <TInput, ResultT>(
   callbackToHook: (input: TInput) => ResultT
 ): Promise<TTestHookResult<TInput, ResultT>> => {
   const createMockConnector: CreateEthersModalConnector = () => {

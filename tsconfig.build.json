@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "rootDir": "./src" },
+  "files": [],
+  "include": ["src"],
+  "exclude": [
+    "docs/**/*",
+    "src/helpers/typedoc/**/*",
+    "test/**/*",
+    "lib/**/*",
+    "node_modules",
+    "**/node_modules",
+    "**/node_modules/**",
+    "../../node_modules/**/*",
+    "./.yalc/**/*"
+  ]
+}

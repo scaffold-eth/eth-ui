@@ -1,4 +1,4 @@
-import { MockConnector } from '~test-utils/harness/wrapper/MockConnector';
+import { MockConnector } from '~~/helpers/test-utils/harness/wrapper/MockConnector';
 
 export const isActive = async (connector: MockConnector): Promise<boolean> => {
   const active =
