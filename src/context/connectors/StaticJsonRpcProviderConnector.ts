@@ -33,8 +33,8 @@ export const ConnectToStaticJsonRpcProvider = async (
   opts: IStaticJsonRpcProviderConnectorOptions
 ): Promise<StaticJsonRpcProvider> => {
   const url = opts.rpc[opts.currentChainId];
-  const provider = new StaticJsonRpcProvider(url, opts.currentChainId);
   try {
+    const provider = new StaticJsonRpcProvider(url, opts.currentChainId);
     await provider.getNetwork();
     await provider.getBlockNumber();
     return provider;

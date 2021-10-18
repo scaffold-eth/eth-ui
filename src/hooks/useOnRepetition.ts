@@ -1,5 +1,6 @@
-import { Provider } from '@ethersproject/providers';
 import { useCallback, useEffect, useRef } from 'react';
+
+import { TEthersProvider } from '~~/models';
 
 const DEBUG = false;
 
@@ -14,7 +15,7 @@ interface IUseOnRepetitionOptions {
   /**
    * (TEthersProvider)
    */
-  provider?: Provider | undefined;
+  provider?: TEthersProvider | undefined;
   /**
    * (boolean) :: invoke the callback after initialization
    */
@@ -45,7 +46,7 @@ export const useOnRepetition = (
   ...args: any[]
 ): void => {
   const isPolling = options?.pollTime != null && options.pollTime > 0;
-  const readyForEvents = options?.provider && !isPolling;
+  const readyForEvents = options?.provider && !isPolling && options?.provider?.anyNetwork;
   const readyForLeadTrigger = (readyForEvents || isPolling) && options?.leadingTrigger;
   const isFirstCall = useRef(true);
   // created a strigified args to use for deps
@@ -77,14 +78,11 @@ export const useOnRepetition = (
     if (options?.provider != null && readyForEvents) {
       options?.provider?.addListener?.('block', listener);
       listener(0);
-      return (): void => {
-        options?.provider?.removeListener?.('block', listener);
-      };
-    } else {
-      return (): void => {
-        /* do nothing */
-      };
     }
+
+    return (): void => {
+      options?.provider?.removeListener?.('block', listener);
+    };
   }, [options.provider, readyForEvents, listener]);
 
   // Set up the interval if its using polling

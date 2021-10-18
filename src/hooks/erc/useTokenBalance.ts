@@ -5,6 +5,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useOnRepetition } from '~~';
 import { useEthersContext } from '~~/context';
+import { TEthersProvider } from '~~/models';
 
 const zero = BigNumber.from(0);
 /**
@@ -60,7 +61,11 @@ export const useTokenBalance = (contract: Contract, address: string, pollTime: n
     }
   }, [address, contract, ethersContext.chainId, isMounted]);
 
-  useOnRepetition(pollBalance, { pollTime, leadingTrigger: contract?.provider != null, provider: contract.provider });
+  useOnRepetition(pollBalance, {
+    pollTime,
+    leadingTrigger: contract?.provider != null,
+    provider: contract.provider as TEthersProvider,
+  });
 
   return balance;
 };
