@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
 import { useIsMounted } from 'usehooks-ts';
 
+import { signerHasNetwork } from '~~/functions';
+
 /**
  * #### Summary
  * Get the address from the signer
@@ -19,7 +21,7 @@ export const useUserAddress = (signer: Signer | undefined): string | undefined =
 
   useEffect(() => {
     const getUserAddress = async (): Promise<void> => {
-      if (signer) {
+      if (signerHasNetwork(signer)) {
         const address = await signer?.getAddress();
         if (isMounted()) setUserAddress(address);
       }

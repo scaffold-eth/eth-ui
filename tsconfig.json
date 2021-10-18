@@ -16,7 +16,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "isolatedModules": false,
     "noImplicitAny": true,
     "skipLibCheck": true,
@@ -27,14 +27,8 @@
     "typeRoots": ["node_modules/@types", "helpers/types"],
     "paths": {
       "~~": ["./src/"],
-      "~~/*": ["./src/*"],
-      "~test-utils": ["./src/helpers/test-utils"],
-      "~test-utils/*": ["./src/helpers/test-utils/*"]
-    },
-    "plugins": [
-      { "transform": "typescript-transform-paths" },
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ]
+      "~~/*": ["./src/*"]
+    }
   },
   "include": ["src", "test"],
   "files": ["hardhat.config.ts"],

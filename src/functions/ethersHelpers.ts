@@ -1,4 +1,7 @@
 import { Web3Provider, StaticJsonRpcProvider, JsonRpcProvider } from '@ethersproject/providers';
+import { Signer } from 'ethers';
+
+import { TEthersProvider } from '~~/models';
 
 /**
  * #### Summary
@@ -15,4 +18,11 @@ export const isEthersProvider = (providerBase: unknown): boolean => {
     providerBase instanceof StaticJsonRpcProvider ||
     providerBase instanceof JsonRpcProvider
   );
+};
+
+export const signerHasNetwork = (signer: Signer | undefined): boolean => {
+  const provider = signer?.provider as TEthersProvider;
+  if (provider?.anyNetwork) return true;
+
+  return false;
 };

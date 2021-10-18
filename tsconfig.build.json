@@ -1,13 +1,25 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": { "rootDir": "./src" },
+  "compilerOptions": {
+    "rootDir": "./lib",
+    "outDir": "lib",
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ],
+    "paths": {
+      "~~": ["./lib"],
+      "~~/*": ["./lib/*"]
+    }
+  },
   "files": [],
-  "include": ["src"],
+  "include": ["./lib"],
+
   "exclude": [
+    "src/**/*",
     "docs/**/*",
-    "src/helpers/typedoc/**/*",
+    "**/typedoc/**",
     "test/**/*",
-    "lib/**/*",
     "node_modules",
     "**/node_modules",
     "**/node_modules/**",

@@ -6,5 +6,29 @@
   "mochaExplorer.esmLoader": false,
   "terminal.integrated.fontSize": 12,
   "editor.tabSize": 2,
-  "mochaExplorer.optsFile": ""
+  "mochaExplorer.optsFile": "",
+  "search.useIgnoreFiles": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.cache": true,
+    "**/.vs/": true,
+    "**/*.cs": true,
+    "**/*.orig": true,
+    "**/bin/": true,
+    "**/build/": true,
+    "**/build/**/*": true,
+    "**/debug/": true,
+    "**/dist/": true,
+    "**/node_modules/": true,
+    "**/obj": true,
+    "node_modules": true,
+    "node_modules/*/**": true,
+    "lib": true
+  },
+  "explorerExclude.backup": null
 }
