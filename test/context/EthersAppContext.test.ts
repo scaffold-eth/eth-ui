@@ -1,8 +1,8 @@
 import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
 
-import { hookTestHarness } from '~test-utils';
 import { IEthersContext, useEthersContext } from '~~/context';
+import { hookTestHarness } from '~~/helpers/test-utils';
 import { const_DefaultTestChainId, const_singleTimeout } from '~~/helpers/test-utils/constants';
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper';
 use(sinonChai);
