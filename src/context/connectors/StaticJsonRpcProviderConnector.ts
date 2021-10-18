@@ -37,6 +37,9 @@ export const ConnectToStaticJsonRpcProvider = async (
     const provider = new StaticJsonRpcProvider(url, opts.currentChainId);
     await provider.getNetwork();
     await provider.getBlockNumber();
+    if (!provider.anyNetwork) {
+      throw new Error(`ConnectToStaticJsonRpcProvider: could not connect to chain: ${opts.currentChainId} url: ${url}`);
+    }
     return provider;
   } catch (e) {
     throw e;

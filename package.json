@@ -23,7 +23,7 @@
     }
   ],
   "scripts": {
-    "watch": " ts-patch i && tsc tsconfig.json --watch",
+    "watch": "ts-patch i && tsc -w --noEmit",
     "clean": "shx rm -rf ./lib",
     "build": "yarn clean && ts-patch i && yarn mkdirp lib && yarn shx cp -r src lib/src.ts && tsc -p tsconfig.build.json",
     "package": "shx cp -R package.json ./lib && shx cp -R README.md ./lib",
