@@ -17,8 +17,9 @@ const config: HardhatUserConfig = {
   },
   mocha: {
     bail: false,
+    allowUncaught: false,
     require: ['ts-node/register'],
-    timeout: 20000,
+    timeout: 30000,
     reporter: process.env.GITHUB_ACTIONS === 'true' ? 'mocha-junit-reporter' : 'spec',
     reporterOptions: {
       mochaFile: 'testresult.xml',

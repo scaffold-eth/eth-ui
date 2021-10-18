@@ -1,4 +1,0 @@
-{
-  "require": "hardhat/register ts-node/register/files",
-  "timeout": 30000
-}

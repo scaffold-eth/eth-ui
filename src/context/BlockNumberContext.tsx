@@ -1,5 +1,6 @@
 import { createContext, FC, useContext, useEffect, useReducer } from 'react';
 import { useDebounce } from 'use-debounce';
+import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { TEthersProvider } from '~~/models';
@@ -84,21 +85,22 @@ export const BlockNumberContext: FC<IProps> = (props) => {
   const chainId = props.chainId ?? context.chainId;
   const ethersProvider = props.ethersProvider ?? context.ethersProvider;
 
+  const isMounted = useIsMounted();
   const [state, dispatch] = useReducer(reducer, {});
   const [blockNumber] = useDebounce(chainId ? state[chainId] : undefined, 100, { trailing: true });
 
   useEffect(() => {
     if (chainId && ethersProvider) {
       const update = (blockNumber: number): void => {
-        console.log('BlockNumberContext: updated block ', blockNumber, ' for chainId ', chainId);
-        dispatch({ chainId, blockNumber });
+        // console.log('BlockNumberContext: updated block ', blockNumber, ' for chainId ', chainId);
+        if (isMounted()) dispatch({ chainId, blockNumber });
       };
       ethersProvider.addListener?.('block', update);
       return (): void => {
         ethersProvider.removeListener?.('block', update);
       };
     }
-  }, [chainId, ethersProvider]);
+  }, [chainId, ethersProvider, isMounted]);
 
   return <Context.Provider value={blockNumber}>{props.children} </Context.Provider>;
 };

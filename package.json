@@ -32,9 +32,11 @@
     "docs": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/api-typedocs/readme.md ./docs/api-typedocs/api-overview.md",
     "deprecate": "npm deprecate",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*",
-    "test": "yarn hardhat:run test  --network hardhat",
-    "hardhat:run": "cross-env TS_NODE_PROJECT=tsconfig.testing.json yarn hardhat",
-    "hardhat:chain": "yarn hardhat:run node"
+    "test:hh": "yarn hardhat:run test  --network hardhat",
+    "test:mocha": "yarn hh:env yarn mocha --config .mocharc.js",
+    "hh:run": "yarn hh:env yarn hardhat",
+    "hh:chain": "yarn hh:run node",
+    "hh:env": "cross-env TS_NODE_PROJECT=tsconfig.testing.json TS_NODE_TRANSPILE_ONLY=1"
   },
   "dependencies": {
     "@ethersproject/address": "^5.4.0",
