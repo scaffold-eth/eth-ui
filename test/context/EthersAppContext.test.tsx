@@ -41,18 +41,32 @@ describe('useEthersContext', function () {
       expect(context.setModalTheme).to.exist;
     });
 
-    it('When activate is called with a new connector, then the old connector is deactivated and new one is initalized', async () => {
+    it('When openModal is called, then the old connector is deactivated and new connector is activated', async () => {
       const harness = await hookTestHarness(() => TestHook());
-      const context = harness.result.current;
+      const firstContext = harness.result.current;
+      expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
-      expect(context.chainId).to.equal(const_DefaultTestChainId);
-
-      const newChainId = 1000;
-      context.openModal(new MockConnector(harness.mockProvider));
+      // open the modal
+      firstContext.openModal(new MockConnector(harness.mockProvider));
       await harness.waitForNextUpdate({ timeout: const_singleTimeout });
 
-      // const newContext = harness.result.current;
-      // expect(newContext.chainId).to.equal(newChainId);
+      expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.to.be.greaterThanOrEqual(1);
+
+      const secondContext = harness.result.current;
+      expect((secondContext.connector as MockConnector).spyActivate).to.be.calledOnce;
+      expect(secondContext.active).to.be.true;
+    });
+
+    it('When disconnectModal is called, then the connector is deactivated', async () => {
+      const harness = await hookTestHarness(() => TestHook());
+      const firstContext = harness.result.current;
+      expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
+
+      // open the modal
+      firstContext.disconnectModal();
+
+      expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.to.be.greaterThanOrEqual(1);
+      expect(harness.result.current.active).to.be.false;
     });
   });
 });

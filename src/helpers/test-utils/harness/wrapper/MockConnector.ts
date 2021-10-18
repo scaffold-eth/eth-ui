@@ -16,21 +16,23 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   protected mockSigner: Signer | undefined;
   protected mockAccount: string | undefined;
 
-  public mockResetModal = stub(this, 'resetModal');
-  public mockSetModalTheme = stub(this, 'setModalTheme');
-  public mockChangeSigner = stub(this, 'changeSigner');
+  public spyResetModal = stub(this, 'resetModal');
+  public spySetModalTheme = stub(this, 'setModalTheme');
+  public spyChangeSigner = stub(this, 'changeSigner');
+  public spyActivate = stub();
+  public spyDeactivate = stub();
 
   constructor(provider: MockProvider) {
     super();
     this.provider = provider;
     this.mockChainId = const_DefaultTestChainId;
-    this.replaceWithStubs();
+    this.replaceWithSpies();
   }
 
-  public replaceWithStubs(): void {
-    this.resetModal = this.mockResetModal;
-    this.setModalTheme = this.mockSetModalTheme;
-    this.changeSigner = this.mockChangeSigner as any;
+  public replaceWithSpies(): void {
+    this.resetModal = this.spyResetModal;
+    this.setModalTheme = this.spySetModalTheme;
+    this.changeSigner = this.spyChangeSigner as any;
   }
 
   public getSigner(): Signer | undefined {
@@ -52,6 +54,7 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   };
 
   public activate = async (): Promise<ConnectorUpdate> => {
+    this.spyActivate();
     const account = await this.setMockAccount(0);
     this.mockSigner = this.provider.getSigner(account);
 
@@ -83,6 +86,7 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   }
 
   public deactivate(): void {
+    this.spyDeactivate();
     return;
   }
 }

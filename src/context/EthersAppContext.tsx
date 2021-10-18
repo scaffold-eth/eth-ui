@@ -87,7 +87,6 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
         console.error('A valid ethersModalConnector was not provided');
       }
       if (ethersModalConnector != null) {
-        console.log('activate ethersModalConnector');
         const onError = (error: Error): void => {
           connector?.deactivate?.();
           console.warn(error);
@@ -98,7 +97,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     [context.active, deactivate, activate, connector]
   );
 
-  const disconnectWeb3Modal = useCallback(() => {
+  const disconnectModal = useCallback(() => {
     ethersConnector.resetModal();
     deactivate();
   }, [deactivate, ethersConnector]);
@@ -113,7 +112,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     signer: ethersConnector?.getSigner(),
     changeAccount: ethersConnector?.changeSigner.bind(ethersConnector),
     openModal: openWeb3Modal,
-    disconnectModal: disconnectWeb3Modal,
+    disconnectModal: disconnectModal,
     setModalTheme: ethersConnector?.setModalTheme.bind(ethersConnector),
     ...context,
   };
