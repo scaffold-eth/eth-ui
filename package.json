@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "3.2.0beta14",
+  "version": "3.2.0beta15",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -25,7 +25,7 @@
   "scripts": {
     "build": "ts-patch i && tsc -p tsconfig.build.json",
     "clean": "shx rm -rf ./lib",
-    "prepublish": "yarn clean && yarn build && shx cp -R package.json ./lib && shx cp -R README.md ./lib && shx mv ./lib/src\\* ./lib/ && shx rm -rf ./lib/src && shx rm -rf ./lib/test",
+    "prepublish": "yarn clean && yarn build && shx cp -R package.json ./lib && shx cp -R README.md ./lib",
     "publish:yalc": "yarn prepublish && cd lib && yalc publish --no-script --push",
     "publish:next": "yarn prepublish && cd lib && npm publish --tag next",
     "publish:latest": "yarn prepublish && cd lib && npm publish --tag latest",
