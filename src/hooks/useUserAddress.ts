@@ -1,9 +1,9 @@
-import { Signer } from 'ethers';
 import { useState, useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
 import { useIsMounted } from 'usehooks-ts';
 
 import { signerHasNetwork } from '~~/functions';
+import { TEthersSigner } from '~~/models';
 
 /**
  * #### Summary
@@ -14,7 +14,7 @@ import { signerHasNetwork } from '~~/functions';
  * @param signer
  * @returns
  */
-export const useUserAddress = (signer: Signer | undefined): string | undefined => {
+export const useUserAddress = (signer: TEthersSigner | undefined): string | undefined => {
   const isMounted = useIsMounted();
   const [userAddress, setUserAddress] = useState<string>();
   const [result] = useDebounce(userAddress, 200, { trailing: true });
