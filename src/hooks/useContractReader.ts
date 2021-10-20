@@ -52,12 +52,11 @@ export const useContractReader = <OutputT>(
 
   const callFunc = useCallback(async () => {
     const contractChainId = await contract?.signer?.getChainId();
-
     if (
       callContractFunction != null &&
       contractChainId === ethersContext.chainId &&
-      contract.provider != null &&
-      ethersContext.chainId
+      contract?.provider != null &&
+      ethersContext?.chainId
     ) {
       try {
         let newResult = await callContractFunction();
