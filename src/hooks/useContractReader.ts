@@ -26,7 +26,7 @@ import { TContractFunctionInfo } from '~~/models';
 export const useContractReader = <OutputT>(
   contract: Contract,
   contractFunctionInfo: TContractFunctionInfo,
-  formatter?: (_value: OutputT) => OutputT,
+  formatter?: (_value: OutputT | undefined) => OutputT,
   onChange?: (_value?: OutputT) => void
 ): OutputT | undefined => {
   const isMounted = useIsMounted();
@@ -34,19 +34,33 @@ export const useContractReader = <OutputT>(
   const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext();
 
-  const callFunc = useCallback(async () => {
+  const callContractFunction = useCallback(async () => {
     const contractFunction = contract?.[contractFunctionInfo.functionName] as ContractFunction<OutputT>;
+    let result: OutputT | undefined = undefined;
+    try {
+      if (contractFunctionInfo.functionArgs && contractFunctionInfo.functionArgs.length > 0) {
+        result = await contractFunction?.(...contractFunctionInfo.functionArgs);
+      } else {
+        result = await contractFunction?.();
+      }
+    } catch (error: any) {
+      console.warn('Could not read from contract function', contractFunctionInfo);
+    }
+    return result;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contract, contractFunctionInfo.functionArgs, contractFunctionInfo.functionName]);
+
+  const callFunc = useCallback(async () => {
     const contractChainId = await contract?.signer?.getChainId();
 
-    if (contractFunction != null && contractChainId === ethersContext.chainId) {
-      let newResult: OutputT | undefined = undefined;
+    if (
+      callContractFunction != null &&
+      contractChainId === ethersContext.chainId &&
+      contract.provider != null &&
+      ethersContext.chainId
+    ) {
       try {
-        if (contractFunctionInfo.functionArgs && contractFunctionInfo.functionArgs.length > 0) {
-          newResult = await contractFunction?.(...contractFunctionInfo.functionArgs);
-        } else {
-          newResult = await contractFunction?.();
-        }
-
+        let newResult = await callContractFunction();
         if (formatter != null) {
           newResult = formatter(newResult);
         }
@@ -56,11 +70,18 @@ export const useContractReader = <OutputT>(
           onChange?.(newResult);
         }
       } catch (error: any) {
-        console.warn('Could not read form contract function', contractFunctionInfo);
         console.warn(error);
       }
     }
-  }, [contract, contractFunctionInfo, ethersContext.chainId, formatter, isMounted, onChange]);
+  }, [
+    contract?.signer,
+    contract?.provider,
+    callContractFunction,
+    ethersContext?.chainId,
+    formatter,
+    isMounted,
+    onChange,
+  ]);
 
   useEffect(() => {
     void callFunc();
