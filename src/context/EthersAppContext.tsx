@@ -5,6 +5,7 @@ import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 import { Signer } from 'ethers';
 import { FC, useCallback } from 'react';
 
+import { NoEthereumProviderFoundError } from '~~/context';
 import { BlockNumberContext } from '~~/context/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/connectors/EthersModalConnector';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
@@ -88,8 +89,10 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
       }
       if (ethersModalConnector != null) {
         const onError = (error: Error): void => {
-          connector?.deactivate?.();
-          console.warn(error);
+          try {
+            connector?.deactivate?.();
+            console.warn(error);
+          } catch {}
         };
         void activate(ethersModalConnector, onError).catch(onError);
       }
@@ -134,6 +137,10 @@ export const getEthersAppProviderLibrary = (
   provider: any,
   _connector: AbstractConnector | undefined
 ): TEthersProvider => {
+  console.log(provider);
+  if (provider == null) {
+    throw new NoEthereumProviderFoundError();
+  }
   if (isEthersProvider(provider)) {
     return provider as TEthersProvider;
   } else {

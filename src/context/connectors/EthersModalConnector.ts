@@ -183,6 +183,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
       return { provider: this.providerBase, account, chainId };
       /* eslint-enable */
     } catch (error) {
+      this.resetModal();
       if ((error as string).includes(const_web3DialogClosedByUser)) {
         console.log(error);
         this.deactivate();
