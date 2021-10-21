@@ -1,7 +1,7 @@
 import { Token, WETH, Fetcher, Route } from '@uniswap/sdk';
 import { useCallback, useState } from 'react';
 
-import { useOnRepetition } from '~~';
+import { useOnRepetition } from '~~/hooks';
 import { TNetworkInfo } from '~~/models';
 import { TEthersProvider } from '~~/models/providerTypes';
 

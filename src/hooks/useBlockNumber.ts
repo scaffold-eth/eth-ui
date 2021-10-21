@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useOnRepetition } from '~~';
 import { useEthersContext } from '~~/context';
+import { useOnRepetition } from '~~/hooks';
 
 /**
  * #### Summary

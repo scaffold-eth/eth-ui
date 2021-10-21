@@ -5,6 +5,6 @@
  */
 // ///////
 
-export * from '../..';
+export * from '../../hooks';
 export * from '../../hooks/dapps';
 export * from '../../hooks/erc';

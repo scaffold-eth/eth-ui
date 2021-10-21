@@ -2,7 +2,7 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { useCallback, useEffect, useRef } from 'react';
 import Web3Modal, { ICoreOptions, ThemeColors } from 'web3modal';
-import '~~/helpers/_global';
+import '~~/helpers/__global';
 
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser } from '~~/models/constants/common';

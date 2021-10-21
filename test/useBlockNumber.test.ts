@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 
-import { useBlockNumber } from '~~';
 import { hookTestHarness } from '~~/helpers/test-utils';
 import { mineBlock } from '~~/helpers/test-utils/eth/hardhatActions';
+import { useBlockNumber } from '~~/hooks';
 
 describe('useBlockNumber', function () {
   it('When the provider receives a new block, then the block returns the block number', async () => {

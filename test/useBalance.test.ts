@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 
-import { useBalance } from '~~';
 import { hookTestHarness } from '~~/helpers/test-utils';
 import { const_singleTimeout } from '~~/helpers/test-utils/constants/testConstants';
 import { fromEther } from '~~/helpers/test-utils/functions/conversions';
+import { useBalance } from '~~/hooks';
 
 describe('useBalance', function () {
   it('When the hook is called, then it returns the initial balance', async () => {

@@ -3,8 +3,8 @@ import { Contract } from '@ethersproject/contracts';
 import { useCallback, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useOnRepetition } from '~~';
 import { useEthersContext } from '~~/context';
+import { useOnRepetition } from '~~/hooks';
 import { TEthersProvider } from '~~/models';
 
 const zero = BigNumber.from(0);
