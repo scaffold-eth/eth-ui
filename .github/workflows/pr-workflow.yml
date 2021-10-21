@@ -35,7 +35,7 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --immutable
-      - run: yarn run build
+      - run: yarn run es-build
 
       - run: yarn test:mocha
       - name: Publish Unit Test Results

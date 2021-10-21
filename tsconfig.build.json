@@ -1,22 +1,25 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./lib/src.ts/",
+    "rootDir": "./src",
     "outDir": "lib",
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "inlineSources": true,
     "plugins": [
       { "transform": "typescript-transform-paths" },
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ],
     "paths": {
-      "~~": ["./lib/src.ts/"],
-      "~~/*": ["./lib/src.ts/*"]
+      "~~": ["./src"],
+      "~~/*": ["./src/*"]
     }
   },
   "files": [],
-  "include": ["./lib/src.ts/**/*"],
-
+  "include": ["./src/**/*"],
   "exclude": [
-    "src/**/*",
     "docs/**/*",
     "**/typedoc/**",
     "test/**/*",
