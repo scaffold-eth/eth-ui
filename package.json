@@ -27,7 +27,7 @@
     "clean": "shx rm -rf ./lib",
     "build": "yarn clean && ts-patch i && yarn shx mkdir lib && yarn shx cp -r src lib/src.ts && tsc -p tsconfig.build.json",
     "package": "shx cp -R package.json ./lib && shx cp -R README.md ./lib",
-    "prepublish": "yarn clean && yarn build && yarn package",
+    "prepublish": "yarn clean && yarn clean && ts-patch i && tsc -p tsconfig.yalc.json && yarn package",
     "publish:yalc": "yarn prepublish && cd lib && yalc publish --no-script --push",
     "publish:next": "yarn prepublish && cd lib && npm publish --tag next",
     "publish:latest": "yarn prepublish && cd lib && npm publish --tag latest",
