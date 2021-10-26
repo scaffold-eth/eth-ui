@@ -1,5 +1,11 @@
-import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider, Provider } from '@ethersproject/providers';
-import { ethers, Signer } from 'ethers';
+import {
+  JsonRpcProvider,
+  StaticJsonRpcProvider,
+  Web3Provider,
+  Provider,
+  JsonRpcSigner,
+} from '@ethersproject/providers';
+import { ethers, Signer, VoidSigner, Wallet } from 'ethers';
 /**
  * #### Summary
  * A union of various ethers providers for ease of use and maximum flexiblity
@@ -17,7 +23,22 @@ export type TEthersProvider = JsonRpcProvider | Web3Provider | StaticJsonRpcProv
  *
  * @category Type Definition
  */
-export type TEthersProviderOrSigner = JsonRpcProvider | Web3Provider | StaticJsonRpcProvider | Signer;
+export type TEthersProviderOrSigner =
+  | JsonRpcProvider
+  | Web3Provider
+  | StaticJsonRpcProvider
+  | Signer
+  | JsonRpcSigner
+  | Wallet
+  | VoidSigner;
+
+/**
+ * #### Summary
+ * A union of various providers in ethers to give maximum flexibility
+ *
+ * @category Type Definition
+ */
+export type TEthersSigner = Signer | JsonRpcSigner | Wallet | VoidSigner;
 
 /**
  * #### Summary

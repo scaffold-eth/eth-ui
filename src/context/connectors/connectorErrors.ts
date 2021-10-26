@@ -19,3 +19,14 @@ export class CouldNotActivateError extends Error {
     this.message = `EthersModalConnector: Could not activate provider.  ${(error as string) ?? ''}`;
   }
 }
+
+/**
+ * @category EthersContext
+ */
+export class NoEthereumProviderFoundError extends Error {
+  public constructor() {
+    super();
+    this.name = this.constructor.name;
+    this.message = `EthersModalConnector: No ethereum provider Found.`;
+  }
+}

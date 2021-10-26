@@ -5,6 +5,7 @@ import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 import { Signer } from 'ethers';
 import { FC, useCallback } from 'react';
 
+import { NoEthereumProviderFoundError } from '~~/context';
 import { BlockNumberContext } from '~~/context/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/connectors/EthersModalConnector';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
@@ -87,10 +88,11 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
         console.error('A valid ethersModalConnector was not provided');
       }
       if (ethersModalConnector != null) {
-        console.log('activate ethersModalConnector');
         const onError = (error: Error): void => {
-          connector?.deactivate?.();
-          console.warn(error);
+          try {
+            connector?.deactivate?.();
+            console.warn(error);
+          } catch {}
         };
         void activate(ethersModalConnector, onError).catch(onError);
       }
@@ -98,7 +100,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     [context.active, deactivate, activate, connector]
   );
 
-  const disconnectWeb3Modal = useCallback(() => {
+  const disconnectModal = useCallback(() => {
     ethersConnector.resetModal();
     deactivate();
   }, [deactivate, ethersConnector]);
@@ -113,7 +115,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     signer: ethersConnector?.getSigner(),
     changeAccount: ethersConnector?.changeSigner.bind(ethersConnector),
     openModal: openWeb3Modal,
-    disconnectModal: disconnectWeb3Modal,
+    disconnectModal: disconnectModal,
     setModalTheme: ethersConnector?.setModalTheme.bind(ethersConnector),
     ...context,
   };
@@ -135,6 +137,9 @@ export const getEthersAppProviderLibrary = (
   provider: any,
   _connector: AbstractConnector | undefined
 ): TEthersProvider => {
+  if (provider == null) {
+    throw new NoEthereumProviderFoundError();
+  }
   if (isEthersProvider(provider)) {
     return provider as TEthersProvider;
   } else {

@@ -4,7 +4,8 @@
     "module": "esNext",
     "outDir": "lib",
     "lib": ["dom", "ESNext", "ES2017"],
-    "sourceMap": false,
+    "sourceMap": true,
+    "inlineSources": true,
     "jsx": "react-jsxdev",
     "allowJs": false,
     "declaration": true,
@@ -15,7 +16,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "isolatedModules": false,
     "noImplicitAny": true,
     "skipLibCheck": true,
@@ -23,19 +24,15 @@
     "strict": true,
     "rootDir": ".",
     "baseUrl": ".",
+    "types": [],
     "typeRoots": ["node_modules/@types", "helpers/types"],
     "paths": {
       "~~": ["./src/"],
-      "~~/*": ["./src/*"],
-      "~test-utils": ["./test/test-utils/"],
-      "~test-utils/*": ["./test/test-utils/*"]
-    },
-    "plugins": [
-      { "transform": "typescript-transform-paths" },
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ]
+      "~~/*": ["./src/*"]
+    }
   },
-  "include": ["src", "helpers", "test"],
+  "include": ["src", "test"],
+  "files": ["hardhat.config.ts"],
   "exclude": [
     "lib/**/*",
     "node_modules",
@@ -43,6 +40,5 @@
     "**/node_modules/**",
     "../../node_modules/**/*",
     "./.yalc/**/*"
-  ],
-  "files": ["hardhat.config.ts"]
+  ]
 }

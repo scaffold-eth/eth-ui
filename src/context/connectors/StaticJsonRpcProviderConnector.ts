@@ -31,14 +31,17 @@ export interface IStaticJsonRpcProviderConnectorOptions extends IAbstractConnect
 export const ConnectToStaticJsonRpcProvider = async (
   _package: unknown,
   opts: IStaticJsonRpcProviderConnectorOptions
-): Promise<StaticJsonRpcProvider> => {
+): Promise<StaticJsonRpcProvider | undefined> => {
   const url = opts.rpc[opts.currentChainId];
-  const provider = new StaticJsonRpcProvider(url, opts.currentChainId);
   try {
+    const provider = new StaticJsonRpcProvider(url, opts.currentChainId);
     await provider.getNetwork();
     await provider.getBlockNumber();
+    if (!provider?.anyNetwork) {
+      console.warn(`ConnectToStaticJsonRpcProvider: could not connect to chain: ${opts.currentChainId} url: ${url}`);
+    }
     return provider;
   } catch (e) {
-    throw e;
+    throw new Error('No StaticJsonRpcProvider found');
   }
 };

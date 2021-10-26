@@ -34,10 +34,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn run build
+      - run: yarn install --immutable
+      - run: yarn run es-build
 
-      - run: yarn test
+      - run: yarn test:mocha
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
