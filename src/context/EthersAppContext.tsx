@@ -137,7 +137,6 @@ export const getEthersAppProviderLibrary = (
   provider: any,
   _connector: AbstractConnector | undefined
 ): TEthersProvider => {
-  console.log(provider);
   if (provider == null) {
     throw new NoEthereumProviderFoundError();
   }
