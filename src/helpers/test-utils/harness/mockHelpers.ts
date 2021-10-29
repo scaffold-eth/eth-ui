@@ -1,3 +1,5 @@
+import { MockProvider } from 'ethereum-waffle';
+
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper/MockConnector';
 
 export const isActive = async (connector: MockConnector): Promise<boolean> => {
@@ -18,4 +20,14 @@ export const waitForActivation = async (callback: () => Promise<boolean>): Promi
     // sleep for 100ms
     await (async (): Promise<void> => await new Promise((resolve) => setTimeout(resolve, 100)))();
   }
+};
+
+export const getHardhatAccount = async (provider: MockProvider, hardhatAccountIndex: number): Promise<string> => {
+  const accounts = await provider.listAccounts();
+  if (accounts?.[hardhatAccountIndex] == null) {
+    const error = new Error('MockConnector: unknown mock hardhat account');
+    console.error(error);
+    throw error;
+  }
+  return accounts[hardhatAccountIndex];
 };

@@ -38,7 +38,7 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
   active: boolean;
   signer: Signer | undefined;
   account: string | undefined;
-  changeAccount: ((signer: Signer) => Promise<void>) | undefined;
+  changeSigner: ((signer: Signer) => Promise<void>) | undefined;
   openModal: (ethersModalConnector: TEthersModalConnector) => void;
   disconnectModal: () => void;
   setModalTheme: ((theme: 'light' | 'dark') => void) | undefined;
@@ -113,7 +113,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     library,
     account: account ?? undefined,
     signer: ethersConnector?.getSigner(),
-    changeAccount: ethersConnector?.changeSigner.bind(ethersConnector),
+    changeSigner: ethersConnector?.changeSigner.bind(ethersConnector),
     openModal: openWeb3Modal,
     disconnectModal: disconnectModal,
     setModalTheme: ethersConnector?.setModalTheme.bind(ethersConnector),

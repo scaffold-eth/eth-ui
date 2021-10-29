@@ -7,10 +7,11 @@ import { ThemeColors } from 'web3modal';
 
 import { ICommonModalConnector } from '~~/context';
 import { const_DefaultTestChainId } from '~~/helpers/test-utils/constants';
+import { getHardhatAccount } from '~~/helpers/test-utils/harness';
 import { TEthersProvider } from '~~/models';
 
 export class MockConnector extends AbstractConnector implements ICommonModalConnector {
-  protected provider: MockProvider | TEthersProvider;
+  protected provider: MockProvider;
   protected mockChainId: number;
 
   protected mockSigner: Signer | undefined;
@@ -75,16 +76,10 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   }
 
   public async setMockAccount(hardhatAccountIndex: number): Promise<string> {
-    const accounts = await this.provider.listAccounts();
-    if (accounts?.[hardhatAccountIndex] == null) {
-      const error = new Error('MockConnector: unknown mock hardhat account');
-      console.error(error);
-      throw error;
-    }
-    this.mockAccount = accounts[hardhatAccountIndex];
-    return accounts[hardhatAccountIndex];
+    const account = await getHardhatAccount(this.provider, hardhatAccountIndex);
+    this.mockAccount = account;
+    return account;
   }
-
   public deactivate(): void {
     this.spyDeactivate();
     return;
