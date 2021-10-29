@@ -9,19 +9,17 @@
 //     const harness = await hookTestHarness(() => useBlockNumber());
 //     let blockNumber: number | undefined = undefined;
 //     blockNumber = await harness.mockProvider.getBlockNumber();
+//     expect(blockNumber).to.equal(0);
+//     expect(harness.result.current).to.equal(0);
 
 //     // mine a block
 //     await mineBlock(harness.mockProvider);
-//     await harness.waitForNextUpdate({ timeout: 10000 });
-//     expect(blockNumber).not.to.equal(harness.result.current);
-//     blockNumber = await harness.mockProvider.getBlockNumber();
-//     expect(harness.result.current).equal(blockNumber);
+//     harness.rerender(() => useBlockNumber());
+//     console.log(harness.result);
+//     expect(harness.result.current).equal(1);
 
 //     // mine an another block
 //     await mineBlock(harness.mockProvider);
-//     await harness.waitForNextUpdate({ timeout: 10000 });
-//     expect(blockNumber).not.to.equal(harness.result.current);
-//     blockNumber = await harness.mockProvider.getBlockNumber();
-//     expect(harness.result.current).equal(blockNumber);
+//     expect(harness.result.current).equal(2);
 //   });
 // });

@@ -2,7 +2,7 @@ import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { MockProvider } from 'ethereum-waffle';
 import { Signer } from 'ethers';
-import { stub } from 'sinon';
+import sinon from 'ts-sinon';
 import { ThemeColors } from 'web3modal';
 
 import { ICommonModalConnector } from '~~/context';
@@ -16,11 +16,11 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   protected mockSigner: Signer | undefined;
   protected mockAccount: string | undefined;
 
-  public spyResetModal = stub(this, 'resetModal');
-  public spySetModalTheme = stub(this, 'setModalTheme');
-  public spyChangeSigner = stub(this, 'changeSigner');
-  public spyActivate = stub();
-  public spyDeactivate = stub();
+  public spyResetModal = sinon.stub(this, 'resetModal');
+  public spySetModalTheme = sinon.stub(this, 'setModalTheme');
+  public spyChangeSigner = sinon.stub(this, 'changeSigner');
+  public spyActivate = sinon.stub();
+  public spyDeactivate = sinon.stub();
 
   constructor(provider: MockProvider) {
     super();
@@ -32,7 +32,7 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   public replaceWithSpies(): void {
     this.resetModal = this.spyResetModal;
     this.setModalTheme = this.spySetModalTheme;
-    this.changeSigner = this.spyChangeSigner as any;
+    this.changeSigner = this.spyChangeSigner as (_signer: Signer) => Promise<void>;
   }
 
   public getSigner(): Signer | undefined {
