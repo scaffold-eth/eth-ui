@@ -14,87 +14,104 @@ const TestHook = (): IEthersContext => {
   return useEthersContext();
 };
 
-describe('useEthersContext', function () {
-  describe('Give that ethersContext is initalized', function () {
-    it('When context is loaded, then it provides an initalized IEthersContext', async () => {
-      const harness = await hookTestHarness(() => TestHook());
-      const context = harness.result.current;
-      // signer and network data
-      expect(context.connector).to.exist;
-      expect(context.library).to.exist;
-      expect(context.account).to.be.properAddress;
-      expect(context.chainId).to.equal(const_DefaultTestChainId);
-      expect(context.signer).not.be.undefined;
+describe('EthersAppContext', function () {
+  describe('useEthersContext', function () {
+    describe('Give that ethersContext is initalized', function () {
+      it('When context is loaded, then it provides an initalized IEthersContext', async () => {
+        const harness = await hookTestHarness(() => TestHook());
+        const context = harness.result.current;
+        // signer and network data
+        expect(context.connector).to.exist;
+        expect(context.library).to.exist;
+        expect(context.account).to.be.properAddress;
+        expect(context.chainId).to.equal(const_DefaultTestChainId);
+        expect(context.signer).not.be.undefined;
 
-      // provider
-      expect(context.ethersProvider).not.be.undefined;
+        // provider
+        expect(context.ethersProvider).not.be.undefined;
 
-      // state
-      expect(context.active).to.be.true;
-      expect(context.error).to.be.undefined;
+        // state
+        expect(context.active).to.be.true;
+        expect(context.error).to.be.undefined;
 
-      // callbacks
-      expect(context.changeSigner).to.exist;
-      expect(context.activate).to.exist;
-      expect(context.deactivate).to.exist;
+        // callbacks
+        expect(context.changeSigner).to.exist;
+        expect(context.activate).to.exist;
+        expect(context.deactivate).to.exist;
 
-      // modal interaction
-      expect(context.openModal).to.exist;
-      expect(context.disconnectModal).to.exist;
-      expect(context.setModalTheme).to.exist;
-    });
+        // modal interaction
+        expect(context.openModal).to.exist;
+        expect(context.disconnectModal).to.exist;
+        expect(context.setModalTheme).to.exist;
+      });
 
-    it('When openModal is called, then the old connector is deactivated and new connector is activated', async () => {
-      const harness = await hookTestHarness(() => TestHook());
-      const firstContext = harness.result.current;
-      expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
+      it('When openModal is called, then the old connector is deactivated and new connector is activated', async () => {
+        const harness = await hookTestHarness(() => TestHook());
+        const firstContext = harness.result.current;
+        expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
-      // open the modal
-      firstContext.openModal(new MockConnector(harness.mockProvider));
-      await harness.waitForNextUpdate({ timeout: const_singleTimeout });
+        // open the modal
+        firstContext.openModal(new MockConnector(harness.mockProvider));
+        await harness.waitForNextUpdate({ timeout: const_singleTimeout });
 
-      expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.to.be.greaterThanOrEqual(1);
+        expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.to.be.greaterThanOrEqual(1);
 
-      const secondContext = harness.result.current;
-      expect((secondContext.connector as MockConnector).spyActivate).to.be.calledOnce;
-      expect(secondContext.active).to.be.true;
-    });
+        const secondContext = harness.result.current;
+        expect((secondContext.connector as MockConnector).spyActivate).to.be.calledOnce;
+        expect(secondContext.active).to.be.true;
+      });
 
-    it('When disconnectModal is called, then the connector is deactivated', async () => {
-      const harness = await hookTestHarness(() => TestHook());
-      const firstContext = harness.result.current;
-      expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
+      it('When activate is called, then the old connector is deactivated and new connector is activated', async () => {
+        const harness = await hookTestHarness(() => TestHook());
+        const firstContext = harness.result.current;
+        expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
-      // open the modal
-      firstContext.disconnectModal();
+        // open the modal
+        await firstContext.activate(new MockConnector(harness.mockProvider));
 
-      expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.be.greaterThanOrEqual(1);
-      expect(harness.result.current.active).to.be.false;
-    });
+        expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.to.be.greaterThanOrEqual(1);
 
-    it('When changeSigner is called, then the connector.changeSigner is called once', async () => {
-      const harness = await hookTestHarness(() => TestHook());
-      const firstContext = harness.result.current;
-      expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
+        const secondContext = harness.result.current;
+        expect((secondContext.connector as MockConnector).spyActivate).to.be.calledOnce;
+        expect(secondContext.active).to.be.true;
+      });
 
-      const newAccount = await getHardhatAccount(harness.mockProvider, 2);
-      const newSigner = firstContext.ethersProvider!.getSigner(newAccount);
-      expect(newSigner).to.exist;
-      await firstContext.changeSigner?.(newSigner);
+      it('When disconnectModal is called, then the connector is deactivated', async () => {
+        const harness = await hookTestHarness(() => TestHook());
+        const firstContext = harness.result.current;
+        expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
-      expect((firstContext.connector as MockConnector).spyChangeSigner).to.be.calledOnce;
-      expect((firstContext.connector as MockConnector).spyChangeSigner).to.be.calledWith(newSigner);
-    });
+        // open the modal
+        firstContext.disconnectModal();
 
-    it('When setModalTheme is invoked with dark, then the connector.setModalTheme is called once with dark', async () => {
-      const harness = await hookTestHarness(() => TestHook());
-      const firstContext = harness.result.current;
-      expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
+        expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.be.greaterThanOrEqual(1);
+        expect(harness.result.current.active).to.be.false;
+      });
 
-      firstContext.setModalTheme?.('dark');
+      it('When changeSigner is called, then the connector.changeSigner is called once', async () => {
+        const harness = await hookTestHarness(() => TestHook());
+        const firstContext = harness.result.current;
+        expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
-      expect((firstContext.connector as MockConnector).spySetModalTheme).to.be.calledOnce;
-      expect((firstContext.connector as MockConnector).spySetModalTheme).to.be.calledWith('dark');
+        const newAccount = await getHardhatAccount(harness.mockProvider, 2);
+        const newSigner = firstContext.ethersProvider!.getSigner(newAccount);
+        expect(newSigner).to.exist;
+        await firstContext.changeSigner?.(newSigner);
+
+        expect((firstContext.connector as MockConnector).spyChangeSigner).to.be.calledOnce;
+        expect((firstContext.connector as MockConnector).spyChangeSigner).to.be.calledWith(newSigner);
+      });
+
+      it('When setModalTheme is invoked with `dark`, then the connector.setModalTheme is called once with same value', async () => {
+        const harness = await hookTestHarness(() => TestHook());
+        const firstContext = harness.result.current;
+        expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
+
+        firstContext.setModalTheme?.('dark');
+
+        expect((firstContext.connector as MockConnector).spySetModalTheme).to.be.calledOnce;
+        expect((firstContext.connector as MockConnector).spySetModalTheme).to.be.calledWith('dark');
+      });
     });
   });
 });

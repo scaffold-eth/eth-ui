@@ -1,7 +1,7 @@
 console.log('load .mocharc.js config');
 
 module.exports = {
-  require: ['hardhat/register', 'ts-node/register'],
+  require: ['hardhat/register', 'ts-node/register', 'ts-node/register/files'],
   timeout: 30000,
   bail: false,
   allowUncaught: false,
