@@ -96,10 +96,19 @@ export const BlockNumberContext: FC<IProps> = (props) => {
         if (isMounted()) dispatch({ chainId, blockNumber });
       };
       ethersProvider.addListener?.('block', update);
+
+      // if the current value is undefined, do an initial fetch
+      if (state?.[chainId] == null) {
+        ethersProvider?.getBlockNumber().then((val) => {
+          if (isMounted()) dispatch({ chainId, blockNumber: val });
+        });
+      }
+
       return (): void => {
         ethersProvider.removeListener?.('block', update);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId, ethersProvider, isMounted]);
 
   return <Context.Provider value={blockNumber}>{props.children} </Context.Provider>;

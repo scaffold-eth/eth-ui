@@ -4,6 +4,7 @@
 name: Node.js CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [master, develop]
   pull_request:
@@ -37,7 +38,7 @@ jobs:
       - run: yarn install --immutable
       - run: yarn run es-build
 
-      - run: yarn test:mocha
+      - run: yarn test:hardhat
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
