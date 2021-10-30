@@ -1,4 +1,4 @@
-import { Contract, Event, EventFilter } from '@ethersproject/contracts';
+import { Contract, EventFilter, Event } from 'ethers';
 import { Result } from 'ethers/lib/utils';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useIsMounted } from 'usehooks-ts';
@@ -35,7 +35,10 @@ export const useEventListener = (
   const [eventMap, setEventMap] = useState<Map<string, Event>>(new Map<string, Event>());
   const deps = JSON.stringify([...eventMap]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const events = useMemo(() => [...eventMap].map((m) => m[1]), [deps]);
+  const events: TypedEvent<Result>[] = useMemo(
+    () => [...eventMap].map((m) => m[1] as unknown as TypedEvent<Result>),
+    [deps]
+  );
 
   const addNewEvent = useCallback(
     (...listenerArgs: Event[]) => {

@@ -5,7 +5,7 @@ import {
   Provider,
   JsonRpcSigner,
 } from '@ethersproject/providers';
-import { ethers, Signer, VoidSigner, Wallet } from 'ethers';
+import { ethers, Signer, VoidSigner, Wallet, Event } from 'ethers';
 import { Result } from 'ethers/lib/utils';
 /**
  * #### Summary

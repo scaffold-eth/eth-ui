@@ -25,7 +25,7 @@
     "rootDir": ".",
     "baseUrl": ".",
     "types": [],
-    "typeRoots": ["node_modules/@types", "helpers/types"],
+    "typeRoots": ["node_modules/@types"],
     "paths": {
       "~~": ["./src/"],
       "~~/*": ["./src/*"]
