@@ -30,19 +30,21 @@ describe('useEventListener', function () {
     it('When the hook is called after a contract call, it returns the call event as the last item', async () => {
       const eventFilter: EventFilter = yourContract?.filters.SetPurpose as EventFilter;
       const harness = await hookTestHarness(() => useEventListener(yourContract, eventFilter, 0));
+
       const firstPurpose = 'new purpose 1';
       await yourContract?.setPurpose(firstPurpose);
 
       await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
       const index = harness.result.current.length - 1;
-
       expect(harness.result.current[index].args.purpose).to.equal(firstPurpose);
       expect(harness.result.current[index].args.sender).to.equal(await contractSigner.getAddress());
-
       // check other data of event and contract
       expect(harness.result.current[index].address).to.equal(await yourContract?.resolvedAddress);
       expect(harness.result.current[index].eventSignature).to.equal('SetPurpose(address,string)');
       expect(harness.result.current[index].event).to.equal('SetPurpose');
+
+      // check number of times the hook updated
+      expect(harness.result.all.length).lessThanOrEqual(2);
     });
 
     it('When the hook is called with a starting blockNumber after which multiple events occured, then it returns all the events after that block number in the right order', async () => {
@@ -63,6 +65,9 @@ describe('useEventListener', function () {
       expect(harness.result.current[1].args.purpose).to.equal('purpose 2');
       expect(harness.result.current[2].args.purpose).to.equal('purpose 3');
       expect(harness.result.current[3].args.purpose).to.equal('purpose 4');
+
+      // check number of times the hook updated
+      expect(harness.result.all.length).lessThanOrEqual(5);
     });
 
     describe('Given that multiple events occured', () => {
@@ -75,23 +80,23 @@ describe('useEventListener', function () {
         await yourContract?.setPurpose('purpose 4');
       });
 
-      it.only('When the hook is called with a starting blockNumber that includes these prior events, then it returns them in right order', async () => {
-        console.log(testStartBockNumber);
-        console.log(beforeMultipleEventsBlockNumber);
+      it('When the hook is called with a starting blockNumber that includes these prior events, then it returns them in right order', async () => {
         const eventFilter: EventFilter = yourContract?.filters.SetPurpose as EventFilter;
         const harness = await hookTestHarness(() =>
           useEventListener(yourContract, eventFilter, beforeMultipleEventsBlockNumber + 1)
         );
-        await harness.waitFor(() => harness.result.current.length !== 0, defaultBlockWaitOptions);
 
+        await harness.waitFor(() => harness.result.current.length !== 0, defaultBlockWaitOptions);
         // check if there is the right amount of events
         expect(harness.result.current.length).to.equal(4);
-
         // check the order
         expect(harness.result.current[0].args.purpose).to.equal('purpose 1');
         expect(harness.result.current[1].args.purpose).to.equal('purpose 2');
         expect(harness.result.current[2].args.purpose).to.equal('purpose 3');
         expect(harness.result.current[3].args.purpose).to.equal('purpose 4');
+
+        // check number of times the hook updated
+        expect(harness.result.all.length).be.lessThanOrEqual(2);
       });
     });
   });
