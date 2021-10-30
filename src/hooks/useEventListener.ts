@@ -1,8 +1,10 @@
-import { Contract, Event } from '@ethersproject/contracts';
+import { Contract, Event, EventFilter } from '@ethersproject/contracts';
+import { Result } from 'ethers/lib/utils';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
+import { TypedEvent } from '~~/models';
 
 const getEventKey = (m: Event): string => {
   return `${m.transactionHash}_${m.logIndex}`;
@@ -22,7 +24,11 @@ const getEventKey = (m: Event): string => {
  * @param startBlock
  * @returns
  */
-export const useEventListener = (contract: Contract | undefined, eventName: string, startBlock: number): Event[] => {
+export const useEventListener = (
+  contract: Contract | undefined,
+  eventName: string | EventFilter,
+  startBlock: number
+): TypedEvent<Result>[] => {
   const isMounted = useIsMounted();
   const { ethersProvider } = useEthersContext();
 

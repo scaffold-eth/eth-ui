@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import { hookTestHarness } from '~~/helpers/test-utils';
-import { const_singleTimeout } from '~~/helpers/test-utils/constants/testConstants';
+import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants/testConstants';
 import { fromEther } from '~~/helpers/test-utils/functions/conversions';
 import { useBalance } from '~~/hooks';
 
@@ -13,7 +13,7 @@ describe('useBalance', function () {
     expect(wallet.address).to.be.properAddress;
     expect(secondWallet.address).to.be.properAddress;
 
-    await harness.waitForNextUpdate({ timeout: const_singleTimeout });
+    await harness.waitForNextUpdate(defaultBlockWaitOptions);
     const balance = await wallet.getBalance();
     expect(harness.result.current).be.equal(balance);
   });
@@ -35,7 +35,7 @@ describe('useBalance', function () {
 
     // ).to.changeEtherBalances([wallet], [fromEther(-1)]);
 
-    await harness.waitForNextUpdate({ timeout: const_singleTimeout });
+    await harness.waitForNextUpdate(defaultBlockWaitOptions);
     const newBalance = await wallet.getBalance();
     expect(harness.result.current).to.equal(newBalance);
     expect(harness.result.current).not.to.equal(oldBalance);

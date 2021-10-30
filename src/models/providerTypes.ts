@@ -6,6 +6,7 @@ import {
   JsonRpcSigner,
 } from '@ethersproject/providers';
 import { ethers, Signer, VoidSigner, Wallet } from 'ethers';
+import { Result } from 'ethers/lib/utils';
 /**
  * #### Summary
  * A union of various ethers providers for ease of use and maximum flexiblity
@@ -60,3 +61,7 @@ export type TEthersUser = {
   providerNetwork: ethers.providers.Network | undefined;
   address: string | undefined;
 };
+
+export interface TypedEvent<EventArgs extends Result> extends Event {
+  args: EventArgs;
+}

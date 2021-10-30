@@ -5,7 +5,7 @@ import * as sinonChai from 'sinon-chai';
 
 import { useBlockNumberContext } from '~~/context';
 import { hookTestHarness } from '~~/helpers/test-utils';
-import { const_singleTimeout } from '~~/helpers/test-utils/constants';
+import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
 
 use(sinonChai);
@@ -30,7 +30,7 @@ describe('BlockNumberContext', function () {
       expect(await harness.mockProvider.getBlockNumber()).to.exist;
       expect(initialBlockNumber).to.exist;
 
-      await harness.waitForValueToChange(() => harness.result.current, { timeout: const_singleTimeout });
+      await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
       expect(harness.result.current).to.equal(initialBlockNumber);
     });
 
@@ -42,14 +42,14 @@ describe('BlockNumberContext', function () {
       await mineBlock(harness.mockProvider);
       expect(await harness.mockProvider.getBlockNumber()).to.equal(initialBlockNumber + 1);
 
-      await harness.waitForValueToChange(() => harness.result.current, { timeout: const_singleTimeout });
+      await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
       expect(harness.result.current).equal(initialBlockNumber + 1);
 
       // mine another block
       await mineBlock(harness.mockProvider);
       expect(await harness.mockProvider.getBlockNumber()).to.equal(initialBlockNumber + 2);
 
-      await harness.waitForValueToChange(() => harness.result.current, { timeout: const_singleTimeout });
+      await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
       expect(harness.result.current).equal(initialBlockNumber + 2);
     });
   });

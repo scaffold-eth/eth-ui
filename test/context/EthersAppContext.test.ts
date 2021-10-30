@@ -4,7 +4,11 @@ import * as sinonChai from 'sinon-chai';
 
 import { IEthersContext, useEthersContext } from '~~/context';
 import { hookTestHarness } from '~~/helpers/test-utils';
-import { const_DefaultTestChainId, const_singleTimeout } from '~~/helpers/test-utils/constants';
+import {
+  const_DefaultTestChainId,
+  const_singleTimeout,
+  defaultBlockWaitOptions,
+} from '~~/helpers/test-utils/constants';
 import { getHardhatAccount } from '~~/helpers/test-utils/harness';
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper';
 
@@ -52,7 +56,7 @@ describe('EthersAppContext', function () {
 
         // open the modal
         firstContext.openModal(new MockConnector(harness.mockProvider));
-        await harness.waitForNextUpdate({ timeout: const_singleTimeout });
+        await harness.waitForNextUpdate(defaultBlockWaitOptions);
 
         expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.to.be.greaterThanOrEqual(1);
 

@@ -32,14 +32,14 @@
 //     await mineBlock(harness.mockProvider);
 //     expect(await harness.mockProvider.getBlockNumber()).to.equal(initialBlockNumber + 1);
 
-//     // await harness.waitForValueToChange(() => harness.result.current, { timeout: const_singleTimeout });
+//     // await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
 //     expect(harness.result.current).equal(initialBlockNumber + 1);
 
 //     // mine another block
 //     await mineBlock(harness.mockProvider);
 //     expect(await harness.mockProvider.getBlockNumber()).to.equal(initialBlockNumber + 2);
 
-//     // await harness.waitForValueToChange(() => harness.result.current, { timeout: const_singleTimeout });
+//     // await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
 //     expect(harness.result.current).equal(initialBlockNumber + 2);
 //   });
 // });
