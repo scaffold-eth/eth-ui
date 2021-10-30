@@ -1,5 +1,5 @@
-import { Signer } from '@ethersproject/abstract-signer';
 import { MockProvider } from 'ethereum-waffle';
+import { Signer } from 'ethers';
 
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper/MockConnector';
 

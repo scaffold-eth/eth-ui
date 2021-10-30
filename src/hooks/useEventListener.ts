@@ -32,34 +32,43 @@ export const useEventListener = (
   const isMounted = useIsMounted();
   const { ethersProvider } = useEthersContext();
 
-  const [eventMap, setEventMap] = useState<Map<string, Event>>(new Map<string, Event>());
-  const deps = JSON.stringify([...eventMap]);
+  const [eventMap, setEventMap] = useState<Map<string, Event>>();
+  const deps = JSON.stringify([...(eventMap ?? []).keys()]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const events: TypedEvent<Result>[] = useMemo(
-    () => [...eventMap].map((m) => m[1] as unknown as TypedEvent<Result>),
+    () => [...(eventMap ?? [])].map((m) => m[1] as unknown as TypedEvent<Result>),
     [deps]
   );
 
   const addNewEvent = useCallback(
     (...listenerArgs: Event[]) => {
-      if (listenerArgs != null && listenerArgs.length > 0) {
-        const newEvent = listenerArgs[listenerArgs.length - 1];
-        if (newEvent.event != null && newEvent.logIndex != null && newEvent.transactionHash != null) {
-          const newMap = new Map([[getEventKey(newEvent), newEvent]]);
-          if (isMounted()) setEventMap((oldMap) => new Map([...oldMap, ...newMap]));
+      void (async (): Promise<void> => {
+        if (listenerArgs != null && listenerArgs.length > 0) {
+          const result = await contract?.queryFilter(eventName as EventFilter, startBlock);
+          if (isMounted() && result) {
+            const mapResult = new Map(result?.map((m) => [getEventKey(m), m]));
+            setEventMap(mapResult);
+          }
         }
-      }
+      })();
     },
-    [isMounted]
+    [contract, eventName, isMounted, startBlock]
   );
 
+  // get the events on initial load of hooks, without waiting for the next event
   useEffect(() => {
-    if (ethersProvider) {
-      // if you want to read _all_ events from your contracts, set this to the block number it is deployed
-      // NOTE: this is depcrecated
-      ethersProvider.resetEventsBlock(startBlock);
+    if (contract?.queryFilter != null && setEventMap && (eventMap == null || eventMap?.size === 0)) {
+      contract?.queryFilter(eventName as EventFilter, startBlock).then((result) => {
+        if (isMounted() && result) {
+          const mapResult = new Map(result?.map((m) => [getEventKey(m), m]));
+          setEventMap(mapResult);
+        }
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contract?.queryFilter]);
 
+  useEffect(() => {
     try {
       contract?.on(eventName, addNewEvent);
       return (): void => {
@@ -68,7 +77,7 @@ export const useEventListener = (
     } catch (e) {
       console.log(e);
     }
-  }, [addNewEvent, contract, ethersProvider, eventName, startBlock]);
+  }, [addNewEvent, contract, eventName]);
 
   return events;
 };

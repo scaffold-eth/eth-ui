@@ -4,11 +4,7 @@ import * as sinonChai from 'sinon-chai';
 
 import { IEthersContext, useEthersContext } from '~~/context';
 import { hookTestHarness } from '~~/helpers/test-utils';
-import {
-  const_DefaultTestChainId,
-  const_singleTimeout,
-  defaultBlockWaitOptions,
-} from '~~/helpers/test-utils/constants';
+import { const_DefaultTestChainId, defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { getHardhatAccount } from '~~/helpers/test-utils/harness';
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper';
 

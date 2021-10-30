@@ -128,7 +128,8 @@
     "object-curly-newline": "off",
     "no-shadow": "off",
     "no-void": ["error", { "allowAsStatement": true }],
-    "mocha/no-mocha-arrows": "off"
+    "mocha/no-mocha-arrows": "off",
+    "mocha/no-hooks-for-single-case": "off"
   },
   "settings": {
     "react": {
