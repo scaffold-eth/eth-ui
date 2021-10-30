@@ -69,7 +69,6 @@ export const useOnRepetition = (
     if (options.provider && !polling) {
       if (DEBUG) console.log('register block event', ...args);
       options.provider.addListener('block', listener);
-      listener(0);
       return (): void => {
         if (DEBUG) console.log('unregister block event', ...args);
         options?.provider?.removeListener('block', listener);
