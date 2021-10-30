@@ -77,7 +77,6 @@ export const useOnRepetition = (
   useEffect(() => {
     if (options?.provider != null && readyForEvents) {
       options?.provider?.addListener?.('block', listener);
-      listener(0);
     }
 
     return (): void => {
