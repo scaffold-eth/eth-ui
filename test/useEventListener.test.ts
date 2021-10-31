@@ -27,7 +27,7 @@ describe('useEventListener', function () {
       testStartBockNumber = await currentTestBlockNumber();
     });
 
-    it('When the hook is called after a contract call, it returns the call event as the last item', async () => {
+    it('When the hook is called after a contract call; then it returns the event as the last item', async () => {
       const eventFilter: EventFilter = yourContract?.filters.SetPurpose as EventFilter;
       const harness = await hookTestHarness(() => useEventListener(yourContract, eventFilter, 0));
 
@@ -47,30 +47,34 @@ describe('useEventListener', function () {
       expect(harness.result.all.length).lessThanOrEqual(2);
     });
 
-    it('When the hook is called with a starting blockNumber after which multiple events occured, then it returns all the events after that block number in the right order', async () => {
-      const eventFilter: EventFilter = yourContract?.filters.SetPurpose as EventFilter;
-      const harness = await hookTestHarness(() => useEventListener(yourContract, eventFilter, testStartBockNumber + 1));
-      await yourContract?.setPurpose('purpose 1');
-      await yourContract?.setPurpose('purpose 2');
-      await yourContract?.setPurpose('purpose 3');
-      await yourContract?.setPurpose('purpose 4');
+    describe('Given that multiple events occured after the hook is initialized', () => {
+      it('When the hook is initialized before the events, with a starting blockNumber before the events occured; then it returns all the events after that block number in the right order', async () => {
+        const eventFilter: EventFilter = yourContract?.filters.SetPurpose as EventFilter;
+        const harness = await hookTestHarness(() =>
+          useEventListener(yourContract, eventFilter, testStartBockNumber + 1)
+        );
+        await yourContract?.setPurpose('purpose 1');
+        await yourContract?.setPurpose('purpose 2');
+        await yourContract?.setPurpose('purpose 3');
+        await yourContract?.setPurpose('purpose 4');
 
-      await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
 
-      // check if there is the right amount of events
-      expect(harness.result.current.length).to.equal(4);
+        // check if there is the right amount of events
+        expect(harness.result.current.length).to.equal(4);
 
-      // check the order
-      expect(harness.result.current[0].args.purpose).to.equal('purpose 1');
-      expect(harness.result.current[1].args.purpose).to.equal('purpose 2');
-      expect(harness.result.current[2].args.purpose).to.equal('purpose 3');
-      expect(harness.result.current[3].args.purpose).to.equal('purpose 4');
+        // check the order
+        expect(harness.result.current[0].args.purpose).to.equal('purpose 1');
+        expect(harness.result.current[1].args.purpose).to.equal('purpose 2');
+        expect(harness.result.current[2].args.purpose).to.equal('purpose 3');
+        expect(harness.result.current[3].args.purpose).to.equal('purpose 4');
 
-      // check number of times the hook updated
-      expect(harness.result.all.length).lessThanOrEqual(5);
+        // check number of times the hook updated
+        expect(harness.result.all.length).lessThanOrEqual(5);
+      });
     });
 
-    describe('Given that multiple events occured', () => {
+    describe('Given that multiple events occured before the hook is initialized', () => {
       let beforeMultipleEventsBlockNumber = 0;
       before(async () => {
         beforeMultipleEventsBlockNumber = await currentTestBlockNumber();
@@ -80,7 +84,7 @@ describe('useEventListener', function () {
         await yourContract?.setPurpose('purpose 4');
       });
 
-      it('When the hook is called with a starting blockNumber that includes these prior events, then it returns them in right order', async () => {
+      it('When the hook is initialized after, with a starting blockNumber that includes these prior events; then it returns them in right order', async () => {
         const eventFilter: EventFilter = yourContract?.filters.SetPurpose as EventFilter;
         const harness = await hookTestHarness(() =>
           useEventListener(yourContract, eventFilter, beforeMultipleEventsBlockNumber + 1)

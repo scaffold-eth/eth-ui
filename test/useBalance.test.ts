@@ -6,7 +6,7 @@ import { fromEther } from '~~/helpers/test-utils/functions/conversions';
 import { useBalance } from '~~/hooks';
 
 describe('useBalance', function () {
-  it('When the hook is called, then it returns the initial balance', async () => {
+  it('When the hook is called; then it returns the initial balance', async () => {
     const harness = await hookTestHarness((address: string) => useBalance(address));
     const [wallet, secondWallet] = harness.mockProvider.getWallets();
     harness.rerender(wallet.address);
@@ -18,7 +18,7 @@ describe('useBalance', function () {
     expect(harness.result.current).be.equal(balance);
   });
 
-  it('When wallet balances changes, then the hook returns the new balance', async () => {
+  it('When wallet balances changes; then the hook returns the new balance', async () => {
     const harness = await hookTestHarness((address: string) => useBalance(address));
     const [wallet, secondWallet] = harness.mockProvider.getWallets();
     harness.rerender(wallet.address);

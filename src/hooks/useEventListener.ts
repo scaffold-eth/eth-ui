@@ -32,30 +32,10 @@ export const useEventListener = (
 
   const [eventMap, setEventMap] = useState<TypedEvent<Result>[]>([]);
 
-  const addNewEvent = useCallback(
-    (...listenerArgs: Event[]) => {
+  const queryEvents = useCallback(
+    (_listenerArgs: Event[]) => {
       void (async (): Promise<void> => {
-        if (listenerArgs != null && listenerArgs.length > 0) {
-          const result = await contract?.queryFilter(eventName as EventFilter, startBlock);
-          if (isMounted() && result) {
-            setEventMap((value) => {
-              if (JSON.stringify(value.map(getEventKey)) !== JSON.stringify(result.map(getEventKey))) {
-                return result as TypedEvent<Result>[];
-              } else {
-                return value;
-              }
-            });
-          }
-        }
-      })();
-    },
-    [contract, eventName, isMounted, startBlock]
-  );
-
-  // // get the events on initial load of hooks, without waiting for the next event
-  useEffect(() => {
-    if (contract?.queryFilter != null && setEventMap && (eventMap == null || eventMap?.length === 0)) {
-      contract?.queryFilter(eventName as EventFilter, startBlock).then((result) => {
+        const result = await contract?.queryFilter(eventName as EventFilter, startBlock);
         if (isMounted() && result) {
           setEventMap((value) => {
             if (JSON.stringify(value.map(getEventKey)) !== JSON.stringify(result.map(getEventKey))) {
@@ -65,21 +45,29 @@ export const useEventListener = (
             }
           });
         }
-      });
+      })();
+    },
+    [contract, eventName, isMounted, startBlock]
+  );
+
+  // // get the events on initial load of hooks, without waiting for the next event
+  useEffect(() => {
+    if (contract?.queryFilter != null && setEventMap && (eventMap == null || eventMap?.length === 0) && queryEvents) {
+      queryEvents([]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract?.queryFilter]);
 
   useEffect(() => {
     try {
-      contract?.on(eventName, addNewEvent);
+      contract?.on(eventName, queryEvents);
       return (): void => {
-        contract?.off(eventName, addNewEvent);
+        contract?.off(eventName, queryEvents);
       };
     } catch (e) {
       console.log(e);
     }
-  }, [addNewEvent, contract, eventName]);
+  }, [queryEvents, contract, eventName]);
 
   return eventMap;
 };

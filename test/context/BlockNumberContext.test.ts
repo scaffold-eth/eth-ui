@@ -24,7 +24,7 @@ describe('BlockNumberContext', function () {
       console.log('initial block number', initialBlockNumber);
     });
 
-    it('When the hook called without a new block arriving, useBlockNumberContext gets the current blockNumber', async () => {
+    it('When the hook called without a new block arriving; then useBlockNumberContext gets the current blockNumber', async () => {
       const harness = await hookTestHarness(() => TestHook());
       expect(harness.result.current).to.equal(undefined);
       expect(await harness.mockProvider.getBlockNumber()).to.exist;
@@ -37,7 +37,7 @@ describe('BlockNumberContext', function () {
       expect(harness.result.all.length).equals(2);
     });
 
-    it('When the a new block arrives, useBlockNumberContext updates to the latest value', async () => {
+    it('When the a new block arrives; then useBlockNumberContext updates to the latest value', async () => {
       const harness = await hookTestHarness(() => TestHook());
       expect(harness.result.all.length).equals(1);
       await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
