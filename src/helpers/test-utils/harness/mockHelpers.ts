@@ -1,4 +1,5 @@
 import { MockProvider } from 'ethereum-waffle';
+import { Signer } from 'ethers';
 
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper/MockConnector';
 
@@ -30,4 +31,14 @@ export const getHardhatAccount = async (provider: MockProvider, hardhatAccountIn
     throw error;
   }
   return accounts[hardhatAccountIndex];
+};
+
+export const getHardhatSigner = async (provider: MockProvider, hardhatAccountIndex: number): Promise<Signer> => {
+  const accounts = await provider.listAccounts();
+  if (accounts?.[hardhatAccountIndex] == null) {
+    const error = new Error('MockConnector: unknown mock hardhat account');
+    console.error(error);
+    throw error;
+  }
+  return provider.getSigner(accounts[hardhatAccountIndex]);
 };

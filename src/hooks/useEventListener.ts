@@ -1,10 +1,11 @@
-import { Contract, Event } from '@ethersproject/contracts';
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { Contract, EventFilter, Event } from 'ethers';
+import { Result } from 'ethers/lib/utils';
+import { useState, useEffect, useCallback } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useEthersContext } from '~~/context';
+import { TypedEvent } from '~~/models';
 
-const getEventKey = (m: Event): string => {
+const getEventKey = (m: Event | TypedEvent<Result>): string => {
   return `${m.transactionHash}_${m.logIndex}`;
 };
 /**
@@ -22,44 +23,51 @@ const getEventKey = (m: Event): string => {
  * @param startBlock
  * @returns
  */
-export const useEventListener = (contract: Contract | undefined, eventName: string, startBlock: number): Event[] => {
+export const useEventListener = (
+  contract: Contract | undefined,
+  eventName: string | EventFilter,
+  startBlock: number
+): TypedEvent<Result>[] => {
   const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext();
 
-  const [eventMap, setEventMap] = useState<Map<string, Event>>(new Map<string, Event>());
-  const deps = JSON.stringify([...eventMap]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const events = useMemo(() => [...eventMap].map((m) => m[1]), [deps]);
+  const [eventMap, setEventMap] = useState<TypedEvent<Result>[]>([]);
 
-  const addNewEvent = useCallback(
-    (...listenerArgs: Event[]) => {
-      if (listenerArgs != null && listenerArgs.length > 0) {
-        const newEvent = listenerArgs[listenerArgs.length - 1];
-        if (newEvent.event != null && newEvent.logIndex != null && newEvent.transactionHash != null) {
-          const newMap = new Map([[getEventKey(newEvent), newEvent]]);
-          if (isMounted()) setEventMap((oldMap) => new Map([...oldMap, ...newMap]));
+  const queryEvents = useCallback(
+    (_listenerArgs: Event[]) => {
+      void (async (): Promise<void> => {
+        const result = await contract?.queryFilter(eventName as EventFilter, startBlock);
+        if (isMounted() && result) {
+          setEventMap((value) => {
+            if (JSON.stringify(value.map(getEventKey)) !== JSON.stringify(result.map(getEventKey))) {
+              return result as TypedEvent<Result>[];
+            } else {
+              return value;
+            }
+          });
         }
-      }
+      })();
     },
-    [isMounted]
+    [contract, eventName, isMounted, startBlock]
   );
 
+  // // get the events on initial load of hooks, without waiting for the next event
   useEffect(() => {
-    if (ethersProvider) {
-      // if you want to read _all_ events from your contracts, set this to the block number it is deployed
-      // NOTE: this is depcrecated
-      ethersProvider.resetEventsBlock(startBlock);
+    if (contract?.queryFilter != null && setEventMap && (eventMap == null || eventMap?.length === 0) && queryEvents) {
+      queryEvents([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contract?.queryFilter]);
 
+  useEffect(() => {
     try {
-      contract?.on(eventName, addNewEvent);
+      contract?.on(eventName, queryEvents);
       return (): void => {
-        contract?.off(eventName, addNewEvent);
+        contract?.off(eventName, queryEvents);
       };
     } catch (e) {
       console.log(e);
     }
-  }, [addNewEvent, contract, ethersProvider, eventName, startBlock]);
+  }, [queryEvents, contract, eventName]);
 
-  return events;
+  return eventMap;
 };
