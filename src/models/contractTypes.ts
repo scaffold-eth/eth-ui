@@ -1,4 +1,22 @@
-import { Contract } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import { BaseContract, Signer } from 'ethers';
+
+/**
+ * In progress...
+ */
+export interface IContractFactoryBridge {
+  connect: (address: string, signerOrProvider: Signer | Provider) => BaseContract;
+  // attach: (address: string) => BaseContract;
+}
+
+/**
+ * #### Summary
+ * describes the sctructure of a contract in hardhat_contracts.json
+ */
+export type THardhatContractJson = {
+  address: string;
+  abi: any[];
+};
 
 /**
  * #### Summary
@@ -8,13 +26,28 @@ import { Contract } from 'ethers';
  *
  * @category Models
  */
-export type TDeployedContracts = {
-  [key: string]: {
-    [key: string]: {
+export type TDeployedContractsJson = {
+  [chainId: string]: {
+    [networkName: string]: {
       name: string;
       chainId: string;
-      contracts: Record<string, Contract>;
+      contracts: { [contractName: string]: THardhatContractJson };
     };
+  };
+};
+
+/**
+ * #### Summary
+ * Contract factories for contracts deployed by hardhat
+ * - contractName: ethers.ContractFactory
+ * - Used by {@link useContractLoader}
+ *
+ * @category Models
+ */
+export type TDeployedContractHelper = {
+  factoryBridge: { [contractName: string]: IContractFactoryBridge };
+  contractList: {
+    [chainId: number]: { [contractName: string]: BaseContract };
   };
 };
 
@@ -27,10 +60,10 @@ export type TDeployedContracts = {
  * @category Models
  */
 export type TExternalContracts = {
-  [key: number]: {
+  [chainId: number]: {
     name?: string;
     chainId?: string;
-    contracts?: Record<string, Contract>;
+    contracts?: { [contractName: string]: THardhatContractJson };
   };
 };
 

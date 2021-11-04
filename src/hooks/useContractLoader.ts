@@ -1,9 +1,39 @@
-import { Contract } from 'ethers';
+import { BaseContract } from 'ethers';
 import { useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { TDeployedContracts, TEthersProviderOrSigner, TExternalContracts } from '~~/models';
+import {
+  TDeployedContractHelper,
+  TDeployedContractsJson,
+  TEthersProviderOrSigner,
+  TExternalContracts,
+  THardhatContractJson,
+} from '~~/models';
+
+export const parseContractsInJson = (
+  contractList: TDeployedContractsJson,
+  chainId: number
+): Record<string, THardhatContractJson> => {
+  let combinedContracts: Record<string, THardhatContractJson> = {};
+
+  // combine partitioned contracts based on all the available and chain id.
+  if (contractList?.[chainId] != null) {
+    for (const network in contractList[chainId]) {
+      if (Object.prototype.hasOwnProperty.call(contractList[chainId], network)) {
+        const chainContracts = contractList?.[chainId]?.[network]?.contracts;
+        if (chainContracts != null) {
+          combinedContracts = {
+            ...combinedContracts,
+            ...chainContracts,
+          };
+        }
+      }
+    }
+  }
+
+  return combinedContracts;
+};
 
 /**
  * #### Summary
@@ -22,8 +52,15 @@ export type TContractConfig = {
   customAddresses?: Record<string, string>;
   /**
    * Hardhat deployed contracts
+   * untyped and should be @deprecated
    */
-  deployedContracts?: TDeployedContracts;
+  deployedContractsJson?: TDeployedContractsJson;
+  /**
+   * ⚠ in progress... not used currently
+   * Harhard deployed contract with TypeChain typings
+   * Contracts are created via contract factories
+   */
+  deployedContractHelper?: TDeployedContractHelper;
   /**
    * External contracts (such as DAI)
    */
@@ -55,12 +92,12 @@ export const useContractLoader = (
   config: TContractConfig = {},
   providerOrSigner?: TEthersProviderOrSigner,
   configChainId?: number
-): Record<string, Contract> => {
+): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
   const { ethersProvider, chainId: contextChainId } = useEthersContext();
   const chainId = configChainId ?? contextChainId;
 
-  const [contracts, setContracts] = useState<Record<string, Contract>>({});
+  const [contracts, setContracts] = useState<Record<string, BaseContract>>({});
   const configDep: string = useMemo(() => JSON.stringify(config ?? {}), [config]);
 
   useEffect(() => {
@@ -68,26 +105,11 @@ export const useContractLoader = (
       if (ethersProvider && chainId && chainId > 0) {
         console.log(`🌀 loading contracts..`);
         try {
-          const contractList: TDeployedContracts = { ...(config.deployedContracts ?? {}) };
+          const contractList: TDeployedContractsJson = { ...(config.deployedContractsJson ?? {}) };
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
-          let combinedContracts: Record<string, Contract> = {};
-
-          // combine partitioned contracts based on all the available and chain id.
-          if (contractList?.[chainId] != null) {
-            for (const network in contractList[chainId]) {
-              if (Object.prototype.hasOwnProperty.call(contractList[chainId], network)) {
-                if (!config.hardhatNetworkName || network === config.hardhatNetworkName) {
-                  const chainContracts = contractList?.[chainId]?.[network]?.contracts;
-                  combinedContracts = {
-                    ...combinedContracts,
-                    ...chainContracts,
-                  };
-                }
-              }
-            }
-          }
+          let combinedContracts: Record<string, THardhatContractJson> = parseContractsInJson(contractList, chainId);
 
           // load external contracts if its the right chain
           if (externalContractList?.[chainId] != null) {
@@ -103,7 +125,7 @@ export const useContractLoader = (
 
               // use providerOrSigner, or ethersContext provider or undefined if appropriate
               const provider = providerOrSigner ?? (chainId === contextChainId ? ethersProvider : undefined);
-              accumulator[contractName] = new Contract(address, combinedContracts[contractName].abi, provider);
+              accumulator[contractName] = new BaseContract(address, combinedContracts[contractName].abi, provider);
               return accumulator;
             },
             {}
