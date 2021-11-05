@@ -1,12 +1,12 @@
 import { useBlockNumberContext } from '~~/context';
-import { hookTestHarness } from '~~/helpers/test-utils';
+import { hookTestHarness, TTestHookResult } from '~~/helpers/test-utils';
 
-export const harnessTestSetupHelper = async (): Promise<ReturnType<typeof hookTestHarness>> => {
+export const harnessTestSetupHelper = async (): Promise<TTestHookResult<void, number | undefined>> => {
   const useBeforeTestHook = (): number | undefined => {
     return useBlockNumberContext();
   };
 
-  return await hookTestHarness(() => useBeforeTestHook());
+  return await hookTestHarness<void, number | undefined>(() => useBeforeTestHook());
 };
 
 export const currentTestBlockNumber = async (): Promise<number> => {

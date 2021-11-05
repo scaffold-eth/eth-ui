@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { expect } from 'chai';
-import { deployContract } from 'ethereum-waffle';
+import { expect, use } from 'chai';
 import { Signer } from 'ethers';
-import { YourContract, YourContractJson } from 'test-files/__mocks__';
+import * as sinonChai from 'sinon-chai';
+import { YourContract } from 'test-files/__mocks__';
+import { setupMockYourContract, waitForYourContractState } from 'test-files/__mocks__/setupMockContracts';
+import sinon from 'ts-sinon';
 
 import { hookTestHarness } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
@@ -10,6 +12,8 @@ import { getHardhatSigner } from '~~/helpers/test-utils/harness';
 import { currentTestBlockNumber, harnessTestSetupHelper } from '~~/helpers/test-utils/harness/hardhatTestHelpers';
 import { useContractReader } from '~~/hooks';
 import { TContractFunctionInfo } from '~~/models';
+
+use(sinonChai);
 
 describe('useContractReader', function () {
   describe('Given that a YourContract is deployed', () => {
@@ -21,57 +25,100 @@ describe('useContractReader', function () {
       // setup a contract
       const harness = await harnessTestSetupHelper();
       contractSigner = await getHardhatSigner(harness.mockProvider, 1);
-      yourContract = (await deployContract(contractSigner, YourContractJson)) as YourContract;
-      yourContractPurposeInfo = {
-        contractName: 'YourContract',
-        functionName: 'purpose()',
-      };
-      expect(yourContract).to.exist;
+      [yourContract, yourContractPurposeInfo] = await setupMockYourContract(contractSigner);
     });
 
     let testStartBockNumber = 0;
 
     beforeEach(async () => {
       testStartBockNumber = await currentTestBlockNumber();
+      await yourContract?.setPurpose('no purpose');
     });
 
-    it('When the hook is called after a contract call; then it returns the result of the contract call', async () => {
-      const harness = await hookTestHarness(() => useContractReader<string>(yourContract!, yourContractPurposeInfo));
+    describe('Given the setPurpose is called and set with a new value', () => {
+      it('When the hook is invoked after setPurpose calls; then it returns the result of the contract call', async () => {
+        const harness = await hookTestHarness(() =>
+          useContractReader<[string]>(yourContract!, yourContractPurposeInfo)
+        );
+        await waitForYourContractState(harness);
 
-      const firstPurpose = 'purpose 1';
-      await yourContract?.setPurpose(firstPurpose);
-      await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
-      expect(harness.result.all.length).to.equal(3);
-      expect(harness.result.current).to.eql([firstPurpose]);
+        const firstPurpose = 'purpose 1';
+        await yourContract?.setPurpose(firstPurpose);
+        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        expect(harness.result.current).to.eql([firstPurpose]);
 
-      const secondPurpose = 'purpose 2';
-      await yourContract?.setPurpose(secondPurpose);
-      await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
-      expect(harness.result.all.length).to.equal(5);
-      expect(harness.result.current).to.eql([secondPurpose]);
+        const secondPurpose = 'purpose 2';
+        await yourContract?.setPurpose(secondPurpose);
+        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        expect(harness.result.current).to.eql([secondPurpose]);
 
-      const thirdPurpose = 'purpose 3';
-      await yourContract?.setPurpose(thirdPurpose);
-      await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
-      expect(harness.result.all.length).to.equal(7);
-      expect(harness.result.current).to.eql([thirdPurpose]);
-      console.log(harness.result.all);
-    });
+        const thirdPurpose = 'purpose 3';
+        await yourContract?.setPurpose(thirdPurpose);
+        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        expect(harness.result.current).to.eql([thirdPurpose]);
 
-    it('When the hook is called after multiple contract call; then it returns the last result of the contract call', async () => {
-      const harness = await hookTestHarness(() => useContractReader<string>(yourContract!, yourContractPurposeInfo));
+        // hook renders should be less than 3 x 2 + initial value + purpose
+        expect(harness.result.all.length).be.lessThanOrEqual(9);
+      });
+      it('When the hook is invoked after multiple setPurpose calls; then it returns the last result of the contract', async () => {
+        const harness = await hookTestHarness(() =>
+          useContractReader<[string]>(yourContract!, yourContractPurposeInfo)
+        );
+        await waitForYourContractState(harness);
 
-      await yourContract?.setPurpose('purpose 1');
-      await yourContract?.setPurpose('purpose 2');
-      await yourContract?.setPurpose('purpose 3');
-      await yourContract?.setPurpose('purpose 4');
-      const finalPurpose = 'purpose 5';
-      await yourContract?.setPurpose(finalPurpose);
-      await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        await yourContract?.setPurpose('purpose 1');
+        await yourContract?.setPurpose('purpose 2');
+        await yourContract?.setPurpose('purpose 3');
+        await yourContract?.setPurpose('purpose 4');
+        const finalPurpose = 'purpose 5';
+        await yourContract?.setPurpose(finalPurpose);
+        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
 
-      console.log(harness.result.all);
-      expect(harness.result.all.length).to.be.lessThanOrEqual(10);
-      expect(harness.result.current).to.eql([finalPurpose]);
+        expect(harness.result.current).to.eql([finalPurpose]);
+
+        // hook results should be less than 2 per change (2*3) + 1 final value + 2 undefined
+        expect(harness.result.all.length).to.be.lessThanOrEqual(11);
+      });
+
+      it('When the hook is invoked after setPurpose calls with a formatter; then it returns the formatted value', async () => {
+        const formatter = sinon.stub();
+        formatter.returnsArg(0);
+        const harness = await hookTestHarness(() =>
+          useContractReader<[string]>(yourContract!, yourContractPurposeInfo, formatter)
+        );
+        await waitForYourContractState(harness);
+
+        formatter.resetHistory();
+        const firstPurpose = 'purpose 1';
+        await yourContract?.setPurpose(firstPurpose);
+        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+
+        expect(harness.result.current).to.eql([firstPurpose]);
+        expect(formatter).to.be.calledOnce;
+        expect(formatter).to.be.calledOnceWith([firstPurpose]);
+
+        // hook results should be less than 2 per change (2 * 1) + 1 final value + 2 undefined
+        expect(harness.result.all.length).to.be.lessThanOrEqual(5);
+      });
+
+      it('When the hook is invoked after setPurpose call with an onChange callback; then the callback is invoked', async () => {
+        const onChange = sinon.stub();
+        const harness = await hookTestHarness(() =>
+          useContractReader<[string]>(yourContract!, yourContractPurposeInfo, undefined, onChange)
+        );
+        await waitForYourContractState(harness);
+
+        onChange.resetHistory();
+        const firstPurpose = 'purpose 1';
+        await yourContract?.setPurpose(firstPurpose);
+        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+
+        expect(harness.result.current).to.eql([firstPurpose]);
+        expect(onChange).be.calledOnce;
+
+        // hook results should be less than 2 per change (2*1) + 1 final value + 2 undefined
+        expect(harness.result.all.length).to.be.lessThanOrEqual(5);
+      });
     });
   });
 });

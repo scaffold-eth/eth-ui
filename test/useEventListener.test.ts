@@ -43,7 +43,7 @@ describe('useEventListener', function () {
       expect(harness.result.current[index].eventSignature).to.equal('SetPurpose(address,string)');
       expect(harness.result.current[index].event).to.equal('SetPurpose');
 
-      // check number of times the hook updated
+      // check number of times the hook updated (1 event and 1 initial)
       expect(harness.result.all.length).lessThanOrEqual(2);
     });
 
@@ -69,7 +69,7 @@ describe('useEventListener', function () {
         expect(harness.result.current[2].args.purpose).to.equal('purpose 3');
         expect(harness.result.current[3].args.purpose).to.equal('purpose 4');
 
-        // check number of times the hook updated
+        // check number of times the hook updated (4 events + initial)
         expect(harness.result.all.length).lessThanOrEqual(5);
       });
     });
@@ -99,7 +99,7 @@ describe('useEventListener', function () {
         expect(harness.result.current[2].args.purpose).to.equal('purpose 3');
         expect(harness.result.current[3].args.purpose).to.equal('purpose 4');
 
-        // check number of times the hook updated
+        // check number of times the hook updated (1 event + 1 initial)
         expect(harness.result.all.length).be.lessThanOrEqual(2);
       });
     });

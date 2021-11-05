@@ -3,6 +3,7 @@ import 'global-jsdom/register';
 
 import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-ethers';
+import 'hardhat-deploy';
 import { HardhatUserConfig } from 'hardhat/types';
 
 const config: HardhatUserConfig = {

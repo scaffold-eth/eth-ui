@@ -68,7 +68,10 @@ export const useContractReader = <OutputT>(
 
         if (isMounted()) {
           setValue((value) => {
-            return value !== newResult ? newResult : value;
+            if (!Object.is(value, newResult) && JSON.stringify(value) !== JSON.stringify(newResult)) {
+              return newResult;
+            }
+            return value;
           });
           onChange?.(newResult);
         }

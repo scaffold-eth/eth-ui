@@ -9,7 +9,7 @@ import { getMockProvider } from '~~/helpers/test-utils/harness/getMockProvider';
 import { MockAppWrapper } from '~~/helpers/test-utils/harness/wrapper/MockAppWrapper';
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper/MockConnector';
 
-type TTestHookResult<PropsT, TResult> = RenderHookResult<PropsT, TResult, Renderer<PropsT>> & {
+export type TTestHookResult<PropsT, TResult> = RenderHookResult<PropsT, TResult, Renderer<PropsT>> & {
   mockProvider: MockProvider;
 };
 
@@ -23,7 +23,7 @@ const mockConnector = new MockConnector(mockProvider);
  * @returns (TTestHookResult)
  */
 export const hookTestHarness = async <InputT, ResultT>(
-  callbackToHook: (input: InputT) => ResultT
+  callbackToHook: (input: InputT | undefined) => ResultT
 ): Promise<TTestHookResult<InputT, ResultT>> => {
   const createMockConnector: CreateEthersModalConnector = () => {
     return mockConnector;

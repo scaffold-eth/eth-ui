@@ -31,8 +31,8 @@
       "~~/*": ["./src/*"]
     }
   },
-  "include": ["src", "test"],
-  "files": ["hardhat.config.ts"],
+  "include": ["src", "test", "test-files"],
+  "files": ["hardhat.config.ts", "./test/newFile.ts"],
   "exclude": [
     "lib/**/*",
     "node_modules",
