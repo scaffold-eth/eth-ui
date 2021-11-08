@@ -81,3 +81,35 @@ export type TContractFunctionInfo = {
   functionName: string;
   functionArgs?: any[];
 };
+
+/**
+ * #### Summary
+ * Configuration for useContractLoader
+ *
+ * @category Models
+ */
+export type TContractConfig = {
+  /**
+   * your local hardhat network name
+   */
+  hardhatNetworkName?: string;
+  /**
+   * the address:contractName key value pair
+   */
+  customAddresses?: Record<string, string>;
+  /**
+   * Hardhat deployed contracts
+   * untyped and should be @deprecated
+   */
+  deployedContractsJson?: TDeployedContractsJson;
+  /**
+   * ⚠ in progress... not used currently
+   * Harhard deployed contract with TypeChain typings
+   * Contracts are created via contract factories
+   */
+  deployedContractHelper?: TDeployedContractHelper;
+  /**
+   * External contracts (such as DAI)
+   */
+  externalContracts?: TExternalContracts;
+};

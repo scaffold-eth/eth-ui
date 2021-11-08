@@ -4,7 +4,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import {
-  TDeployedContractHelper,
+  TContractConfig,
   TDeployedContractsJson,
   TEthersProviderOrSigner,
   TExternalContracts,
@@ -34,39 +34,6 @@ export const parseContractsInJson = (
 
   return combinedContracts;
 };
-
-/**
- * #### Summary
- * Configuration for useContractLoader
- *
- * @category Hooks
- */
-export type TContractConfig = {
-  /**
-   * your local hardhat network name
-   */
-  hardhatNetworkName?: string;
-  /**
-   * the address:contractName key value pair
-   */
-  customAddresses?: Record<string, string>;
-  /**
-   * Hardhat deployed contracts
-   * untyped and should be @deprecated
-   */
-  deployedContractsJson?: TDeployedContractsJson;
-  /**
-   * ⚠ in progress... not used currently
-   * Harhard deployed contract with TypeChain typings
-   * Contracts are created via contract factories
-   */
-  deployedContractHelper?: TDeployedContractHelper;
-  /**
-   * External contracts (such as DAI)
-   */
-  externalContracts?: TExternalContracts;
-};
-
 /**
  * #### Summary
  *  Loads your contracts returns them and gives options to read values from contracts
@@ -98,12 +65,14 @@ export const useContractLoader = (
   const chainId = configChainId ?? contextChainId;
 
   const [contracts, setContracts] = useState<Record<string, BaseContract>>({});
-  const configDep: string = useMemo(() => JSON.stringify(config ?? {}), [config]);
+  const configDep: string = useMemo(
+    () => `${JSON.stringify(config ?? {})}, ${JSON.stringify({ chainId: chainId })}`,
+    [chainId, config]
+  );
 
   useEffect(() => {
     const loadContracts = (): void => {
       if (ethersProvider && chainId && chainId > 0) {
-        console.log(`🌀 loading contracts..`);
         try {
           const contractList: TDeployedContractsJson = { ...(config.deployedContractsJson ?? {}) };
           const externalContractList: TExternalContracts = {
@@ -131,9 +100,20 @@ export const useContractLoader = (
             {}
           );
 
-          if (isMounted()) setContracts(newContracts);
+          if (isMounted()) {
+            setContracts((currValue) => {
+              if (
+                currValue !== newContracts &&
+                (Object.keys(currValue).length > 0 || Object.keys(newContracts).length > 0)
+              ) {
+                console.log(`🌀 loading contracts..`);
+                return newContracts;
+              }
+              return currValue;
+            });
+          }
         } catch (e) {
-          console.log('⚠ ERROR LOADING CONTRACTS!!', e);
+          console.log('⚠ useContractLoader, ERROR LOADING CONTRACTS!!', e, config);
         }
       }
     };
@@ -141,7 +121,7 @@ export const useContractLoader = (
     void loadContracts();
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ethersProvider, configDep, chainId]);
+  }, [ethersProvider, configDep, providerOrSigner]);
 
   return contracts;
 };

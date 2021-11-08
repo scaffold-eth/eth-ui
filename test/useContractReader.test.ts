@@ -9,7 +9,7 @@ import sinon from 'ts-sinon';
 import { hookTestHarness } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { getHardhatSigner } from '~~/helpers/test-utils/harness';
-import { currentTestBlockNumber, harnessTestSetupHelper } from '~~/helpers/test-utils/harness/hardhatTestHelpers';
+import { harnessTestSetupHelper } from '~~/helpers/test-utils/harness/hardhatTestHelpers';
 import { useContractReader } from '~~/hooks';
 import { TContractFunctionInfo } from '~~/models';
 
@@ -28,10 +28,9 @@ describe('useContractReader', function () {
       [yourContract, yourContractPurposeInfo] = await setupMockYourContract(contractSigner);
     });
 
-    let testStartBockNumber = 0;
-
+    // let testStartBockNumber = 0;
     beforeEach(async () => {
-      testStartBockNumber = await currentTestBlockNumber();
+      // testStartBockNumber = await currentTestBlockNumber();
       await yourContract?.setPurpose('no purpose');
     });
 
@@ -76,7 +75,7 @@ describe('useContractReader', function () {
 
         expect(harness.result.current).to.eql([finalPurpose]);
 
-        // hook results should be less than 2 per change (2*3) + 1 final value + 2 undefined
+        // the number of times the hook results are refreshed should be less than 2 per change (2*3) + 1 final value + 2 undefined
         expect(harness.result.all.length).to.be.lessThanOrEqual(11);
       });
 
@@ -97,7 +96,7 @@ describe('useContractReader', function () {
         expect(formatter).to.be.calledOnce;
         expect(formatter).to.be.calledOnceWith([firstPurpose]);
 
-        // hook results should be less than 2 per change (2 * 1) + 1 final value + 2 undefined
+        // the number of times the hook results are refreshed should be less than 2 per change (2 * 1) + 1 final value + 2 undefined
         expect(harness.result.all.length).to.be.lessThanOrEqual(5);
       });
 
@@ -116,7 +115,7 @@ describe('useContractReader', function () {
         expect(harness.result.current).to.eql([firstPurpose]);
         expect(onChange).be.calledOnce;
 
-        // hook results should be less than 2 per change (2*1) + 1 final value + 2 undefined
+        // the number of times the hook results are refreshed should be less than 2 per change (2*1) + 1 final value + 2 undefined
         expect(harness.result.all.length).to.be.lessThanOrEqual(5);
       });
     });
