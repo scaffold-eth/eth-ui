@@ -1,4 +1,4 @@
-import { Contract, ContractFunction } from 'ethers';
+import { BaseContract, ContractFunction } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
@@ -24,7 +24,7 @@ import { TContractFunctionInfo } from '~~/models';
  * @returns <OutputT>
  */
 export const useContractReader = <OutputT>(
-  contract: Contract,
+  contract: BaseContract,
   contractFunctionInfo: TContractFunctionInfo,
   formatter?: (_value: OutputT | undefined) => OutputT,
   onChange?: (_value?: OutputT) => void
@@ -35,7 +35,7 @@ export const useContractReader = <OutputT>(
   const ethersContext = useEthersContext();
 
   const callContractFunction = useCallback(async () => {
-    const contractFunction = contract?.[contractFunctionInfo.functionName] as ContractFunction<OutputT>;
+    const contractFunction = contract.functions?.[contractFunctionInfo.functionName] as ContractFunction<OutputT>;
     let result: OutputT | undefined = undefined;
     try {
       if (contractFunctionInfo.functionArgs && contractFunctionInfo.functionArgs.length > 0) {
@@ -50,12 +50,14 @@ export const useContractReader = <OutputT>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract, contractFunctionInfo.functionArgs, contractFunctionInfo.functionName]);
 
+  const contractProvider = contract?.provider;
+
   const callFunc = useCallback(async () => {
-    const contractChainId = await contract?.signer?.getChainId();
+    const contractChainId = (await contractProvider?.getNetwork())?.chainId;
     if (
       callContractFunction != null &&
       contractChainId === ethersContext.chainId &&
-      contract?.provider != null &&
+      contractProvider != null &&
       ethersContext?.chainId
     ) {
       try {
@@ -65,22 +67,19 @@ export const useContractReader = <OutputT>(
         }
 
         if (isMounted()) {
-          setValue(newResult);
+          setValue((value) => {
+            if (!Object.is(value, newResult) && JSON.stringify(value) !== JSON.stringify(newResult)) {
+              return newResult;
+            }
+            return value;
+          });
           onChange?.(newResult);
         }
       } catch (error: any) {
         console.warn(error);
       }
     }
-  }, [
-    contract?.signer,
-    contract?.provider,
-    callContractFunction,
-    ethersContext?.chainId,
-    formatter,
-    isMounted,
-    onChange,
-  ]);
+  }, [contractProvider, callContractFunction, ethersContext?.chainId, formatter, isMounted, onChange]);
 
   useEffect(() => {
     void callFunc();
