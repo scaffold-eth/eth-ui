@@ -61,17 +61,18 @@ describe('useOnRepetition', function () {
         useOnRepetition(stubCallback, { provider: provider, leadingTrigger: provider != null }, ...(hookArgs ?? []))
       );
 
+      // same rerender with same with no new block
       harness.rerender(args);
-      await mineBlock(harness.mockProvider);
       await harness.waitFor(() => stubCallback.calledWith(...args), defaultBlockWaitOptions);
       expect(stubCallback.calledWith(...args)).be.true;
-      expect(stubCallback.callCount).to.equal(1);
+      expect(stubCallback.callCount).to.equal(2);
 
+      // second set of args with no new block
+      const args2 = ['1', 3, 5, 6];
       stubCallback.resetHistory();
-
-      harness.rerender(args);
-      await harness.waitFor(() => stubCallback.calledWith(...args), defaultBlockWaitOptions);
-      expect(stubCallback.calledWith(...args)).be.true;
+      harness.rerender(args2);
+      await harness.waitFor(() => stubCallback.calledWith(...args2), defaultBlockWaitOptions);
+      expect(stubCallback.calledWith(...args2)).be.true;
       expect(stubCallback.callCount).to.equal(1);
     });
 
