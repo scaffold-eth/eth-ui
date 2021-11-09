@@ -56,12 +56,12 @@ describe('useOnRepetition', function () {
     });
 
     it('When useOnRepetition is called, there is no new block and leadingTrigger is true; then the callback is invoked with the provided arguments', async () => {
-      const args = ['1', 3];
       const harness = await hookTestHarness((hookArgs: any[] | undefined) =>
         useOnRepetition(stubCallback, { provider: provider, leadingTrigger: provider != null }, ...(hookArgs ?? []))
       );
 
-      // same rerender with same with no new block
+      // args with with no new block
+      const args = ['1', 3];
       harness.rerender(args);
       await harness.waitFor(() => stubCallback.calledWith(...args), defaultBlockWaitOptions);
       expect(stubCallback.calledWith(...args)).be.true;
