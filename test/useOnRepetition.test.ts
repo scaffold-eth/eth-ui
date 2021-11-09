@@ -60,19 +60,19 @@ describe('useOnRepetition', function () {
       const harness = await hookTestHarness((hookArgs: any[] | undefined) =>
         useOnRepetition(stubCallback, { provider: provider, leadingTrigger: provider != null }, ...(hookArgs ?? []))
       );
-      expect(stubCallback.callCount).to.equal(1);
 
       harness.rerender(args);
       await mineBlock(harness.mockProvider);
       await harness.waitFor(() => stubCallback.calledWith(...args), defaultBlockWaitOptions);
       expect(stubCallback.calledWith(...args)).be.true;
-      expect(stubCallback.callCount).to.equal(2);
+      expect(stubCallback.callCount).to.equal(1);
 
       stubCallback.resetHistory();
+
       harness.rerender(args);
       await harness.waitFor(() => stubCallback.calledWith(...args), defaultBlockWaitOptions);
       expect(stubCallback.calledWith(...args)).be.true;
-      expect(stubCallback.callCount).to.equal(3);
+      expect(stubCallback.callCount).to.equal(1);
     });
 
     it('When useOnRepetition is called, and there is no provider and leadingTrigger is true; the callback is not called', async () => {
@@ -98,7 +98,7 @@ describe('useOnRepetition', function () {
       stubCallback.resetHistory();
       await harness.waitFor(() => stubCallback.called, { ...defaultBlockWaitOptions, timeout: 20000 });
       expect(stubCallback.calledWithExactly()).be.true;
-      expect(stubCallback.callCount).to.equal(2);
+      expect(stubCallback.callCount).to.equal(1);
     });
   });
 });
