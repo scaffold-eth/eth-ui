@@ -21,14 +21,13 @@ describe('useBlockNumber', function () {
 
   it('When the hook called without a new block arriving, useBlockNumber gets the current blockNumber', async () => {
     const harness = await hookTestHarness(() => useBlockNumber(provider));
-
+    await harness.waitForNextUpdate(defaultBlockWaitOptions);
     expect(await harness.mockProvider.getBlockNumber()).to.exist;
     expect(harness.result.current).to.equal(testStartBockNumber);
   });
 
   it('When the a new block arrives, useBlockNumberContext updates to the latest value', async () => {
     const harness = await hookTestHarness(() => useBlockNumber(provider));
-    expect(harness.result.current).equal(testStartBockNumber);
 
     // mine a block
     await mineBlock(harness.mockProvider);

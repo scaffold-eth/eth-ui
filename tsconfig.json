@@ -32,7 +32,7 @@
     }
   },
   "include": ["src", "test", "test-files"],
-  "files": ["hardhat.config.ts", "./test/newFile.ts"],
+  "files": ["hardhat.config.ts", ],
   "exclude": [
     "lib/**/*",
     "node_modules",

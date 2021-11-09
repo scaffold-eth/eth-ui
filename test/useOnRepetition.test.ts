@@ -11,11 +11,7 @@ import { TEthersProvider } from '~~/models';
 
 use(sinonChai);
 
-let testStartCounterValue = 0;
-let callbackCounter = 0;
-const stubCallback = sinon.stub().callsFake(() => {
-  callbackCounter++;
-});
+const stubCallback = sinon.stub();
 
 describe('useOnRepetition', function () {
   let provider: TEthersProvider;
@@ -27,7 +23,7 @@ describe('useOnRepetition', function () {
   let testStartBockNumber = 0;
   beforeEach(async () => {
     testStartBockNumber = await currentTestBlockNumber();
-    testStartCounterValue = callbackCounter;
+
     stubCallback.resetHistory();
   });
 
@@ -38,7 +34,7 @@ describe('useOnRepetition', function () {
       await harness.waitFor(() => stubCallback.called, defaultBlockWaitOptions);
       expect(stubCallback.calledWithExactly()).be.true;
 
-      expect(callbackCounter).to.equal(testStartCounterValue + 1);
+      expect(stubCallback.callCount).to.equal(1);
     });
 
     it('When a new block is mined and useOnRepetition is called; then the callback is invoked with the provided arguments', async () => {
@@ -47,7 +43,7 @@ describe('useOnRepetition', function () {
       await mineBlock(harness.mockProvider);
       await harness.waitFor(() => stubCallback.called, defaultBlockWaitOptions);
       expect(stubCallback.calledWith(...args)).be.true;
-      expect(callbackCounter).to.equal(testStartCounterValue + 1);
+      expect(stubCallback.callCount).to.equal(1);
     });
 
     it('When useOnRepetition is called, there is no new block and leadingTrigger is true; then the callback is invoked with no arguments', async () => {
@@ -56,7 +52,7 @@ describe('useOnRepetition', function () {
       );
       await harness.waitFor(() => stubCallback.called, defaultBlockWaitOptions);
       expect(stubCallback.calledWithExactly()).be.true;
-      expect(callbackCounter).to.equal(testStartCounterValue + 1);
+      expect(stubCallback.callCount).to.equal(1);
     });
 
     it('When useOnRepetition is called, there is no new block and leadingTrigger is true; then the callback is invoked with the provided arguments', async () => {
@@ -64,19 +60,19 @@ describe('useOnRepetition', function () {
       const harness = await hookTestHarness((hookArgs: any[] | undefined) =>
         useOnRepetition(stubCallback, { provider: provider, leadingTrigger: provider != null }, ...(hookArgs ?? []))
       );
-      expect(callbackCounter).to.equal(testStartCounterValue + 1);
+      expect(stubCallback.callCount).to.equal(1);
 
       harness.rerender(args);
       await mineBlock(harness.mockProvider);
       await harness.waitFor(() => stubCallback.calledWith(...args), defaultBlockWaitOptions);
       expect(stubCallback.calledWith(...args)).be.true;
-      expect(callbackCounter).to.equal(testStartCounterValue + 2);
+      expect(stubCallback.callCount).to.equal(2);
 
       stubCallback.resetHistory();
       harness.rerender(args);
       await harness.waitFor(() => stubCallback.calledWith(...args), defaultBlockWaitOptions);
       expect(stubCallback.calledWith(...args)).be.true;
-      expect(callbackCounter).to.equal(testStartCounterValue + 3);
+      expect(stubCallback.callCount).to.equal(3);
     });
 
     it('When useOnRepetition is called, and there is no provider and leadingTrigger is true; the callback is not called', async () => {
@@ -85,7 +81,6 @@ describe('useOnRepetition', function () {
       await mineBlock(harness.mockProvider);
       expect(await harness.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 1);
       expect(stubCallback.notCalled).to.be.true;
-      expect(callbackCounter).to.equal(testStartCounterValue + 0);
     });
   });
 
@@ -97,13 +92,13 @@ describe('useOnRepetition', function () {
 
       await harness.waitFor(() => stubCallback.called, defaultBlockWaitOptions);
       expect(stubCallback.calledWithExactly()).be.true;
-      expect(callbackCounter).to.equal(testStartCounterValue + 1);
+      expect(stubCallback.callCount).to.equal(1);
 
       // wait for another call after leadingTrigger
       stubCallback.resetHistory();
       await harness.waitFor(() => stubCallback.called, { ...defaultBlockWaitOptions, timeout: 20000 });
       expect(stubCallback.calledWithExactly()).be.true;
-      expect(callbackCounter).to.equal(testStartCounterValue + 2);
+      expect(stubCallback.callCount).to.equal(2);
     });
   });
 });
