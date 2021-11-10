@@ -25,10 +25,15 @@ export const useNonce = (address: string): number => {
   const [nonce, setNonce] = useState<number>(0);
 
   const callFunc = useCallback(async (): Promise<void> => {
-    const nextNonce: number = (await ethersProvider?.getTransactionCount(address)) ?? 0;
+    let nextNonce: number = 0;
+    try {
+      nextNonce = (await ethersProvider?.getTransactionCount(address)) ?? 0;
+    } catch {
+      // do nothing
+    }
     if (isMounted()) {
       setNonce((value) => {
-        if (value !== nextNonce) return nextNonce;
+        if (nextNonce && value !== nextNonce && value < nextNonce) return nextNonce;
         return value;
       });
     }
