@@ -4,8 +4,8 @@ import { hookTestHarness } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { useTimestamp } from '~~/hooks';
 
-describe('useBalance', function () {
-  it('When the hook is called; then it returns the initial balance', async () => {
+describe('useTimestamp', function () {
+  it('When the hook is called; then it returns the current block timestamp', async () => {
     const harness = await hookTestHarness(() => useTimestamp());
     await harness.waitForNextUpdate(defaultBlockWaitOptions);
 
