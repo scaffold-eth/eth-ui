@@ -1,4 +1,4 @@
 module.exports = {
-  "*.ts": ["eslint --fix"],
-  "*.tsx": ["eslint --fix"],
+  '*.ts': ['yarn lint --fix'],
+  '*.tsx': ['yarn lint --fix'],
 };

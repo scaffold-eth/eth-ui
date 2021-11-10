@@ -13,6 +13,7 @@ const TestConnectorWrapper: FC<IMockProps> = (props) => {
     if (connector != null) {
       ethersContext.openModal(connector);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
