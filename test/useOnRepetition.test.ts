@@ -11,11 +11,11 @@ import { TEthersProvider } from '~~/models';
 
 use(sinonChai);
 
-const stubCallback = sinon.stub();
-
 describe('useOnRepetition', function () {
+  let stubCallback: sinon.SinonStub<any[], any>;
   let provider: TEthersProvider;
   before(async () => {
+    stubCallback = sinon.stub();
     const harness = await harnessTestSetupHelper();
     provider = harness.mockProvider;
   });
@@ -23,18 +23,15 @@ describe('useOnRepetition', function () {
   let testStartBockNumber = 0;
   beforeEach(async () => {
     testStartBockNumber = await currentTestBlockNumber();
-
     stubCallback.resetHistory();
   });
 
-  describe('Given when utilizing useOnBlock event', () => {
+  describe('Given it is using onBlock events as a trigger', () => {
     it('When a new block is mined and useOnRepetition is called;  then the callback is invoked without arguments', async () => {
       const harness = await hookTestHarness(() => useOnRepetition(stubCallback, { provider: provider }));
       await mineBlock(harness.mockProvider);
       await harness.waitFor(() => stubCallback.called, defaultBlockWaitOptions);
       expect(stubCallback.calledWithExactly()).be.true;
-
-      expect(stubCallback.callCount).to.equal(1);
     });
 
     it('When a new block is mined and useOnRepetition is called; then the callback is invoked with the provided arguments', async () => {
