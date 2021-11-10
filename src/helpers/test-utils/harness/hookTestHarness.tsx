@@ -15,16 +15,15 @@ export type TTestHookResult<PropsT, TResult> = RenderHookResult<PropsT, TResult,
 
 const mockProvider = getMockProvider();
 const mockConnector = new MockConnector(mockProvider);
-
 /**
  * Created a test hook with a Web3Wrapper
  * @param callbackToHook callback to init hook
  * @see renderHook from @link testing-library/react-hooks
  * @returns (TTestHookResult)
  */
-export const hookTestHarness = async <InputT, ResultT>(
-  callbackToHook: (input: InputT | undefined) => ResultT
-): Promise<TTestHookResult<InputT, ResultT>> => {
+export const hookTestHarness = async <PropsT, ResultT>(
+  callbackToHook: (input: PropsT) => ResultT
+): Promise<TTestHookResult<PropsT, ResultT>> => {
   const createMockConnector: CreateEthersModalConnector = () => {
     return mockConnector;
   };

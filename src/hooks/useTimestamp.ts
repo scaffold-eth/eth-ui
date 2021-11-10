@@ -25,10 +25,10 @@ export const useTimestamp = (): number => {
 
   useEffect((): void => {
     const getTimestamp = async (): Promise<void> => {
-      if (blockNumber) {
-        const nextBlock = await ethersProvider?.getBlock(blockNumber);
-        if (nextBlock?.timestamp != null) {
-          const nextTimestamp = nextBlock.timestamp;
+      if (blockNumber != null) {
+        const block = await ethersProvider?.getBlock(blockNumber);
+        if (block?.timestamp != null) {
+          const nextTimestamp = block.timestamp;
           if (isMounted()) setTimestamp(nextTimestamp);
         }
       }

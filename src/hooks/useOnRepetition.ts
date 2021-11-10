@@ -46,7 +46,7 @@ export const useOnRepetition = (
   ...args: any[]
 ): void => {
   const isPolling = options?.pollTime != null && options.pollTime > 0;
-  const readyForEvents = options?.provider && !isPolling && options?.provider?.network.chainId > 0;
+  const readyForEvents = options?.provider && !isPolling && options?.provider?.network?.chainId > 0;
   const readyForLeadTrigger = (readyForEvents || isPolling) && options?.leadingTrigger;
   const isFirstCall = useRef(true);
 

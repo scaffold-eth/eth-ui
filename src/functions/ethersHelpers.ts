@@ -33,7 +33,8 @@ export const isEthersProvider = (providerBase: unknown): boolean => {
 
 export const signerHasNetwork = (signer: Signer | undefined): boolean => {
   const provider = signer?.provider as TEthersProvider;
-  if (provider?.anyNetwork) return true;
+  // eslint-disable-next-line no-underscore-dangle
+  if (provider?.network?.chainId > 0 && signer?._isSigner) return true;
 
   return false;
 };
