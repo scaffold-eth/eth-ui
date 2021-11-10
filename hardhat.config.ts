@@ -24,6 +24,7 @@ const config: HardhatUserConfig = {
     reporter: process.env.GITHUB_ACTIONS === 'true' ? 'mocha-junit-reporter' : 'spec',
     reporterOptions: {
       mochaFile: 'testresult.xml',
+      toConsole: true,
     },
   },
 };

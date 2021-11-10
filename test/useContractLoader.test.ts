@@ -94,7 +94,6 @@ describe('useContractLoader', function () {
         expect(expectedUniContract.address).equal(mainnetUniAddress);
         expect(expectedUniContract.totalSupply).instanceOf(Function);
         expect(expectedUniContract.transferFrom).instanceOf(Function);
-        console.log(harness.result.current);
       });
 
       it('when useContractLoader is loaded with config and mainnet chainId; then it does not returns YourContract', async () => {

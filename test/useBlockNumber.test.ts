@@ -1,45 +1,56 @@
-// import { expect } from 'chai';
+import { expect } from 'chai';
 
-// import { useBlockNumberContext } from '~~/context';
-// import { hookTestHarness } from '~~/helpers/test-utils';
-// import { mineBlock } from '~~/helpers/test-utils/eth';
-// import { useBlockNumber } from '~~/hooks';
+import { hookTestHarness } from '~~/helpers/test-utils';
+import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
+import { mineBlock } from '~~/helpers/test-utils/eth';
+import { currentTestBlockNumber, harnessTestSetupHelper } from '~~/helpers/test-utils/harness/hardhatTestHelpers';
+import { useBlockNumber } from '~~/hooks';
+import { TEthersProvider } from '~~/models';
 
-// const InitializationHook = (): number | undefined => {
-//   return useBlockNumberContext();
-// };
+describe('useBlockNumber', function () {
+  let provider: TEthersProvider;
+  before(async () => {
+    const harness = await harnessTestSetupHelper();
+    provider = harness.mockProvider;
+  });
 
-// describe('useBlockNumber', function () {
-//   let initialBlockNumber = 0;
-//   before(async () => {
-//     const harness = await hookTestHarness(() => InitializationHook());
-//     initialBlockNumber = await harness.mockProvider.getBlockNumber();
-//     console.log('initial block number', initialBlockNumber);
-//   });
+  let testStartBockNumber = 0;
+  beforeEach(async () => {
+    testStartBockNumber = await currentTestBlockNumber();
+  });
 
-//   it('When the hook called without a new block arriving, useBlockNumber gets the current blockNumber', async () => {
-//     const harness = await hookTestHarness(() => useBlockNumber());
+  it('When the hook called without a new block arriving, useBlockNumber gets the current blockNumber', async () => {
+    const harness = await hookTestHarness(() => useBlockNumber(provider));
+    await harness.waitForNextUpdate(defaultBlockWaitOptions);
+    expect(await harness.mockProvider.getBlockNumber()).to.exist;
+    expect(harness.result.current).to.equal(testStartBockNumber);
+  });
 
-//     expect(await harness.mockProvider.getBlockNumber()).to.exist;
-//     expect(initialBlockNumber).to.exist;
-//     expect(harness.result.current).to.equal(initialBlockNumber);
-//   });
+  it('When the a new block arrives, useBlockNumberContext updates to the latest value', async () => {
+    const harness = await hookTestHarness(() => useBlockNumber(provider));
 
-//   it('When the a new block arrives, useBlockNumberContext updates to the latest value', async () => {
-//     const harness = await hookTestHarness(() => useBlockNumber());
+    // mine a block
+    await mineBlock(harness.mockProvider);
+    await harness.waitForNextUpdate(defaultBlockWaitOptions);
+    expect(await harness.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 1);
+    expect(harness.result.current).equal(testStartBockNumber + 1);
 
-//     // mine a block
-//     await mineBlock(harness.mockProvider);
-//     expect(await harness.mockProvider.getBlockNumber()).to.equal(initialBlockNumber + 1);
+    // mine another block
+    await mineBlock(harness.mockProvider);
+    await harness.waitForNextUpdate(defaultBlockWaitOptions);
+    expect(harness.result.current).equal(testStartBockNumber + 2);
+    expect(await harness.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 2);
+  });
 
-//     // await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
-//     expect(harness.result.current).equal(initialBlockNumber + 1);
+  describe('Given when polling', function () {
+    it('When a new block arrives, useBlockNumberContext updates to the latest value', async () => {
+      const harness = await hookTestHarness(() => useBlockNumber(provider, 12000));
 
-//     // mine another block
-//     await mineBlock(harness.mockProvider);
-//     expect(await harness.mockProvider.getBlockNumber()).to.equal(initialBlockNumber + 2);
-
-//     // await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
-//     expect(harness.result.current).equal(initialBlockNumber + 2);
-//   });
-// });
+      // mine a block
+      await mineBlock(harness.mockProvider);
+      await harness.waitForNextUpdate({ ...defaultBlockWaitOptions, timeout: 20000 });
+      expect(await harness.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 1);
+      expect(harness.result.current).equal(testStartBockNumber + 1);
+    });
+  });
+});

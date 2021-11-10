@@ -46,9 +46,10 @@ export const useOnRepetition = (
   ...args: any[]
 ): void => {
   const isPolling = options?.pollTime != null && options.pollTime > 0;
-  const readyForEvents = options?.provider && !isPolling && options?.provider?.anyNetwork;
+  const readyForEvents = options?.provider && !isPolling && options?.provider?.network.chainId > 0;
   const readyForLeadTrigger = (readyForEvents || isPolling) && options?.leadingTrigger;
   const isFirstCall = useRef(true);
+
   // created a strigified args to use for deps
   const argDeps = JSON.stringify(args ?? []);
 
@@ -63,7 +64,7 @@ export const useOnRepetition = (
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callback, argDeps, args]);
+  }, [callback, argDeps]);
 
   // If event based, create a listener if we have a function & a provider
   const listener = useCallback(
@@ -75,9 +76,8 @@ export const useOnRepetition = (
 
   // connect a listener to the network to listen for changes
   useEffect(() => {
-    if (options?.provider != null && readyForEvents) {
+    if (readyForEvents) {
       options?.provider?.addListener?.('block', listener);
-      listener(0);
     }
 
     return (): void => {
@@ -100,6 +100,13 @@ export const useOnRepetition = (
       };
     }
   }, [options.pollTime, isPolling, callFunctionWithArgs]);
+
+  // if the arguments have changed, reset the isFirstCall reference
+  useEffect(() => {
+    if (!isFirstCall.current) {
+      isFirstCall.current = true;
+    }
+  }, [argDeps]);
 
   // trigger a first call to populate data.  Only if leadingTrigger is true
   useEffect(() => {
