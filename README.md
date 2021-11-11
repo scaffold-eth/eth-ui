@@ -35,7 +35,7 @@ yarn add eth-hooks
 - web3-react
 - web3modal
 
-# API
+# API Docs
 
 - [eth-hooks docs@gitbook](https://app.gitbook.com/o/-McvAUhjwrhDs8exT9Bh/s/2D7c1twywYxZyD6sOEaS/)
 - [eth-hooks docs@github](https://scaffold-eth.github.io/eth-hooks/)
