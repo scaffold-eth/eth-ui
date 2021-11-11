@@ -4,7 +4,9 @@
     "module": "esNext",
     "outDir": "lib",
     "lib": ["dom", "ESNext", "ES2017"],
-    "sourceMap": false,
+    "sourceMap": true,
+    "inlineSources": true,
+    "jsx": "react-jsxdev",
     "allowJs": false,
     "declaration": true,
     "declarationDir": "lib",
@@ -14,35 +16,31 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "isolatedModules": false,
     "noImplicitAny": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strict": true,
-    "rootDir": "./src",
+    "rootDir": ".",
     "baseUrl": ".",
-    "typeRoots": ["node_modules/@types", "helpers/types"],
+    "types": [],
+    "typeRoots": ["node_modules/@types"],
     "paths": {
       "~~": ["./src/"],
       "~~/*": ["./src/*"]
-    },
-    "plugins": [
-      // Transform paths in output .js files
-      { "transform": "typescript-transform-paths" },
-      // Transform paths in output .d.ts files (Include this line if you output declarations files)
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ]
+    }
   },
-  "include": ["src", "src/**/*.json", "src/**/*.ts"],
+  "include": ["src", "test", "test-files"],
+  "files": ["hardhat.config.ts"],
   "exclude": [
-    "lib/**/*.ts",
-    "lib/**/*.tsx",
+    "lib/**/*",
     "node_modules",
     "**/node_modules",
     "**/node_modules/**",
     "../../node_modules/**/*",
-    "useOnBlock.ts",
-    "usePoller.ts"
+    ".husky",
+    "./.yalc/**/*",
+    "**/*.md"
   ]
 }

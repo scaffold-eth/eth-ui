@@ -1,3 +1,4 @@
 # folders
 lib/
 node_modules/
+**/*.md

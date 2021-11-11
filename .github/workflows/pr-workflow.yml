@@ -4,6 +4,7 @@
 name: Node.js CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [master, develop]
   pull_request:
@@ -32,7 +33,14 @@ jobs:
             ~/node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
-      - run: yarn install --frozen-lockfile
-      - run: yarn run build
-    # - run: npm test # enable later
+            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - run: yarn install --immutable
+      - run: yarn run es-build
+
+      - run: yarn test:hardhat
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: testresult.xml
