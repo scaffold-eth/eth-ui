@@ -8,7 +8,16 @@
     },
     "project": "tsconfig.json",
     "tsconfigRootDir": ".",
-    "projectFolderIgnoreList": ["node_modules/*", "node_modules", "dist", "lib", "build", ".yarn", "build-utils"]
+    "projectFolderIgnoreList": [
+      "node_modules/*",
+      "node_modules",
+      "dist",
+      "lib",
+      "build",
+      ".yarn",
+      "build-utils",
+      "docs"
+    ]
   },
   "env": {
     "browser": true,

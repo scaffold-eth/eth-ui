@@ -32,13 +32,15 @@
     }
   },
   "include": ["src", "test", "test-files"],
-  "files": ["hardhat.config.ts", ],
+  "files": ["hardhat.config.ts"],
   "exclude": [
     "lib/**/*",
     "node_modules",
     "**/node_modules",
     "**/node_modules/**",
     "../../node_modules/**/*",
-    "./.yalc/**/*"
+    ".husky",
+    "./.yalc/**/*",
+    "**/*.md"
   ]
 }
