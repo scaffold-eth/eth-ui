@@ -1,4 +1,4 @@
-[eth-hooks - v3.2.0beta12](../README.md) / [EthersContext](../modules/EthersContext.md) / IStaticJsonRpcProviderConnectorOptions
+[eth-hooks - v3.3.2](../README.md) / [EthersContext](../modules/EthersContext.md) / IStaticJsonRpcProviderConnectorOptions
 
 # Interface: IStaticJsonRpcProviderConnectorOptions
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/StaticJsonRpcProviderConnector.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/c984d0a/src/context/connectors/StaticJsonRpcProviderConnector.ts#L12)
+[src/context/connectors/StaticJsonRpcProviderConnector.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/connectors/StaticJsonRpcProviderConnector.ts#L12)
 
 ___
 
@@ -58,4 +58,4 @@ ___
 
 #### Defined in
 
-[src/context/connectors/StaticJsonRpcProviderConnector.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/c984d0a/src/context/connectors/StaticJsonRpcProviderConnector.ts#L13)
+[src/context/connectors/StaticJsonRpcProviderConnector.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/connectors/StaticJsonRpcProviderConnector.ts#L13)

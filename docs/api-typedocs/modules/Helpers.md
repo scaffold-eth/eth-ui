@@ -1,4 +1,4 @@
-[eth-hooks - v3.2.0beta12](../README.md) / Helpers
+[eth-hooks - v3.3.2](../README.md) / Helpers
 
 # Module: Helpers
 
@@ -8,91 +8,9 @@ Pure functions and helpers with useful functionality
 
 ### Helpers Functions
 
-- [asyncSome](Helpers.md#asyncsome)
-- [isEthersProvider](Helpers.md#isethersprovider)
-- [parseProviderOrSigner](Helpers.md#parseproviderorsigner)
 - [lazier](Helpers.md#lazier)
 
 ## Helpers Functions
-
-### asyncSome
-
-▸ `Const` **asyncSome**<`T`\>(`arr`, `predicate`): `Promise`<`undefined` \| `T`\>
-
-#### Summary
-js .some function that can be used with async predicates
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `arr` | `T`[] |
-| `predicate` | (`item`: `T`) => `Promise`<`boolean`\> |
-
-#### Returns
-
-`Promise`<`undefined` \| `T`\>
-
-#### Defined in
-
-[src/functions/asyncSome.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/c984d0a/src/functions/asyncSome.ts#L11)
-
-___
-
-### isEthersProvider
-
-▸ `Const` **isEthersProvider**(`providerBase`): `boolean`
-
-#### Summary
-Is it a ethers compatable provider
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `providerBase` | `unknown` |
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-[src/functions/ethersHelpers.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/c984d0a/src/functions/ethersHelpers.ts#L12)
-
-___
-
-### parseProviderOrSigner
-
-▸ `Const` **parseProviderOrSigner**(`providerOrSigner`): `Promise`<[`TEthersUser`](Models.md#tethersuser)\>
-
-#### Summary
-Parse [TEthersProviderOrSigner](Models.md#tethersproviderorsigner) to [TEthersUser](Models.md#tethersuser)
-Get the TEthersUser from a provider or signer
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `providerOrSigner` | `undefined` \| [`TEthersProviderOrSigner`](Models.md#tethersproviderorsigner) | TEthersProviderOrSigner |
-
-#### Returns
-
-`Promise`<[`TEthersUser`](Models.md#tethersuser)\>
-
-TProviderAndSigner
-
-#### Defined in
-
-[src/functions/parseProviderOrSigner.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/c984d0a/src/functions/parseProviderOrSigner.ts#L16)
-
-___
 
 ### lazier
 
@@ -125,4 +43,4 @@ const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
 
 #### Defined in
 
-[src/helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/c984d0a/src/helpers/lazier.ts#L18)
+[src/helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/helpers/lazier.ts#L18)

@@ -2016,7 +2016,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sinon-chai@npm:^3.2.3, @types/sinon-chai@npm:^3.2.4":
+"@types/sinon-chai@npm:^3.2.3, @types/sinon-chai@npm:^3.2.4, @types/sinon-chai@npm:^3.2.5":
   version: 3.2.5
   resolution: "@types/sinon-chai@npm:3.2.5"
   dependencies:
@@ -6230,6 +6230,7 @@ __metadata:
     "@types/react": ^17.0.30
     "@types/react-blockies": ^1.4.0
     "@types/react-dom": ^17.0.8
+    "@types/sinon-chai": ^3.2.5
     "@typescript-eslint/eslint-plugin": ^4.31.2
     "@typescript-eslint/parser": ^4.31.2
     "@uniswap/sdk": ^3.0.3

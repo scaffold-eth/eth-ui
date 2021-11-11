@@ -1,6 +1,6 @@
-eth-hooks - v3.2.0beta12
+eth-hooks - v3.3.2
 
-# eth-hooks - v3.2.0beta12
+# eth-hooks - v3.3.2
 
 ## Table of contents
 
@@ -8,5 +8,7 @@ eth-hooks - v3.2.0beta12
 
 - [EthersContext](modules/EthersContext.md)
 - [Helpers](modules/Helpers.md)
+- [Helpers](modules/Helpers.md)
 - [Hooks](modules/Hooks.md)
 - [Models](modules/Models.md)
+- [TestUtils](modules/TestUtils.md)
