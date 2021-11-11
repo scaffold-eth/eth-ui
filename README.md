@@ -37,5 +37,5 @@ yarn add eth-hooks
 
 # API
 
-[eth-hooks docs@gitbook](https://app.gitbook.com/o/-McvAUhjwrhDs8exT9Bh/s/2D7c1twywYxZyD6sOEaS/)
-[eth-hooks docs@github](https://scaffold-eth.github.io/eth-hooks/)
+- [eth-hooks docs@gitbook](https://app.gitbook.com/o/-McvAUhjwrhDs8exT9Bh/s/2D7c1twywYxZyD6sOEaS/)
+- [eth-hooks docs@github](https://scaffold-eth.github.io/eth-hooks/)
