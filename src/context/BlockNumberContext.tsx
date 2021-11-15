@@ -81,9 +81,9 @@ interface IProps {
  * @returns
  */
 export const BlockNumberContext: FC<IProps> = (props) => {
-  const context = useEthersContext(props.providerKey);
-  const chainId = props.chainId ?? context.chainId;
-  const ethersProvider = props.ethersProvider ?? context.ethersProvider;
+  const ethersContext = useEthersContext(props.providerKey);
+  const chainId = props.chainId ?? ethersContext.chainId;
+  const ethersProvider = props.ethersProvider ?? ethersContext.ethersProvider;
 
   const isMounted = useIsMounted();
   const [state, dispatch] = useReducer(reducer, {});

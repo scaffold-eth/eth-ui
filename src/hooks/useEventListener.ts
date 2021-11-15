@@ -1,4 +1,4 @@
-import { Contract, EventFilter, Event } from 'ethers';
+import { EventFilter, Event, BaseContract } from 'ethers';
 import { Result } from 'ethers/lib/utils';
 import { useState, useEffect, useCallback } from 'react';
 import { useIsMounted } from 'usehooks-ts';
@@ -24,7 +24,7 @@ const getEventKey = (m: Event | TypedEvent<Result>): string => {
  * @returns
  */
 export const useEventListener = (
-  contract: Contract | undefined,
+  contract: BaseContract | undefined,
   eventName: string | EventFilter,
   startBlock: number
 ): TypedEvent<Result>[] => {

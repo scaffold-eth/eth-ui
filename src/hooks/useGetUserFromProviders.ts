@@ -1,9 +1,10 @@
-import { ethers, Signer } from 'ethers';
+import { Signer } from 'ethers';
 import { useEffect, useState } from 'react';
 
 import { asyncSome } from '~~/functions/asyncSome';
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
-import { TEthersUser as TEthersUser, TEthersProvider } from '~~/models';
+import { TEthersProvider } from '~~/models';
+import { TEthersUser } from '~~/models/contextTypes';
 
 /**
  * #### Summary
@@ -21,11 +22,11 @@ import { TEthersUser as TEthersUser, TEthersProvider } from '~~/models';
 export const useGetUserFromProviders = (
   currentProvider: TEthersProvider | undefined,
   ...moreProviders: TEthersProvider[]
-): TEthersUser => {
+): TEthersUser | undefined => {
   const [signer, setSigner] = useState<Signer>();
   const [provider, setProvider] = useState<TEthersProvider>();
-  const [providerNetwork, setProviderNetwork] = useState<ethers.providers.Network>();
-  const [address, setAddress] = useState<string>();
+  const [chainId, setChainId] = useState<number>();
+  const [account, setAccount] = useState<string>();
 
   const allProviders = [currentProvider, ...moreProviders].filter((f) => f != null) as TEthersProvider[];
   const providerDeps: string = allProviders
@@ -41,12 +42,13 @@ export const useGetUserFromProviders = (
     const loadData = async (): Promise<void> => {
       const foundSigner = await asyncSome(allProviders, async (provider) => {
         const result = await parseProviderOrSigner(provider);
-        if (result.provider && result.providerNetwork && result.signer) {
+        if (result) {
           setSigner(result.signer);
           setProvider(result.provider);
-          setProviderNetwork(result.providerNetwork);
+          setAccount(result.account);
+          setChainId(result.chainId);
           const address = await result.signer.getAddress();
-          setAddress(address);
+          setAccount(address);
           return true;
         }
         return false;
@@ -55,8 +57,9 @@ export const useGetUserFromProviders = (
       if (!foundSigner && currentProvider != null) {
         setProvider(currentProvider);
         setSigner(undefined);
-        setProviderNetwork(undefined);
-        setAddress(undefined);
+        setAccount(undefined);
+        setChainId(undefined);
+        setAccount(undefined);
       }
     };
 
@@ -64,5 +67,15 @@ export const useGetUserFromProviders = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [providerDeps]);
 
-  return { signer, provider, providerNetwork, address };
+  if (signer != null && provider != null && chainId != null && account != null) {
+    const result: TEthersUser = {
+      signer,
+      provider,
+      chainId,
+      account,
+    };
+    return result;
+  }
+
+  return undefined;
 };

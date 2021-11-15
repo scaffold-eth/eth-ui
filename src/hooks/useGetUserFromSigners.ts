@@ -1,8 +1,9 @@
-import { ethers, Signer, Wallet } from 'ethers';
+import { Signer, Wallet } from 'ethers';
 import { useEffect, useState } from 'react';
 
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
-import { TEthersUser, TEthersProvider } from '~~/models';
+import { TEthersProvider } from '~~/models';
+import { TEthersUser } from '~~/models/contextTypes';
 
 /**
  * #### Summary
@@ -10,33 +11,42 @@ import { TEthersUser, TEthersProvider } from '~~/models';
  *
  * @category Hooks
  *
- * @param signer
+ * @param signer input signer
  * @returns
  */
-export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEthersUser => {
+export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEthersUser | undefined => {
   const [resolvedSigner, setResolvedSigner] = useState<Signer>();
   const [provider, setProvider] = useState<TEthersProvider>();
-  const [providerNetwork, setProviderNetwork] = useState<ethers.providers.Network>();
-  const [address, setAddress] = useState<string>();
+  const [chainId, setChainId] = useState<number>();
+  const [account, setAccount] = useState<string>();
   useEffect(() => {
     const getData = async (): Promise<void> => {
       const result = await parseProviderOrSigner(signer);
-      if (result.provider && result.providerNetwork && result.signer) {
+      if (result) {
         setResolvedSigner(result.signer);
         setProvider(result.provider);
-        setProviderNetwork(result.providerNetwork);
-        const address = await result.signer.getAddress();
-        setAddress(address);
+        setAccount(result.account);
+        setChainId(result.chainId);
       } else {
         setProvider(undefined);
         setResolvedSigner(signer);
-        setProviderNetwork(undefined);
-        setAddress(undefined);
+        setChainId(undefined);
+        setAccount(undefined);
       }
     };
 
     void getData();
   }, [signer]);
 
-  return { signer: resolvedSigner, provider, providerNetwork, address };
+  if (resolvedSigner != null && provider != null && chainId != null && account != null) {
+    const result: TEthersUser = {
+      signer: resolvedSigner,
+      provider,
+      chainId,
+      account,
+    };
+    return result;
+  }
+
+  return undefined;
 };

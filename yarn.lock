@@ -6276,7 +6276,7 @@ __metadata:
     shx: ^0.3.3
     sinon: ^11.1.2
     sinon-chai: ^3.7.0
-    tiny-invariant: ^1.1.0
+    tiny-invariant: ^1.2.0
     ts-node: ^10.3.0
     ts-patch: ^1.3.4
     ts-sinon: ^2.0.2
@@ -14050,6 +14050,13 @@ resolve@^2.0.0-next.3:
   version: 1.1.0
   resolution: "tiny-invariant@npm:1.1.0"
   checksum: 27d29bbb9e1d1d86e25766711c28ad91af6d67c87d561167077ac7fbce5212b97bbfe875e70bc369808e075748c825864c9b61f0e9f8652275ec86bcf4dcc924
+  languageName: node
+  linkType: hard
+
+"tiny-invariant@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "tiny-invariant@npm:1.2.0"
+  checksum: e09a718a7c4a499ba592cdac61f015d87427a0867ca07f50c11fd9b623f90cdba18937b515d4a5e4f43dac92370498d7bdaee0d0e7a377a61095e02c4a92eade
   languageName: node
   linkType: hard
 

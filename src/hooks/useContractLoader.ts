@@ -5,17 +5,17 @@ import { useIsMounted } from 'usehooks-ts';
 import { useEthersContext } from '~~/context';
 import {
   TContractConfig,
-  TDeployedContractsJson,
+  TDeployedHardhatContractsJson,
   TEthersProviderOrSigner,
   TExternalContracts,
-  THardhatContractJson,
+  THardhatContractConfig,
 } from '~~/models';
 
 export const parseContractsInJson = (
-  contractList: TDeployedContractsJson,
+  contractList: TDeployedHardhatContractsJson,
   chainId: number
-): Record<string, THardhatContractJson> => {
-  let combinedContracts: Record<string, THardhatContractJson> = {};
+): Record<string, THardhatContractConfig> => {
+  let combinedContracts: Record<string, THardhatContractConfig> = {};
 
   // combine partitioned contracts based on all the available and chain id.
   if (contractList?.[chainId] != null) {
@@ -74,11 +74,11 @@ export const useContractLoader = (
     const loadContracts = (): void => {
       if (ethersProvider && chainId && chainId > 0) {
         try {
-          const contractList: TDeployedContractsJson = { ...(config.deployedContractsJson ?? {}) };
+          const contractList: TDeployedHardhatContractsJson = { ...(config.deployedContractsJson ?? {}) };
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
-          let combinedContracts: Record<string, THardhatContractJson> = parseContractsInJson(contractList, chainId);
+          let combinedContracts: Record<string, THardhatContractConfig> = parseContractsInJson(contractList, chainId);
 
           // load external contracts if its the right chain
           if (externalContractList?.[chainId] != null) {

@@ -1,55 +1,16 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
-import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
-import { Signer } from 'ethers';
 import { FC, useCallback } from 'react';
+
+import { IEthersContext } from '../models/contextTypes';
 
 import { NoEthereumProviderFoundError } from '~~/context';
 import { BlockNumberContext } from '~~/context/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/connectors/EthersModalConnector';
+import { ContractsContext } from '~~/context/ContractContext';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
-
-/**
- * #### Summary
- * A callback type that returns a EthersModalConnector
- *
- * #### Notes
- * - can be used by components that need to give a connector to {@link IEthersContext.openModal}
- *
- * @category EthersContext
- */
-export type CreateEthersModalConnector = () => TEthersModalConnector | undefined;
-
-/**
- * #### Summary
- * The return type of {@link EthersModalConnector}
- * - ethers compatable provider {@link TEthersProvider}
- * - a callback to change the current signer
- * - the current account, chainId and signer
- * - callbacks to open the web3Modal, logout or change theme
- *
- * @category EthersContext
- */
-export interface IEthersContext extends Web3ReactContextInterface<TEthersProvider> {
-  connector: TEthersModalConnector | undefined;
-  ethersProvider: TEthersProvider | undefined;
-  active: boolean;
-  signer: Signer | undefined;
-  account: string | undefined;
-  changeSigner: ((signer: Signer) => Promise<void>) | undefined;
-  openModal: (ethersModalConnector: TEthersModalConnector) => void;
-  disconnectModal: () => void;
-  setModalTheme: ((theme: 'light' | 'dark') => void) | undefined;
-}
-
-/**
- * A wrapper around useWeb3React that provides functionality for web3modal
- * and eth-hooks compatability
- * @param providerKey (string) :: (optional) :: used if you want a secondary provider context, for example to mainnet
- * @returns (IEthersWeb3Context)
- */
 
 /**
  * #### Summary
@@ -163,9 +124,11 @@ interface IChildContextProps {
 const ChildContexts: FC<IChildContextProps> = (props) => {
   const { chainId, ethersProvider } = useEthersContext();
   return (
-    <BlockNumberContext providerKey={props.providerKey} chainId={chainId} ethersProvider={ethersProvider}>
-      {props.children}
-    </BlockNumberContext>
+    <ContractsContext>
+      <BlockNumberContext providerKey={props.providerKey} chainId={chainId} ethersProvider={ethersProvider}>
+        {props.children}
+      </BlockNumberContext>
+    </ContractsContext>
   );
 };
 
