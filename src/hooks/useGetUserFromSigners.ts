@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
 import { TEthersProvider } from '~~/models';
-import { TEthersUser } from '~~/models/contextTypes';
+import { TEthersAdaptor } from '~~/models/contextTypes';
 
 /**
  * #### Summary
@@ -14,7 +14,7 @@ import { TEthersUser } from '~~/models/contextTypes';
  * @param signer input signer
  * @returns
  */
-export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEthersUser | undefined => {
+export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEthersAdaptor | undefined => {
   const [resolvedSigner, setResolvedSigner] = useState<Signer>();
   const [provider, setProvider] = useState<TEthersProvider>();
   const [chainId, setChainId] = useState<number>();
@@ -39,7 +39,7 @@ export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEth
   }, [signer]);
 
   if (resolvedSigner != null && provider != null && chainId != null && account != null) {
-    const result: TEthersUser = {
+    const result: TEthersAdaptor = {
       signer: resolvedSigner,
       provider,
       chainId,

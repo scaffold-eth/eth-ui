@@ -6277,6 +6277,7 @@ __metadata:
     sinon: ^11.1.2
     sinon-chai: ^3.7.0
     tiny-invariant: ^1.2.0
+    tiny-warning: ^1.0.3
     ts-node: ^10.3.0
     ts-patch: ^1.3.4
     ts-sinon: ^2.0.2

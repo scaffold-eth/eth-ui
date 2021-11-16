@@ -9,8 +9,8 @@ import {
 import { Signer } from 'ethers';
 import invariant from 'tiny-invariant';
 
-import { TEthersProvider } from '~~/models';
-import { IEthersContext, TEthersUser, THookOptions } from '~~/models/contextTypes';
+import { TEthersProvider, THookOptions } from '~~/models';
+import { IEthersContext, TEthersAdaptor } from '~~/models/contextTypes';
 
 /**
  * #### Summary
@@ -41,18 +41,20 @@ export const signerHasNetwork = (signer: Signer | undefined): boolean => {
   return false;
 };
 
-export const checkContextOverride = (context: IEthersContext, options: THookOptions): Partial<TEthersUser> => {
-  invariant(
-    options.contextOverride != null && options.providerKeyOverride != null,
-    'You cannot use both contextOverride and contextKey at the same time'
-  );
+export const checkEthersOverride = (context: IEthersContext, options: THookOptions): Partial<TEthersAdaptor> => {
+  if (options.ethersOverride?.enabled) {
+    invariant(
+      options.ethersOverride != null && options.alternateEthersContextKey != null,
+      'You cannot use both contextOverride and contextKey at the same time'
+    );
 
-  if (options.contextOverride) {
-    return options.contextOverride;
+    if (options.ethersOverride) {
+      return options.ethersOverride.adaptor;
+    }
   }
 
   return {
-    provider: context.ethersProvider,
+    provider: context.provider,
     signer: context.signer,
     chainId: context.chainId,
     account: context.account,

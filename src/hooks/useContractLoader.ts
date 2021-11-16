@@ -61,7 +61,7 @@ export const useContractLoader = (
   configChainId?: number
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
-  const { ethersProvider, chainId: contextChainId } = useEthersContext();
+  const { provider: ethersProvider, chainId: contextChainId } = useEthersContext();
   const chainId = configChainId ?? contextChainId;
 
   const [contracts, setContracts] = useState<Record<string, BaseContract>>({});

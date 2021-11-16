@@ -2,7 +2,7 @@ import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 import { Signer } from 'ethers';
 
 import { TEthersModalConnector } from '~~/context/connectors/EthersModalConnector';
-import { TEthersProvider } from '~~/models';
+import { TEthersProvider, TEthersSigner } from '~~/models';
 
 /**
  * #### Summary
@@ -27,9 +27,9 @@ export type TCreateEthersModalConnector = () => TEthersModalConnector | undefine
  */
 export interface IEthersContext extends Web3ReactContextInterface<TEthersProvider> {
   connector: TEthersModalConnector | undefined;
-  ethersProvider: TEthersProvider | undefined;
+  provider: TEthersProvider | undefined;
   active: boolean;
-  signer: Signer | undefined;
+  signer: TEthersSigner | undefined;
   account: string | undefined;
   changeSigner: ((signer: Signer) => Promise<void>) | undefined;
   openModal: (ethersModalConnector: TEthersModalConnector) => void;
@@ -38,18 +38,14 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
 }
 /**
  * #### Summary
- * Essentially a provider and signer and network information for ease of use.
+ * Essentially a object that allows interaction with the network:
+ * - provider signer,
  *
  * @category Type Definition
  */
-export type TEthersUser = {
-  signer: Signer;
+export type TEthersAdaptor = {
+  signer: TEthersSigner;
   provider: TEthersProvider;
   chainId: number;
   account: string;
-};
-
-export type THookOptions = {
-  contextOverride?: TEthersUser;
-  providerKeyOverride?: string;
 };

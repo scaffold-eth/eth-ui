@@ -171,7 +171,7 @@ export const ContractsContext: FC<IProps> = (props) => {
   );
 
   useEffect(() => {
-    if (ethersContext.chainId && ethersContext.ethersProvider && ethersContext.signer) {
+    if (ethersContext.chainId && ethersContext.provider && ethersContext.signer) {
       void loadContracts(ethersContext, state.appContractConnectors).then((contractInstances) => {
         if (isMounted()) dispatch({ type: 'loadContracts', value: contractInstances });
       });
@@ -179,7 +179,7 @@ export const ContractsContext: FC<IProps> = (props) => {
   }, [
     ethersContext,
     ethersContext.chainId,
-    ethersContext.ethersProvider,
+    ethersContext.provider,
     ethersContext.signer,
     isMounted,
     state.appContractConnectors,
