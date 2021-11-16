@@ -1,4 +1,4 @@
-import { Contract, utils } from 'ethers';
+import { BaseContract, utils } from 'ethers';
 import { useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 /**
@@ -11,10 +11,10 @@ import { useIsMounted } from 'usehooks-ts';
  *
  * @category Hooks
  *
- * @param contract ethers.Contract class
+ * @param contract ethers.BaseContract class
  * @returns
  */
-export const useContractExistsAtAddress = (contract: Contract | undefined): boolean => {
+export const useContractExistsAtAddress = (contract: BaseContract | undefined): boolean => {
   const isMounted = useIsMounted();
 
   const [contractIsDeployed, setContractIsDeployed] = useState(false);

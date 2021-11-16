@@ -42,7 +42,7 @@ export const useGasPrice = (
   speed: TGasStationSpeed,
   currentNetworkInfo?: TNetworkInfo
 ): number | undefined => {
-  const { ethersProvider } = useEthersContext();
+  const { provider: ethersProvider } = useEthersContext();
   const blockNumber = useBlockNumberContext();
   const [currentChainId, setCurrentChainId] = useState<number>();
   const [gasPrice, setGasPrice] = useState<number | undefined>();

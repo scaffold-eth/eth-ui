@@ -2,7 +2,7 @@ import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@etherspro
 import { ethers, Signer } from 'ethers';
 
 import { TEthersProviderOrSigner, TEthersProvider } from '~~/models';
-import { TEthersUser } from '~~/models/contextTypes';
+import { TEthersAdaptor } from '~~/models/contextTypes';
 
 /**
  * #### Summary
@@ -16,7 +16,7 @@ import { TEthersUser } from '~~/models/contextTypes';
  */
 export const parseProviderOrSigner = async (
   providerOrSigner: TEthersProviderOrSigner | undefined
-): Promise<TEthersUser | undefined> => {
+): Promise<TEthersAdaptor | undefined> => {
   let signer: Signer | undefined;
   let provider: ethers.providers.Provider | undefined;
   let providerNetwork: ethers.providers.Network | undefined;
@@ -47,7 +47,7 @@ export const parseProviderOrSigner = async (
   }
 
   if (signer != null && provider != null && providerNetwork?.chainId != null && account != null) {
-    const result: TEthersUser = {
+    const result: TEthersAdaptor = {
       signer,
       provider: provider as TEthersProvider,
       chainId: providerNetwork.chainId,

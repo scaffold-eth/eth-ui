@@ -32,7 +32,7 @@
     }
   },
   "include": ["src", "test", "test-files"],
-  "files": ["hardhat.config.ts", "./src/context/CreateEthersModalConnector.tsx"],
+  "files": ["hardhat.config.ts", "./src/context/CreateEthersModalConnector.tsx", "./src/models/THookOptions.ts"],
   "exclude": [
     "lib/**/*",
     "node_modules",

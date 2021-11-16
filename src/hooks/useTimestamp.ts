@@ -18,7 +18,7 @@ import { useBlockNumberContext, useEthersContext } from '~~/context';
  */
 export const useTimestamp = (): number => {
   const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext();
+  const { provider: ethersProvider } = useEthersContext();
   const blockNumber = useBlockNumberContext();
 
   const [timestamp, setTimestamp] = useState<number>(0);

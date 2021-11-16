@@ -19,7 +19,7 @@ import { useBlockNumberContext } from '~~/context/BlockNumberContext';
  */
 export const useNonce = (address: string): number => {
   const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext();
+  const { provider: ethersProvider } = useEthersContext();
   const blockNumber = useBlockNumberContext();
 
   const [nonce, setNonce] = useState<number>(0);
