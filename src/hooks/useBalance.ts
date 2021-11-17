@@ -22,10 +22,14 @@ const zero = BigNumber.from(0);
  * @param options
  * @returns current balance
  */
-export const useBalance = (address: string | undefined, options: THookOptions = defaultOptions()): BigNumber => {
+export const useBalance = (
+  address: string | undefined,
+  options: THookOptions = defaultOptions(),
+  getters: boolean
+): BigNumber => {
   const isMounted = useIsMounted();
-  const ethersProvider = useEthersContext();
-  const { provider } = checkEthersOverride(ethersProvider, options);
+  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const { provider } = checkEthersOverride(ethersContext, options);
 
   const blockNumber = useBlockNumberContext();
   const [balance, setBalance] = useState<BigNumber>(zero);

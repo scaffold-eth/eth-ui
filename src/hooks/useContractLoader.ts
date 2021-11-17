@@ -3,12 +3,14 @@ import { useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
+import { checkEthersOverride } from '~~/functions';
 import {
+  defaultOptions,
   TContractConfig,
   TDeployedHardhatContractsJson,
-  TEthersProviderOrSigner,
   TExternalContracts,
   THardhatContractConfig,
+  THookOptions,
 } from '~~/models';
 
 export const parseContractsInJson = (
@@ -57,12 +59,11 @@ export const parseContractsInJson = (
  */
 export const useContractLoader = (
   config: TContractConfig = {},
-  providerOrSigner?: TEthersProviderOrSigner,
-  configChainId?: number
+  options: THookOptions = defaultOptions()
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
-  const { provider: ethersProvider, chainId: contextChainId } = useEthersContext();
-  const chainId = configChainId ?? contextChainId;
+  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const { provider, chainId } = checkEthersOverride(ethersContext, options);
 
   const [contracts, setContracts] = useState<Record<string, BaseContract>>({});
   const configDep: string = useMemo(
@@ -72,7 +73,7 @@ export const useContractLoader = (
 
   useEffect(() => {
     const loadContracts = (): void => {
-      if (ethersProvider && chainId && chainId > 0) {
+      if (provider && chainId && chainId > 0) {
         try {
           const contractList: TDeployedHardhatContractsJson = { ...(config.deployedContractsJson ?? {}) };
           const externalContractList: TExternalContracts = {
@@ -92,8 +93,6 @@ export const useContractLoader = (
                   ? config.customAddresses[contractName]
                   : combinedContracts[contractName].address;
 
-              // use providerOrSigner, or ethersContext provider or undefined if appropriate
-              const provider = providerOrSigner ?? (chainId === contextChainId ? ethersProvider : undefined);
               accumulator[contractName] = new BaseContract(address, combinedContracts[contractName].abi, provider);
               return accumulator;
             },
@@ -121,7 +120,7 @@ export const useContractLoader = (
     void loadContracts();
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ethersProvider, configDep, providerOrSigner]);
+  }, [provider, configDep, providerOrSigner]);
 
   return contracts;
 };

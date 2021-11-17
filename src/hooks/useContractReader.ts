@@ -4,7 +4,8 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { useBlockNumberContext } from '~~/context/BlockNumberContext';
-import { TContractFunctionInfo } from '~~/models';
+import { checkEthersOverride } from '~~/functions';
+import { defaultOptions, TContractFunctionInfo, THookOptions } from '~~/models';
 
 /**
  * #### Summary
@@ -23,20 +24,22 @@ import { TContractFunctionInfo } from '~~/models';
  * @param onChange callback with result as a parameter
  * @returns <OutputT>
  */
-export const useContractReader = <OutputT>(
-  contract: BaseContract,
+export const useContractReader = <GOutput, GContract extends BaseContract>(
+  contract: GContract,
   contractFunctionInfo: TContractFunctionInfo,
-  formatter?: (_value: OutputT | undefined) => OutputT,
-  onChange?: (_value?: OutputT) => void
-): OutputT | undefined => {
+  formatter?: (_value: GOutput | undefined) => GOutput,
+  onChange?: (_value?: GOutput) => void,
+  options: THookOptions = defaultOptions()
+): GOutput | undefined => {
   const isMounted = useIsMounted();
-  const [value, setValue] = useState<OutputT>();
+  const [value, setValue] = useState<GOutput>();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext();
+  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const { chainId } = checkEthersOverride(ethersContext, options);
 
   const callContractFunction = useCallback(async () => {
-    const contractFunction = contract.functions?.[contractFunctionInfo.functionName] as ContractFunction<OutputT>;
-    let result: OutputT | undefined = undefined;
+    const contractFunction = contract.functions?.[contractFunctionInfo.functionName] as ContractFunction<GOutput>;
+    let result: GOutput | undefined = undefined;
     try {
       if (contractFunctionInfo.functionArgs && contractFunctionInfo.functionArgs.length > 0) {
         result = await contractFunction?.(...contractFunctionInfo.functionArgs);
@@ -54,12 +57,7 @@ export const useContractReader = <OutputT>(
 
   const callFunc = useCallback(async () => {
     const contractChainId = (await contractProvider?.getNetwork())?.chainId;
-    if (
-      callContractFunction != null &&
-      contractChainId === ethersContext.chainId &&
-      contractProvider != null &&
-      ethersContext?.chainId
-    ) {
+    if (callContractFunction != null && contractChainId === chainId && contractProvider != null && chainId != null) {
       try {
         let newResult = await callContractFunction();
         if (formatter != null) {
@@ -79,7 +77,7 @@ export const useContractReader = <OutputT>(
         console.warn(error);
       }
     }
-  }, [contractProvider, callContractFunction, ethersContext?.chainId, formatter, isMounted, onChange]);
+  }, [contractProvider, callContractFunction, chainId, formatter, isMounted, onChange]);
 
   useEffect(() => {
     void callFunc();
