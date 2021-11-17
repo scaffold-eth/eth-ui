@@ -1,5 +1,4 @@
 import { createContext, FC, useContext, useEffect, useReducer } from 'react';
-import invariant from 'tiny-invariant';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
@@ -62,7 +61,7 @@ const reducer = (state: State = {}, payload: Payload): State => {
  */
 export const useBlockNumberContext = (): number => {
   const blockNumber = useContext(Context);
-  invariant(blockNumber != null, 'useBlockNumberContext needs to be used under BlockNumberContext');
+  // invariant(blockNumber != null, 'useBlockNumberContext needs to be used under BlockNumberContext');
   return blockNumber;
 };
 
