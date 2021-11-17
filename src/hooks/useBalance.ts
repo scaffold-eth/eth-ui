@@ -39,7 +39,9 @@ export const useBalance = (
       const newBalance = await provider.getBalance(address);
       if (isMounted()) {
         setBalance((value) => {
-          if (value.toHexString() !== newBalance.toHexString()) return newBalance;
+          if (value.toHexString() !== newBalance.toHexString()) {
+            return newBalance;
+          }
           return value;
         });
       }
@@ -50,5 +52,5 @@ export const useBalance = (
     void callFunc();
   }, [blockNumber, callFunc]);
 
-  return balance ?? zero;
+  return balance;
 };

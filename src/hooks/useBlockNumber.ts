@@ -26,7 +26,9 @@ export const useBlockNumber = (provider: TEthersProvider, pollTime: number = 0):
     const nextBlockNumber = await provider?.getBlockNumber();
     if (isMounted() && provider != null) {
       setBlockNumber((value) => {
-        if (value !== nextBlockNumber) return nextBlockNumber ?? 0;
+        if (value !== nextBlockNumber) {
+          return nextBlockNumber ?? 0;
+        }
         return value;
       });
     }

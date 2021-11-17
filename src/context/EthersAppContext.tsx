@@ -10,7 +10,6 @@ import { IEthersContext } from '../models/contextTypes';
 import { NoEthereumProviderFoundError } from '~~/context';
 import { BlockNumberContext } from '~~/context/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/connectors/EthersModalConnector';
-import { ContractsContext } from '~~/context/ContractContext';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
 
@@ -91,6 +90,13 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
   return result;
 };
 
+export type TEthersAppContextProps = {
+  secondaryWeb3ReactRoot?: {
+    contextKey: string;
+    web3ReactRoot: JSX.Element;
+  };
+};
+
 /**
  * Convert the provider obtained from web3Modal into a ethers.web3provider
  *
@@ -114,38 +120,6 @@ export const getEthersAppProviderLibrary = (
     return new Web3Provider(provider);
   }
 };
-
-/**
- * @internal
- */
-interface IChildContextProps {
-  providerKey?: string;
-}
-
-/**
- * @internal
- *
- * @param props
- * @returns
- */
-const InternalChildContexts: FC<IChildContextProps> = (props) => {
-  const { chainId, provider: ethersProvider } = useEthersContext();
-  return (
-    <ContractsContext>
-      <BlockNumberContext providerKey={props.providerKey} chainId={chainId} ethersProvider={ethersProvider}>
-        {props.children}
-      </BlockNumberContext>
-    </ContractsContext>
-  );
-};
-
-export type TEthersAppContextProps = {
-  secondaryWeb3ReactRoot?: {
-    contextKeyName: string;
-    web3ReactRoot: JSX.Element;
-  };
-};
-
 /**
  * #### Summary
  * Ethers App Context for your react app to be used with {@link useEthersContext}.
@@ -159,7 +133,7 @@ export type TEthersAppContextProps = {
 export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
   if (props.secondaryWeb3ReactRoot != null) {
     invariant(
-      !!props.secondaryWeb3ReactRoot.contextKeyName,
+      !!props.secondaryWeb3ReactRoot.contextKey,
       'When using alternate web3-react roots, you need to provide a valid contextKeyName'
     );
 
@@ -168,7 +142,7 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
       'When using alternate web3-react roots, you need to provide a valid web3ReactRoot'
     );
 
-    invariant(props.secondaryWeb3ReactRoot.contextKeyName !== 'primary', 'You cannot use primary for alternate roots');
+    invariant(props.secondaryWeb3ReactRoot.contextKey !== 'primary', 'You cannot use primary for alternate roots');
 
     // invariant(
     //   props.secondaryWeb3ReactRoot.web3ReactRoot.type != null,
@@ -178,7 +152,7 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
     const alternateProvider = cloneElement(
       props.secondaryWeb3ReactRoot.web3ReactRoot,
       { getLibrary: getEthersAppProviderLibrary },
-      <InternalChildContexts>{props.children}</InternalChildContexts>
+      <BlockNumberContext contextKey={props.secondaryWeb3ReactRoot.contextKey}>{props.children}</BlockNumberContext>
     );
 
     return alternateProvider;
@@ -186,7 +160,7 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
 
   return (
     <Web3ReactProvider getLibrary={getEthersAppProviderLibrary}>
-      <InternalChildContexts>{props.children}</InternalChildContexts>
+      <BlockNumberContext>{props.children}</BlockNumberContext>;
     </Web3ReactProvider>
   );
 };
