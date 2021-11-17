@@ -30,7 +30,9 @@ export const useBalance = (address: string | undefined): BigNumber => {
       const newBalance = await ethersProvider.getBalance(address);
       if (isMounted()) {
         setBalance((value) => {
-          if (value.toHexString() !== newBalance.toHexString()) return newBalance;
+          if (value.toHexString() !== newBalance.toHexString()) {
+            return newBalance;
+          }
           return value;
         });
       }
@@ -41,5 +43,5 @@ export const useBalance = (address: string | undefined): BigNumber => {
     void callFunc();
   }, [blockNumber, callFunc]);
 
-  return balance ?? zero;
+  return balance;
 };

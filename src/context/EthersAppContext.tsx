@@ -146,29 +146,6 @@ export const getEthersAppProviderLibrary = (
     return new Web3Provider(provider);
   }
 };
-
-/**
- * @internal
- */
-interface IChildContextProps {
-  providerKey?: string;
-}
-
-/**
- * @internal
- *
- * @param props
- * @returns
- */
-const ChildContexts: FC<IChildContextProps> = (props) => {
-  const { chainId, ethersProvider } = useEthersContext();
-  return (
-    <BlockNumberContext providerKey={props.providerKey} chainId={chainId} ethersProvider={ethersProvider}>
-      {props.children}
-    </BlockNumberContext>
-  );
-};
-
 /**
  * #### Summary
  * Ethers App Context for your react app to be used with {@link useEthersContext}.
@@ -182,7 +159,7 @@ const ChildContexts: FC<IChildContextProps> = (props) => {
 export const EthersAppContext: FC = (props) => {
   return (
     <Web3ReactProvider getLibrary={getEthersAppProviderLibrary}>
-      <ChildContexts>{props.children}</ChildContexts>
+      <BlockNumberContext>{props.children}</BlockNumberContext>;
     </Web3ReactProvider>
   );
 };
