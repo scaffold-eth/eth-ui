@@ -36,7 +36,7 @@ export type TWeb3ModalState = {
  * - provides callback to open, logout and update the modal theme
  *
  * #### Notes
- * - 🤚🏽 Consider using the context provider {@link ethersProvider} and {@link EthersModalConnector} instead.
+ * - 🤚🏽 Consider using the context provider {@link ethersProvider} and {@link EthersModalConnector} instead. @deprecated
  *
  * @category Hooks
  *
