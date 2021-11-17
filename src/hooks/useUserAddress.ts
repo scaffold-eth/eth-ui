@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
+import { useBlockNumberContext } from '~~/context';
 import { signerHasNetwork } from '~~/functions';
 import { TEthersSigner } from '~~/models';
 
@@ -16,18 +17,20 @@ import { TEthersSigner } from '~~/models';
 export const useUserAddress = (signer: TEthersSigner | undefined): string | undefined => {
   const isMounted = useIsMounted();
   const [userAddress, setUserAddress] = useState<string>();
+  const blockNumber = useBlockNumberContext();
+
+  const callFunc = useCallback(async (): Promise<void> => {
+    if (signerHasNetwork(signer)) {
+      const address = await signer?.getAddress();
+      if (isMounted()) {
+        setUserAddress(address);
+      }
+    }
+  }, [isMounted, signer]);
 
   useEffect(() => {
-    const getUserAddress = async (): Promise<void> => {
-      if (signerHasNetwork(signer)) {
-        const address = await signer?.getAddress();
-        if (isMounted()) {
-          setUserAddress(address);
-        }
-      }
-    };
-    void getUserAddress();
-  }, [isMounted, signer]);
+    void callFunc();
+  }, [blockNumber, callFunc]);
 
   return userAddress;
 };

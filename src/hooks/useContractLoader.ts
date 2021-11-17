@@ -1,5 +1,5 @@
 import { BaseContract } from 'ethers';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
@@ -70,8 +70,8 @@ export const useContractLoader = (
     [chainId, config]
   );
 
-  useEffect(() => {
-    const loadContracts = (): void => {
+  const callFunc = useCallback(
+    (): void => {
       if (ethersProvider && chainId && chainId > 0) {
         try {
           const contractList: TDeployedContractsJson = { ...(config.deployedContractsJson ?? {}) };
@@ -116,12 +116,15 @@ export const useContractLoader = (
           console.log('⚠ useContractLoader, ERROR LOADING CONTRACTS!!', e, config);
         }
       }
-    };
-
-    void loadContracts();
+    },
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ethersProvider, configDep, providerOrSigner]);
+    [ethersProvider, configDep, providerOrSigner]
+  );
+
+  useEffect(() => {
+    void callFunc();
+  }, [callFunc]);
 
   return contracts;
 };

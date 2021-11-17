@@ -155,22 +155,6 @@ export const useWeb3Modal = (
     web3ModalProviderRef.current?.updateTheme(theme);
   }, []);
 
-  // /**
-  //  * add hooks to reload page if required
-  //  */
-  // useEffect(() => {
-  //   /* eslint-disable */
-  //   if (window?.ethereum?.on && window?.ethereum?.off) {
-  //     window.ethereum.on('chainChanged', reloadPage);
-  //     window.ethereum.on('accountsChanged', reloadPage);
-  //     return () => {
-  //       window.ethereum.off('chainChanged', reloadPage);
-  //       window.ethereum.off('accountsChanged', reloadPage);
-  //     };
-  //   }
-  //   /* eslint-disable */
-  // }, [window?.ethereum]);
-
   return {
     initializing: initalizingRef.current ?? false,
     openWeb3ModalCallback,

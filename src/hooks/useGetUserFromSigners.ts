@@ -1,5 +1,5 @@
 import { ethers, Signer, Wallet } from 'ethers';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
 import { TEthersUser, TEthersProvider } from '~~/models';
@@ -18,25 +18,26 @@ export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEth
   const [provider, setProvider] = useState<TEthersProvider>();
   const [providerNetwork, setProviderNetwork] = useState<ethers.providers.Network>();
   const [address, setAddress] = useState<string>();
-  useEffect(() => {
-    const getData = async (): Promise<void> => {
-      const result = await parseProviderOrSigner(signer);
-      if (result.provider && result.providerNetwork && result.signer) {
-        setResolvedSigner(result.signer);
-        setProvider(result.provider);
-        setProviderNetwork(result.providerNetwork);
-        const address = await result.signer.getAddress();
-        setAddress(address);
-      } else {
-        setProvider(undefined);
-        setResolvedSigner(signer);
-        setProviderNetwork(undefined);
-        setAddress(undefined);
-      }
-    };
 
-    void getData();
+  const callFunc = useCallback(async (): Promise<void> => {
+    const result = await parseProviderOrSigner(signer);
+    if (result.provider && result.providerNetwork && result.signer) {
+      setResolvedSigner(result.signer);
+      setProvider(result.provider);
+      setProviderNetwork(result.providerNetwork);
+      const address = await result.signer.getAddress();
+      setAddress(address);
+    } else {
+      setProvider(undefined);
+      setResolvedSigner(signer);
+      setProviderNetwork(undefined);
+      setAddress(undefined);
+    }
   }, [signer]);
+
+  useEffect(() => {
+    void callFunc();
+  }, [callFunc]);
 
   return { signer: resolvedSigner, provider, providerNetwork, address };
 };
