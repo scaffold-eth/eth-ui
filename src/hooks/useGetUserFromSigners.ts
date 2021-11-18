@@ -22,16 +22,16 @@ export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEth
 
   const callFunc = useCallback(async (): Promise<void> => {
     const result = await parseProviderOrSigner(signer);
-      if (result) {
+    if (result) {
       setResolvedSigner(result.signer);
       setProvider(result.provider);
-        setAccount(result.account);
-        setChainId(result.chainId);
+      setAccount(result.account);
+      setChainId(result.chainId);
     } else {
       setProvider(undefined);
       setResolvedSigner(signer);
-        setChainId(undefined);
-        setAccount(undefined);
+      setChainId(undefined);
+      setAccount(undefined);
     }
   }, [signer]);
 
