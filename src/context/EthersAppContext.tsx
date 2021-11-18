@@ -144,14 +144,15 @@ export const getEthersAppProviderLibrary = (
     throw new NoEthereumProviderFoundError();
   }
 
+  let anyNetwork: string | undefined = undefined;
   if (connector instanceof EthersModalConnector) {
-    return new Web3Provider(provider, connector.config.immutableProvider ? 'any' : undefined);
+    anyNetwork = connector.config.immutableProvider ? 'any' : undefined;
+  }
+
+  if (isEthersProvider(provider)) {
+    return provider as TEthersProvider;
   } else {
-    if (isEthersProvider(provider)) {
-      return provider as TEthersProvider;
-    } else {
-      return new Web3Provider(provider, 'any');
-    }
+    return new Web3Provider(provider, anyNetwork);
   }
 };
 /**
