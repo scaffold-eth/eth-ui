@@ -1,4 +1,4 @@
-[eth-hooks - v3.3.2](../README.md) / [EthersContext](../modules/EthersContext.md) / UserClosedModalError
+[eth-hooks - v3.4.0](../README.md) / [EthersContext](../modules/EthersContext.md) / UserClosedModalError
 
 # Class: UserClosedModalError
 
@@ -156,4 +156,4 @@ Error.constructor
 
 #### Defined in
 
-[src/context/connectors/connectorErrors.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/connectors/connectorErrors.ts#L5)
+[src/context/connectors/connectorErrors.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/connectors/connectorErrors.ts#L5)

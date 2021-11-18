@@ -1,4 +1,4 @@
-[eth-hooks - v3.3.2](../README.md) / [EthersContext](../modules/EthersContext.md) / ICommonModalConnector
+[eth-hooks - v3.4.0](../README.md) / [EthersContext](../modules/EthersContext.md) / ICommonModalConnector
 
 # Interface: ICommonModalConnector
 
@@ -32,7 +32,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersContext.Ethe
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/connectors/EthersModalConnector.ts#L25)
+[src/context/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/connectors/EthersModalConnector.ts#L39)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/connectors/EthersModalConnector.ts#L26)
+[src/context/connectors/EthersModalConnector.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/connectors/EthersModalConnector.ts#L40)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/connectors/EthersModalConnector.ts#L27)
+[src/context/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/connectors/EthersModalConnector.ts#L41)
 
 ___
 
@@ -86,4 +86,4 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:28](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/connectors/EthersModalConnector.ts#L28)
+[src/context/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/connectors/EthersModalConnector.ts#L42)

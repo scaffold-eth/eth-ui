@@ -1,6 +1,6 @@
-eth-hooks - v3.3.2
+eth-hooks - v3.4.0
 
-# eth-hooks - v3.3.2
+# eth-hooks - v3.4.0
 
 ## Table of contents
 
