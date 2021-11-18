@@ -4,7 +4,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import {
-  TContractConfig,
+  TContractLoaderConfig,
   TDeployedContractsJson,
   TEthersProviderOrSigner,
   TExternalContracts,
@@ -56,7 +56,7 @@ export const parseContractsInJson = (
  * @returns Record of contractName:Contracts
  */
 export const useContractLoader = (
-  config: TContractConfig = {},
+  config: TContractLoaderConfig = {},
   providerOrSigner?: TEthersProviderOrSigner,
   configChainId?: number
 ): Record<string, BaseContract> => {
@@ -124,7 +124,7 @@ export const useContractLoader = (
 
   useEffect(() => {
     void callFunc();
-  }, [callFunc]);
+  }, [callFunc, chainId]);
 
   return contracts;
 };

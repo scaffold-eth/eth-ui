@@ -88,7 +88,7 @@ export type TContractFunctionInfo = {
  *
  * @category Models
  */
-export type TContractConfig = {
+export type TContractLoaderConfig = {
   /**
    * your local hardhat network name
    */

@@ -38,6 +38,7 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
   active: boolean;
   signer: Signer | undefined;
   account: string | undefined;
+  chainId: number | undefined;
   changeSigner: ((signer: Signer) => Promise<void>) | undefined;
   openModal: (ethersModalConnector: TEthersModalConnector) => void;
   disconnectModal: () => void;
@@ -72,7 +73,8 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
  * @returns
  */
 export const useEthersContext = (providerKey?: string): IEthersContext => {
-  const { connector, activate, library, account, deactivate, ...context } = useWeb3React<TEthersProvider>(providerKey);
+  const { connector, activate, library, account, deactivate, chainId, ...context } =
+    useWeb3React<TEthersProvider>(providerKey);
   if (!(connector instanceof EthersModalConnector || connector instanceof AbstractConnector) && connector != null) {
     throw 'Connector is not a EthersModalConnector';
   }
@@ -113,6 +115,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
     library,
     account: account ?? undefined,
     signer: ethersConnector?.getSigner(),
+    chainId,
     changeSigner: ethersConnector?.changeSigner.bind(ethersConnector),
     openModal: openWeb3Modal,
     disconnectModal: disconnectModal,
@@ -135,15 +138,20 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
 export const getEthersAppProviderLibrary = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   provider: any,
-  _connector: AbstractConnector | undefined
+  connector: AbstractConnector | undefined
 ): TEthersProvider => {
   if (provider == null) {
     throw new NoEthereumProviderFoundError();
   }
-  if (isEthersProvider(provider)) {
-    return provider as TEthersProvider;
+
+  if (connector instanceof EthersModalConnector) {
+    return new Web3Provider(provider, connector.config.immutableProvider ? 'any' : undefined);
   } else {
-    return new Web3Provider(provider);
+    if (isEthersProvider(provider)) {
+      return provider as TEthersProvider;
+    } else {
+      return new Web3Provider(provider, 'any');
+    }
   }
 };
 /**
@@ -159,7 +167,7 @@ export const getEthersAppProviderLibrary = (
 export const EthersAppContext: FC = (props) => {
   return (
     <Web3ReactProvider getLibrary={getEthersAppProviderLibrary}>
-      <BlockNumberContext>{props.children}</BlockNumberContext>;
+      <BlockNumberContext>{props.children}</BlockNumberContext>
     </Web3ReactProvider>
   );
 };

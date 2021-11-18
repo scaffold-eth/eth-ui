@@ -13,7 +13,7 @@ import { TEthersProvider } from '~~/models';
  * @param ensName
  * @returns
  */
-export const useEnsResolveName = (mainnetProvider: TEthersProvider, ensName: string): string => {
+export const useResolveEnsAddress = (mainnetProvider: TEthersProvider, ensName: string): string => {
   const [address, setAddress] = useState<string>(constants.AddressZero);
 
   useEffect(() => {

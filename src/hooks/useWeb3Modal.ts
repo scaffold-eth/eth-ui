@@ -98,18 +98,18 @@ export const useWeb3Modal = (
     try {
       initalizingRef.current = true;
       const provider = await web3ModalProviderRef.current?.connect();
-      setCurrentEthersProvider(new Web3Provider(provider));
+      setCurrentEthersProvider(new Web3Provider(provider, 'any'));
 
       /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
       if (provider?.on) {
         provider.on('chainChanged', (chainId: number) => {
           console.log(`chain changed to ${chainId}! updating providers`);
-          setCurrentEthersProvider(new Web3Provider(provider));
+          setCurrentEthersProvider(new Web3Provider(provider, 'any'));
         });
 
         provider.on('accountsChanged', () => {
           console.log(`account changed!`);
-          setCurrentEthersProvider(new Web3Provider(provider));
+          setCurrentEthersProvider(new Web3Provider(provider, 'any'));
         });
 
         // Subscribe to session disconnection
