@@ -4,8 +4,7 @@ import { utils } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
-import { useEthersContext } from '~~/context';
-import { useBlockNumberContext } from '~~/context/BlockNumberContext';
+import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { TNetworkInfo } from '~~/models';
 
 /**

@@ -41,7 +41,7 @@ export const useTokenBalance = (contract: Contract, address: string, pollTime: n
   const [balance, setBalance] = useState<BigNumber>(zero);
   const ethersContext = useEthersContext();
 
-  const pollBalance = useCallback(async (): Promise<void> => {
+  const callFunc = useCallback(async (): Promise<void> => {
     if (contract != null) {
       try {
         const contractChainId = await contract?.signer?.getChainId();
@@ -61,7 +61,7 @@ export const useTokenBalance = (contract: Contract, address: string, pollTime: n
     }
   }, [address, contract, ethersContext.chainId, isMounted]);
 
-  useOnRepetition(pollBalance, {
+  useOnRepetition(callFunc, {
     pollTime,
     leadingTrigger: contract?.provider != null,
     provider: contract.provider as TEthersProvider,

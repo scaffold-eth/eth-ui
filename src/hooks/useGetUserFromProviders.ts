@@ -1,5 +1,5 @@
 import { ethers, Signer } from 'ethers';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { asyncSome } from '~~/functions/asyncSome';
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
@@ -37,8 +37,8 @@ export const useGetUserFromProviders = (
       return acc + value ?? '';
     }, '');
 
-  useEffect(() => {
-    const loadData = async (): Promise<void> => {
+  const callFunc = useCallback(
+    async (): Promise<void> => {
       const foundSigner = await asyncSome(allProviders, async (provider) => {
         const result = await parseProviderOrSigner(provider);
         if (result.provider && result.providerNetwork && result.signer) {
@@ -58,11 +58,14 @@ export const useGetUserFromProviders = (
         setProviderNetwork(undefined);
         setAddress(undefined);
       }
-    };
-
-    void loadData();
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [providerDeps]);
+    [providerDeps]
+  );
+
+  useEffect(() => {
+    void callFunc();
+  }, [callFunc]);
 
   return { signer, provider, providerNetwork, address };
 };

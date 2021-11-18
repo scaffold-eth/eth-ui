@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useEthersContext } from '~~/context';
-import { useBlockNumberContext } from '~~/context/BlockNumberContext';
+import { useEthersContext, useBlockNumberContext } from '~~/context';
 
 /**
  * #### Summary

@@ -12,7 +12,21 @@ import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser } from '~~/models/constants/common';
 
 type TEthersModalConfig = {
+  /**
+   * when network (chain) or provider changes reload the page
+   */
   reloadOnNetworkChange: boolean;
+  /**
+   * ### Summary
+   * ethers.io recomments an immutable provider, and by default doesn't allow
+   * network changes (i.e.) metamask changing chains.
+   * - if immutableProvider is true, it will follow the default behaviour
+   * - if immutableProvider is false, it will allow network changes
+   *
+   * ### Notes
+   * see https://github.com/ethers-io/ethers.js/discussions/1480
+   */
+  immutableProvider: boolean;
 };
 
 type TWeb3ModalTheme = 'light' | 'dark';
@@ -45,15 +59,19 @@ export type TEthersModalConnector = ICommonModalConnector & AbstractConnector;
  * @category EthersContext
  */
 export class EthersModalConnector extends AbstractConnector implements ICommonModalConnector {
-  protected options: Partial<ICoreOptions>;
-  protected providerBase?: any;
-  protected ethersProvider?: TEthersProvider;
-  protected web3Modal?: Core;
-  protected id: string | undefined;
-  protected debug: boolean = false;
-  protected config: TEthersModalConfig;
-  protected signer: Signer | undefined;
-  protected theme: TWeb3ModalTheme | ThemeColors;
+  protected _options: Partial<ICoreOptions>;
+  protected _providerBase?: any;
+  protected _ethersProvider?: TEthersProvider;
+  protected _web3Modal?: Core;
+  protected _id: string | undefined;
+  protected _debug: boolean = false;
+  protected _config: TEthersModalConfig;
+  protected _signer: Signer | undefined;
+  protected _theme: TWeb3ModalTheme | ThemeColors;
+
+  get config(): TEthersModalConfig {
+    return this._config;
+  }
 
   /**
    * @param web3modalOptions see [web3modal docs](https://github.com/Web3Modal/web3modal#provider-options) for details.  You can also check the [scaffold-eth-typescript web3config](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/main/packages/vite-app-ts/src/config/web3ModalConfig.ts) for an example.
@@ -63,17 +81,17 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
    */
   constructor(
     web3modalOptions: Partial<ICoreOptions>,
-    config: TEthersModalConfig,
+    config: TEthersModalConfig = { reloadOnNetworkChange: false, immutableProvider: false },
     id?: string,
     debug: boolean = false
   ) {
     super();
 
-    this.options = web3modalOptions;
-    this.id = id;
-    this.debug = debug;
-    this.config = config;
-    this.theme = (web3modalOptions.theme as TWeb3ModalTheme | ThemeColors) ?? 'light';
+    this._options = web3modalOptions;
+    this._id = id;
+    this._debug = debug;
+    this._config = config;
+    this._theme = (web3modalOptions.theme as TWeb3ModalTheme | ThemeColors) ?? 'light';
 
     this.handleChainChanged = this.handleChainChanged.bind(this);
     this.handleAccountsChanged = this.handleAccountsChanged.bind(this);
@@ -82,22 +100,30 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   }
 
   protected log(...args: any[]): void {
-    if (this.debug) {
+    if (this._debug) {
       console.log('🔌 ', args);
     }
   }
 
   private maybeReload(): void {
-    if (window && this.config.reloadOnNetworkChange) {
+    if (window && this._config.reloadOnNetworkChange) {
       window.location.reload();
+    }
+  }
+
+  private setEthersProvider(): void {
+    if (this.isEthersProvider()) {
+      this._ethersProvider = this._providerBase as TEthersProvider;
+    } else {
+      this._ethersProvider = new Web3Provider(this._providerBase, this._config.immutableProvider ? 'any' : undefined);
     }
   }
 
   private handleChainChanged(chainId: number | string): void {
     this.log(`Handling chain changed to ${chainId}! updating providers`);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    this.emitUpdate?.({ chainId, provider: this.providerBase });
-    this.ethersProvider = new Web3Provider(this.providerBase);
+    this.emitUpdate?.({ chainId, provider: this._providerBase });
+    this.setEthersProvider();
     this.maybeReload();
   }
 
@@ -121,8 +147,8 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   }
 
   private load(): void {
-    if (!this.web3Modal) {
-      this.web3Modal = new Core({ ...this.options, theme: this.theme });
+    if (!this._web3Modal) {
+      this._web3Modal = new Core({ ...this._options, theme: this._theme });
     }
   }
 
@@ -145,42 +171,38 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     try {
       this.load();
 
-      if (this.web3Modal) {
-        if (this.options.cacheProvider === false) this.resetModal();
+      if (this._web3Modal) {
+        if (this._options.cacheProvider === false) this.resetModal();
         console.log('Open provider modal');
-        await this.web3Modal.updateTheme(this.theme);
+        await this._web3Modal.updateTheme(this._theme);
         /* eslint-disable @typescript-eslint/no-unsafe-assignment*/
-        if (this.id) {
-          this.providerBase = await this.web3Modal.connectTo(this.id);
+        if (this._id) {
+          this._providerBase = await this._web3Modal.connectTo(this._id);
         } else {
-          this.providerBase = await this.web3Modal.connect();
+          this._providerBase = await this._web3Modal.connect();
         }
         /* eslint-enable */
 
         /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call*/
-        this.providerBase.on('chainChanged', this.handleChainChanged);
-        this.providerBase.on('accountsChanged', this.handleAccountsChanged);
-        this.providerBase.on('disconnect', this.handleDisconnect as any);
-        this.providerBase.on('close', this.handleClose as any);
+        this._providerBase.on('chainChanged', this.handleChainChanged);
+        this._providerBase.on('accountsChanged', this.handleAccountsChanged);
+        this._providerBase.on('disconnect', this.handleDisconnect as any);
+        this._providerBase.on('close', this.handleClose as any);
         /* eslint-enable */
 
-        if (this.isEthersProvider()) {
-          this.ethersProvider = this.providerBase as TEthersProvider;
-        } else {
-          this.ethersProvider = new Web3Provider(this.providerBase);
-        }
+        this.setEthersProvider();
       }
 
       /* eslint-disable */
-      const account: string = this.providerBase?.selectedAddress ?? (await this.getAccount());
+      const account: string = this._providerBase?.selectedAddress ?? (await this.getAccount());
       let chainId: number =
-        this.providerBase?.networkVersion ?? BigNumber.from(this.providerBase?.chainId ?? 0).toNumber();
+        this._providerBase?.networkVersion ?? BigNumber.from(this._providerBase?.chainId ?? 0).toNumber();
       if (chainId === 0) {
         chainId = (await this.getChainId()) as number;
       }
       this.setSignerFromAccount(account);
 
-      return { provider: this.providerBase, account, chainId };
+      return { provider: this._providerBase, account, chainId };
       /* eslint-enable */
     } catch (error) {
       this.resetModal();
@@ -189,14 +211,14 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
         this.deactivate();
         throw new UserClosedModalError();
       } else {
-        console.error('EthersModalConnector: Could not activate provider', error, this.providerBase);
+        console.error('EthersModalConnector: Could not activate provider', error, this._providerBase);
         throw new CouldNotActivateError(error);
       }
     }
   }
 
   private isEthersProvider(): boolean {
-    return isEthersProvider(this.providerBase);
+    return isEthersProvider(this._providerBase);
   }
 
   /**
@@ -207,12 +229,12 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call  */
     this.emitDeactivate?.();
 
-    this.providerBase?.removeListener('disconnect', this.handleDisconnect);
-    this.providerBase?.removeListener('chainChanged', this.handleChainChanged);
-    this.providerBase?.removeListener('accountsChanged', this.handleAccountsChanged);
-    this.providerBase?.removeListener('close', this.handleClose);
+    this._providerBase?.removeListener('disconnect', this.handleDisconnect);
+    this._providerBase?.removeListener('chainChanged', this.handleChainChanged);
+    this._providerBase?.removeListener('accountsChanged', this.handleAccountsChanged);
+    this._providerBase?.removeListener('close', this.handleClose);
 
-    const provider = this.providerBase;
+    const provider = this._providerBase;
 
     // use disconnect function if exists
     provider?.disconnect?.();
@@ -224,33 +246,33 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   }
 
   public getProvider(): Promise<TEthersProvider | undefined> {
-    return Promise.resolve(this.ethersProvider) as Promise<TEthersProvider | undefined>;
+    return Promise.resolve(this._ethersProvider) as Promise<TEthersProvider | undefined>;
   }
 
   public async getChainId(): Promise<number | string> {
-    return Promise.resolve(this.ethersProvider?.network?.chainId ?? 0) as Promise<number | string>;
+    return Promise.resolve(this._ethersProvider?.network?.chainId ?? 0) as Promise<number | string>;
   }
 
   private async setSignerFromAccount(account: string | null): Promise<void> {
-    if (account && utils.isAddress(account) && (await this.signer?.getAddress()) !== account) {
-      this.signer = this.ethersProvider?.getSigner(account);
+    if (account && utils.isAddress(account) && (await this._signer?.getAddress()) !== account) {
+      this._signer = this._ethersProvider?.getSigner(account);
     }
   }
 
   public async getAccount(): Promise<null | string> {
-    if (this.signer) {
-      const account = await this.signer.getAddress();
+    if (this._signer) {
+      const account = await this._signer.getAddress();
       if (utils.isAddress(account)) return account;
     }
 
-    const accounts = await this.ethersProvider?.listAccounts();
+    const accounts = await this._ethersProvider?.listAccounts();
     const account = accounts?.[0] ?? null;
     await this.setSignerFromAccount(account);
     return Promise.resolve(accounts?.[0] ?? null);
   }
 
   public getSigner(): Signer | undefined {
-    return this.signer;
+    return this._signer;
   }
 
   /**
@@ -261,7 +283,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   public async changeSigner(signer: Signer): Promise<void> {
     const account = await signer.getAddress();
     if (utils.isAddress(account) && this.validState()) {
-      this.signer = signer;
+      this._signer = signer;
       this.handleAccountsChanged([account]);
 
       console.log(`changeSigner: provider chainId ${await this.getChainId()}`);
@@ -270,7 +292,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   }
 
   protected validState(): boolean {
-    return this.providerBase != null && this.ethersProvider != null && this.web3Modal != null;
+    return this._providerBase != null && this._ethersProvider != null && this._web3Modal != null;
   }
 
   /**
@@ -278,11 +300,11 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
    * Resets the web3Modal and clears the cache
    */
   public resetModal(): void {
-    if (this.web3Modal) {
-      this.web3Modal.clearCachedProvider();
-      this.providerBase = undefined;
-      this.ethersProvider = undefined;
-      this.signer = undefined;
+    if (this._web3Modal) {
+      this._web3Modal.clearCachedProvider();
+      this._providerBase = undefined;
+      this._ethersProvider = undefined;
+      this._signer = undefined;
       this.emitUpdate?.({ account: undefined, provider: undefined, chainId: undefined });
     }
   }
@@ -293,6 +315,6 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
    * @param theme
    */
   public setModalTheme(theme: TWeb3ModalTheme | ThemeColors): void {
-    this.theme = theme;
+    this._theme = theme;
   }
 }

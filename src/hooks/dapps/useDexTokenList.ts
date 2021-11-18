@@ -1,6 +1,8 @@
 import { TokenInfo, TokenList } from '@uniswap/token-lists';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+
+import { useBlockNumberContext } from '~~/context';
 /**
  * #### Summary
  * Gets a tokenlist from uniswap ipfs tokenlist
@@ -19,30 +21,32 @@ export const useDexTokenList = (
   chainId?: number
 ): TokenInfo[] => {
   const [tokenList, setTokenList] = useState<TokenInfo[]>([]);
+  const blockNumber = useBlockNumberContext();
+
+  const callFunc = useCallback(async (): Promise<void> => {
+    try {
+      const tokenListResp: TokenList = (await axios(tokenListUri)).data as TokenList;
+      if (tokenListResp != null) {
+        let tokenInfo: TokenInfo[] = [];
+
+        if (chainId) {
+          tokenInfo = tokenListResp.tokens.filter((t: TokenInfo) => {
+            return t.chainId === chainId;
+          });
+        } else {
+          tokenInfo = tokenListResp.tokens;
+        }
+
+        setTokenList(tokenInfo);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, [chainId, tokenListUri]);
 
   useEffect(() => {
-    const getTokenList = async (): Promise<void> => {
-      try {
-        const tokenListResp: TokenList = (await axios(tokenListUri)).data as TokenList;
-        if (tokenListResp != null) {
-          let tokenInfo: TokenInfo[] = [];
-
-          if (chainId) {
-            tokenInfo = tokenListResp.tokens.filter((t: TokenInfo) => {
-              return t.chainId === chainId;
-            });
-          } else {
-            tokenInfo = tokenListResp.tokens;
-          }
-
-          setTokenList(tokenInfo);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    void getTokenList();
-  }, [chainId, tokenListUri]);
+    void callFunc();
+  }, [blockNumber, callFunc]);
 
   return tokenList;
 };

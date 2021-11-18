@@ -2,8 +2,7 @@ import { BigNumber } from 'ethers';
 import { useState, useCallback, useEffect } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useEthersContext } from '~~/context';
-import { useBlockNumberContext } from '~~/context/BlockNumberContext';
+import { useEthersContext, useBlockNumberContext } from '~~/context';
 
 const zero = BigNumber.from(0);
 /**
@@ -30,7 +29,7 @@ export const useBalance = (address: string | undefined): BigNumber => {
       const newBalance = await ethersProvider.getBalance(address);
       if (isMounted()) {
         setBalance((value) => {
-          if (value.toHexString() !== newBalance.toHexString()) {
+          if (value.toHexString() !== newBalance?.toHexString()) {
             return newBalance;
           }
           return value;
