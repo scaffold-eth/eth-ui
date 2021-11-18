@@ -23,8 +23,8 @@ import { defaultOptions, TContractFunctionInfo, THookOptions } from '~~/models';
  * @param onChange callback with result as a parameter
  * @returns <OutputT>
  */
-export const useContractReader = <GOutput, GContract extends BaseContract>(
-  contract: GContract,
+export const useContractReader = <GOutput>(
+  contract: BaseContract,
   contractFunctionInfo: TContractFunctionInfo,
   formatter?: (_value: GOutput | undefined) => GOutput,
   onChange?: (_value?: GOutput) => void,

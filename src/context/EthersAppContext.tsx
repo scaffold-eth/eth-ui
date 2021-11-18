@@ -39,7 +39,8 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
     'do not pass in primary as key, use undefined as primary is the default context key'
   );
 
-  const { connector, activate, library, account, deactivate, ...context } = useWeb3React<TEthersProvider>(providerKey);
+  const { connector, activate, library, account, deactivate, chainId, ...context } =
+    useWeb3React<TEthersProvider>(contextKey);
   if (!(connector instanceof EthersModalConnector || connector instanceof AbstractConnector) && connector != null) {
     throw 'Connector is not a EthersModalConnector';
   }

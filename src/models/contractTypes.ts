@@ -98,7 +98,7 @@ export const createContractInstance = async <
  * #### Summary
  * describes the sctructure of a contract in hardhat_contracts.json
  */
-export type THardhatContractConfig = {
+export type THardhatContractJson = {
   address: string;
   abi: any[];
 };
@@ -116,13 +116,13 @@ export type TDeployedHardhatContractsJson = {
     [networkName: string]: {
       name: string;
       chainId: string;
-      contracts: { [contractName: string]: THardhatContractConfig };
+      contracts: { [contractName: string]: THardhatContractJson };
     };
   };
 };
 
 export type TDeployedContracts = {
-  [contractName: string]: THardhatContractConfig & {
+  [contractName: string]: THardhatContractJson & {
     chainId: number;
   };
 };
@@ -154,7 +154,7 @@ export type TExternalContracts = {
   [chainId: number]: {
     name?: string;
     chainId?: string;
-    contracts?: { [contractName: string]: THardhatContractConfig };
+    contracts?: { [contractName: string]: THardhatContractJson };
   };
 };
 

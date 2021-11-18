@@ -2,11 +2,12 @@
 import { expect, use } from 'chai';
 import * as sinonChai from 'sinon-chai';
 
-import { IEthersContext, useEthersContext } from '~~/context';
+import { useEthersContext } from '~~/context';
 import { hookTestHarness } from '~~/helpers/test-utils';
 import { const_DefaultTestChainId, defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { getHardhatAccount } from '~~/helpers/test-utils/harness';
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper';
+import { IEthersContext } from '~~/models';
 
 use(sinonChai);
 
@@ -28,7 +29,7 @@ describe('EthersAppContext', function () {
         expect(context.signer).not.be.undefined;
 
         // provider
-        expect(context.ethersProvider).not.be.undefined;
+        expect(context.provider).not.be.undefined;
 
         // state
         expect(context.active).to.be.true;
@@ -94,7 +95,7 @@ describe('EthersAppContext', function () {
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
         const newAccount = await getHardhatAccount(harness.mockProvider, 2);
-        const newSigner = firstContext.ethersProvider!.getSigner(newAccount);
+        const newSigner = firstContext.provider!.getSigner(newAccount);
         expect(newSigner).to.exist;
         await firstContext.changeSigner?.(newSigner);
 

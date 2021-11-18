@@ -31,6 +31,7 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
   active: boolean;
   signer: TEthersSigner | undefined;
   account: string | undefined;
+  chainId: number | undefined;
   changeSigner: ((signer: Signer) => Promise<void>) | undefined;
   openModal: (ethersModalConnector: TEthersModalConnector) => void;
   disconnectModal: () => void;

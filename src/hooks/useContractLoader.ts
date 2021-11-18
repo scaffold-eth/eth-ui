@@ -9,15 +9,15 @@ import {
   TContractLoaderConfig,
   TDeployedHardhatContractsJson,
   TExternalContracts,
-  THardhatContractConfig,
+  THardhatContractJson,
   THookOptions,
 } from '~~/models';
 
 export const parseContractsInJson = (
   contractList: TDeployedHardhatContractsJson,
   chainId: number
-): Record<string, THardhatContractConfig> => {
-  let combinedContracts: Record<string, THardhatContractConfig> = {};
+): Record<string, THardhatContractJson> => {
+  let combinedContracts: Record<string, THardhatContractJson> = {};
 
   // combine partitioned contracts based on all the available and chain id.
   if (contractList?.[chainId] != null) {
@@ -79,7 +79,7 @@ export const useContractLoader = (
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
-          let combinedContracts: Record<string, THardhatContractConfig> = parseContractsInJson(contractList, chainId);
+          let combinedContracts: Record<string, THardhatContractJson> = parseContractsInJson(contractList, chainId);
 
           // load external contracts if its the right chain
           if (externalContractList?.[chainId] != null) {
@@ -118,7 +118,8 @@ export const useContractLoader = (
     },
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [provider, configDep, providerOrSigner]);
+    [provider, configDep, provider]
+  );
 
   useEffect(() => {
     void callFunc();

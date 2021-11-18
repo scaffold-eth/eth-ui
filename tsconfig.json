@@ -31,8 +31,7 @@
       "~~/*": ["./src/*"]
     }
   },
-  "include": ["src", "test", "test-files"],
-  "files": ["hardhat.config.ts", "./src/context/CreateEthersModalConnector.tsx", "./src/models/THookOptions.ts"],
+  "include": ["src", "test", "test-files", "hardhat.config.ts"],
   "exclude": [
     "lib/**/*",
     "node_modules",

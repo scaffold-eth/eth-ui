@@ -21,11 +21,7 @@ const zero = BigNumber.from(0);
  * @param options
  * @returns current balance
  */
-export const useBalance = (
-  address: string | undefined,
-  options: THookOptions = defaultOptions(),
-  getters: boolean
-): BigNumber => {
+export const useBalance = (address: string | undefined, options: THookOptions = defaultOptions()): BigNumber => {
   const isMounted = useIsMounted();
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { provider } = checkEthersOverride(ethersContext, options);
