@@ -98,18 +98,18 @@ export const useWeb3Modal = (
     try {
       initalizingRef.current = true;
       const provider = await web3ModalProviderRef.current?.connect();
-      setCurrentEthersProvider(new Web3Provider(provider));
+      setCurrentEthersProvider(new Web3Provider(provider, 'any'));
 
       /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call */
       if (provider?.on) {
         provider.on('chainChanged', (chainId: number) => {
           console.log(`chain changed to ${chainId}! updating providers`);
-          setCurrentEthersProvider(new Web3Provider(provider));
+          setCurrentEthersProvider(new Web3Provider(provider, 'any'));
         });
 
         provider.on('accountsChanged', () => {
           console.log(`account changed!`);
-          setCurrentEthersProvider(new Web3Provider(provider));
+          setCurrentEthersProvider(new Web3Provider(provider, 'any'));
         });
 
         // Subscribe to session disconnection
@@ -154,22 +154,6 @@ export const useWeb3Modal = (
   const updateWeb3ModalThemeCallback = useCallback((theme: ThemeColors | string) => {
     web3ModalProviderRef.current?.updateTheme(theme);
   }, []);
-
-  // /**
-  //  * add hooks to reload page if required
-  //  */
-  // useEffect(() => {
-  //   /* eslint-disable */
-  //   if (window?.ethereum?.on && window?.ethereum?.off) {
-  //     window.ethereum.on('chainChanged', reloadPage);
-  //     window.ethereum.on('accountsChanged', reloadPage);
-  //     return () => {
-  //       window.ethereum.off('chainChanged', reloadPage);
-  //       window.ethereum.off('accountsChanged', reloadPage);
-  //     };
-  //   }
-  //   /* eslint-disable */
-  // }, [window?.ethereum]);
 
   return {
     initializing: initalizingRef.current ?? false,

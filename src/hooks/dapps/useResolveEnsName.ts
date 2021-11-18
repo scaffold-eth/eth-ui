@@ -41,7 +41,7 @@ const lookupAddress = async (provider: TEthersProvider, address: string): Promis
  * @param address
  * @returns
  */
-export const useEnsAddress = (mainnetProvider: TEthersProvider | undefined, address: string): string => {
+export const useResolveEnsName = (mainnetProvider: TEthersProvider | undefined, address: string): string => {
   const [ensName, setEnsName] = useState(address);
 
   useEffect(() => {

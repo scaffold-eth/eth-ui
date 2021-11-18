@@ -121,7 +121,16 @@
         "peerDependencies": false
       }
     ],
-    "no-underscore-dangle": ["warn", { "allow": ["_network", "_lastBlockNumber"] }],
+    "no-underscore-dangle": [
+      "warn",
+      {
+        "allowFunctionParams": false,
+        "allowAfterSuper": true,
+        "allowAfterThis": true,
+        "allowAfterThisConstructor": true,
+        "enforceInMethodNames": true
+      }
+    ],
     "sort-keys": "off",
     "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": ["off"],

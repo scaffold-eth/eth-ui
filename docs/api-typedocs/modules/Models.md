@@ -1,4 +1,4 @@
-[eth-hooks - v3.3.2](../README.md) / Models
+[eth-hooks - v3.4.0](../README.md) / Models
 
 # Module: Models
 
@@ -17,7 +17,7 @@ Types and constants to make it easier to interact with ethers.
 - [TDeployedContractHelper](Models.md#tdeployedcontracthelper)
 - [TExternalContracts](Models.md#texternalcontracts)
 - [TContractFunctionInfo](Models.md#tcontractfunctioninfo)
-- [TContractConfig](Models.md#tcontractconfig)
+- [TContractLoaderConfig](Models.md#tcontractloaderconfig)
 - [TNetworkInfo](Models.md#tnetworkinfo)
 
 ### Misc Type aliases
@@ -49,7 +49,7 @@ Contracts deployed by hardhat
 
 #### Defined in
 
-[src/models/contractTypes.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/contractTypes.ts#L29)
+[src/models/contractTypes.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/contractTypes.ts#L29)
 
 ___
 
@@ -71,7 +71,7 @@ Contract factories for contracts deployed by hardhat
 
 #### Defined in
 
-[src/models/contractTypes.ts:47](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/contractTypes.ts#L47)
+[src/models/contractTypes.ts:47](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/contractTypes.ts#L47)
 
 ___
 
@@ -90,7 +90,7 @@ A type for external contracts
 
 #### Defined in
 
-[src/models/contractTypes.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/contractTypes.ts#L62)
+[src/models/contractTypes.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/contractTypes.ts#L62)
 
 ___
 
@@ -114,13 +114,13 @@ Contract function information:
 
 #### Defined in
 
-[src/models/contractTypes.ts:79](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/contractTypes.ts#L79)
+[src/models/contractTypes.ts:79](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/contractTypes.ts#L79)
 
 ___
 
-### TContractConfig
+### TContractLoaderConfig
 
-Ƭ **TContractConfig**: `Object`
+Ƭ **TContractLoaderConfig**: `Object`
 
 #### Summary
 Configuration for useContractLoader
@@ -137,7 +137,7 @@ Configuration for useContractLoader
 
 #### Defined in
 
-[src/models/contractTypes.ts:91](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/contractTypes.ts#L91)
+[src/models/contractTypes.ts:91](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/contractTypes.ts#L91)
 
 ___
 
@@ -163,7 +163,7 @@ A type that describes a network for applications
 
 #### Defined in
 
-[src/models/networkTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/networkTypes.ts#L7)
+[src/models/networkTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/networkTypes.ts#L7)
 
 ___
 
@@ -185,7 +185,7 @@ describes the sctructure of a contract in hardhat_contracts.json
 
 #### Defined in
 
-[src/models/contractTypes.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/contractTypes.ts#L16)
+[src/models/contractTypes.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/contractTypes.ts#L16)
 
 ___
 
@@ -203,7 +203,7 @@ Used by eth-hooks, eth-components and scaffold-eth-typescript
 
 #### Defined in
 
-[src/models/providerTypes.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/providerTypes.ts#L19)
+[src/models/providerTypes.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/providerTypes.ts#L19)
 
 ___
 
@@ -216,7 +216,7 @@ A union of various providers and signers in ethers to give maximum flexibility
 
 #### Defined in
 
-[src/models/providerTypes.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/providerTypes.ts#L27)
+[src/models/providerTypes.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/providerTypes.ts#L27)
 
 ___
 
@@ -229,7 +229,7 @@ A union of various providers in ethers to give maximum flexibility
 
 #### Defined in
 
-[src/models/providerTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/providerTypes.ts#L42)
+[src/models/providerTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/providerTypes.ts#L42)
 
 ___
 
@@ -242,7 +242,7 @@ A union of abstract, non initalizable providers, used by some functions
 
 #### Defined in
 
-[src/models/providerTypes.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/providerTypes.ts#L50)
+[src/models/providerTypes.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/providerTypes.ts#L50)
 
 ___
 
@@ -264,4 +264,4 @@ Essentially a provider and signer and network information for ease of use.
 
 #### Defined in
 
-[src/models/providerTypes.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/providerTypes.ts#L58)
+[src/models/providerTypes.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/providerTypes.ts#L58)

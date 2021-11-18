@@ -2,8 +2,7 @@ import { BaseContract, ContractFunction } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useEthersContext } from '~~/context';
-import { useBlockNumberContext } from '~~/context/BlockNumberContext';
+import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
 import { defaultOptions, TContractFunctionInfo, THookOptions } from '~~/models';
 

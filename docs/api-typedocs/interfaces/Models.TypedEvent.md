@@ -1,4 +1,4 @@
-[eth-hooks - v3.3.2](../README.md) / [Models](../modules/Models.md) / TypedEvent
+[eth-hooks - v3.4.0](../README.md) / [Models](../modules/Models.md) / TypedEvent
 
 # Interface: TypedEvent<EventArgs\>
 
@@ -222,7 +222,7 @@ Event.args
 
 #### Defined in
 
-[src/models/providerTypes.ts:66](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/models/providerTypes.ts#L66)
+[src/models/providerTypes.ts:66](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/providerTypes.ts#L66)
 
 ## Methods
 

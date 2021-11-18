@@ -1,5 +1,5 @@
 import { Signer, Wallet } from 'ethers';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
 import { TEthersProvider } from '~~/models';
@@ -19,24 +19,25 @@ export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEth
   const [provider, setProvider] = useState<TEthersProvider>();
   const [chainId, setChainId] = useState<number>();
   const [account, setAccount] = useState<string>();
-  useEffect(() => {
-    const getData = async (): Promise<void> => {
-      const result = await parseProviderOrSigner(signer);
+
+  const callFunc = useCallback(async (): Promise<void> => {
+    const result = await parseProviderOrSigner(signer);
       if (result) {
-        setResolvedSigner(result.signer);
-        setProvider(result.provider);
+      setResolvedSigner(result.signer);
+      setProvider(result.provider);
         setAccount(result.account);
         setChainId(result.chainId);
-      } else {
-        setProvider(undefined);
-        setResolvedSigner(signer);
+    } else {
+      setProvider(undefined);
+      setResolvedSigner(signer);
         setChainId(undefined);
         setAccount(undefined);
-      }
-    };
-
-    void getData();
+    }
   }, [signer]);
+
+  useEffect(() => {
+    void callFunc();
+  }, [callFunc]);
 
   if (resolvedSigner != null && provider != null && chainId != null && account != null) {
     const result: TEthersAdaptor = {

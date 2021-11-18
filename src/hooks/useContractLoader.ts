@@ -1,12 +1,12 @@
 import { BaseContract } from 'ethers';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
 import {
   defaultOptions,
-  TContractConfig,
+  TContractLoaderConfig,
   TDeployedHardhatContractsJson,
   TExternalContracts,
   THardhatContractConfig,
@@ -58,7 +58,7 @@ export const parseContractsInJson = (
  * @returns Record of contractName:Contracts
  */
 export const useContractLoader = (
-  config: TContractConfig = {},
+  config: TContractLoaderConfig = {},
   options: THookOptions = defaultOptions()
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
@@ -71,8 +71,8 @@ export const useContractLoader = (
     [chainId, config]
   );
 
-  useEffect(() => {
-    const loadContracts = (): void => {
+  const callFunc = useCallback(
+    (): void => {
       if (provider && chainId && chainId > 0) {
         try {
           const contractList: TDeployedHardhatContractsJson = { ...(config.deployedContractsJson ?? {}) };
@@ -115,12 +115,14 @@ export const useContractLoader = (
           console.log('⚠ useContractLoader, ERROR LOADING CONTRACTS!!', e, config);
         }
       }
-    };
-
-    void loadContracts();
+    },
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [provider, configDep, providerOrSigner]);
+
+  useEffect(() => {
+    void callFunc();
+  }, [callFunc, chainId]);
 
   return contracts;
 };

@@ -1,4 +1,4 @@
-[eth-hooks - v3.3.2](../README.md) / EthersContext
+[eth-hooks - v3.4.0](../README.md) / EthersContext
 
 # Module: EthersContext
 
@@ -45,7 +45,7 @@ A context for your react app with [useEthersContext](EthersContext.md#useethersc
 
 ### useBlockNumberContext
 
-▸ `Const` **useBlockNumberContext**(): `undefined` \| `number`
+▸ `Const` **useBlockNumberContext**(): `number`
 
 #### Summary
 A hook that gets you the current blocknumber via react context
@@ -61,13 +61,13 @@ Make sure to wrap your main app with the [EthersAppContext](EthersContext.md#eth
 
 #### Returns
 
-`undefined` \| `number`
+`number`
 
 current block number
 
 #### Defined in
 
-[src/context/BlockNumberContext.tsx:64](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/BlockNumberContext.tsx#L64)
+[src/context/BlockNumberContext.tsx:62](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/BlockNumberContext.tsx#L62)
 
 ___
 
@@ -101,7 +101,7 @@ Gives you access to consistent interface to get the current provider information
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:74](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/EthersAppContext.tsx#L74)
+[src/context/EthersAppContext.tsx:75](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L75)
 
 ___
 
@@ -130,7 +130,7 @@ See scaffold-eth-typescript for an example that uses it to connect to a localhos
 
 #### Defined in
 
-[src/context/connectors/StaticJsonRpcProviderConnector.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/connectors/StaticJsonRpcProviderConnector.ts#L31)
+[src/context/connectors/StaticJsonRpcProviderConnector.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/connectors/StaticJsonRpcProviderConnector.ts#L31)
 
 ## EthersContext Variables
 
@@ -147,7 +147,7 @@ A context that works with [useBlockNumberContext](EthersContext.md#useblocknumbe
 
 #### Defined in
 
-[src/context/BlockNumberContext.tsx:83](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/BlockNumberContext.tsx#L83)
+[src/context/BlockNumberContext.tsx:84](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/BlockNumberContext.tsx#L84)
 
 ___
 
@@ -165,7 +165,7 @@ This is a wrapper around Web3ReactProvider that provides additional functionalit
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:182](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/EthersAppContext.tsx#L182)
+[src/context/EthersAppContext.tsx:168](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L168)
 
 ## EthersContext Type aliases
 
@@ -191,7 +191,7 @@ A callback type that returns a EthersModalConnector
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:23](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/EthersAppContext.tsx#L23)
+[src/context/EthersAppContext.tsx:23](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L23)
 
 ___
 
@@ -203,4 +203,4 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/9a487be/src/context/connectors/EthersModalConnector.ts#L31)
+[src/context/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/connectors/EthersModalConnector.ts#L45)

@@ -1,5 +1,5 @@
 import { Signer } from 'ethers';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { asyncSome } from '~~/functions/asyncSome';
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
@@ -38,8 +38,8 @@ export const useGetUserFromProviders = (
       return acc + value ?? '';
     }, '');
 
-  useEffect(() => {
-    const loadData = async (): Promise<void> => {
+  const callFunc = useCallback(
+    async (): Promise<void> => {
       const foundSigner = await asyncSome(allProviders, async (provider) => {
         const result = await parseProviderOrSigner(provider);
         if (result) {
@@ -61,11 +61,14 @@ export const useGetUserFromProviders = (
         setChainId(undefined);
         setAccount(undefined);
       }
-    };
-
-    void loadData();
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [providerDeps]);
+    [providerDeps]
+  );
+
+  useEffect(() => {
+    void callFunc();
+  }, [callFunc]);
 
   if (signer != null && provider != null && chainId != null && account != null) {
     const result: TEthersAdaptor = {

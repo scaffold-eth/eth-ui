@@ -1,6 +1,8 @@
 import { BaseContract, utils } from 'ethers';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
+
+import { useBlockNumberContext } from '~~/context';
 /**
  * #### Summary
  * Checks whether a contract exists on the blockchain
@@ -16,27 +18,27 @@ import { useIsMounted } from 'usehooks-ts';
  */
 export const useContractExistsAtAddress = (contract: BaseContract | undefined): boolean => {
   const isMounted = useIsMounted();
-
   const [contractIsDeployed, setContractIsDeployed] = useState(false);
+  const blockNumber = useBlockNumberContext();
+
+  /**
+   * We can look at the blockchain and see what's stored at `contractAddress`
+   * If we find code then we know that a contract exists there.
+   * If we find nothing (0x0) then there is no contract deployed to that address
+   */
+  const callFunc = useCallback(async (): Promise<void> => {
+    if (!contract?.provider || !utils.isAddress(contract.address)) {
+      if (isMounted()) setContractIsDeployed(false);
+      return;
+    }
+
+    const bytecode = await contract.provider.getCode(contract.address);
+    if (isMounted()) setContractIsDeployed(bytecode !== '0x');
+  }, [contract, isMounted]);
 
   useEffect(() => {
-    /**
-     * We can look at the blockchain and see what's stored at `contractAddress`
-     * If we find code then we know that a contract exists there.
-     * If we find nothing (0x0) then there is no contract deployed to that address
-     */
-    const checkDeployment = async (): Promise<void> => {
-      if (!contract?.provider || !utils.isAddress(contract.address)) {
-        if (isMounted()) setContractIsDeployed(false);
-        return;
-      }
-
-      const bytecode = await contract.provider.getCode(contract.address);
-      if (isMounted()) setContractIsDeployed(bytecode !== '0x');
-    };
-
-    void checkDeployment();
-  }, [contract, isMounted]);
+    void callFunc();
+  }, [blockNumber, callFunc]);
 
   return contractIsDeployed;
 };
