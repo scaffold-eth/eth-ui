@@ -21,15 +21,12 @@ const extractDeployedContracts = (configJson: TDeployedHardhatContractsJson): TD
 };
 
 export type TContractConnector<GContract extends BaseContract, ContractInterfaceT extends ethers.utils.Interface> = {
+  contractName: string;
   connect: (address: string, signerOrProvider: Signer | Provider) => GContract;
   createInterface: () => ContractInterfaceT;
   config: {
     [chainId: number]: { address: string };
   };
-};
-
-export type ContractInstance<GContract extends BaseContract> = {
-  contract: GContract;
 };
 
 // export interface ITypedContractFactoryBuilder<
@@ -38,18 +35,9 @@ export type ContractInstance<GContract extends BaseContract> = {
 // > extends Omit<InstanceType<typeof ContractFactory>, 'connect'>,
 //     TContractConnector<GContract, ContractInterfaceT> {}
 
-export type TContractInstanceList<GContract extends BaseContract> = {
-  [chainId: number]: ContractInstance<GContract>;
-};
-
 export type TAppContractConnectors = {
   [contractName: string]: TContractConnector<BaseContract, ethers.utils.Interface>;
 };
-
-export type TAppContractInstances = {
-  [contractName: string]: TContractInstanceList<BaseContract>;
-};
-
 export const createContractConnector = <
   GBaseContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
@@ -61,6 +49,7 @@ export const createContractConnector = <
   const info = extractDeployedContracts(deployedContractJson)[contractName];
 
   return {
+    contractName,
     connect: typeFactory.connect,
     createInterface: typeFactory.createInterface,
     config: {
@@ -78,16 +67,14 @@ export const createContractInstance = async <
   // factoryConstructor: new (signer: Signer) => ContractFactory & TContractConnector<GContract, GContractInterface>,
   connector: TContractConnector<GContract, GContractInterface>,
   signer: Signer
-): Promise<ContractInstance<GContract>> => {
+): Promise<GContract> => {
   const chainId: number = await signer.getChainId();
   const address = connector.config[chainId].address;
   if (chainId != null && address != null) {
     const contract = connector.connect(connector.config[chainId].address, signer);
 
     if (chainId != null && contract != null) {
-      return {
-        contract: contract,
-      };
+      return contract;
     }
   }
 

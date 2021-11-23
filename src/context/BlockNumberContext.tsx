@@ -3,7 +3,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 
-const BlockNumberReactContext = createContext<number | undefined>(undefined);
+const Context = createContext<number | undefined>(undefined);
 
 /** *
  * @internal
@@ -60,7 +60,7 @@ const reducer = (state: State = {}, payload: Payload): State => {
  * @returns current block number
  */
 export const useBlockNumberContext = (): number => {
-  const blockNumber = useContext(BlockNumberReactContext);
+  const blockNumber = useContext(Context);
   if (blockNumber == null) {
     console.log('blockNumber context is null');
   }
@@ -110,5 +110,5 @@ export const BlockNumberContext: FC<IProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId, provider, isMounted]);
 
-  return <BlockNumberReactContext.Provider value={blockNumber}>{props.children} </BlockNumberReactContext.Provider>;
+  return <Context.Provider value={blockNumber}>{props.children} </Context.Provider>;
 };

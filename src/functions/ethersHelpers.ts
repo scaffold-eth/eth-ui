@@ -14,7 +14,7 @@ import { IEthersContext, TEthersAdaptor } from '~~/models/contextTypes';
 
 /**
  * #### Summary
- * Is it a ethers compatable provider
+ * Is it a ethers compatable provider, used by {@link EthersModalConnector} and {@link useEthersProvider}
  *
  * @category Helpers
  *
@@ -41,7 +41,7 @@ export const signerHasNetwork = (signer: Signer | undefined): boolean => {
   return false;
 };
 
-export const checkEthersOverride = (context: IEthersContext, options: THookOptions): Partial<TEthersAdaptor> => {
+export const checkEthersOverride = (context: IEthersContext, options: THookOptions): TEthersAdaptor => {
   if (options.ethersOverride?.enabled) {
     invariant(
       options.ethersOverride != null && options.alternateEthersContextKey != null,
@@ -59,4 +59,28 @@ export const checkEthersOverride = (context: IEthersContext, options: THookOptio
     chainId: context.chainId,
     account: context.account,
   };
+};
+
+export const validEthersContext = (ethersContext: IEthersContext | undefined): boolean => {
+  if (
+    ethersContext != null &&
+    ethersContext.chainId != null &&
+    ethersContext.provider != null &&
+    ethersContext.signer != null &&
+    !!ethersContext.account
+  )
+    return true;
+  return false;
+};
+
+export const validEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined): boolean => {
+  if (
+    ethersAdaptor != null &&
+    ethersAdaptor.chainId != null &&
+    ethersAdaptor.provider != null &&
+    ethersAdaptor.signer != null &&
+    !!ethersAdaptor.account
+  )
+    return true;
+  return false;
 };

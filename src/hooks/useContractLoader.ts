@@ -5,7 +5,7 @@ import { useIsMounted } from 'usehooks-ts';
 import { useEthersContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
 import {
-  defaultOptions,
+  defaultHookOptions,
   TContractLoaderConfig,
   TDeployedHardhatContractsJson,
   TExternalContracts,
@@ -59,7 +59,7 @@ export const parseContractsInJson = (
  */
 export const useContractLoader = (
   config: TContractLoaderConfig = {},
-  options: THookOptions = defaultOptions()
+  options: THookOptions = defaultHookOptions()
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
   const ethersContext = useEthersContext(options.alternateEthersContextKey);

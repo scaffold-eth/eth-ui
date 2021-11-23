@@ -6,13 +6,11 @@ export type THookOptions = {
     adaptor: TEthersAdaptor;
   };
   alternateEthersContextKey?: string;
-  returnGettersAndSetters: boolean;
 };
 
-export const defaultOptions = (): THookOptions => {
+export const defaultHookOptions = (): THookOptions => {
   return {
     ethersOverride: undefined,
     alternateEthersContextKey: undefined,
-    returnGettersAndSetters: false,
   };
 };

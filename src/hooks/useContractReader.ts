@@ -4,7 +4,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
-import { defaultOptions, TContractFunctionInfo, THookOptions } from '~~/models';
+import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/models';
 
 /**
  * #### Summary
@@ -28,7 +28,7 @@ export const useContractReader = <GOutput>(
   contractFunctionInfo: TContractFunctionInfo,
   formatter?: (_value: GOutput | undefined) => GOutput,
   onChange?: (_value?: GOutput) => void,
-  options: THookOptions = defaultOptions()
+  options: THookOptions = defaultHookOptions()
 ): GOutput | undefined => {
   const isMounted = useIsMounted();
   const [value, setValue] = useState<GOutput>();

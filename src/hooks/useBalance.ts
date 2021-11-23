@@ -4,7 +4,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
-import { defaultOptions, THookOptions } from '~~/models';
+import { defaultHookOptions, THookOptions } from '~~/models';
 
 const zero = BigNumber.from(0);
 /**
@@ -21,7 +21,7 @@ const zero = BigNumber.from(0);
  * @param options
  * @returns current balance
  */
-export const useBalance = (address: string | undefined, options: THookOptions = defaultOptions()): BigNumber => {
+export const useBalance = (address: string | undefined, options: THookOptions = defaultHookOptions()): BigNumber => {
   const isMounted = useIsMounted();
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { provider } = checkEthersOverride(ethersContext, options);

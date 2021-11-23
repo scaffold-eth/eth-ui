@@ -3,6 +3,7 @@ export * from './useBlockNumber';
 export * from './useBurnerSigner';
 export * from './useContractExistsAtAddress';
 export * from './useContractLoader';
+export * from './useContractLoaderConfig';
 export * from './useContractReader';
 export * from './useEventListener';
 export * from './useGasPrice';

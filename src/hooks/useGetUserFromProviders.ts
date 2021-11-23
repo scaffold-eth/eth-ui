@@ -47,7 +47,7 @@ export const useGetUserFromProviders = (
           setProvider(result.provider);
           setAccount(result.account);
           setChainId(result.chainId);
-          const address = await result.signer.getAddress();
+          const address = await result.signer?.getAddress();
           setAccount(address);
           return true;
         }

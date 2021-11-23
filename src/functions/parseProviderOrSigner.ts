@@ -16,7 +16,7 @@ import { TEthersAdaptor } from '~~/models/contextTypes';
  */
 export const parseProviderOrSigner = async (
   providerOrSigner: TEthersProviderOrSigner | undefined
-): Promise<TEthersAdaptor | undefined> => {
+): Promise<Required<TEthersAdaptor> | undefined> => {
   let signer: Signer | undefined;
   let provider: ethers.providers.Provider | undefined;
   let providerNetwork: ethers.providers.Network | undefined;
@@ -53,7 +53,7 @@ export const parseProviderOrSigner = async (
       chainId: providerNetwork.chainId,
       account,
     };
-    return result;
+    return result as Required<TEthersAdaptor>;
   }
 
   return undefined;

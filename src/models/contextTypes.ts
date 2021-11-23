@@ -45,8 +45,8 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
  * @category Type Definition
  */
 export type TEthersAdaptor = {
-  signer: TEthersSigner;
-  provider: TEthersProvider;
-  chainId: number;
-  account: string;
+  signer: TEthersSigner | undefined;
+  provider: TEthersProvider | undefined;
+  chainId: number | undefined;
+  account: string | undefined;
 };
