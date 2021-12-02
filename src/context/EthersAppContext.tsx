@@ -55,7 +55,7 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
 /**
  * #### Summary
  * This Hook provides you with access to the current Ethers Provider Context.
- * This provider would be the one selected by using {@link EthersModalConnect} and Web3Modal
+ * This provider would be the one selected by using {@link EthersModalConnector} and Web3Modal
  *
  * #### Features
  * Gives you access to consistent interface to get the current provider information {@link EthersModalConnector}
