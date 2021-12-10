@@ -35,11 +35,13 @@ const syncBurnerKeyFromStorage = (): void => {
     const tx = Transactor(userSigner, gasPrice)
  * @param injectedProviderOrSigner (TEthersProviderOrSigner) :: injected provider/signer from metamask etc..
  * @param localProvider (TEthersProvider) local provider to generate a burner wallet from
+ * @param useBurnerWallet (boolean) lets the hook know wether to use the burner wallet or not
  * @returns (TProviderAndSigner) 
  */
 export const useUserProviderAndSigner = (
   injectedProviderOrSigner: TEthersProviderOrSigner | undefined,
-  localProvider: TEthersProvider
+  localProvider: TEthersProvider,
+  useBurnerWallet: boolean
 ): TProviderAndSigner | undefined => {
   const [signer, setSigner] = useState<Signer>();
   const [provider, setProvider] = useState<Provider>();
@@ -54,10 +56,12 @@ export const useUserProviderAndSigner = (
       });
     } else if (!localProvider) {
       setSigner(undefined);
-    } else {
+    } else if (useBurnerWallet) {
       syncBurnerKeyFromStorage();
       console.log('🔥 Using burner signer', burnerSigner);
       setSigner(burnerSigner);
+    } else {
+      console.log("burner is off");
     }
   }, [injectedProviderOrSigner, localProvider, burnerSigner]);
 
