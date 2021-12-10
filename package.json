@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "2.3.14",
+  "version": "2.3.15",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -24,6 +24,10 @@
     {
       "name": "Shravan Sunder",
       "url": "https://github.com/ShravanSunder"
+    },
+    {
+      "name": "Jason Romero",
+      "url": "https://github.com/codenamejason"
     }
   ],
   "scripts": {
