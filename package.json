@@ -92,6 +92,7 @@
     "@uniswap/sdk": "^3.0.3",
     "chai": "^4.3.4",
     "cross-env": "^7.0.3",
+    "earljs": "^0.1.12",
     "esbuild": "^0.13.8",
     "esbuild-node-externals": "^1.3.0",
     "eslint": "^7.30.0",

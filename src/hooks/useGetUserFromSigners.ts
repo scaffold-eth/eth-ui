@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
 import { TEthersProvider } from '~~/models';
-import { TEthersAdaptor } from '~~/models/contextTypes';
+import { TEthersAdaptor } from '~~/models/ethersContextTypes';
 
 /**
  * #### Summary

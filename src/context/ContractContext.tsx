@@ -3,24 +3,20 @@ import { createContext, FC, useCallback, useContext, useEffect, useReducer } fro
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { checkEthersOverride, validEthersAdaptor } from '~~/functions';
-import {
-  createContractInstance,
-  TAppContractConnectors,
-  TContractConnector,
-  defaultHookOptions,
-  TEthersAdaptor,
-} from '~~/models';
+import { checkEthersOverride, isValidEthersAdaptor } from '~~/functions';
+import { connectToContractWithSigner } from '~~/functions/createTypechainContractConnector';
+import { defaultHookOptions, TEthersAdaptor } from '~~/models';
 import { AppContractList } from '~~/models/AppContractList';
+import { TAppContractConnectorList, TTypechainContractConnector } from '~~/models/typechainContractTypes';
 /** *
  * @internal
  */
-interface State {
-  appContractConnectors: TAppContractConnectors;
+interface IState {
+  appContractConnectors: TAppContractConnectorList;
   appContractList: AppContractList;
 }
 
-const initalState = (): State => {
+const initalState = (): IState => {
   return {
     appContractConnectors: {},
     appContractList: new AppContractList(),
@@ -32,7 +28,7 @@ const initalState = (): State => {
  */
 type TSetAppContractConnectorsPayload = {
   action: 'setAppConnectors';
-  payload: { connectors: TAppContractConnectors; contractList: AppContractList };
+  payload: { connectors: TAppContractConnectorList; contractList: AppContractList };
 };
 
 /**
@@ -42,7 +38,7 @@ type TUpdateContractConnectorPayload = {
   action: 'updateConnector';
   payload: {
     contractName: string;
-    connector: TContractConnector<BaseContract, ethers.utils.Interface>;
+    connector: TTypechainContractConnector<BaseContract, ethers.utils.Interface>;
     contract: BaseContract | undefined;
   };
 };
@@ -70,8 +66,8 @@ type TPayloadAction = TUpdateContractConnectorPayload | TSetAppContractConnector
  * @param action
  * @returns
  */
-const reducer = (state: State, action: TPayloadAction): State => {
-  const newState: State = {
+const reducer = (state: IState, action: TPayloadAction): IState => {
+  const newState: IState = {
     appContractConnectors: state.appContractConnectors,
     appContractList: state.appContractList,
   };
@@ -92,16 +88,16 @@ const reducer = (state: State, action: TPayloadAction): State => {
   return newState;
 };
 
-type IContractsContext = {
-  setAppContractConnectors: (appContractConnectors: TAppContractConnectors) => void;
-  updateConnectorForContract: (
+type IDispatch = {
+  setAppContractConnectorList: (appContractConnectorList: TAppContractConnectorList) => void;
+  setConnectorForContract: (
     contractName: string,
-    connector: TContractConnector<BaseContract, ethers.utils.Interface>
+    connector: TTypechainContractConnector<BaseContract, ethers.utils.Interface>
   ) => void;
-  appContractInstances: AppContractList;
 };
 
-const Context = createContext<IContractsContext | undefined>(undefined);
+const DispatchContext = createContext<IDispatch | undefined>(undefined);
+const StateContext = createContext<IState | undefined>(undefined);
 
 /**
  * #### Summary
@@ -118,13 +114,12 @@ const Context = createContext<IContractsContext | undefined>(undefined);
  *
  * @returns current block number
  */
-export const useContractContext = (): IContractsContext | undefined => {
-  return useContext(Context);
+export const useContractContext = (): IDispatch | undefined => {
+  return useContext(DispatchContext);
 };
 
 interface IProps {
   ethersContextKey?: string | undefined;
-  contractConnectors?: TAppContractConnectors;
 }
 
 /**
@@ -147,8 +142,8 @@ export const ContractsContext: FC<IProps> = (props) => {
   const [state, dispatch] = useReducer<typeof reducer>(reducer, initalState());
 
   const setAppContractConnectors = useCallback(
-    async (appContractConnectors: TAppContractConnectors) => {
-      const contractList = await AppContractList.connectContracts(ethersAdaptor, appContractConnectors);
+    async (appContractConnectors: TAppContractConnectorList) => {
+      const contractList = await AppContractList.connectToAppContracts(ethersAdaptor, appContractConnectors);
       if (isMounted()) {
         dispatch({
           action: 'setAppConnectors',
@@ -160,10 +155,10 @@ export const ContractsContext: FC<IProps> = (props) => {
   );
 
   const updateConnectorForContract = useCallback(
-    async (contractName: string, connector: TContractConnector<BaseContract, ethers.utils.Interface>) => {
+    async (contractName: string, connector: TTypechainContractConnector<BaseContract, ethers.utils.Interface>) => {
       let contract: BaseContract | undefined = undefined;
       if (ethersContext.signer) {
-        contract = await createContractInstance(connector, ethersContext.signer);
+        contract = await connectToContractWithSigner(connector, ethersContext.signer);
       }
       dispatch({ action: 'updateConnector', payload: { contractName, connector, contract } });
     },
@@ -171,21 +166,20 @@ export const ContractsContext: FC<IProps> = (props) => {
   );
 
   useEffect(() => {
-    if (validEthersAdaptor(ethersAdaptor)) {
-      void AppContractList.connectContracts(ethersAdaptor, state.appContractConnectors).then((appContracts) => {
+    if (isValidEthersAdaptor(ethersAdaptor)) {
+      void AppContractList.connectToAppContracts(ethersAdaptor, state.appContractConnectors).then((appContracts) => {
         if (isMounted()) dispatch({ action: 'loadContracts', payload: appContracts });
       });
     }
   }, [ethersAdaptor, isMounted, state.appContractConnectors]);
 
   return (
-    <Context.Provider
+    <DispatchContext.Provider
       value={{
-        updateConnectorForContract,
-        setAppContractConnectors,
-        appContractInstances: state.appContractList,
+        setConnectorForContract: updateConnectorForContract,
+        setAppContractConnectorList: setAppContractConnectors,
       }}>
-      {props.children}{' '}
-    </Context.Provider>
+      <StateContext.Provider value={initalState()}>{props.children}</StateContext.Provider>
+    </DispatchContext.Provider>
   );
 };

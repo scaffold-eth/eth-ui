@@ -58,7 +58,7 @@ export const useContractReader = <GOutput>(
     const contractChainId = (await contractProvider?.getNetwork())?.chainId;
     if (callContractFunction != null && contractChainId === chainId && contractProvider != null && chainId != null) {
       try {
-        let newResult = await callContractFunction();
+        let newResult: GOutput | undefined = await callContractFunction();
         if (formatter != null) {
           newResult = formatter(newResult);
         }

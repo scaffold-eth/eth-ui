@@ -9,8 +9,7 @@ import {
 import { Signer } from 'ethers';
 import invariant from 'tiny-invariant';
 
-import { TEthersProvider, THookOptions } from '~~/models';
-import { IEthersContext, TEthersAdaptor } from '~~/models/contextTypes';
+import { TEthersProvider, THookOptions, IEthersContext, TEthersAdaptor } from '~~/models';
 
 /**
  * #### Summary
@@ -61,7 +60,7 @@ export const checkEthersOverride = (context: IEthersContext, options: THookOptio
   };
 };
 
-export const validEthersContext = (ethersContext: IEthersContext | undefined): boolean => {
+export const isValidEthersContext = (ethersContext: IEthersContext | undefined): boolean => {
   if (
     ethersContext != null &&
     ethersContext.chainId != null &&
@@ -73,7 +72,7 @@ export const validEthersContext = (ethersContext: IEthersContext | undefined): b
   return false;
 };
 
-export const validEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined): boolean => {
+export const isValidEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined): boolean => {
   if (
     ethersAdaptor != null &&
     ethersAdaptor.chainId != null &&

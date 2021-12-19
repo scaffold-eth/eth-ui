@@ -4,17 +4,52 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
-import {
-  defaultHookOptions,
-  TContractLoaderConfig,
-  TDeployedHardhatContractsJson,
-  TExternalContracts,
-  THardhatContractJson,
-  THookOptions,
-} from '~~/models';
+import { defaultHookOptions, THardhatContractsFileJson, THardhatContractJson, THookOptions } from '~~/models';
+
+/**
+ * #### Summary
+ * A type for external contracts
+ * - {chainId: {contracts}}, contains an record of contracts
+ * - Used by {@link useContractLoader}
+ *
+ * @category Models
+ */
+export type TExternalContracts = {
+  [chainId: number]: {
+    name?: string;
+    chainId?: string;
+    contracts?: { [contractName: string]: THardhatContractJson };
+  };
+};
+
+/**
+ * #### Summary
+ * Configuration for useContractLoader
+ *
+ * @category Models
+ */
+export type TContractLoaderConfig = {
+  /**
+   * your local hardhat network name
+   */
+  hardhatNetworkName?: string;
+  /**
+   * the address:contractName key value pair
+   */
+  customAddresses?: Record<string, string>;
+  /**
+   * Hardhat deployed contracts
+   * untyped
+   */
+  deployedContractsJson?: THardhatContractsFileJson;
+  /**
+   * External contracts (such as DAI)
+   */
+  externalContracts?: TExternalContracts;
+};
 
 export const parseContractsInJson = (
-  contractList: TDeployedHardhatContractsJson,
+  contractList: THardhatContractsFileJson,
   chainId: number
 ): Record<string, THardhatContractJson> => {
   let combinedContracts: Record<string, THardhatContractJson> = {};
@@ -75,7 +110,7 @@ export const useContractLoader = (
     (): void => {
       if (provider && chainId && chainId > 0) {
         try {
-          const contractList: TDeployedHardhatContractsJson = { ...(config.deployedContractsJson ?? {}) };
+          const contractList: THardhatContractsFileJson = { ...(config.deployedContractsJson ?? {}) };
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
@@ -93,7 +128,10 @@ export const useContractLoader = (
                   ? config.customAddresses[contractName]
                   : combinedContracts[contractName].address;
 
-              accumulator[contractName] = new BaseContract(address, combinedContracts[contractName].abi, provider);
+              const abi = combinedContracts[contractName].abi;
+              if (abi) {
+                accumulator[contractName] = new BaseContract(address, abi, provider);
+              }
               return accumulator;
             },
             {}

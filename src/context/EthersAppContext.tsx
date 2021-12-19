@@ -5,7 +5,7 @@ import { cloneElement, FC, useCallback } from 'react';
 import invariant from 'tiny-invariant';
 import warning from 'tiny-warning';
 
-import { IEthersContext } from '../models/contextTypes';
+import { IEthersContext } from '../models/ethersContextTypes';
 
 import { NoEthereumProviderFoundError } from '~~/context';
 import { BlockNumberContext } from '~~/context/BlockNumberContext';

@@ -1,11 +1,14 @@
 import { BaseContract, ethers } from 'ethers';
 
-import { createContractInstance, TAppContractConnectors, TContractConnector, TEthersAdaptor } from '~~/models';
+import { connectToContractWithSigner } from '~~/functions/createTypechainContractConnector';
+import { TEthersAdaptor } from '~~/models';
+import { TAppContractConnectorList, TTypechainContractConnector } from '~~/models/typechainContractTypes';
 
 type TContractsByName = { [contractName: string]: { [chainId: number]: BaseContract } };
 type TContractsByChainId = { [chainId: number]: { [contractName: string]: BaseContract } };
+
 export class AppContractList {
-  protected _connectors: TAppContractConnectors;
+  protected _connectors: TAppContractConnectorList;
 
   protected _byName: TContractsByName;
   protected _byChainId: TContractsByChainId;
@@ -33,33 +36,33 @@ export class AppContractList {
     this._connectors = {};
   }
 
-  static connectContracts = async (
+  static connectToAppContracts = async (
     ethersAdaptor: TEthersAdaptor | undefined,
-    contractConnectors: TAppContractConnectors
+    appContractConnectorList: TAppContractConnectorList
   ): Promise<AppContractList> => {
     const chainId = ethersAdaptor?.chainId;
     const account = ethersAdaptor?.account;
     const signer = ethersAdaptor?.signer;
     const result: AppContractList = new AppContractList();
 
-    result._connectors = contractConnectors;
+    result._connectors = appContractConnectorList;
 
     if (chainId == null || signer == null || account == null || chainId == null) {
       return result;
     }
 
-    for (const contractName in contractConnectors) {
-      const connector = contractConnectors[contractName];
-      const contract = await createContractInstance(connector, signer);
+    for (const contractName in appContractConnectorList) {
+      const connector = appContractConnectorList[contractName];
+      const contract = await connectToContractWithSigner(connector, signer);
       result._byName[contractName][chainId] = contract;
       result.setByChainIdValues();
     }
     return result;
   };
 
-  connect = async (
+  public connect = async (
     ethersAdaptor: TEthersAdaptor,
-    connector: TContractConnector<BaseContract, ethers.utils.Interface>
+    contractConnector: TTypechainContractConnector<BaseContract, ethers.utils.Interface>
   ): Promise<void> => {
     const chainId = ethersAdaptor?.chainId;
     const account = ethersAdaptor?.account;
@@ -68,11 +71,11 @@ export class AppContractList {
     if (chainId == null || signer == null || account == null || chainId == null) {
       return;
     }
-    this._connectors[connector.contractName] = connector;
+    this._connectors[contractConnector.contractName] = contractConnector;
 
-    const contract = await createContractInstance(connector, signer);
-    this._byName[connector.contractName] = {};
-    this._byName[connector.contractName][chainId] = contract;
+    const contract = await connectToContractWithSigner(contractConnector, signer);
+    this._byName[contractConnector.contractName] = {};
+    this._byName[contractConnector.contractName][chainId] = contract;
     this.setByChainIdValues();
   };
 }

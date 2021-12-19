@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { asyncSome } from '~~/functions/asyncSome';
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
 import { TEthersProvider } from '~~/models';
-import { TEthersAdaptor } from '~~/models/contextTypes';
+import { TEthersAdaptor } from '~~/models/ethersContextTypes';
 
 /**
  * #### Summary

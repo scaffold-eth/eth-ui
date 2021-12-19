@@ -2,7 +2,7 @@ import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@etherspro
 import { ethers, Signer } from 'ethers';
 
 import { TEthersProviderOrSigner, TEthersProvider } from '~~/models';
-import { TEthersAdaptor } from '~~/models/contextTypes';
+import { TEthersAdaptor } from '~~/models/ethersContextTypes';
 
 /**
  * #### Summary

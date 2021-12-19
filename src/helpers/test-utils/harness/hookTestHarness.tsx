@@ -7,7 +7,7 @@ import { waitForActivation, isActive } from './mockHelpers';
 import { getMockProvider } from '~~/helpers/test-utils/harness/getMockProvider';
 import { MockAppWrapper } from '~~/helpers/test-utils/harness/wrapper/MockAppWrapper';
 import { MockConnector } from '~~/helpers/test-utils/harness/wrapper/MockConnector';
-import { TCreateEthersModalConnector } from '~~/models/contextTypes';
+import { TCreateEthersModalConnector } from '~~/models/ethersContextTypes';
 
 export type TTestHookResult<PropsT, TResult> = RenderHookResult<PropsT, TResult, Renderer<PropsT>> & {
   mockProvider: MockProvider;

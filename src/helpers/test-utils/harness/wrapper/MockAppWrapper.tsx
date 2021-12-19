@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 
 import { EthersAppContext, useEthersContext } from '~~/context';
-import { TCreateEthersModalConnector } from '~~/models/contextTypes';
+import { TCreateEthersModalConnector } from '~~/models/ethersContextTypes';
 
 interface IMockProps {
   createMockConnector: TCreateEthersModalConnector;
