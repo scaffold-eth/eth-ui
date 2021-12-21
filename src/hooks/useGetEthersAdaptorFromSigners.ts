@@ -14,7 +14,7 @@ import { TEthersAdaptor } from '~~/models/ethersContextTypes';
  * @param signer input signer
  * @returns
  */
-export const useGetUserFromSigners = (signer: Signer | Wallet | undefined): TEthersAdaptor | undefined => {
+export const useGetEthersAdaptorFromSigners = (signer: Signer | Wallet | undefined): TEthersAdaptor | undefined => {
   const [resolvedSigner, setResolvedSigner] = useState<Signer>();
   const [provider, setProvider] = useState<TEthersProvider>();
   const [chainId, setChainId] = useState<number>();

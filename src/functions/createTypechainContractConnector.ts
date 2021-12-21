@@ -2,7 +2,7 @@ import { BaseContract, ethers, Signer } from 'ethers';
 
 import {
   TDeployedContractJsonData,
-  TExternalContractsDefinition,
+  TExternalContractsAddressMap,
   THardhatContractsFileJson,
 } from '../models/contractTypes';
 import { TTypechainContractFactory, TTypechainContractConnector } from '../models/typechainContractTypes';
@@ -26,14 +26,14 @@ const extractDeployedContracts = (configJson: THardhatContractsFileJson): TDeplo
   return contractData;
 };
 
-const extractExternalContracts = (configJson: TExternalContractsDefinition): TDeployedContractJsonData => {
+const extractExternalContracts = (configJson: TExternalContractsAddressMap): TDeployedContractJsonData => {
   const contractData: TDeployedContractJsonData = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
 
     for (const contractName in configJson[chainId]) {
-      contractData[contractName] = { ...configJson[chainId][contractName], chainId: chainId };
+      contractData[contractName] = { address: configJson[chainId][contractName], chainId: chainId };
     }
   }
 
@@ -69,7 +69,7 @@ export const createTypechainContractConnectorForExternalContract = <
 >(
   contractName: string,
   typechainFactory: TTypechainContractFactory<GBaseContract, GContractInterface>,
-  deployedContractJson: TExternalContractsDefinition
+  deployedContractJson: TExternalContractsAddressMap
 ): TTypechainContractConnector<GBaseContract, GContractInterface> => {
   const info = extractExternalContracts(deployedContractJson)[contractName];
 

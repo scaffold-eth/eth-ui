@@ -83,3 +83,22 @@ export const isValidEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined):
     return true;
   return false;
 };
+
+export const ethersAdaptorAsRequired = (ethersAdaptor: TEthersAdaptor | undefined): Required<TEthersAdaptor> => {
+  if (
+    ethersAdaptor != null &&
+    ethersAdaptor.chainId != null &&
+    ethersAdaptor.provider != null &&
+    ethersAdaptor.signer != null &&
+    !!ethersAdaptor.account
+  ) {
+    return {
+      provider: ethersAdaptor.provider,
+      signer: ethersAdaptor.signer,
+      chainId: ethersAdaptor.chainId,
+      account: ethersAdaptor.account,
+    } as Required<TEthersAdaptor>;
+  } else {
+    throw new Error('Invalid ethersAdaptor, it is not a valid Required<TEthersAdaptor>');
+  }
+};

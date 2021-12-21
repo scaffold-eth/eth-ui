@@ -60,11 +60,9 @@ export type TDeployedContractJsonData = {
  *
  * @category Models
  */
-export type TExternalContractsDefinition = {
+export type TExternalContractsAddressMap = {
   [chainId: number]: {
-    [contractName: string]: {
-      address: string;
-    };
+    [contractName: string]: string;
   };
 };
 

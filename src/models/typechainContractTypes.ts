@@ -22,6 +22,6 @@ export type TTypechainContractConnector<
   };
 };
 
-export type TAppContractConnectorList = {
-  [contractName: string]: TTypechainContractConnector<BaseContract, ethers.utils.Interface>;
+export type TTypechainContractConnectorList<GContactNames extends string> = {
+  [contractName in GContactNames]: TTypechainContractConnector<BaseContract, ethers.utils.Interface>;
 };

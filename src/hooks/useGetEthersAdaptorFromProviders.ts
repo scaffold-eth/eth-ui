@@ -19,7 +19,7 @@ import { TEthersAdaptor } from '~~/models/ethersContextTypes';
  * @param moreProviders
  * @returns
  */
-export const useGetUserFromProviders = (
+export const useGetEthersAdaptorFromProviders = (
   currentProvider: TEthersProvider | undefined,
   ...moreProviders: TEthersProvider[]
 ): TEthersAdaptor | undefined => {
