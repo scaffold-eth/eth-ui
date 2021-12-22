@@ -3,9 +3,8 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
-import { defaultHookOptions, TEthersAdaptor } from '~~/models';
+import { defaultHookOptions, TEthersAdaptor, TTypechainContractConnectorList } from '~~/models';
 import { AppContractDefinitions } from '~~/models/AppContractDefinitions';
-import { TTypechainContractConnectorList } from '~~/models/typechainContractTypes';
 
 export interface IContractsContextProps {
   ethersContextKey?: string | undefined;
@@ -74,13 +73,13 @@ export const contractContextFactory = <GContractNames extends string>(): TContra
       setDispatchValue({ setAppContractConnectors });
     }, [setAppContractConnectors]);
 
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
     return (
       <ContractsDispatchContext.Provider value={dispatchValue as any}>
-        <ContractsStateContext.Provider value={state as AppContractDefinitions<string>}>
-          {props.children}
-        </ContractsStateContext.Provider>
+        <ContractsStateContext.Provider value={state as any}>{props.children}</ContractsStateContext.Provider>
       </ContractsDispatchContext.Provider>
     );
+    /* eslint-enable @typescript-eslint/no-unsafe-assignment */
   };
 
   return {

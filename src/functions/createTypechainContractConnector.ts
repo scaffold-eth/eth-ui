@@ -41,13 +41,14 @@ const extractExternalContracts = (configJson: TExternalContractsAddressMap): TDe
 };
 
 export const createTypechainContractConnectorHardhatContract = <
+  GContractNames extends string,
   GBaseContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
-  contractName: string,
+  contractName: GContractNames,
   typechainFactory: TTypechainContractFactory<GBaseContract, GContractInterface>,
   deployedHardhatContractJson: THardhatContractsFileJson
-): TTypechainContractConnector<GBaseContract, GContractInterface> => {
+): TTypechainContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractDeployedContracts(deployedHardhatContractJson)[contractName];
 
   return {
@@ -64,13 +65,14 @@ export const createTypechainContractConnectorHardhatContract = <
 };
 
 export const createTypechainContractConnectorForExternalContract = <
+  GContractNames extends string,
   GBaseContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
-  contractName: string,
+  contractName: GContractNames,
   typechainFactory: TTypechainContractFactory<GBaseContract, GContractInterface>,
   deployedContractJson: TExternalContractsAddressMap
-): TTypechainContractConnector<GBaseContract, GContractInterface> => {
+): TTypechainContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractExternalContracts(deployedContractJson)[contractName];
 
   return {
@@ -87,11 +89,11 @@ export const createTypechainContractConnectorForExternalContract = <
 };
 
 export const connectToContractWithSigner = async <
+  GContractNames extends string,
   GContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
-  // factoryConstructor: new (signer: Signer) => ContractFactory & TContractConnector<GContract, GContractInterface>,
-  connector: TTypechainContractConnector<GContract, GContractInterface>,
+  connector: TTypechainContractConnector<GContractNames, GContract, GContractInterface>,
   signer: Signer
 ): Promise<GContract> => {
   const chainId: number = await signer.getChainId();

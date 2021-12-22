@@ -10,10 +10,11 @@ export type TTypechainContractFactory<
 };
 
 export type TTypechainContractConnector<
+  GContractNames extends string,
   GContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 > = {
-  contractName: string;
+  contractName: GContractNames;
   connect: (address: string, signerOrProvider: Signer | Provider) => GContract;
   createInterface: () => GContractInterface;
   abi: Record<string, any>[];
@@ -23,5 +24,5 @@ export type TTypechainContractConnector<
 };
 
 export type TTypechainContractConnectorList<GContactNames extends string> = {
-  [contractName in GContactNames]: TTypechainContractConnector<BaseContract, ethers.utils.Interface>;
+  [contractName in GContactNames]: TTypechainContractConnector<GContactNames, BaseContract, ethers.utils.Interface>;
 };
