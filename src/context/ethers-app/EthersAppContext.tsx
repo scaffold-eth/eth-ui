@@ -5,13 +5,12 @@ import { cloneElement, FC, useCallback } from 'react';
 import invariant from 'tiny-invariant';
 import warning from 'tiny-warning';
 
-import { IEthersContext } from '../models/ethersContextTypes';
-
 import { NoEthereumProviderFoundError } from '~~/context';
-import { BlockNumberContext } from '~~/context/BlockNumberContext';
-import { EthersModalConnector, TEthersModalConnector } from '~~/context/connectors/EthersModalConnector';
+import { BlockNumberContext } from '~~/context/ethers-app/BlockNumberContext';
+import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers-app/connectors/EthersModalConnector';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
+import { IEthersContext } from '~~/models/ethersContextTypes';
 
 /**
  * #### Summary

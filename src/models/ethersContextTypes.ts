@@ -1,7 +1,7 @@
 import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 import { Signer } from 'ethers';
 
-import { TEthersModalConnector } from '~~/context/connectors/EthersModalConnector';
+import { TEthersModalConnector } from '~~/context/ethers-app/connectors/EthersModalConnector';
 import { TEthersProvider, TEthersSigner } from '~~/models';
 
 /**

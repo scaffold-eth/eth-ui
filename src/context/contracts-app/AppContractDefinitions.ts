@@ -1,13 +1,8 @@
-import { BaseContract, ethers } from 'ethers';
+import { BaseContract } from 'ethers';
 import warning from 'tiny-warning';
 
 import { ethersAdaptorAsRequired, isValidEthersAdaptor, connectToContractWithSigner } from '~~/functions';
-import {
-  TContractTypes,
-  TEthersAdaptor,
-  TTypechainContractConnector,
-  TTypechainContractConnectorList,
-} from '~~/models';
+import { TContractTypes, TEthersAdaptor, TTypechainContractConnectorList } from '~~/models';
 
 export type TContractsByName<GContractNames extends string> = {
   [contractName in GContractNames]: { [chainId: number]: BaseContract };
@@ -16,7 +11,7 @@ export type TContractsByChainId<GContractNames extends string> = {
   [chainId: number]: { [contractName in GContractNames]: BaseContract };
 };
 
-export class AppContractDefinitions<GContractNames extends string, GTypedContracts> {
+export class AppContractsDefinitions<GContractNames extends string, GTypedContracts> {
   protected _contractConnectors: TTypechainContractConnectorList<GContractNames>;
   protected _contractsByName: TContractsByName<GContractNames>;
   protected _contractsByChainId: TContractsByChainId<GContractNames>;
@@ -56,22 +51,28 @@ export class AppContractDefinitions<GContractNames extends string, GTypedContrac
     this._contractsByChainId = this._contractsByChainId;
   }
 
-  public constructor(
-    contractConnectors: Record<
-      GContractNames,
-      TTypechainContractConnector<GContractNames, BaseContract, ethers.utils.Interface>
-    >
-  ) {
+  public constructor() {
     this._contractsByName = {} as TContractsByName<GContractNames>;
     this._contractsByChainId = {};
-    this._contractConnectors = contractConnectors;
+    this._contractConnectors = {} as TTypechainContractConnectorList<GContractNames>;
   }
+
+  // public constructor(
+  //   contractConnectors: Record<
+  //     GContractNames,
+  //     TTypechainContractConnector<GContractNames, BaseContract, ethers.utils.Interface>
+  //   >
+  // ) {
+  //   this._contractsByName = {} as TContractsByName<GContractNames>;
+  //   this._contractsByChainId = {};
+  //   this._contractConnectors = contractConnectors;
+  // }
 
   public static connectToAllContractsReducer = async <GContractNames extends string, GTypedContracts>(
     ethersAdaptor: TEthersAdaptor | undefined,
     appContractConnectorList: TTypechainContractConnectorList<GContractNames>
-  ): Promise<AppContractDefinitions<GContractNames, GTypedContracts>> => {
-    const result = new AppContractDefinitions<GContractNames, GTypedContracts>(appContractConnectorList);
+  ): Promise<AppContractsDefinitions<GContractNames, GTypedContracts>> => {
+    const result = new AppContractsDefinitions<GContractNames, GTypedContracts>();
 
     if (!ethersAdaptor) {
       return result;
@@ -96,10 +97,10 @@ export class AppContractDefinitions<GContractNames extends string, GTypedContrac
   };
 
   public static connectToContractReducer = async <GContractNames extends string, GTypedContracts>(
-    definitions: AppContractDefinitions<GContractNames, GTypedContracts>,
+    definitions: AppContractsDefinitions<GContractNames, GTypedContracts>,
     contractName: GContractNames,
     ethersAdaptor: TEthersAdaptor
-  ): Promise<AppContractDefinitions<GContractNames, GTypedContracts>> => {
+  ): Promise<AppContractsDefinitions<GContractNames, GTypedContracts>> => {
     const newDefinitions = definitions.clone();
     await newDefinitions.connectToContract(contractName, ethersAdaptor);
     return newDefinitions;
@@ -161,10 +162,11 @@ export class AppContractDefinitions<GContractNames extends string, GTypedContrac
   //   }
   // };
 
-  public clone(): AppContractDefinitions<GContractNames, GTypedContracts> {
-    const result = new AppContractDefinitions<GContractNames, GTypedContracts>({
-      ...this._contractConnectors,
-    });
+  public clone(): AppContractsDefinitions<GContractNames, GTypedContracts> {
+    const result = new AppContractsDefinitions<GContractNames, GTypedContracts>();
+    // const result = new AppContractDefinitions<GContractNames, GTypedContracts>({
+    //   ...this._contractConnectors,
+    // });
     result._contractsByName = { ...this._contractsByName };
     result._contractsByChainId = { ...this._contractsByChainId };
 
