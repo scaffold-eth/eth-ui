@@ -1,18 +1,22 @@
 import { BaseContract, ethers } from 'ethers';
 import warning from 'tiny-warning';
 
-import { ethersAdaptorAsRequired, isValidEthersAdaptor } from '~~/functions';
-import { connectToContractWithSigner } from '~~/functions/createTypechainContractConnector';
-import { TEthersAdaptor, TTypechainContractConnector, TTypechainContractConnectorList } from '~~/models';
+import { ethersAdaptorAsRequired, isValidEthersAdaptor, connectToContractWithSigner } from '~~/functions';
+import {
+  TContractTypes,
+  TEthersAdaptor,
+  TTypechainContractConnector,
+  TTypechainContractConnectorList,
+} from '~~/models';
 
-type TContractsByName<GContractNames extends string> = {
+export type TContractsByName<GContractNames extends string> = {
   [contractName in GContractNames]: { [chainId: number]: BaseContract };
 };
-type TContractsByChainId<GContractNames extends string> = {
+export type TContractsByChainId<GContractNames extends string> = {
   [chainId: number]: { [contractName in GContractNames]: BaseContract };
 };
 
-export class AppContractDefinitions<GContractNames extends string> {
+export class AppContractDefinitions<GContractNames extends string, GTypedContracts> {
   protected _contractConnectors: TTypechainContractConnectorList<GContractNames>;
   protected _contractsByName: TContractsByName<GContractNames>;
   protected _contractsByChainId: TContractsByChainId<GContractNames>;
@@ -25,11 +29,14 @@ export class AppContractDefinitions<GContractNames extends string> {
     return this.getAllContractsByChainId;
   }
 
-  public getContract<GContract extends BaseContract>(contractName: GContractNames, chainId: number): GContract {
+  public getContract<GContract extends TContractTypes<GContractNames, GTypedContracts>>(
+    contractName: GContractNames,
+    chainId: number
+  ): GContract {
     return this._contractsByName[contractName][chainId] as GContract;
   }
 
-  public getContractInstances<GContract extends BaseContract>(
+  public getContractInstances<GContract extends TContractTypes<GContractNames, GTypedContracts>>(
     contractName: GContractNames
   ): { [chainId: number]: GContract } {
     return this._contractsByName[contractName] as { [chainId: number]: GContract };
@@ -49,7 +56,7 @@ export class AppContractDefinitions<GContractNames extends string> {
     this._contractsByChainId = this._contractsByChainId;
   }
 
-  constructor(
+  public constructor(
     contractConnectors: Record<
       GContractNames,
       TTypechainContractConnector<GContractNames, BaseContract, ethers.utils.Interface>
@@ -60,11 +67,11 @@ export class AppContractDefinitions<GContractNames extends string> {
     this._contractConnectors = contractConnectors;
   }
 
-  public static connectToAllContractsReducer = async <GContractNames extends string>(
+  public static connectToAllContractsReducer = async <GContractNames extends string, GTypedContracts>(
     ethersAdaptor: TEthersAdaptor | undefined,
     appContractConnectorList: TTypechainContractConnectorList<GContractNames>
-  ): Promise<AppContractDefinitions<GContractNames>> => {
-    const result = new AppContractDefinitions<GContractNames>(appContractConnectorList);
+  ): Promise<AppContractDefinitions<GContractNames, GTypedContracts>> => {
+    const result = new AppContractDefinitions<GContractNames, GTypedContracts>(appContractConnectorList);
 
     if (!ethersAdaptor) {
       return result;
@@ -88,11 +95,11 @@ export class AppContractDefinitions<GContractNames extends string> {
     this.setContractsByChainId();
   };
 
-  public static connectToContractReducer = async <GContractNames extends string>(
-    definitions: AppContractDefinitions<GContractNames>,
+  public static connectToContractReducer = async <GContractNames extends string, GTypedContracts>(
+    definitions: AppContractDefinitions<GContractNames, GTypedContracts>,
     contractName: GContractNames,
     ethersAdaptor: TEthersAdaptor
-  ): Promise<AppContractDefinitions<GContractNames>> => {
+  ): Promise<AppContractDefinitions<GContractNames, GTypedContracts>> => {
     const newDefinitions = definitions.clone();
     await newDefinitions.connectToContract(contractName, ethersAdaptor);
     return newDefinitions;
@@ -128,33 +135,36 @@ export class AppContractDefinitions<GContractNames extends string> {
     return undefined;
   };
 
-  public static updateConnectorReducer = async <
-    GContractNames extends string,
-    GContract extends BaseContract,
-    GContractInterface extends ethers.utils.Interface
-  >(
-    definitions: AppContractDefinitions<GContractNames>,
-    contractName: GContractNames,
-    connector: TTypechainContractConnector<GContractNames, GContract, GContractInterface>
-  ): Promise<AppContractDefinitions<GContractNames>> => {
-    const result = definitions.clone();
-    await result.updateConnector(contractName, connector);
-    return result;
-  };
+  // public static updateConnectorReducer = async <
+  //   GContractNames extends string,
+  //   GTypedContracts,
+  //   GContract extends BaseContract,
+  //   GContractInterface extends ethers.utils.Interface
+  // >(
+  //   definitions: AppContractDefinitions<GContractNames, GTypedContracts>,
+  //   contractName: GContractNames,
+  //   connector: TTypechainContractConnector<GContractNames, GContract, GContractInterface>
+  // ): Promise<AppContractDefinitions<GContractNames, GTypedContracts>> => {
+  //   const result = definitions.clone();
+  //   await result.updateConnector(contractName, connector);
+  //   return result;
+  // };
 
-  public updateConnector = async <GContract extends BaseContract, GContractInterface extends ethers.utils.Interface>(
-    contractName: GContractNames,
-    connector: TTypechainContractConnector<GContractNames, GContract, GContractInterface>,
-    ethersAdaptor?: TEthersAdaptor
-  ): Promise<void> => {
-    this._contractConnectors[contractName] = connector;
-    if (ethersAdaptor) {
-      await this.connectToContract(contractName, ethersAdaptor);
-    }
-  };
+  // public updateConnector = async <GContract extends BaseContract, GContractInterface extends ethers.utils.Interface>(
+  //   contractName: GContractNames,
+  //   connector: TTypechainContractConnector<GContractNames, GContract, GContractInterface>,
+  //   ethersAdaptor?: TEthersAdaptor
+  // ): Promise<void> => {
+  //   this._contractConnectors[contractName] = connector;
+  //   if (ethersAdaptor) {
+  //     await this.connectToContract(contractName, ethersAdaptor);
+  //   }
+  // };
 
-  public clone(): AppContractDefinitions<GContractNames> {
-    const result = new AppContractDefinitions<GContractNames>({ ...this._contractConnectors });
+  public clone(): AppContractDefinitions<GContractNames, GTypedContracts> {
+    const result = new AppContractDefinitions<GContractNames, GTypedContracts>({
+      ...this._contractConnectors,
+    });
     result._contractsByName = { ...this._contractsByName };
     result._contractsByChainId = { ...this._contractsByChainId };
 

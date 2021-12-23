@@ -26,3 +26,28 @@ export type TTypechainContractConnector<
 export type TTypechainContractConnectorList<GContactNames extends string> = {
   [contractName in GContactNames]: TTypechainContractConnector<GContactNames, BaseContract, ethers.utils.Interface>;
 };
+
+// export type TContractTypes<
+//   GContractNames extends string,
+//   GAppContractConnectorList
+// > = GAppContractConnectorList extends { [key in GContractNames]: { connect: () => unknown } }
+//   ? ReturnType<GAppContractConnectorList[GContractNames]['connect']>
+//   : never;
+
+export type TContractTypes<
+  GContractNames extends string,
+  GAppContractConnectorList
+> = GAppContractConnectorList extends {
+  [key in GContractNames]: { connect: (address: any, signerOrProvider: any) => infer TypedContract };
+}
+  ? TypedContract
+  : BaseContract;
+
+// export type TContractContext<GContractNames extends string> = {
+//   type TAppContractTypes<GContractNames extends string, TList> = TList extends {
+//     [key in GContractNames]: { connect: (address: any, signerOrProvider: any) => infer U };
+//   }
+//     ? U
+//     : BaseContract;
+
+// export type TConstraint<GContractNames extends string> = { [key in GContractNames]: { connect: () => unknown } };

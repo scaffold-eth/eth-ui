@@ -1,37 +1,41 @@
-import { createContext, FC, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
+import React, { createContext, FC, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
-import { defaultHookOptions, TEthersAdaptor, TTypechainContractConnectorList } from '~~/models';
-import { AppContractDefinitions } from '~~/models/AppContractDefinitions';
+import { defaultHookOptions, TEthersAdaptor, TTypechainContractConnectorList, AppContractDefinitions } from '~~/models';
+
+// import { AppContractDefinitions } from '~~/models/AppContractDefinitions';
 
 export interface IContractsContextProps {
   ethersContextKey?: string | undefined;
 }
 
-export type IContractDispatch<GContractNames extends string> = {
+export type TContractDispatch<GContractNames extends string> = {
   setAppContractConnectors: (appContractConnectors: TTypechainContractConnectorList<GContractNames>) => void;
 };
 
-export type TContractContext<GContractNames extends string> = {
-  ContractsContext: FC<PropsWithChildren<IContractsContextProps>>;
-  ContractsDispatchContext: React.Context<IContractDispatch<GContractNames> | undefined>;
-  ContractsStateContext: React.Context<AppContractDefinitions<GContractNames> | undefined>;
-  useContractsDispatchContext: () => IContractDispatch<GContractNames> | undefined;
-  useContractsStateContext: () => AppContractDefinitions<GContractNames> | undefined;
+export type TContractState<GContractNames extends string, GTypedContracts> = {
+  appcontractDefinitions: AppContractDefinitions<GContractNames, GTypedContracts>;
 };
 
-export const contractContextFactory = <GContractNames extends string>(): TContractContext<GContractNames> => {
-  const ContractsDispatchContext = createContext<IContractDispatch<GContractNames> | undefined>(
-    undefined as IContractDispatch<GContractNames> | undefined
+export const contractContextFactory = <GContractNames extends string, GTypedContracts>(): {
+  ContractsContext: FC<PropsWithChildren<IContractsContextProps>>;
+  ContractsDispatchContext: React.Context<TContractDispatch<GContractNames> | undefined>;
+  ContractsStateContext: React.Context<TContractState<GContractNames, GTypedContracts> | undefined>;
+  useContractsDispatchContext: () => TContractDispatch<GContractNames> | undefined;
+  useContractsStateContext: () => TContractState<GContractNames, GTypedContracts> | undefined;
+} => {
+  const ContractsDispatchContext = createContext<TContractDispatch<GContractNames> | undefined>(
+    undefined as TContractDispatch<GContractNames> | undefined
   );
-  const ContractsStateContext = createContext<AppContractDefinitions<GContractNames> | undefined>(undefined);
-  const useContractsDispatchContext = (): IContractDispatch<GContractNames> | undefined => {
-    return useContext(ContractsDispatchContext) as IContractDispatch<GContractNames>;
+  const ContractsStateContext = createContext<TContractState<GContractNames, GTypedContracts> | undefined>(undefined);
+
+  const useContractsDispatchContext = (): TContractDispatch<GContractNames> | undefined => {
+    return useContext(ContractsDispatchContext) as TContractDispatch<GContractNames>;
   };
-  const useContractsStateContext = (): AppContractDefinitions<GContractNames> | undefined => {
-    return useContext(ContractsStateContext) as AppContractDefinitions<GContractNames>;
+  const useContractsStateContext = (): TContractState<GContractNames, GTypedContracts> | undefined => {
+    return useContext(ContractsStateContext);
   };
 
   /**
@@ -43,9 +47,7 @@ export const contractContextFactory = <GContractNames extends string>(): TContra
    * @param props
    * @returns
    */
-  const ContractsContext: FC<IContractsContextProps> = <GContractNames extends string>(
-    props: PropsWithChildren<IContractsContextProps>
-  ) => {
+  const ContractsContext: FC<IContractsContextProps> = (props: PropsWithChildren<IContractsContextProps>) => {
     const ethersContext = useEthersContext(props.ethersContextKey);
     const ethersAdaptor: TEthersAdaptor | undefined = checkEthersOverride(ethersContext, {
       ...defaultHookOptions(),
@@ -53,17 +55,17 @@ export const contractContextFactory = <GContractNames extends string>(): TContra
     });
 
     const isMounted = useIsMounted();
-    const [state, setState] = useState<AppContractDefinitions<GContractNames>>();
-    const [dispatchValue, setDispatchValue] = useState<IContractDispatch<GContractNames>>();
+    const [state, setState] = useState<TContractState<GContractNames, GTypedContracts>>();
+    const [dispatchValue, setDispatchValue] = useState<TContractDispatch<GContractNames>>();
 
     const setAppContractConnectors = useCallback(
       async (appContractConnectors: TTypechainContractConnectorList<GContractNames>) => {
-        const contractDefinitions = await AppContractDefinitions.connectToAllContractsReducer(
-          ethersAdaptor,
-          appContractConnectors
-        );
+        const contractDefinitions = await AppContractDefinitions.connectToAllContractsReducer<
+          GContractNames,
+          GTypedContracts
+        >(ethersAdaptor, appContractConnectors);
         if (isMounted()) {
-          setState(contractDefinitions);
+          setState({ appcontractDefinitions: contractDefinitions });
         }
       },
       [ethersAdaptor, isMounted]
@@ -73,13 +75,11 @@ export const contractContextFactory = <GContractNames extends string>(): TContra
       setDispatchValue({ setAppContractConnectors });
     }, [setAppContractConnectors]);
 
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
     return (
-      <ContractsDispatchContext.Provider value={dispatchValue as any}>
-        <ContractsStateContext.Provider value={state as any}>{props.children}</ContractsStateContext.Provider>
+      <ContractsDispatchContext.Provider value={dispatchValue}>
+        <ContractsStateContext.Provider value={state}>{props.children}</ContractsStateContext.Provider>
       </ContractsDispatchContext.Provider>
     );
-    /* eslint-enable @typescript-eslint/no-unsafe-assignment */
   };
 
   return {
