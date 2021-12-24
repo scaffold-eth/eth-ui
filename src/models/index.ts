@@ -4,4 +4,3 @@ export * from './providerTypes';
 export * from './hookOptions';
 export * from './ethersContextTypes';
 export * from './typechainContractTypes';
-export * from '../context/contracts-app/AppContractDefinitions';
