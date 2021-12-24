@@ -63,15 +63,14 @@ const defaultContractReducer = <GContractNames extends string>(): TContractReduc
 export const contractAppContextFactory = <
   GContractNames extends string,
   GAppContractConnectorList,
-  GContract extends TContractTypes<GContractNames, GAppContractConnectorList>
->(
-  appContractConnectorsList: GAppContractConnectorList
-): {
+  GContractTypes extends TContractTypes<GContractNames, GAppContractConnectorList>
+>(): // appContractConnectorsList: GAppContractConnectorList
+{
   ContractsContext: FC<PropsWithChildren<IContractsContextProps>>;
   ContractsDispatchContext: React.Context<TContractDispatch<GContractNames> | undefined>;
   ContractsStateContext: React.Context<TContractReducerState<GContractNames> | undefined>;
   useContractsDispatchContext: () => TContractDispatch<GContractNames> | undefined;
-  useGetContract: (contractName: GContractNames, chainId: number) => GContract;
+  useGetContract: <GContract extends GContractTypes>(contractName: GContractNames, chainId: number) => GContract;
 } => {
   const ContractsDispatchContext = createContext<TContractDispatch<GContractNames> | undefined>(
     undefined as TContractDispatch<GContractNames> | undefined
@@ -85,7 +84,10 @@ export const contractAppContextFactory = <
     return useContext(ContractsStateContext);
   };
 
-  const useGetContract = (contractName: GContractNames, chainId: number): GContract => {
+  const useGetContract = <GContract extends GContractTypes>(
+    contractName: GContractNames,
+    chainId: number
+  ): GContract => {
     const contractsState = useContractsStateContext();
     const contract = contractsState?.contractsByName[contractName][chainId];
     if (!contract) {
@@ -188,7 +190,7 @@ export const contractAppContextFactory = <
     });
 
     const isMounted = useIsMounted();
-    const [state, dispatch] = useReducer(reducer, appContractConnectorsList, initalizeReducer);
+    const [state, dispatch] = useReducer(reducer, {} as any, initalizeReducer);
     const [dispatchValue, setDispatchValue] = useState<TContractDispatch<GContractNames>>();
 
     dispatch('p');
