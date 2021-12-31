@@ -1,3 +1,38 @@
+import { Provider } from '@ethersproject/providers';
+import { BaseContract, ethers, Signer } from 'ethers';
+
+export type TContractFactory<GContract extends BaseContract, GContractInterface extends ethers.utils.Interface> = {
+  connect: (address: string, signerOrProvider: Signer | Provider) => GContract;
+  createInterface: () => GContractInterface;
+};
+
+export type TContractConnector<
+  GContractNames extends string,
+  GContract extends BaseContract,
+  GContractInterface extends ethers.utils.Interface
+> = {
+  contractName: GContractNames;
+  connect: (address: string, signerOrProvider: Signer | Provider) => GContract;
+  createInterface: () => GContractInterface;
+  abi: Record<string, any>[];
+  config: {
+    [chainId: number]: { address: string };
+  };
+};
+
+export type TConnectorList<GContactNames extends string> = {
+  [contractName in GContactNames]: TContractConnector<GContactNames, BaseContract, ethers.utils.Interface>;
+};
+
+export type TTypedContract<
+  GContractNames extends string,
+  GAppContractConnectorList
+> = GAppContractConnectorList extends {
+  [key in GContractNames]: { connect: (address: any, signerOrProvider: any) => infer TypedContract };
+}
+  ? TypedContract
+  : BaseContract;
+
 /**
  * #### Summary
  * Describes the sctructure of each contract in hardhat_contracts.json
@@ -37,25 +72,12 @@ export type TDeployedContractJsonData = {
   };
 };
 
-// /**
-//  * #### Summary
-//  * Contract factories for contracts deployed by hardhat
-//  * - contractName: ethers.ContractFactory
-//  * - Used by {@link useContractLoader}
-//  *
-//  * @category Models
-//  */
-// export type TDeployedContractHelper = {
-//   factoryBridge: { [contractName: string]: IContractFactoryBridge };
-//   contractList: {
-//     [chainId: number]: { [contractName: string]: BaseContract };
-//   };
-// };
-
 /**
+ * {chainId: {contract: address}}, contains an record of contracts
  * #### Summary
  * A type for external contracts
- * - {chainId: {contracts}}, contains an record of contracts
+ * - it is a record of contract names and their deployed address
+ * - this data type is used by {@link ContractsAppContext} to connect to external contracts
  *
  * @category Models
  */

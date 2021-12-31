@@ -1,13 +1,13 @@
 import { BaseContract, ethers, Signer } from 'ethers';
 
+import { TContractFactory, TContractConnector } from '~~/models';
 import {
   TDeployedContractJsonData,
   TExternalContractsAddressMap,
   THardhatContractsFileJson,
-} from '../models/contractTypes';
-import { TTypechainContractFactory, TTypedContractConnector } from '../models/typechainContractTypes';
+} from '~~/models/contractTypes';
 
-const extractDeployedContracts = (configJson: THardhatContractsFileJson): TDeployedContractJsonData => {
+const extractHardhatContracts = (configJson: THardhatContractsFileJson): TDeployedContractJsonData => {
   const contractData: TDeployedContractJsonData = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
@@ -40,16 +40,16 @@ const extractExternalContracts = (configJson: TExternalContractsAddressMap): TDe
   return contractData;
 };
 
-export const createTypechainContractConnectorHardhatContract = <
+export const createConnectorsForHardhatContracts = <
   GContractNames extends string,
   GBaseContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
   contractName: GContractNames,
-  typechainFactory: TTypechainContractFactory<GBaseContract, GContractInterface>,
+  typechainFactory: TContractFactory<GBaseContract, GContractInterface>,
   deployedHardhatContractJson: THardhatContractsFileJson
-): TTypedContractConnector<GContractNames, GBaseContract, GContractInterface> => {
-  const info = extractDeployedContracts(deployedHardhatContractJson)[contractName];
+): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
+  const info = extractHardhatContracts(deployedHardhatContractJson)[contractName];
 
   return {
     contractName,
@@ -64,15 +64,15 @@ export const createTypechainContractConnectorHardhatContract = <
   };
 };
 
-export const createTypechainContractConnectorForExternalContract = <
+export const createConnectorsForExternalContract = <
   GContractNames extends string,
   GBaseContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
   contractName: GContractNames,
-  typechainFactory: TTypechainContractFactory<GBaseContract, GContractInterface>,
+  typechainFactory: TContractFactory<GBaseContract, GContractInterface>,
   deployedContractJson: TExternalContractsAddressMap
-): TTypedContractConnector<GContractNames, GBaseContract, GContractInterface> => {
+): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractExternalContracts(deployedContractJson)[contractName];
 
   return {
@@ -93,7 +93,7 @@ export const connectToContractWithSigner = async <
   GContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
-  connector: TTypedContractConnector<GContractNames, GContract, GContractInterface>,
+  connector: TContractConnector<GContractNames, GContract, GContractInterface>,
   signer: Signer
 ): Promise<GContract> => {
   const chainId: number = await signer.getChainId();

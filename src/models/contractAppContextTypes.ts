@@ -1,6 +1,6 @@
 import { BaseContract } from 'ethers';
 
-import { TEthersAdaptor, TTypedContractConnectorList } from '~~/models';
+import { TEthersAdaptor, TConnectorList } from '~~/models';
 
 export type TContractsByName<GContractNames extends string> = {
   [contractName in GContractNames]: { [chainId: number]: BaseContract };
@@ -42,19 +42,19 @@ export type TActionConnectAllToContracts<GAppContractConnectorList> = {
   };
 };
 
-export type TContractActions<GContractNames, GAppContractConnectorList> =
+export type TContractsActionTypes<GContractNames, GAppContractConnectorList> =
   | TActionConnectAllToContracts<GAppContractConnectorList>
   | TActionConnectToContract<GContractNames>;
 
 export type TContractsContextActions<GContractNames, GAppContractConnectorList> = (
-  action: TContractActions<GContractNames, GAppContractConnectorList>
+  action: TContractsActionTypes<GContractNames, GAppContractConnectorList>
 ) => Promise<void>;
 
 /**
  *
  */
-export type TContractAppContext<GContractNames extends string> = {
-  contractConnectors: TTypedContractConnectorList<GContractNames>;
+export type TContractsAppContext<GContractNames extends string> = {
+  contractConnectors: TConnectorList<GContractNames>;
   contractsByName: TContractsByName<GContractNames>;
   contractsByChainId: TContractsByChainId<GContractNames>;
 };
@@ -64,9 +64,9 @@ export type TContractAppContext<GContractNames extends string> = {
  * @returns
  * @internal
  */
-export const defaultContractAppContext = <GContractNames extends string>(): TContractAppContext<GContractNames> => {
+export const defaultContractsAppContext = <GContractNames extends string>(): TContractsAppContext<GContractNames> => {
   return {
-    contractConnectors: {} as TTypedContractConnectorList<GContractNames>,
+    contractConnectors: {} as TConnectorList<GContractNames>,
     contractsByName: {} as TContractsByName<GContractNames>,
     contractsByChainId: {} as TContractsByChainId<GContractNames>,
   };
