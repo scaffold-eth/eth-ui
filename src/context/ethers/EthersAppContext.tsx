@@ -6,8 +6,8 @@ import invariant from 'tiny-invariant';
 import warning from 'tiny-warning';
 
 import { NoEthereumProviderFoundError } from '~~/context';
-import { BlockNumberContext } from '~~/context/ethers-app/BlockNumberContext';
-import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers-app/connectors/EthersModalConnector';
+import { BlockNumberContext } from '~~/context/ethers/BlockNumberContext';
+import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers/connectors/EthersModalConnector';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
 import { IEthersContext } from '~~/models/ethersAppContextTypes';

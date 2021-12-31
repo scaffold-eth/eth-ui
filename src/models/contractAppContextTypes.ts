@@ -12,7 +12,7 @@ export type TContractsByChainId<GContractNames extends string> = {
 /**
  *
  */
-export type TContractsAppContext<GContractNames extends string> = {
+export type TAppContractsContext<GContractNames extends string> = {
   contractConnectors: TConnectorList<GContractNames>;
   contractsByName: TContractsByName<GContractNames>;
   contractsByChainId: TContractsByChainId<GContractNames>;
@@ -22,7 +22,7 @@ export type TContractsAppContext<GContractNames extends string> = {
  * @returns
  * @internal
  */
-export const defaultContractsAppContext = <GContractNames extends string>(): TContractsAppContext<GContractNames> => {
+export const defaultAppContractsContext = <GContractNames extends string>(): TAppContractsContext<GContractNames> => {
   return {
     contractConnectors: {} as TConnectorList<GContractNames>,
     contractsByName: {} as TContractsByName<GContractNames>,
