@@ -10,15 +10,39 @@ import {
 } from '~~/functions';
 import { defaultHookOptions, TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
 import {
-  TContractsContextActions,
   TContractsAppContext,
-  sortContractsByChainId,
   defaultContractsAppContext,
-  TContractsActionTypes,
+  TContractsByName,
+  TContractsByChainId,
 } from '~~/models/contractAppContextTypes';
 export interface IContractsContextProps {
   ethersContextKey?: string | undefined;
 }
+
+const sortContractsByChainId = <GContractNames extends string>(
+  contractsByName: TContractsByName<GContractNames>
+): TContractsByChainId<GContractNames> => {
+  const contractsByChainId: TContractsByChainId<GContractNames> = {};
+
+  Object.keys(contractsByName).forEach((name: string) => {
+    const contractName = name as GContractNames;
+    Object.keys(contractsByName[contractName])
+      .map(Number)
+      .forEach((chainId: number) => {
+        contractsByChainId[chainId][contractName] = contractsByName[contractName][chainId];
+      });
+  });
+
+  return contractsByChainId;
+};
+
+export type TContractsContextActions<GContractNames extends string> = {
+  connectToAllContractsAction: (
+    appContractConnectorList: TConnectorList<GContractNames>,
+    ethersAdaptor: TEthersAdaptor | undefined
+  ) => Promise<void>;
+  connectToContractAction: (contractName: GContractNames, ethersAdaptor: TEthersAdaptor) => Promise<void>;
+};
 
 export const contractsAppContextFactory = <
   GContractNames extends string,
@@ -147,46 +171,6 @@ export const contractsAppContextFactory = <
     newState.contractsByChainId = sortContractsByChainId(newState.contractsByName);
     return newState;
   };
-
-  /**
-   * internal hook for context to use actions and maniuplate contaract state
-   * @returns
-   * @internal
-   */
-  const useActions = (): {
-    state: TContractsAppContext<GContractNames>;
-    actions: (action: TContractsActionTypes<GContractNames>) => Promise<void>;
-  } => {
-    const isMounted = useIsMounted();
-    const [state, setState] = useState(initalizeState({} as any));
-
-    const asyncActions = useCallback(
-      async (action: TContractsActionTypes<GContractNames>): Promise<void> => {
-        switch (action.type) {
-          case 'CONNECT_TO_ALL_CONTRACT': {
-            const result = await connectToAllContracts(
-              action.payload.appContractConnectorList,
-              action.payload.ethersAdaptor
-            );
-            if (isMounted()) setState(result);
-            break;
-          }
-          case 'CONNECT_TO_CONTRACT': {
-            const result = await connectToContract(state, action.payload.contractName, action.payload.ethersAdaptor);
-            if (isMounted()) setState(result);
-            break;
-          }
-          default: {
-            throw new Error('Unknown action type');
-          }
-        }
-      },
-      [state, isMounted]
-    );
-
-    return { state, actions: asyncActions };
-  };
-
   /**
    * #### Summary
    *
@@ -202,10 +186,31 @@ export const contractsAppContextFactory = <
       ...defaultHookOptions(),
       alternateEthersContextKey: props.ethersContextKey,
     });
-    const { state, actions } = useActions();
+
+    const isMounted = useIsMounted();
+    const [state, setState] = useState(initalizeState({} as any));
+
+    const connectToContractAction = useCallback(
+      async (contractName: GContractNames, ethersAdaptor: TEthersAdaptor): Promise<void> => {
+        const result = await connectToContract(state, contractName, ethersAdaptor);
+        if (isMounted()) setState(result);
+      },
+      [isMounted, state]
+    );
+
+    const connectToAllContractsAction = useCallback(
+      async (
+        appContractConnectorList: TConnectorList<GContractNames>,
+        ethersAdaptor: TEthersAdaptor | undefined
+      ): Promise<void> => {
+        const result = await connectToAllContracts(appContractConnectorList, ethersAdaptor);
+        if (isMounted()) setState(result);
+      },
+      [isMounted]
+    );
 
     return (
-      <ContractsActionsContext.Provider value={actions}>
+      <ContractsActionsContext.Provider value={{ connectToAllContractsAction, connectToContractAction }}>
         <ContractsStateContext.Provider value={state}>{props.children}</ContractsStateContext.Provider>
       </ContractsActionsContext.Provider>
     );
