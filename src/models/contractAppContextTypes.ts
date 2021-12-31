@@ -26,28 +26,24 @@ export const sortContractsByChainId = <GContractNames extends string>(
   return contractsByChainId;
 };
 
-export type TActionConnectToContract<GContractNames> = {
-  type: 'CONNECT_TO_CONTRACT';
-  payload: {
-    contractName: GContractNames;
-    ethersAdaptor: TEthersAdaptor;
-  };
-};
+export type TContractsActionTypes<GContractNames extends string> =
+  | {
+      type: 'CONNECT_TO_CONTRACT';
+      payload: {
+        contractName: GContractNames;
+        ethersAdaptor: TEthersAdaptor;
+      };
+    }
+  | {
+      type: 'CONNECT_TO_ALL_CONTRACT';
+      payload: {
+        appContractConnectorList: TConnectorList<GContractNames>;
+        ethersAdaptor: TEthersAdaptor | undefined;
+      };
+    };
 
-export type TActionConnectAllToContracts<GAppContractConnectorList> = {
-  type: 'CONNECT_TO_ALL_CONTRACT';
-  payload: {
-    appContractConnectorList: GAppContractConnectorList;
-    ethersAdaptor: TEthersAdaptor | undefined;
-  };
-};
-
-export type TContractsActionTypes<GContractNames, GAppContractConnectorList> =
-  | TActionConnectAllToContracts<GAppContractConnectorList>
-  | TActionConnectToContract<GContractNames>;
-
-export type TContractsContextActions<GContractNames, GAppContractConnectorList> = (
-  action: TContractsActionTypes<GContractNames, GAppContractConnectorList>
+export type TContractsContextActions<GContractNames extends string> = (
+  actions: TContractsActionTypes<GContractNames>
 ) => Promise<void>;
 
 /**

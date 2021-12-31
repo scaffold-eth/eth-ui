@@ -1,6 +1,6 @@
 import { BaseContract, ethers, Signer } from 'ethers';
 
-import { TContractFactory, TContractConnector } from '~~/models';
+import { TConnectorBase, TContractConnector } from '~~/models';
 import {
   TDeployedContractJsonData,
   TExternalContractsAddressMap,
@@ -46,7 +46,7 @@ export const createConnectorsForHardhatContracts = <
   GContractInterface extends ethers.utils.Interface
 >(
   contractName: GContractNames,
-  typechainFactory: TContractFactory<GBaseContract, GContractInterface>,
+  typechainFactory: TConnectorBase<GBaseContract, GContractInterface>,
   deployedHardhatContractJson: THardhatContractsFileJson
 ): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractHardhatContracts(deployedHardhatContractJson)[contractName];
@@ -70,7 +70,7 @@ export const createConnectorsForExternalContract = <
   GContractInterface extends ethers.utils.Interface
 >(
   contractName: GContractNames,
-  typechainFactory: TContractFactory<GBaseContract, GContractInterface>,
+  typechainFactory: TConnectorBase<GBaseContract, GContractInterface>,
   deployedContractJson: TExternalContractsAddressMap
 ): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractExternalContracts(deployedContractJson)[contractName];
