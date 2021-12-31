@@ -1,4 +1,4 @@
-import { TEthersAdaptor } from './ethersContextTypes';
+import { TEthersAdaptor } from './ethersAppContextTypes';
 
 export type THookOptions = {
   ethersOverride?: {

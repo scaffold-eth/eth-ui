@@ -5,7 +5,7 @@ import {
   TExternalContractsAddressMap,
   THardhatContractsFileJson,
 } from '../models/contractTypes';
-import { TTypechainContractFactory, TTypechainContractConnector } from '../models/typechainContractTypes';
+import { TTypechainContractFactory, TTypedContractConnector } from '../models/typechainContractTypes';
 
 const extractDeployedContracts = (configJson: THardhatContractsFileJson): TDeployedContractJsonData => {
   const contractData: TDeployedContractJsonData = {};
@@ -48,7 +48,7 @@ export const createTypechainContractConnectorHardhatContract = <
   contractName: GContractNames,
   typechainFactory: TTypechainContractFactory<GBaseContract, GContractInterface>,
   deployedHardhatContractJson: THardhatContractsFileJson
-): TTypechainContractConnector<GContractNames, GBaseContract, GContractInterface> => {
+): TTypedContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractDeployedContracts(deployedHardhatContractJson)[contractName];
 
   return {
@@ -72,7 +72,7 @@ export const createTypechainContractConnectorForExternalContract = <
   contractName: GContractNames,
   typechainFactory: TTypechainContractFactory<GBaseContract, GContractInterface>,
   deployedContractJson: TExternalContractsAddressMap
-): TTypechainContractConnector<GContractNames, GBaseContract, GContractInterface> => {
+): TTypedContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractExternalContracts(deployedContractJson)[contractName];
 
   return {
@@ -93,7 +93,7 @@ export const connectToContractWithSigner = async <
   GContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
-  connector: TTypechainContractConnector<GContractNames, GContract, GContractInterface>,
+  connector: TTypedContractConnector<GContractNames, GContract, GContractInterface>,
   signer: Signer
 ): Promise<GContract> => {
   const chainId: number = await signer.getChainId();

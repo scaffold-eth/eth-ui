@@ -8,8 +8,8 @@ import { setupMockYourContract } from 'test-files/__mocks__/setupMockContracts';
 import externalContract from 'test-files/external_contracts';
 import * as hardhadContractBasic1 from 'test-files/hardhat_contracts.basic1.json';
 
-import { getHardhatSigner, hookTestHarness } from '~~/helpers/test-utils/harness';
-import { harnessTestSetupHelper } from '~~/helpers/test-utils/harness/hardhatTestHelpers';
+import { getHardhatSigner, hookTestWrapper } from '~~/helpers/test-utils/wrapper';
+import { harnessTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useContractLoader } from '~~/hooks';
 import { TContractLoaderConfig, TContractFunctionInfo } from '~~/models';
 
@@ -36,7 +36,7 @@ describe('useContractLoader', function () {
     describe('Given that hardhat_contracts.basic1.json is used in config', () => {
       const config: TContractLoaderConfig = { deployedContractsJson: hardhadContractBasic1 };
       it('when useContractLoader is loaded with config; then returns the yourContarct', async () => {
-        const harness = await hookTestHarness((config: TContractLoaderConfig | undefined) => useContractLoader(config));
+        const harness = await hookTestWrapper((config: TContractLoaderConfig | undefined) => useContractLoader(config));
         harness.rerender(config);
 
         const expectedContract = harness.result.current['YourContract'] as YourContract;
@@ -58,7 +58,7 @@ describe('useContractLoader', function () {
       const mainnetUniAddress = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984';
 
       it('when useContractLoader is loaded with config; then returns the yourContarct', async () => {
-        const harness = await hookTestHarness((config: TContractLoaderConfig | undefined) => useContractLoader(config));
+        const harness = await hookTestWrapper((config: TContractLoaderConfig | undefined) => useContractLoader(config));
         harness.rerender(config);
 
         const expectedContract = harness.result.current['YourContract'] as YourContract;
@@ -68,7 +68,7 @@ describe('useContractLoader', function () {
       });
 
       it('when useContractLoader is loaded with config and localhost chainId; then it does not returns the external DAI contract', async () => {
-        const harness = await hookTestHarness((config: TContractLoaderConfig | undefined) => useContractLoader(config));
+        const harness = await hookTestWrapper((config: TContractLoaderConfig | undefined) => useContractLoader(config));
         harness.rerender(config);
 
         const expectedContract = harness.result.current['DAI'];
@@ -77,7 +77,7 @@ describe('useContractLoader', function () {
 
       it('when useContractLoader is loaded with config and mainnet chainId; then it returns the external DAI and UNI contract', async () => {
         // TODO API CHANGED NEEDS FIXING
-        const harness = await hookTestHarness(
+        const harness = await hookTestWrapper(
           (config: TContractLoaderConfig | undefined) => useContractLoader(config) // undefined, 1)
         );
         harness.rerender(config);
@@ -99,7 +99,7 @@ describe('useContractLoader', function () {
 
       it.skip('when useContractLoader is loaded with config and mainnet chainId; then it does not returns YourContract', async () => {
         // TODO API CHANGED NEEDS FIXING
-        const harness = await hookTestHarness((config: TContractLoaderConfig | undefined) => useContractLoader(config));
+        const harness = await hookTestWrapper((config: TContractLoaderConfig | undefined) => useContractLoader(config));
         harness.rerender(config);
 
         const expectedContract = harness.result.current['YourContract'];

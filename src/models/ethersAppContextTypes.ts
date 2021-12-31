@@ -10,11 +10,12 @@ import { TEthersProvider, TEthersSigner } from '~~/models';
  *
  * #### Notes
  * - can be used by components that need to give a connector to {@link IEthersContext.openModal}
+ * - id is the identifier of the provider:  [See docs](https://github.com/Web3Modal/web3modal#connect-to-specific-provider)
  *
  * @category EthersContext
  */
+export type TCreateEthersModalConnector = (id?: string) => TEthersModalConnector | undefined;
 
-export type TCreateEthersModalConnector = () => TEthersModalConnector | undefined;
 /**
  * #### Summary
  * The return type of {@link EthersModalConnector}
@@ -37,6 +38,7 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
   disconnectModal: () => void;
   setModalTheme: ((theme: 'light' | 'dark') => void) | undefined;
 }
+
 /**
  * #### Summary
  * Essentially a object that allows interaction with the network:

@@ -56,7 +56,6 @@ export type TDeployedContractJsonData = {
  * #### Summary
  * A type for external contracts
  * - {chainId: {contracts}}, contains an record of contracts
- * - Used by {@link useContractLoader}
  *
  * @category Models
  */

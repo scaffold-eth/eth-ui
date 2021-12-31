@@ -10,7 +10,7 @@ import { BlockNumberContext } from '~~/context/ethers-app/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers-app/connectors/EthersModalConnector';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
-import { IEthersContext } from '~~/models/ethersContextTypes';
+import { IEthersContext } from '~~/models/ethersAppContextTypes';
 
 /**
  * #### Summary
@@ -91,6 +91,10 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
   return result;
 };
 
+/**
+ * #### Summary
+ * Props for context that allow you specify alternate web3ReactRoot [See docs](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs#createweb3reactroot).  You must provide both an alternate key and its root.
+ */
 export type TEthersAppContextProps = {
   secondaryWeb3ReactRoot?: {
     contextKey: string;
@@ -130,7 +134,7 @@ export const getEthersAppProviderLibrary = (
 /**
  * #### Summary
  * Ethers App Context for your react app to be used with {@link useEthersContext}.
- * This is a wrapper around Web3ReactProvider that provides additional functionality such as a {@link BlockNumberContext} and access to {@link IEthersContext}
+ * This is a wrapper around Web3ReactProvider that provides additional functionality such as a {@link BlockNumberContext} and access to {@link IEthersContext}.  See {@link TEthersAppContextProps} for more information on props for alternate context roots.
  *
  * @category EthersContext
  *

@@ -6,10 +6,10 @@ import { YourContract } from 'test-files/__mocks__';
 import { setupMockYourContract, waitForYourContractState } from 'test-files/__mocks__/setupMockContracts';
 import sinon from 'ts-sinon';
 
-import { hookTestHarness } from '~~/helpers/test-utils';
+import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
-import { getHardhatSigner } from '~~/helpers/test-utils/harness';
-import { harnessTestSetupHelper } from '~~/helpers/test-utils/harness/hardhatTestHelpers';
+import { getHardhatSigner } from '~~/helpers/test-utils/wrapper';
+import { harnessTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useContractReader } from '~~/hooks';
 import { TContractFunctionInfo } from '~~/models';
 
@@ -36,7 +36,7 @@ describe('useContractReader', function () {
 
     describe('Given the setPurpose is called and set with a new value', () => {
       it('When the hook is invoked after setPurpose calls; then it returns the result of the contract call', async () => {
-        const harness = await hookTestHarness(() =>
+        const harness = await hookTestWrapper(() =>
           useContractReader<[string]>(yourContract!, yourContractPurposeInfo)
         );
         await waitForYourContractState(harness);
@@ -60,7 +60,7 @@ describe('useContractReader', function () {
         // expect(harness.result.all.length).be.lessThanOrEqual(9);
       });
       it('When the hook is invoked after multiple setPurpose calls; then it returns the last result of the contract', async () => {
-        const harness = await hookTestHarness(() =>
+        const harness = await hookTestWrapper(() =>
           useContractReader<[string]>(yourContract!, yourContractPurposeInfo)
         );
         await waitForYourContractState(harness);
@@ -82,7 +82,7 @@ describe('useContractReader', function () {
       it('When the hook is invoked after setPurpose calls with a formatter; then it returns the formatted value', async () => {
         const formatter = sinon.stub();
         formatter.returnsArg(0);
-        const harness = await hookTestHarness(() =>
+        const harness = await hookTestWrapper(() =>
           useContractReader<[string]>(yourContract!, yourContractPurposeInfo, formatter)
         );
         await waitForYourContractState(harness);
@@ -102,7 +102,7 @@ describe('useContractReader', function () {
 
       it('When the hook is invoked after setPurpose call with an onChange callback; then the callback is invoked', async () => {
         const onChange = sinon.stub();
-        const harness = await hookTestHarness(() =>
+        const harness = await hookTestWrapper(() =>
           useContractReader<[string]>(yourContract!, yourContractPurposeInfo, undefined, onChange)
         );
         await waitForYourContractState(harness);

@@ -3,10 +3,10 @@ import { deployContract } from 'ethereum-waffle';
 import { EventFilter, Signer } from 'ethers';
 import { YourContract, YourContractJson } from 'test-files/__mocks__';
 
-import { hookTestHarness } from '~~/helpers/test-utils';
+import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
-import { getHardhatSigner } from '~~/helpers/test-utils/harness';
-import { currentTestBlockNumber, harnessTestSetupHelper } from '~~/helpers/test-utils/harness/hardhatTestHelpers';
+import { getHardhatSigner } from '~~/helpers/test-utils/wrapper';
+import { currentTestBlockNumber, harnessTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useEventListener } from '~~/hooks';
 describe('useEventListener', function () {
   describe('Given that a YourContract is deployed', () => {
@@ -29,7 +29,7 @@ describe('useEventListener', function () {
 
     it('When the hook is called after a contract call; then it returns the event as the last item', async () => {
       const eventFilter: EventFilter = yourContract?.filters.SetPurpose as EventFilter;
-      const harness = await hookTestHarness(() => useEventListener(yourContract, eventFilter, 0));
+      const harness = await hookTestWrapper(() => useEventListener(yourContract, eventFilter, 0));
 
       const firstPurpose = 'new purpose 1';
       await yourContract?.setPurpose(firstPurpose);
@@ -50,7 +50,7 @@ describe('useEventListener', function () {
     describe('Given that multiple events occured after the hook is initialized', () => {
       it('When the hook is initialized before the events, with a starting blockNumber before the events occured; then it returns all the events after that block number in the right order', async () => {
         const eventFilter: EventFilter = yourContract?.filters.SetPurpose as EventFilter;
-        const harness = await hookTestHarness(() =>
+        const harness = await hookTestWrapper(() =>
           useEventListener(yourContract, eventFilter, testStartBockNumber + 1)
         );
         await yourContract?.setPurpose('purpose 1');
@@ -86,7 +86,7 @@ describe('useEventListener', function () {
 
       it('When the hook is initialized after, with a starting blockNumber that includes these prior events; then it returns them in right order', async () => {
         const eventFilter: EventFilter = yourContract?.filters.SetPurpose as EventFilter;
-        const harness = await hookTestHarness(() =>
+        const harness = await hookTestWrapper(() =>
           useEventListener(yourContract, eventFilter, beforeMultipleEventsBlockNumber + 1)
         );
 

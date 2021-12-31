@@ -1,2 +1,2 @@
-export * from './contractAppContextFactory';
+export * from './contractsAppContextFactory';
 // export * from './contractsAppReducer';

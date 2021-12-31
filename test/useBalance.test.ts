@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 
-import { hookTestHarness } from '~~/helpers/test-utils';
+import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants/testConstants';
 import { fromEther } from '~~/helpers/test-utils/functions/conversions';
 import { useBalance } from '~~/hooks';
 
 describe('useBalance', function () {
   it('When the hook is called; then it returns the initial balance', async () => {
-    const harness = await hookTestHarness((address: string | undefined) => useBalance(address));
+    const harness = await hookTestWrapper((address: string | undefined) => useBalance(address));
     const [wallet, secondWallet] = harness.mockProvider.getWallets();
     harness.rerender(wallet.address);
 
@@ -20,7 +20,7 @@ describe('useBalance', function () {
   });
 
   it('When wallet balances changes; then the hook returns the new balance', async () => {
-    const harness = await hookTestHarness((address: string | undefined) => useBalance(address));
+    const harness = await hookTestWrapper((address: string | undefined) => useBalance(address));
     const [wallet, secondWallet] = harness.mockProvider.getWallets();
     harness.rerender(wallet.address);
 

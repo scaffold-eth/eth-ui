@@ -2,10 +2,10 @@ import { expect, use } from 'chai';
 import * as sinonChai from 'sinon-chai';
 import sinon from 'ts-sinon';
 
-import { hookTestHarness } from '~~/helpers/test-utils';
+import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
-import { currentTestBlockNumber, harnessTestSetupHelper } from '~~/helpers/test-utils/harness/hardhatTestHelpers';
+import { currentTestBlockNumber, harnessTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useOnRepetition } from '~~/hooks';
 import { TEthersProvider } from '~~/models';
 
@@ -28,7 +28,7 @@ describe('useOnRepetition', function () {
 
   describe('Given it is using onBlock events as a trigger', () => {
     it('When a new block is mined and useOnRepetition is called;  then the callback is invoked without arguments', async () => {
-      const harness = await hookTestHarness(() => useOnRepetition(stubCallback, { provider: provider }));
+      const harness = await hookTestWrapper(() => useOnRepetition(stubCallback, { provider: provider }));
       await mineBlock(harness.mockProvider);
       await harness.waitFor(() => stubCallback.called, defaultBlockWaitOptions);
       expect(stubCallback.calledWithExactly()).be.true;
@@ -36,7 +36,7 @@ describe('useOnRepetition', function () {
 
     it('When a new block is mined and useOnRepetition is called; then the callback is invoked with the provided arguments', async () => {
       const args = ['1', 3];
-      const harness = await hookTestHarness(() => useOnRepetition(stubCallback, { provider: provider }, ...args));
+      const harness = await hookTestWrapper(() => useOnRepetition(stubCallback, { provider: provider }, ...args));
       await mineBlock(harness.mockProvider);
       await harness.waitFor(() => stubCallback.called, defaultBlockWaitOptions);
       expect(stubCallback.calledWith(...args)).be.true;
@@ -44,7 +44,7 @@ describe('useOnRepetition', function () {
     });
 
     it('When useOnRepetition is called, there is no new block and leadingTrigger is true; then the callback is invoked with no arguments', async () => {
-      const harness = await hookTestHarness(() =>
+      const harness = await hookTestWrapper(() =>
         useOnRepetition(stubCallback, { provider: provider, leadingTrigger: provider != null })
       );
       await harness.waitFor(() => stubCallback.called, defaultBlockWaitOptions);
@@ -53,7 +53,7 @@ describe('useOnRepetition', function () {
     });
 
     it('When useOnRepetition is called, there is no new block and leadingTrigger is true; then the callback is invoked with the provided arguments', async () => {
-      const harness = await hookTestHarness((hookArgs: any[] | undefined) =>
+      const harness = await hookTestWrapper((hookArgs: any[] | undefined) =>
         useOnRepetition(stubCallback, { provider: provider, leadingTrigger: provider != null }, ...(hookArgs ?? []))
       );
 
@@ -74,7 +74,7 @@ describe('useOnRepetition', function () {
     });
 
     it('When useOnRepetition is called, and there is no provider and leadingTrigger is true; the callback is not called', async () => {
-      const harness = await hookTestHarness(() => useOnRepetition(stubCallback, { leadingTrigger: true }));
+      const harness = await hookTestWrapper(() => useOnRepetition(stubCallback, { leadingTrigger: true }));
 
       await mineBlock(harness.mockProvider);
       expect(await harness.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 1);
@@ -84,7 +84,7 @@ describe('useOnRepetition', function () {
 
   describe('Given when polling', function () {
     it('When useOnRepetition is called without provider, the callback is invoked', async () => {
-      const harness = await hookTestHarness(() =>
+      const harness = await hookTestWrapper(() =>
         useOnRepetition(stubCallback, { leadingTrigger: true, pollTime: 12000 })
       );
 

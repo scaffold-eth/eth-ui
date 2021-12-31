@@ -2,12 +2,12 @@ import { Renderer, renderHook, RenderHookResult } from '@testing-library/react-h
 import { MockProvider } from 'ethereum-waffle';
 import { FC } from 'react';
 
-import { waitForActivation, isActive } from './mockHelpers';
+import { waitForActivation, isActive } from './wrapperHelpers';
 
-import { getMockProvider } from '~~/helpers/test-utils/harness/getMockProvider';
-import { MockAppWrapper } from '~~/helpers/test-utils/harness/wrapper/MockAppWrapper';
-import { MockConnector } from '~~/helpers/test-utils/harness/wrapper/MockConnector';
-import { TCreateEthersModalConnector } from '~~/models/ethersContextTypes';
+import { getMockProvider } from '~~/helpers/test-utils/wrapper/getMockProvider';
+import { MockAppWrapper } from '~~/helpers/test-utils/wrapper/MockAppWrapper';
+import { MockConnector } from '~~/helpers/test-utils/wrapper/MockConnector';
+import { TCreateEthersModalConnector } from '~~/models/ethersAppContextTypes';
 
 export type TTestHookResult<PropsT, TResult> = RenderHookResult<PropsT, TResult, Renderer<PropsT>> & {
   mockProvider: MockProvider;
@@ -15,13 +15,14 @@ export type TTestHookResult<PropsT, TResult> = RenderHookResult<PropsT, TResult,
 
 const mockProvider = getMockProvider();
 const mockConnector = new MockConnector(mockProvider);
+
 /**
  * Created a test hook with a Web3Wrapper
  * @param callbackToHook callback to init hook
  * @see renderHook from @link testing-library/react-hooks
  * @returns (TTestHookResult)
  */
-export const hookTestHarness = async <PropsT, ResultT>(
+export const hookTestWrapper = async <PropsT, ResultT>(
   callbackToHook: (input: PropsT) => ResultT
 ): Promise<TTestHookResult<PropsT, ResultT>> => {
   const createMockConnector: TCreateEthersModalConnector = () => {

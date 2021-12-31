@@ -7,7 +7,7 @@ import { ThemeColors } from 'web3modal';
 
 import { ICommonModalConnector } from '~~/context';
 import { const_DefaultTestChainId } from '~~/helpers/test-utils/constants';
-import { getHardhatAccount } from '~~/helpers/test-utils/harness';
+import { getHardhatAccount } from '~~/helpers/test-utils/wrapper';
 import { TEthersProvider } from '~~/models';
 
 export class MockConnector extends AbstractConnector implements ICommonModalConnector {
