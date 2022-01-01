@@ -4,7 +4,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
-import { useSignerAddress } from '~~/hooks';
+import { useAreSignerEqual } from '~~/hooks';
 import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/models';
 
 /**
@@ -33,11 +33,11 @@ export const useContractReader = <GContract extends BaseContract, GFunc extends 
 
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { signer } = checkEthersOverride(ethersContext, options);
-  const currentSignerAddress = useSignerAddress(signer);
-  const contractSignerAddress = useSignerAddress(contract.signer);
+
+  const validSigners = useAreSignerEqual(contract.signer, signer);
 
   const update = useCallback(async () => {
-    if (currentSignerAddress === contractSignerAddress && contractSignerAddress !== undefined) {
+    if (validSigners) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const result = await functionCallback(...args);
       if (isMounted()) {
@@ -48,7 +48,7 @@ export const useContractReader = <GContract extends BaseContract, GFunc extends 
         setValue(undefined);
       }
     }
-  }, [args, contractSignerAddress, currentSignerAddress, functionCallback, isMounted]);
+  }, [validSigners, functionCallback, args, isMounted]);
 
   useEffect(() => {
     void update();

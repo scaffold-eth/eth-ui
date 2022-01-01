@@ -1,7 +1,7 @@
 import { Token, WETH, Fetcher, Route } from '@uniswap/sdk';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { useOnRepetition } from '~~/hooks';
+import { useBlockNumber } from '~~/hooks';
 import { TNetworkInfo } from '~~/models';
 import { TEthersProvider } from '~~/models/providerTypes';
 
@@ -21,12 +21,12 @@ import { TEthersProvider } from '~~/models/providerTypes';
  */
 export const useDexEthPrice = (
   mainnetProvider: TEthersProvider | undefined,
-  targetNetworkInfo?: TNetworkInfo,
-  pollTime: number = 0
-): number => {
+  targetNetworkInfo?: TNetworkInfo
+): [price: number, update: () => void] => {
   const [price, setPrice] = useState(0);
+  const [blockNumber] = useBlockNumber(mainnetProvider);
 
-  const callFunc = useCallback(() => {
+  const update = useCallback(() => {
     const getPrice = async (): Promise<void> => {
       if (targetNetworkInfo?.price) {
         setPrice(targetNetworkInfo.price);
@@ -46,7 +46,9 @@ export const useDexEthPrice = (
     void getPrice();
   }, [targetNetworkInfo?.price, mainnetProvider]);
 
-  useOnRepetition(callFunc, { pollTime, provider: mainnetProvider });
+  useEffect(() => {
+    update();
+  }, [blockNumber, update]);
 
-  return price;
+  return [price, update];
 };

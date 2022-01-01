@@ -17,7 +17,7 @@ import { TEthersProvider } from '~~/models';
  * @param pollTime if > 0 uses polling, else it uses onBlock event
  * @returns block number
  */
-export const useBlockNumber = (provider: TEthersProvider): [blockNumber: number, update: () => void] => {
+export const useBlockNumber = (provider: TEthersProvider | undefined): [blockNumber: number, update: () => void] => {
   const [blockNumber, setBlockNumber] = useState<number>(0);
   const isMounted = useIsMounted();
 

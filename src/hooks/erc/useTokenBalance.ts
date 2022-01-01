@@ -1,13 +1,19 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Contract } from '@ethersproject/contracts';
-import { useCallback, useState } from 'react';
+import { BaseContract } from '@ethersproject/contracts';
+import { useCallback, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useEthersContext } from '~~/context';
-import { useOnRepetition } from '~~/hooks';
-import { TEthersProvider } from '~~/models';
+import { useBlockNumberContext, useEthersContext } from '~~/context';
+import { checkEthersOverride } from '~~/functions';
+import { useAreSignerEqual } from '~~/hooks';
+import { defaultHookOptions, THookOptions } from '~~/models';
 
 const zero = BigNumber.from(0);
+
+type ERC20 = {
+  balanceOf: (address: string) => Promise<BigNumber>;
+};
+
 /**
  * Get the balance of an ERC20 token in an address
  * 
@@ -36,17 +42,24 @@ const zero = BigNumber.from(0);
  * @param pollTime if >0 use polling, else use instead of onBlock event
  * @returns
  */
-export const useTokenBalance = (contract: Contract, address: string, pollTime: number = 0): BigNumber => {
+export const useTokenBalance = <GContract extends BaseContract & ERC20>(
+  contract: GContract,
+  address: string,
+  options: THookOptions = defaultHookOptions()
+): [balance: BigNumber, update: () => void] => {
   const isMounted = useIsMounted();
   const [balance, setBalance] = useState<BigNumber>(zero);
-  const ethersContext = useEthersContext();
 
-  const callFunc = useCallback(async (): Promise<void> => {
+  const blockNumber = useBlockNumberContext();
+  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const { signer } = checkEthersOverride(ethersContext, options);
+
+  const validSigners = useAreSignerEqual(contract.signer, signer);
+
+  const update = useCallback(async (): Promise<void> => {
     if (contract != null) {
       try {
-        const contractChainId = await contract?.signer?.getChainId();
-        if (ethersContext.chainId === contractChainId) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+        if (validSigners) {
           const newBalance: BigNumber = (await contract?.balanceOf?.(address)) ?? zero;
           if (isMounted()) {
             setBalance((value) => {
@@ -59,13 +72,11 @@ export const useTokenBalance = (contract: Contract, address: string, pollTime: n
         console.log('⚠ Could not get token balance', e);
       }
     }
-  }, [address, contract, ethersContext.chainId, isMounted]);
+  }, [contract, validSigners, address, isMounted]);
 
-  useOnRepetition(callFunc, {
-    pollTime,
-    leadingTrigger: contract?.provider != null,
-    provider: contract.provider as TEthersProvider,
-  });
+  useEffect(() => {
+    void update();
+  }, [blockNumber, update]);
 
-  return balance;
+  return [balance, update];
 };
