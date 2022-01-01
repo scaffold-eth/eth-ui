@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.0.0-beta05",
+  "version": "4.0.1-beta01",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -144,5 +144,8 @@
     "typescript"
   ],
   "license": "MIT",
-  "packageManager": "yarn@3.1.0"
+  "packageManager": "yarn@3.1.1",
+  "volta": {
+    "node": "16.13.1"
+  }
 }

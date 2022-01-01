@@ -23,7 +23,7 @@ import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/mode
 export const useContractReader = <GContract extends BaseContract, GFunc extends (...args: any[]) => Promise<any>>(
   contract: GContract,
   functionCallback: GFunc,
-  args: Parameters<GFunc>,
+  args?: Parameters<GFunc>,
   options: THookOptions = defaultHookOptions()
 ): [value: Awaited<ReturnType<GFunc>> | undefined, update: () => void] => {
   const isMounted = useIsMounted();
@@ -39,7 +39,7 @@ export const useContractReader = <GContract extends BaseContract, GFunc extends 
   const update = useCallback(async () => {
     if (validSigners) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const result = await functionCallback(...args);
+      const result = await functionCallback(...(args ?? []));
       if (isMounted()) {
         setValue(result);
       }
