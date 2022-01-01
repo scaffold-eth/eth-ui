@@ -1,8 +1,10 @@
-import { BaseContract, utils } from 'ethers';
+import { utils } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useBlockNumberContext } from '~~/context';
+import { useBlockNumberContext, useEthersContext } from '~~/context';
+import { checkEthersOverride } from '~~/functions';
+import { defaultHookOptions, THookOptions } from '~~/models';
 /**
  * #### Summary
  * Checks whether a contract exists on the blockchain
@@ -16,29 +18,37 @@ import { useBlockNumberContext } from '~~/context';
  * @param contract ethers.BaseContract class
  * @returns
  */
-export const useContractExistsAtAddress = (contract: BaseContract | undefined): boolean => {
+export const useContractExistsAtAddress = (
+  contractAddress: string,
+  options: THookOptions = defaultHookOptions()
+): [contractIsDeployed: boolean, update: () => void] => {
   const isMounted = useIsMounted();
   const [contractIsDeployed, setContractIsDeployed] = useState(false);
   const blockNumber = useBlockNumberContext();
+
+  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const { provider } = checkEthersOverride(ethersContext, options);
 
   /**
    * We can look at the blockchain and see what's stored at `contractAddress`
    * If we find code then we know that a contract exists there.
    * If we find nothing (0x0) then there is no contract deployed to that address
    */
-  const callFunc = useCallback(async (): Promise<void> => {
-    if (!contract?.provider || !utils.isAddress(contract.address)) {
+  const update = useCallback(async (): Promise<void> => {
+    if (provider == null || !utils.isAddress(contractAddress)) {
       if (isMounted()) setContractIsDeployed(false);
       return;
     }
 
-    const bytecode = await contract.provider.getCode(contract.address);
-    if (isMounted()) setContractIsDeployed(bytecode !== '0x');
-  }, [contract, isMounted]);
+    const bytecode = await provider.getCode(contractAddress);
+    if (isMounted()) {
+      setContractIsDeployed(bytecode !== '0x');
+    }
+  }, [provider, contractAddress, isMounted]);
 
   useEffect(() => {
-    void callFunc();
-  }, [blockNumber, callFunc]);
+    void update();
+  }, [blockNumber, update]);
 
-  return contractIsDeployed;
+  return [contractIsDeployed, update];
 };

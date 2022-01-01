@@ -29,7 +29,7 @@ export const useBalance = (address: string | undefined, options: THookOptions = 
   const blockNumber = useBlockNumberContext();
   const [balance, setBalance] = useState<BigNumber>(zero);
 
-  const callFunc = useCallback(async (): Promise<void> => {
+  const update = useCallback(async (): Promise<void> => {
     if (provider && address) {
       const newBalance = await provider.getBalance(address);
       if (isMounted()) {
@@ -44,8 +44,8 @@ export const useBalance = (address: string | undefined, options: THookOptions = 
   }, [address, provider, isMounted]);
 
   useEffect(() => {
-    void callFunc();
-  }, [blockNumber, callFunc]);
+    void update();
+  }, [blockNumber, update]);
 
   return balance;
 };

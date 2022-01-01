@@ -5,7 +5,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { TNetworkInfo } from '~~/models';
+import { checkEthersOverride } from '~~/functions';
+import { defaultHookOptions, THookOptions, TNetworkInfo } from '~~/models';
 
 /**
  * Preset speeds for Eth Gas Station API
@@ -39,15 +40,18 @@ export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
 export const useGasPrice = (
   chainId: number | undefined,
   speed: TGasStationSpeed,
+  options: THookOptions = defaultHookOptions(),
   currentNetworkInfo?: TNetworkInfo
-): number | undefined => {
-  const { provider: ethersProvider } = useEthersContext();
+): [gasPrice: number | undefined, update: () => void] => {
+  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const { provider } = checkEthersOverride(ethersContext, options);
+
   const blockNumber = useBlockNumberContext();
   const [currentChainId, setCurrentChainId] = useState<number>();
   const [gasPrice, setGasPrice] = useState<number | undefined>();
   const [gasPriceDebounced] = useDebounce(gasPrice, 250, { trailing: true });
 
-  const callFunc = useCallback((): void => {
+  const update = useCallback((): void => {
     if (currentChainId !== chainId) {
       setCurrentChainId(chainId);
       setGasPrice(undefined);
@@ -71,8 +75,8 @@ export const useGasPrice = (
             setGasPrice(undefined);
           });
       }
-    } else if (ethersProvider) {
-      void ethersProvider
+    } else if (provider) {
+      void provider
         .getFeeData()
         .then((fee: FeeData) => {
           const price = fee.gasPrice ?? fee.maxFeePerGas;
@@ -98,10 +102,10 @@ export const useGasPrice = (
     } else {
       setGasPrice(undefined);
     }
-  }, [currentChainId, chainId, ethersProvider, currentNetworkInfo?.gasPrice, speed]);
+  }, [currentChainId, chainId, provider, currentNetworkInfo?.gasPrice, speed]);
 
   useEffect(() => {
-    void callFunc();
-  }, [blockNumber, callFunc]);
-  return gasPriceDebounced;
+    void update();
+  }, [blockNumber, update]);
+  return [gasPriceDebounced, update];
 };

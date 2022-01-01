@@ -12,5 +12,5 @@ export * from './useGetEthersAdaptorFromSigners';
 export * from './useNonce';
 export * from './useOnRepetition';
 export * from './useTimestamp';
-export * from './useUserAddress';
+export * from './useSignerAddress';
 export * from './useWeb3Modal';

@@ -163,7 +163,9 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
     const alternateProvider = cloneElement(
       props.secondaryWeb3ReactRoot.web3ReactRoot,
       { getLibrary: getEthersAppProviderLibrary },
-      <BlockNumberContext contextKey={props.secondaryWeb3ReactRoot.contextKey}>{props.children}</BlockNumberContext>
+      <BlockNumberContext options={{ alternateEthersContextKey: props.secondaryWeb3ReactRoot.contextKey }}>
+        {props.children}
+      </BlockNumberContext>
     );
 
     return alternateProvider;

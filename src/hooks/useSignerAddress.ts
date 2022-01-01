@@ -14,23 +14,25 @@ import { TEthersSigner } from '~~/models';
  * @param signer
  * @returns
  */
-export const useUserAddress = (signer: TEthersSigner | undefined): string | undefined => {
+export const useSignerAddress = (
+  signer: TEthersSigner | undefined
+): [address: string | undefined, update: () => void] => {
   const isMounted = useIsMounted();
-  const [userAddress, setUserAddress] = useState<string>();
+  const [address, setAddress] = useState<string>();
   const blockNumber = useBlockNumberContext();
 
-  const callFunc = useCallback(async (): Promise<void> => {
+  const update = useCallback(async (): Promise<void> => {
     if (signerHasNetwork(signer)) {
       const address = await signer?.getAddress();
       if (isMounted()) {
-        setUserAddress(address);
+        setAddress(address);
       }
     }
   }, [isMounted, signer]);
 
   useEffect(() => {
-    void callFunc();
-  }, [blockNumber, callFunc]);
+    void update();
+  }, [blockNumber, update]);
 
-  return userAddress;
+  return [address, update];
 };

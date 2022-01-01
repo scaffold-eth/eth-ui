@@ -23,19 +23,20 @@ const getEventKey = (m: Event | TypedEvent<Result>): string => {
  * @param startBlock
  * @returns
  */
-export const useEventListener = (
-  contract: BaseContract | undefined,
-  eventName: string | EventFilter,
-  startBlock: number
-): TypedEvent<Result>[] => {
+export const useEventListener = <GContract extends BaseContract>(
+  contract: GContract | undefined,
+  event: string | EventFilter,
+  startBlock: number,
+  toBlock?: number
+): [eventMap: TypedEvent<Result>[], queryEvents: () => void] => {
   const isMounted = useIsMounted();
 
   const [eventMap, setEventMap] = useState<TypedEvent<Result>[]>([]);
 
   const queryEvents = useCallback(
-    (_listenerArgs: Event[]) => {
+    (_listenerArgs: Event[] = []) => {
       void (async (): Promise<void> => {
-        const result = await contract?.queryFilter(eventName as EventFilter, startBlock);
+        const result = await contract?.queryFilter(event as EventFilter, startBlock, toBlock);
         if (isMounted() && result) {
           setEventMap((value) => {
             if (JSON.stringify(value.map(getEventKey)) !== JSON.stringify(result.map(getEventKey))) {
@@ -47,7 +48,7 @@ export const useEventListener = (
         }
       })();
     },
-    [contract, eventName, isMounted, startBlock]
+    [contract, event, isMounted, startBlock, toBlock]
   );
 
   // // get the events on initial load of hooks, without waiting for the next event
@@ -60,14 +61,14 @@ export const useEventListener = (
 
   useEffect(() => {
     try {
-      contract?.on(eventName, queryEvents);
+      contract?.on(event, queryEvents);
       return (): void => {
-        contract?.off(eventName, queryEvents);
+        contract?.off(event, queryEvents);
       };
     } catch (e) {
       console.log(e);
     }
-  }, [queryEvents, contract, eventName]);
+  }, [queryEvents, contract, event]);
 
-  return eventMap;
+  return [eventMap, queryEvents];
 };

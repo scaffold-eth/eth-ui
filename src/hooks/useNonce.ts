@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
+import { checkEthersOverride } from '~~/functions';
+import { defaultHookOptions, THookOptions } from '~~/models';
 
 /**
  * #### Summary
@@ -16,17 +18,21 @@ import { useEthersContext, useBlockNumberContext } from '~~/context';
  * @param address
  * @returns
  */
-export const useNonce = (address: string): number => {
+export const useNonce = (
+  address: string,
+  options: THookOptions = defaultHookOptions()
+): [nonce: number, update: () => void] => {
   const isMounted = useIsMounted();
-  const { provider: ethersProvider } = useEthersContext();
+  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const { provider } = checkEthersOverride(ethersContext, options);
   const blockNumber = useBlockNumberContext();
 
   const [nonce, setNonce] = useState<number>(0);
 
-  const callFunc = useCallback(async (): Promise<void> => {
+  const update = useCallback(async (): Promise<void> => {
     let nextNonce: number = 0;
     try {
-      nextNonce = (await ethersProvider?.getTransactionCount(address)) ?? 0;
+      nextNonce = (await provider?.getTransactionCount(address)) ?? 0;
     } catch {
       // do nothing
     }
@@ -36,11 +42,11 @@ export const useNonce = (address: string): number => {
         return value;
       });
     }
-  }, [address, ethersProvider, isMounted]);
+  }, [address, provider, isMounted]);
 
   useEffect(() => {
-    void callFunc();
-  }, [blockNumber, callFunc]);
+    void update();
+  }, [blockNumber, update]);
 
-  return nonce;
+  return [nonce, update];
 };

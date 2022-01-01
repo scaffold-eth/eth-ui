@@ -4,7 +4,58 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { checkEthersOverride } from '~~/functions';
+import { useSignerAddress } from '~~/hooks';
 import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/models';
+
+/**
+ * #### Summary
+ * Enables you to call a contract function with arguments and receive the output.  You can use this to easily track of contract outputs in react states
+ *
+ * #### Notes
+ * - uses the ethers.Contract object's provider to access the network
+ * - formatter is a function that can change the format of the output
+ * @param contract
+ * @param functionCallback
+ * @param args
+ * @param options
+ * @returns
+ */
+export const useContractReader = <GContract extends BaseContract, GFunc extends (...args: any[]) => Promise<any>>(
+  contract: GContract,
+  functionCallback: GFunc,
+  args: Parameters<GFunc>,
+  options: THookOptions = defaultHookOptions()
+): [value: Awaited<ReturnType<GFunc>> | undefined, update: () => void] => {
+  const isMounted = useIsMounted();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const [value, setValue] = useState<Awaited<ReturnType<GFunc>>>();
+  const blockNumber = useBlockNumberContext();
+
+  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const { signer } = checkEthersOverride(ethersContext, options);
+  const currentSignerAddress = useSignerAddress(signer);
+  const contractSignerAddress = useSignerAddress(contract.signer);
+
+  const update = useCallback(async () => {
+    if (currentSignerAddress === contractSignerAddress && contractSignerAddress !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const result = await functionCallback(...args);
+      if (isMounted()) {
+        setValue(result);
+      }
+    } else {
+      if (isMounted()) {
+        setValue(undefined);
+      }
+    }
+  }, [args, contractSignerAddress, currentSignerAddress, functionCallback, isMounted]);
+
+  useEffect(() => {
+    void update();
+  }, [blockNumber, update]);
+
+  return [value, update];
+};
 
 /**
  * #### Summary
@@ -23,7 +74,7 @@ import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/mode
  * @param onChange callback with result as a parameter
  * @returns <OutputT>
  */
-export const useContractReader = <GOutput>(
+export const useContractReaderUntyped = <GOutput>(
   contract: BaseContract,
   contractFunctionInfo: TContractFunctionInfo,
   formatter?: (_value: GOutput | undefined) => GOutput,

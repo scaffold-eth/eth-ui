@@ -73,10 +73,12 @@ export const parseContractsInJson = (
 };
 /**
  * #### Summary
- *  Loads your contracts returns them and gives options to read values from contracts
- * or write transactions into them
+ * Loads your contracts and returns them. ✋🏽 @deprecated
+ * Gives options to read values from contracts or write transactions into them.
  *
  * #### Notes
+ * - ✋🏽 For easy app wide contract access use {@link AppContractContex} created by {@link contractsContextFactory}.  See {@link contractsContextFactory} for more details.
+ *
  * A optional providerOrSigner is needed to initalize the contract class
  * - if none is given, the context providerOrSigner is used if the chainId is the same.
  * - A signer is required for write contracts
