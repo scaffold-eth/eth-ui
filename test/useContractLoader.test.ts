@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { expect, use } from 'chai';
 import { BaseContract, Signer } from 'ethers';
 import * as sinonChai from 'sinon-chai';

@@ -21,8 +21,8 @@ import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/mode
  * @returns
  */
 export const useContractReader = <GContract extends BaseContract, GFunc extends (...args: any[]) => Promise<any>>(
-  contract: GContract,
-  functionCallback: GFunc,
+  contract: GContract | undefined,
+  functionCallback: GFunc | undefined,
   args?: Parameters<GFunc>,
   options: THookOptions = defaultHookOptions()
 ): [value: Awaited<ReturnType<GFunc>> | undefined, update: () => void] => {
@@ -31,15 +31,15 @@ export const useContractReader = <GContract extends BaseContract, GFunc extends 
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { signer } = checkEthersOverride(ethersContext, options);
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [value, setValue] = useState<Awaited<ReturnType<GFunc>>>();
-  const validSigners = useAreSignerEqual(contract.signer, signer);
+  const validSigners = useAreSignerEqual(contract?.signer, signer);
 
   const update = useCallback(async () => {
-    if (validSigners) {
+    if (validSigners && contract != null && functionCallback != null) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const result = await functionCallback(...(args ?? []));
       if (isMounted()) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         setValue(result);
       }
     } else {
@@ -47,7 +47,7 @@ export const useContractReader = <GContract extends BaseContract, GFunc extends 
         setValue(undefined);
       }
     }
-  }, [validSigners, functionCallback, args, isMounted]);
+  }, [validSigners, contract, functionCallback, args, isMounted]);
 
   useEffect(() => {
     void update();
@@ -91,6 +91,7 @@ export const useContractReaderUntyped = <GOutput>(
     let result: GOutput | undefined = undefined;
     try {
       if (contractFunctionInfo.functionArgs && contractFunctionInfo.functionArgs.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         result = await contractFunction?.(...contractFunctionInfo.functionArgs);
       } else {
         result = await contractFunction?.();

@@ -19,7 +19,7 @@ import { defaultHookOptions, THookOptions } from '~~/models';
  * @returns
  */
 export const useContractExistsAtAddress = (
-  contractAddress: string,
+  contractAddress: string | undefined,
   options: THookOptions = defaultHookOptions()
 ): [contractIsDeployed: boolean, update: () => void] => {
   const isMounted = useIsMounted();
@@ -35,7 +35,7 @@ export const useContractExistsAtAddress = (
    * If we find nothing (0x0) then there is no contract deployed to that address
    */
   const update = useCallback(async (): Promise<void> => {
-    if (provider == null || !utils.isAddress(contractAddress)) {
+    if (contractAddress == null || provider == null || !utils.isAddress(contractAddress)) {
       if (isMounted()) setContractIsDeployed(false);
       return;
     }

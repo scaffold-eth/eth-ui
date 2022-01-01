@@ -112,7 +112,6 @@ export type TEthersAppContextProps = {
  * @returns
  */
 export const getEthersAppProviderLibrary = (
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   provider: any,
   connector: AbstractConnector | undefined
 ): TEthersProvider => {
