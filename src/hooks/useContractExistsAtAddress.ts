@@ -23,11 +23,11 @@ export const useContractExistsAtAddress = (
   options: THookOptions = defaultHookOptions()
 ): [contractIsDeployed: boolean, update: () => void] => {
   const isMounted = useIsMounted();
-  const [contractIsDeployed, setContractIsDeployed] = useState(false);
   const blockNumber = useBlockNumberContext();
-
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { provider } = checkEthersOverride(ethersContext, options);
+
+  const [contractIsDeployed, setContractIsDeployed] = useState(false);
 
   /**
    * We can look at the blockchain and see what's stored at `contractAddress`

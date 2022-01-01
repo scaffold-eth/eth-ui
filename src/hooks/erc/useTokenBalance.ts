@@ -48,12 +48,11 @@ export const useTokenBalance = <GContract extends BaseContract & ERC20>(
   options: THookOptions = defaultHookOptions()
 ): [balance: BigNumber, update: () => void] => {
   const isMounted = useIsMounted();
-  const [balance, setBalance] = useState<BigNumber>(zero);
-
   const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { signer } = checkEthersOverride(ethersContext, options);
 
+  const [balance, setBalance] = useState<BigNumber>(zero);
   const validSigners = useAreSignerEqual(contract.signer, signer);
 
   const update = useCallback(async (): Promise<void> => {

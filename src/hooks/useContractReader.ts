@@ -27,13 +27,12 @@ export const useContractReader = <GContract extends BaseContract, GFunc extends 
   options: THookOptions = defaultHookOptions()
 ): [value: Awaited<ReturnType<GFunc>> | undefined, update: () => void] => {
   const isMounted = useIsMounted();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const [value, setValue] = useState<Awaited<ReturnType<GFunc>>>();
   const blockNumber = useBlockNumberContext();
-
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { signer } = checkEthersOverride(ethersContext, options);
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const [value, setValue] = useState<Awaited<ReturnType<GFunc>>>();
   const validSigners = useAreSignerEqual(contract.signer, signer);
 
   const update = useCallback(async () => {

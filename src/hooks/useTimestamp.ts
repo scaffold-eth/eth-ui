@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useBlockNumberContext, useEthersContext } from '~~/context';
+import { checkEthersOverride } from '~~/functions';
+import { THookOptions, defaultHookOptions } from '~~/models';
 
 /**
  * #### Summary
@@ -16,22 +18,23 @@ import { useBlockNumberContext, useEthersContext } from '~~/context';
  * @param pollTime
  * @returns
  */
-export const useTimestamp = (): [timestamp: number, update: () => void] => {
+export const useTimestamp = (options: THookOptions = defaultHookOptions()): [timestamp: number, update: () => void] => {
   const isMounted = useIsMounted();
-  const { provider: ethersProvider } = useEthersContext();
   const blockNumber = useBlockNumberContext();
+  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const { provider } = checkEthersOverride(ethersContext, options);
 
   const [timestamp, setTimestamp] = useState<number>(0);
 
   const update = useCallback(async (): Promise<void> => {
     if (blockNumber != null) {
-      const block = await ethersProvider?.getBlock(blockNumber);
+      const block = await provider?.getBlock(blockNumber);
       if (block?.timestamp != null) {
         const nextTimestamp = block.timestamp;
         if (isMounted()) setTimestamp(nextTimestamp);
       }
     }
-  }, [blockNumber, ethersProvider, isMounted]);
+  }, [blockNumber, provider, isMounted]);
 
   useEffect(() => {
     void update();

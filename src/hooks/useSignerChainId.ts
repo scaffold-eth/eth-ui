@@ -18,8 +18,9 @@ export const useSignerChainId = (
   signer: TEthersSigner | undefined
 ): [address: number | undefined, update: () => void] => {
   const isMounted = useIsMounted();
-  const [chainId, setChainId] = useState<number>();
   const blockNumber = useBlockNumberContext();
+
+  const [chainId, setChainId] = useState<number>();
 
   const update = useCallback(async (): Promise<void> => {
     if (signerHasNetwork(signer)) {

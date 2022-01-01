@@ -21,7 +21,10 @@ const zero = BigNumber.from(0);
  * @param options
  * @returns current balance
  */
-export const useBalance = (address: string | undefined, options: THookOptions = defaultHookOptions()): BigNumber => {
+export const useBalance = (
+  address: string | undefined,
+  options: THookOptions = defaultHookOptions()
+): [balance: BigNumber, update: () => void] => {
   const isMounted = useIsMounted();
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { provider } = checkEthersOverride(ethersContext, options);
@@ -47,5 +50,5 @@ export const useBalance = (address: string | undefined, options: THookOptions = 
     void update();
   }, [blockNumber, update]);
 
-  return balance;
+  return [balance, update];
 };

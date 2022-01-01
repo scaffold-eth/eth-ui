@@ -53,8 +53,8 @@ export const useEventListener = <GContract extends BaseContract>(
 
   // // get the events on initial load of hooks, without waiting for the next event
   useEffect(() => {
-    if (contract?.queryFilter != null && setEventMap && (eventMap == null || eventMap?.length === 0) && queryEvents) {
-      queryEvents([]);
+    if (contract?.queryFilter != null && (eventMap?.length == null || eventMap?.length === 0)) {
+      queryEvents?.([]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract?.queryFilter]);

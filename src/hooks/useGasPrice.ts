@@ -43,10 +43,10 @@ export const useGasPrice = (
   options: THookOptions = defaultHookOptions(),
   currentNetworkInfo?: TNetworkInfo
 ): [gasPrice: number | undefined, update: () => void] => {
+  const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { provider } = checkEthersOverride(ethersContext, options);
 
-  const blockNumber = useBlockNumberContext();
   const [currentChainId, setCurrentChainId] = useState<number>();
   const [gasPrice, setGasPrice] = useState<number | undefined>();
   const [gasPriceDebounced] = useDebounce(gasPrice, 250, { trailing: true });

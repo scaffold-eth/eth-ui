@@ -23,9 +23,9 @@ export const useNonce = (
   options: THookOptions = defaultHookOptions()
 ): [nonce: number, update: () => void] => {
   const isMounted = useIsMounted();
+  const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { provider } = checkEthersOverride(ethersContext, options);
-  const blockNumber = useBlockNumberContext();
 
   const [nonce, setNonce] = useState<number>(0);
 
