@@ -19,14 +19,15 @@ export const useResolveEnsAddress = (
 ): [address: string, update: () => void] => {
   const [address, setAddress] = useState<string>(constants.AddressZero);
 
-  const update = useCallback(() => {
+  const update = useCallback(async () => {
     if (mainnetProvider) {
-      void mainnetProvider.resolveName(ensName).then((resolvedAddress: string) => setAddress(resolvedAddress));
+      const resolved = await mainnetProvider.resolveName(ensName);
+      setAddress(resolved ?? constants.AddressZero);
     }
   }, [ensName, mainnetProvider]);
 
   useEffect(() => {
-    update();
+    void update();
   }, [mainnetProvider, ensName, update]);
 
   return [address, update];

@@ -57,7 +57,7 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   public activate = async (): Promise<ConnectorUpdate> => {
     this.spyActivate();
     const account = await this.setMockAccount(0);
-    this.mockSigner = this.provider.getSigner(account);
+    this.mockSigner = this.provider.getSigner(account) as Signer;
 
     return { provider: await this.providerPromise(), chainId: this.mockChainId, account: account };
   };
