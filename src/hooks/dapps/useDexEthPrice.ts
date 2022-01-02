@@ -37,9 +37,6 @@ export const useDexEthPrice = (
         const pair = await Fetcher.fetchPairData(DAI, WETH[DAI.chainId], mainnetProvider);
         const route = new Route([pair], WETH[DAI.chainId]);
         setPrice(parseFloat(route.midPrice.toSignificant(6)));
-      } else {
-        setPrice(-1);
-        console.warn('useDexEthPrice: mainnetProvider or targetNetwork not given');
       }
     };
 

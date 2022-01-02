@@ -10,6 +10,7 @@ import React, {
   useReducer,
 } from 'react';
 
+import { useEthersContext } from '~~/context';
 import { connectToContractWithSignerOrProvider, isValidEthersAdaptor, sortContractsByChainId } from '~~/functions';
 import { TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
 import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractContextTypes';
@@ -237,13 +238,20 @@ export const contractsContextFactory = <
    */
   const useAppContractsContext = <GContract extends GContractTypes>(
     contractName: GContractNames,
-    chainId: number
+    chainId: number | undefined
   ): GContract | undefined => {
     const contractsState = useContractsState();
-    const contract = contractsState?.contractsByName?.[contractName]?.[chainId];
-    if (!contract) {
+    const ethersContext = useEthersContext();
+    const contract = contractsState?.contractsByName?.[contractName]?.[chainId ?? -1]; // -1 is unknown chainId
+    const contractConnector = contractsState?.contractConnectors?.[contractName];
+
+    // just making sure app is initalized before spamming console logs
+    // connector abi initialized, ethers context is initalized
+    if (contract == null && ethersContext?.chainId != null && contractConnector?.abi != null) {
       console.log(
-        `⚠️ Contract ${contractName} not found on chain ${chainId}.  1. Did you setup the contract in the config? 2. Did you call useLoadAppContracts with an adaptor that has the correct chainId?`
+        `⚠️ Contract ${contractName} not found on chain ${
+          chainId ?? 'undefined'
+        }.  1. Did you setup the contract in the config? 2. Did you call useLoadAppContracts with an adaptor that has the correct chainId?`
       );
     }
     return contract as GContract;
