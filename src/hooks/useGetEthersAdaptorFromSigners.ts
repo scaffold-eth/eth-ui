@@ -20,7 +20,7 @@ export const useGetEthersAdaptorFromSigners = (signer: Signer | Wallet | undefin
   const [chainId, setChainId] = useState<number>();
   const [account, setAccount] = useState<string>();
 
-  const callFunc = useCallback(async (): Promise<void> => {
+  const update = useCallback(async (): Promise<void> => {
     const result = await parseProviderOrSigner(signer);
     if (result) {
       setResolvedSigner(result.signer);
@@ -36,18 +36,17 @@ export const useGetEthersAdaptorFromSigners = (signer: Signer | Wallet | undefin
   }, [signer]);
 
   useEffect(() => {
-    void callFunc();
-  }, [callFunc]);
+    void update();
+  }, [update]);
 
-  if (resolvedSigner != null && provider != null && chainId != null && account != null) {
-    const result: TEthersAdaptor = {
-      signer: resolvedSigner,
-      provider,
-      chainId,
-      account,
-    };
-    return result;
+  const result: TEthersAdaptor = {
+    signer: resolvedSigner,
+    provider,
+    chainId,
+    account,
+  };
+  if (result.account == null && provider == null && signer == null && chainId == null) {
+    return undefined;
   }
-
-  return undefined;
+  return result;
 };

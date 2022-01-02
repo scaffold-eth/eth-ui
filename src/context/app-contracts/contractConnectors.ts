@@ -1,6 +1,6 @@
-import { BaseContract, ethers, Signer } from 'ethers';
+import { BaseContract, ethers } from 'ethers';
 
-import { TConnectorBase, TContractConnector } from '~~/models';
+import { TConnectorConnectorBase, TContractConnector, TEthersProviderOrSigner } from '~~/models';
 import {
   TDeployedContractJsonData,
   TExternalContractsAddressMap,
@@ -46,7 +46,7 @@ export const createConnectorsForHardhatContracts = <
   GContractInterface extends ethers.utils.Interface
 >(
   contractName: GContractNames,
-  typechainFactory: TConnectorBase<GBaseContract, GContractInterface>,
+  typechainFactory: TConnectorConnectorBase<GBaseContract, GContractInterface>,
   deployedHardhatContractJson: THardhatContractsFileJson
 ): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractHardhatContracts(deployedHardhatContractJson)[contractName];
@@ -61,12 +61,13 @@ export const createConnectorsForHardhatContracts = <
     contractName,
     connect: typechainFactory.connect,
     createInterface: typechainFactory.createInterface,
-    abi: (info?.abi ?? []) as Record<string, any>[],
+    abi: (info?.abi ?? typechainFactory.abi ?? []) as Record<string, any>[],
     config: {
       [info.chainId]: {
         address: info.address,
       },
     },
+    chainId: info.chainId,
   };
 };
 
@@ -76,7 +77,7 @@ export const createConnectorsForExternalContract = <
   GContractInterface extends ethers.utils.Interface
 >(
   contractName: GContractNames,
-  typechainFactory: TConnectorBase<GBaseContract, GContractInterface>,
+  typechainFactory: TConnectorConnectorBase<GBaseContract, GContractInterface>,
   deployedContractJson: TExternalContractsAddressMap
 ): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractExternalContracts(deployedContractJson)[contractName];
@@ -91,35 +92,40 @@ export const createConnectorsForExternalContract = <
     contractName,
     connect: typechainFactory.connect,
     createInterface: typechainFactory.createInterface,
-    abi: (info?.abi ?? []) as Record<string, any>[],
+    abi: (info?.abi ?? typechainFactory.abi ?? []) as Record<string, any>[],
     config: {
       [info.chainId]: {
         address: info.address,
       },
     },
+    chainId: info.chainId,
   };
 };
 
-export const connectToContractWithSigner = async <
+export const connectToContractWithSignerOrProvider = <
   GContractNames extends string,
   GContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
   connector: TContractConnector<GContractNames, GContract, GContractInterface>,
-  signer: Signer
-): Promise<GContract | undefined> => {
-  const chainId: number = await signer.getChainId();
-  const address = connector?.config?.[chainId]?.address;
-  if (chainId != null && address != null) {
-    const contract = connector.connect(connector.config[chainId].address, signer);
+  singerOrProvider: TEthersProviderOrSigner,
+  chainId: number
+): GContract | undefined => {
+  const contractAddress = connector?.config?.[chainId]?.address;
+  if (chainId != null && contractAddress != null && singerOrProvider != null) {
+    const contract = connector.connect(connector.config[chainId].address, singerOrProvider);
 
     if (chainId != null && contract != null) {
       return contract;
     }
   }
 
+  // error handling
+  if (connector.chainId !== chainId) {
+    console.warn('ContractConnector requires signer with the same chainId to connect contract');
+  }
   console.log(
-    `Couldn't connect to contract ${connector?.contractName}, signer chainId: ${chainId}, config: ${JSON.stringify(
+    `Couldn't connect to contract ${connector?.contractName}:   signer chainId: ${chainId}, config: ${JSON.stringify(
       connector?.config
     )}.`
   );

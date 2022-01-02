@@ -38,7 +38,7 @@ export const useGetEthersAdaptorFromProviders = (
       return acc + value ?? '';
     }, '');
 
-  const callFunc = useCallback(
+  const update = useCallback(
     async (): Promise<void> => {
       const foundSigner = await asyncSome(allProviders, async (provider) => {
         const result = await parseProviderOrSigner(provider);
@@ -47,8 +47,6 @@ export const useGetEthersAdaptorFromProviders = (
           setProvider(result.provider);
           setAccount(result.account);
           setChainId(result.chainId);
-          const address = await result.signer?.getAddress();
-          setAccount(address);
           return true;
         }
         return false;
@@ -67,18 +65,17 @@ export const useGetEthersAdaptorFromProviders = (
   );
 
   useEffect(() => {
-    void callFunc();
-  }, [callFunc]);
+    void update();
+  }, [update]);
 
-  if (signer != null && provider != null && chainId != null && account != null) {
-    const result: TEthersAdaptor = {
-      signer,
-      provider,
-      chainId,
-      account,
-    };
-    return result;
+  const result: TEthersAdaptor = {
+    signer,
+    provider,
+    chainId,
+    account,
+  };
+  if (result.account == null && provider == null && signer == null && chainId == null) {
+    return undefined;
   }
-
-  return undefined;
+  return result;
 };

@@ -72,34 +72,10 @@ export const isValidEthersContext = (ethersContext: IEthersContext | undefined):
 };
 
 export const isValidEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined): boolean => {
-  if (
-    ethersAdaptor != null &&
-    ethersAdaptor.chainId != null &&
-    ethersAdaptor.provider != null &&
-    ethersAdaptor.signer != null &&
-    !!ethersAdaptor.account
-  )
-    return true;
-  return false;
-};
-
-export const ethersAdaptorAsRequired = (ethersAdaptor: TEthersAdaptor | undefined): Required<TEthersAdaptor> => {
-  if (
-    ethersAdaptor != null &&
-    ethersAdaptor.chainId != null &&
-    ethersAdaptor.provider != null &&
-    ethersAdaptor.signer != null &&
-    !!ethersAdaptor.account
-  ) {
-    return {
-      provider: ethersAdaptor.provider,
-      signer: ethersAdaptor.signer,
-      chainId: ethersAdaptor.chainId,
-      account: ethersAdaptor.account,
-    } as Required<TEthersAdaptor>;
-  } else {
-    throw new Error('Invalid ethersAdaptor, it is not a valid Required<TEthersAdaptor>');
+  if (ethersAdaptor != null && ethersAdaptor.chainId != null) {
+    if (ethersAdaptor.provider != null || (ethersAdaptor.signer != null && !!ethersAdaptor.account)) return true;
   }
+  return false;
 };
 
 export const asEthersAdaptor = (ethersContext: IEthersContext): TEthersAdaptor => {

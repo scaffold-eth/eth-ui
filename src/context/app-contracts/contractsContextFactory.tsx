@@ -2,17 +2,9 @@ import { merge } from 'merge-anything';
 import React, { createContext, FC, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useEthersContext } from '~~/context';
-import {
-  asEthersAdaptor,
-  checkEthersOverride,
-  connectToContractWithSigner,
-  ethersAdaptorAsRequired,
-  isValidEthersAdaptor,
-  sortContractsByChainId,
-} from '~~/functions';
-import { defaultHookOptions, TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
-import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractAppContextTypes';
+import { connectToContractWithSignerOrProvider, isValidEthersAdaptor, sortContractsByChainId } from '~~/functions';
+import { TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
+import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractContextTypes';
 
 export type TContractsContextProps = {
   ethersContextKey?: string | undefined;
@@ -22,9 +14,14 @@ export type TContractsContextActions<GContractNames extends string, GAppConnecto
   connectToAllContractsAction: (
     appContractConnectorList: GAppConnectorList,
     ethersAdaptor: TEthersAdaptor | undefined
-  ) => Promise<void>;
-  connectToContractAction: (contractName: GContractNames, ethersAdaptor: TEthersAdaptor) => Promise<void>;
+  ) => void;
+  connectToContractAction: (contractName: GContractNames, ethersAdaptor: TEthersAdaptor) => void;
+  setContractConnectors: (appContractConnectorList: GAppConnectorList) => void;
+  addContractConnectors: (appContractConnectorList: GAppConnectorList) => void;
 };
+
+/* *************** **************** ****************** */
+/* *************** Contract Factory ****************** */
 
 /**
  *
@@ -45,9 +42,10 @@ export const contractsContextFactory = <
     chainId: number
   ) => GContract | undefined;
   useLoadAppContracts: () => void;
+  useConnectAppContracts: (adaptor: TEthersAdaptor | undefined) => void;
 } => {
+  /* *************** ******** ************************************ */
   /* *************** Contract Helpers Functions ****************** */
-
   /**
    * Create context state
    * @param appContractConnectorList
@@ -75,32 +73,33 @@ export const contractsContextFactory = <
     return newState;
   };
 
+  /* *************** ******** ****************************************** */
   /* *************** Contract Action Helper Functions ****************** */
-
   /**
    * Internal function to connect to all contracts
    * @param payload
    * @returns
    * @internal
    */
-  const connectToAllContracts = async (
-    appContractConnectorList: TConnectorList<GContractNames>,
+  const connectToAllContracts = (
+    state: TAppContractsContext<GContractNames>,
     ethersAdaptor: TEthersAdaptor | undefined
-  ): Promise<TAppContractsContext<GContractNames>> => {
-    const state = initalizeState(appContractConnectorList as unknown as GAppConnectorList);
-    if (!isValidEthersAdaptor(ethersAdaptor)) return state;
+  ): TAppContractsContext<GContractNames> => {
+    const newState = cloneContextState(state);
+    if (ethersAdaptor == null || !isValidEthersAdaptor(ethersAdaptor)) return newState;
 
-    const { chainId, signer } = ethersAdaptorAsRequired(ethersAdaptor);
-    for (const contractName in state.contractConnectors) {
-      const connector = state.contractConnectors[contractName];
-      if (chainId && connector.config[chainId] != null) {
-        const contract = await connectToContractWithSigner(connector, signer);
+    const { chainId, signer, provider } = ethersAdaptor;
+    const providerOrSigner = signer ?? provider;
+    for (const contractName in newState.contractConnectors) {
+      const connector = newState.contractConnectors[contractName];
+      if (chainId && connector.chainId === chainId && providerOrSigner != null) {
+        const contract = connectToContractWithSignerOrProvider(connector, providerOrSigner, chainId);
         const data = { [contractName]: { [chainId]: contract } } as TContractsByName<GContractNames>;
-        state.contractsByName = merge(state.contractsByName, data) as TContractsByName<GContractNames>;
+        newState.contractsByName = merge(newState.contractsByName, data) as TContractsByName<GContractNames>;
       }
     }
-    state.contractsByChainId = sortContractsByChainId(state.contractsByName);
-    return state;
+    newState.contractsByChainId = sortContractsByChainId(newState.contractsByName);
+    return newState;
   };
 
   /**
@@ -110,26 +109,29 @@ export const contractsContextFactory = <
    * @returns
    * @internal
    */
-  const connectToContract = async (
+  const connectToContract = (
     state: TAppContractsContext<GContractNames>,
     contractName: GContractNames,
-    ethersAdaptor: TEthersAdaptor
-  ): Promise<TAppContractsContext<GContractNames>> => {
-    if (!isValidEthersAdaptor(ethersAdaptor)) return state;
+    ethersAdaptor: TEthersAdaptor | undefined
+  ): TAppContractsContext<GContractNames> => {
+    if (ethersAdaptor == null || !isValidEthersAdaptor(ethersAdaptor)) return state;
 
     const newState = cloneContextState(state);
-    const { chainId, signer } = ethersAdaptorAsRequired(ethersAdaptor);
+    const { chainId, signer, provider } = ethersAdaptor;
+    const providerOrSigner = signer ?? provider;
     const contractConnector = newState.contractConnectors[contractName];
 
-    const contract = await connectToContractWithSigner(contractConnector, signer);
-    newState.contractsByName[contractConnector.contractName] = {};
-    newState.contractsByName[contractConnector.contractName][chainId] = contract;
-    newState.contractsByChainId = sortContractsByChainId(newState.contractsByName);
+    if (chainId && contractConnector.chainId === chainId && providerOrSigner != null) {
+      const contract = connectToContractWithSignerOrProvider(contractConnector, providerOrSigner, chainId);
+      newState.contractsByName[contractConnector.contractName] = {};
+      newState.contractsByName[contractConnector.contractName][chainId] = contract;
+      newState.contractsByChainId = sortContractsByChainId(newState.contractsByName);
+    }
     return newState;
   };
 
-  /* *************** Contract Context Action ****************** */
-
+  /* *************** ******** *************************** */
+  /* *************** Contract Contexts ****************** */
   /**
    * @internal
    */
@@ -141,8 +143,6 @@ export const contractsContextFactory = <
     return useContext(ContractsActionsContext);
   };
 
-  /* *************** Contract Context State ****************** */
-
   /**
    *
    * @internal
@@ -152,7 +152,8 @@ export const contractsContextFactory = <
     return useContext(ContractsStateContext);
   };
 
-  /* *************** Hook:  Get Contract ****************** */
+  /* *************** ******** ************************ */
+  /* *************** Contract Hooks ****************** */
 
   /**
    * Get Contracts for the given contract name
@@ -167,35 +168,53 @@ export const contractsContextFactory = <
     const contractsState = useContractsState();
     const contract = contractsState?.contractsByName?.[contractName]?.[chainId];
     if (!contract) {
-      console.log(`Contract ${contractName} not found on chain ${chainId}`);
+      console.warn(
+        `⚠️ Contract ${contractName} not found on chain ${chainId}.  1. Did you setup the contract in the config? 2. Did you call useLoadAppContracts with an adaptor that has the correct chainId?`
+      );
     }
     return contract as GContract;
   };
 
-  /* *************** Hook: Load Contracts ****************** */
-
+  /**
+   *
+   * @param adaptor
+   */
   const useLoadAppContracts = (): void => {
-    const ethersProvider = useEthersContext();
     const actions = useAppContractsActions();
-    const adaptor = asEthersAdaptor(ethersProvider);
 
     const load = useCallback(async () => {
-      if (loadAppContractConnectors != null && adaptor.signer != null && adaptor.chainId != null) {
+      if (loadAppContractConnectors != null) {
         const connectors = await loadAppContractConnectors();
         if (connectors != null) {
-          await actions?.connectToAllContractsAction(connectors, adaptor);
+          actions?.addContractConnectors(connectors);
         }
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [actions?.connectToAllContractsAction, adaptor.signer, adaptor.chainId]);
+    }, []);
 
     useEffect(() => {
       void load();
     }, [load]);
   };
 
-  /* *************** Context Component ****************** */
+  const useConnectAppContracts = (adaptor: TEthersAdaptor | undefined): void => {
+    const actions = useAppContractsActions();
+    const state = useContractsState();
 
+    const connect = useCallback(() => {
+      if (adaptor?.chainId != null) {
+        actions?.connectToAllContractsAction(state?.contractConnectors as unknown as GAppConnectorList, adaptor);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [adaptor?.provider, adaptor?.signer, adaptor?.chainId]);
+
+    useEffect(() => {
+      void connect();
+    }, [connect]);
+  };
+
+  /* *************** ******** *************************** */
+  /* *************** Context Component ****************** */
   /**
    * #### Summary
    *
@@ -206,36 +225,48 @@ export const contractsContextFactory = <
    * @returns
    */
   const ContractsAppContext: FC<TContractsContextProps> = (props: PropsWithChildren<TContractsContextProps>) => {
-    const ethersContext = useEthersContext(props.ethersContextKey);
-    const ethersAdaptor: TEthersAdaptor | undefined = checkEthersOverride(ethersContext, {
-      ...defaultHookOptions(),
-      alternateEthersContextKey: props.ethersContextKey,
-    });
+    // const ethersContext = useEthersContext(props.ethersContextKey);
+    // const ethersAdaptor: TEthersAdaptor | undefined = checkEthersOverride(ethersContext, {
+    //   ...defaultHookOptions(),
+    //   alternateEthersContextKey: props.ethersContextKey,
+    // });
 
     const isMounted = useIsMounted();
     const [state, setState] = useState(initalizeState({} as GAppConnectorList));
 
     const connectToContractAction = useCallback(
-      async (contractName: GContractNames, ethersAdaptor: TEthersAdaptor): Promise<void> => {
-        const result = await connectToContract(state, contractName, ethersAdaptor);
+      (contractName: GContractNames, ethersAdaptor: TEthersAdaptor): void => {
+        const result = connectToContract(state, contractName, ethersAdaptor);
         if (isMounted()) setState(result);
       },
       [isMounted, state]
     );
 
     const connectToAllContractsAction = useCallback(
-      async (appContractConnectorList: GAppConnectorList, ethersAdaptor: TEthersAdaptor | undefined): Promise<void> => {
-        const result = await connectToAllContracts(
-          appContractConnectorList as unknown as TConnectorList<GContractNames>,
-          ethersAdaptor
-        );
+      (ethersAdaptor: TEthersAdaptor | undefined): void => {
+        const result = connectToAllContracts(state, ethersAdaptor);
         if (isMounted()) setState(result);
       },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [isMounted]
     );
 
+    const setContractConnectors = useCallback((appContractConnectorList: GAppConnectorList) => {
+      setState(initalizeState(appContractConnectorList));
+    }, []);
+
+    const addContractConnectors = useCallback((appContractConnectorList: GAppConnectorList) => {
+      setState((value) => {
+        const newConnectors = initalizeState(appContractConnectorList);
+        // @ts-ignore
+        const newValue = merge(value, newConnectors) as TAppContractsContext<GContractNames>;
+        return newValue;
+      });
+    }, []);
+
     return (
-      <ContractsActionsContext.Provider value={{ connectToAllContractsAction, connectToContractAction }}>
+      <ContractsActionsContext.Provider
+        value={{ connectToAllContractsAction, connectToContractAction, setContractConnectors, addContractConnectors }}>
         <ContractsStateContext.Provider value={state}>{props.children}</ContractsStateContext.Provider>
       </ContractsActionsContext.Provider>
     );
@@ -246,5 +277,6 @@ export const contractsContextFactory = <
     useAppContractsActions,
     useAppContractsContext,
     useLoadAppContracts,
+    useConnectAppContracts,
   };
 };

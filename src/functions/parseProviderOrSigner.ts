@@ -16,7 +16,7 @@ import { TEthersAdaptor } from '~~/models/ethersAppContextTypes';
  */
 export const parseProviderOrSigner = async (
   providerOrSigner: TEthersProviderOrSigner | undefined
-): Promise<Required<TEthersAdaptor> | undefined> => {
+): Promise<TEthersAdaptor | undefined> => {
   let signer: Signer | undefined;
   let provider: ethers.providers.Provider | undefined;
   let providerNetwork: ethers.providers.Network | undefined;
@@ -28,12 +28,12 @@ export const parseProviderOrSigner = async (
       providerOrSigner instanceof Web3Provider ||
       providerOrSigner instanceof StaticJsonRpcProvider)
   ) {
+    provider = providerOrSigner;
+    providerNetwork = await providerOrSigner.getNetwork();
     const accounts = await providerOrSigner.listAccounts();
     if (accounts && accounts.length > 0) {
       signer = providerOrSigner.getSigner();
     }
-    provider = providerOrSigner;
-    providerNetwork = await providerOrSigner.getNetwork();
   }
 
   if (!signer && providerOrSigner instanceof Signer) {
@@ -46,15 +46,11 @@ export const parseProviderOrSigner = async (
     account = await signer?.getAddress();
   }
 
-  if (signer != null && provider != null && providerNetwork?.chainId != null && account != null) {
-    const result: TEthersAdaptor = {
-      signer,
-      provider: provider as TEthersProvider,
-      chainId: providerNetwork.chainId,
-      account,
-    };
-    return result as Required<TEthersAdaptor>;
-  }
-
-  return undefined;
+  const result: TEthersAdaptor = {
+    signer,
+    provider: provider as TEthersProvider,
+    chainId: providerNetwork?.chainId,
+    account,
+  };
+  return result;
 };

@@ -3,4 +3,4 @@ export * from './networkTypes';
 export * from './providerTypes';
 export * from './hookOptions';
 export * from './ethersAppContextTypes';
-export * from './contractAppContextTypes';
+export * from './contractContextTypes';

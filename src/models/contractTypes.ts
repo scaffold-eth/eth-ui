@@ -1,38 +1,3 @@
-import { Provider } from '@ethersproject/providers';
-import { BaseContract, ethers, Signer } from 'ethers';
-
-export type TConnectorBase<GContract extends BaseContract, GContractInterface extends ethers.utils.Interface> = {
-  connect: (address: string, signerOrProvider: Signer | Provider) => GContract;
-  createInterface: () => GContractInterface;
-};
-
-export type TContractConnector<
-  GContractNames extends string,
-  GContract extends BaseContract,
-  GContractInterface extends ethers.utils.Interface
-> = {
-  contractName: GContractNames;
-  connect: (address: string, signerOrProvider: Signer | Provider) => GContract;
-  createInterface: () => GContractInterface;
-  abi: Record<string, any>[];
-  config: {
-    [chainId: number]: { address: string };
-  };
-};
-
-export type TConnectorList<GContactNames extends string> = {
-  [contractName in GContactNames]: TContractConnector<GContactNames, BaseContract, ethers.utils.Interface>;
-};
-
-export type TTypedContract<
-  GContractNames extends string,
-  GAppContractConnectorList
-> = GAppContractConnectorList extends {
-  [key in GContractNames]: { connect: (address: any, signerOrProvider: any) => infer TypedContract };
-}
-  ? TypedContract
-  : BaseContract;
-
 /**
  * #### Summary
  * Describes the sctructure of each contract in hardhat_contracts.json
