@@ -49,7 +49,7 @@ export const useTokenBalance = <GContract extends BaseContract & ERC20>(
 ): [balance: BigNumber, update: () => void] => {
   const isMounted = useIsMounted();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const ethersContext = useEthersContext(options.alternateContextOverride);
   const { signer } = checkEthersOverride(ethersContext, options);
 
   const [balance, setBalance] = useState<BigNumber>(zero);

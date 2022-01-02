@@ -1,16 +1,16 @@
 import { TEthersAdaptor } from './ethersAppContextTypes';
 
 export type THookOptions = {
-  ethersOverride?: {
+  adaptorOverrride?: {
     enabled: boolean;
-    adaptor: TEthersAdaptor;
+    adaptor: TEthersAdaptor | undefined;
   };
-  alternateEthersContextKey?: string;
+  alternateContextOverride?: string;
 };
 
 export const defaultHookOptions = (): THookOptions => {
   return {
-    ethersOverride: undefined,
-    alternateEthersContextKey: undefined,
+    adaptorOverrride: undefined,
+    alternateContextOverride: undefined,
   };
 };

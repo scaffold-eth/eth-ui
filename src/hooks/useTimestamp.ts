@@ -21,7 +21,7 @@ import { THookOptions, defaultHookOptions } from '~~/models';
 export const useTimestamp = (options: THookOptions = defaultHookOptions()): [timestamp: number, update: () => void] => {
   const isMounted = useIsMounted();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const ethersContext = useEthersContext(options.alternateContextOverride);
   const { provider } = checkEthersOverride(ethersContext, options);
 
   const [timestamp, setTimestamp] = useState<number>(0);

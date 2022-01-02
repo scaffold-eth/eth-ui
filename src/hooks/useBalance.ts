@@ -26,7 +26,7 @@ export const useBalance = (
   options: THookOptions = defaultHookOptions()
 ): [balance: BigNumber, update: () => void] => {
   const isMounted = useIsMounted();
-  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const ethersContext = useEthersContext(options.alternateContextOverride);
   const { provider } = checkEthersOverride(ethersContext, options);
 
   const blockNumber = useBlockNumberContext();

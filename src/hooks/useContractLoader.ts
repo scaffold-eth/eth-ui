@@ -99,7 +99,7 @@ export const useContractLoader = (
   options: THookOptions = defaultHookOptions()
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
-  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const ethersContext = useEthersContext(options.alternateContextOverride);
   const { provider, chainId } = checkEthersOverride(ethersContext, options);
 
   const [contracts, setContracts] = useState<Record<string, BaseContract>>({});

@@ -14,7 +14,7 @@ import { TEthersProvider } from '~~/models';
  * @returns
  */
 export const useResolveEnsAddress = (
-  mainnetProvider: TEthersProvider,
+  mainnetProvider: TEthersProvider | undefined,
   ensName: string
 ): [address: string, update: () => void] => {
   const [address, setAddress] = useState<string>(constants.AddressZero);

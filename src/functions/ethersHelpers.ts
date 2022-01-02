@@ -39,24 +39,28 @@ export const signerHasNetwork = (signer: Signer | undefined): boolean => {
   return false;
 };
 
-export const checkEthersOverride = (context: IEthersContext, options: THookOptions): TEthersAdaptor => {
-  if (options.ethersOverride?.enabled) {
+export const asEthersAdaptor = (ethersContext: IEthersContext): Readonly<TEthersAdaptor> => {
+  return {
+    provider: ethersContext.provider,
+    signer: ethersContext.signer,
+    chainId: ethersContext.chainId,
+    account: ethersContext.account,
+  } as const;
+};
+
+export const checkEthersOverride = (context: IEthersContext, options: THookOptions): Readonly<TEthersAdaptor> => {
+  if (options.adaptorOverrride?.enabled) {
     invariant(
-      options.ethersOverride != null && options.alternateEthersContextKey != null,
+      options.adaptorOverrride != null && options.alternateContextOverride != null,
       'You cannot use both contextOverride and contextKey at the same time'
     );
 
-    if (options.ethersOverride) {
-      return options.ethersOverride.adaptor;
+    if (options.adaptorOverrride) {
+      return options.adaptorOverrride.adaptor ?? {};
     }
   }
 
-  return {
-    provider: context.provider,
-    signer: context.signer,
-    chainId: context.chainId,
-    account: context.account,
-  };
+  return asEthersAdaptor(context);
 };
 
 export const isValidEthersContext = (ethersContext: IEthersContext | undefined): boolean => {
@@ -76,13 +80,4 @@ export const isValidEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined):
     if (ethersAdaptor.provider != null || (ethersAdaptor.signer != null && !!ethersAdaptor.account)) return true;
   }
   return false;
-};
-
-export const asEthersAdaptor = (ethersContext: IEthersContext): TEthersAdaptor => {
-  return {
-    provider: ethersContext.provider,
-    signer: ethersContext.signer,
-    chainId: ethersContext.chainId,
-    account: ethersContext.account,
-  };
 };

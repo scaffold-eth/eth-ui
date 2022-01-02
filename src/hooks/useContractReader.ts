@@ -31,7 +31,7 @@ export const useContractReader = <
 ): [value: Awaited<ReturnType<GContractFunc>> | undefined, update: () => void] => {
   const isMounted = useIsMounted();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const ethersContext = useEthersContext(options.alternateContextOverride);
   const { signer } = checkEthersOverride(ethersContext, options);
 
   const [value, setValue] = useState<Awaited<ReturnType<GContractFunc>>>();
@@ -86,7 +86,7 @@ export const useContractReaderUntyped = <GOutput>(
   const isMounted = useIsMounted();
   const [value, setValue] = useState<GOutput>();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const ethersContext = useEthersContext(options.alternateContextOverride);
   const { chainId } = checkEthersOverride(ethersContext, options);
 
   const callContractFunction = useCallback(async () => {

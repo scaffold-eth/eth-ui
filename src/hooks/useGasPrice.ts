@@ -44,7 +44,7 @@ export const useGasPrice = (
   options: THookOptions = defaultHookOptions()
 ): [gasPrice: number | undefined, update: () => void] => {
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const ethersContext = useEthersContext(options.alternateContextOverride);
   const { provider } = checkEthersOverride(ethersContext, options);
 
   const [currentChainId, setCurrentChainId] = useState<number>();

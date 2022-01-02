@@ -2,8 +2,7 @@ import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import { cloneElement, FC, useCallback } from 'react';
-import invariant from 'tiny-invariant';
-import warning from 'tiny-warning';
+import { invariant } from 'ts-invariant';
 
 import { NoEthereumProviderFoundError } from '~~/context';
 import { BlockNumberContext } from '~~/context/ethers/BlockNumberContext';
@@ -33,7 +32,7 @@ import { IEthersContext } from '~~/models/ethersAppContextTypes';
  * @returns
  */
 export const useEthersContext = (contextKey?: string): IEthersContext => {
-  warning(
+  invariant.warn(
     contextKey !== 'primary',
     'do not pass in primary as key, use undefined as primary is the default context key'
   );
@@ -52,7 +51,7 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
       }
 
       if (ethersModalConnector == null) {
-        console.error('A valid ethersModalConnector was not provided');
+        invariant.error('A valid ethersModalConnector was not provided');
       }
       if (ethersModalConnector != null) {
         const onError = (error: Error): void => {
@@ -127,6 +126,7 @@ export const getEthersAppProviderLibrary = (
   if (isEthersProvider(provider)) {
     return provider as TEthersProvider;
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return new Web3Provider(provider, anyNetwork);
   }
 };
@@ -162,7 +162,7 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
     const alternateProvider = cloneElement(
       props.secondaryWeb3ReactRoot.web3ReactRoot,
       { getLibrary: getEthersAppProviderLibrary },
-      <BlockNumberContext options={{ alternateEthersContextKey: props.secondaryWeb3ReactRoot.contextKey }}>
+      <BlockNumberContext options={{ alternateContextOverride: props.secondaryWeb3ReactRoot.contextKey }}>
         {props.children}
       </BlockNumberContext>
     );

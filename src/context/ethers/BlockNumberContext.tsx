@@ -63,9 +63,9 @@ const reducer = (state: State = {}, payload: Payload): State => {
  */
 export const useBlockNumberContext = (): number => {
   const blockNumber = useContext(Context);
-  if (blockNumber == null) {
-    console.log('blockNumber context is null');
-  }
+  // if (blockNumber == null) {
+  //   console.log('blockNumber context is null');
+  // }
   // invariant(blockNumber != null, 'useBlockNumberContext needs to be used under BlockNumberContext');
   return blockNumber ?? 0;
 };
@@ -85,7 +85,7 @@ interface IProps {
  */
 export const BlockNumberContext: FC<IProps> = (props = { options: defaultHookOptions() }) => {
   const options = props.options ?? defaultHookOptions();
-  const ethersContext = useEthersContext(options.alternateEthersContextKey);
+  const ethersContext = useEthersContext(options.alternateContextOverride);
   const { chainId, provider } = checkEthersOverride(ethersContext, options);
 
   const isMounted = useIsMounted();
@@ -102,9 +102,14 @@ export const BlockNumberContext: FC<IProps> = (props = { options: defaultHookOpt
 
       // if the current value is undefined, do an initial fetch
       if (state?.[chainId] == null) {
-        provider?.getBlockNumber().then((val) => {
-          if (isMounted()) dispatch({ chainId, blockNumber: val });
-        });
+        provider
+          ?.getBlockNumber()
+          .then((val) => {
+            if (isMounted()) dispatch({ chainId, blockNumber: val });
+          })
+          .catch(() => {
+            /* ignore */
+          });
       }
 
       return (): void => {
