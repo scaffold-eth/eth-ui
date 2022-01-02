@@ -242,7 +242,7 @@ export const contractsContextFactory = <
     const contractsState = useContractsState();
     const contract = contractsState?.contractsByName?.[contractName]?.[chainId];
     if (!contract) {
-      console.warn(
+      console.log(
         `⚠️ Contract ${contractName} not found on chain ${chainId}.  1. Did you setup the contract in the config? 2. Did you call useLoadAppContracts with an adaptor that has the correct chainId?`
       );
     }
