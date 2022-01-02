@@ -51,11 +51,17 @@ export const createConnectorsForHardhatContracts = <
 ): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractHardhatContracts(deployedHardhatContractJson)[contractName];
 
+  if (info == null) {
+    throw new Error(
+      `Contract ${contractName} not found in deployed contracts (hardhat_config.json).  Check your hardhat deploy scripts and hardhat_config.json`
+    );
+  }
+
   return {
     contractName,
     connect: typechainFactory.connect,
     createInterface: typechainFactory.createInterface,
-    abi: info.abi as Record<string, any>[],
+    abi: (info?.abi ?? []) as Record<string, any>[],
     config: {
       [info.chainId]: {
         address: info.address,
@@ -75,11 +81,17 @@ export const createConnectorsForExternalContract = <
 ): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractExternalContracts(deployedContractJson)[contractName];
 
+  if (info == null) {
+    throw new Error(
+      `Contract ${contractName} not found in external contract map.  Check that contractName: address map is correct.  This is required by eth-sdk`
+    );
+  }
+
   return {
     contractName,
     connect: typechainFactory.connect,
     createInterface: typechainFactory.createInterface,
-    abi: info.abi as Record<string, any>[],
+    abi: (info?.abi ?? []) as Record<string, any>[],
     config: {
       [info.chainId]: {
         address: info.address,
@@ -95,9 +107,9 @@ export const connectToContractWithSigner = async <
 >(
   connector: TContractConnector<GContractNames, GContract, GContractInterface>,
   signer: Signer
-): Promise<GContract> => {
+): Promise<GContract | undefined> => {
   const chainId: number = await signer.getChainId();
-  const address = connector.config[chainId].address;
+  const address = connector?.config?.[chainId]?.address;
   if (chainId != null && address != null) {
     const contract = connector.connect(connector.config[chainId].address, signer);
 
@@ -106,5 +118,11 @@ export const connectToContractWithSigner = async <
     }
   }
 
-  throw 'Could not create contract instance';
+  console.log(
+    `Couldn't connect to contract ${connector?.contractName}, signer chainId: ${chainId}, config: ${JSON.stringify(
+      connector?.config
+    )}.`
+  );
+  console.log('🙅🏽‍♂️ Please make sure the correct network is connected and the contract is deployed.');
+  return undefined;
 };

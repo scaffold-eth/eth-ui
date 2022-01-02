@@ -3,10 +3,10 @@ import { BaseContract } from 'ethers';
 import { TConnectorList } from '~~/models';
 
 export type TContractsByName<GContractNames extends string> = {
-  [contractName in GContractNames]: { [chainId: number]: BaseContract };
+  [contractName in GContractNames]: { [chainId: number]: BaseContract | undefined };
 };
 export type TContractsByChainId<GContractNames extends string> = {
-  [chainId: number]: { [contractName in GContractNames]: BaseContract };
+  [chainId: number]: { [contractName in GContractNames]: BaseContract | undefined };
 };
 
 /**

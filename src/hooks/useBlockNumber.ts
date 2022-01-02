@@ -14,10 +14,12 @@ import { TEthersProvider } from '~~/models';
  * @category Hooks
  *
  * @param provider
- * @param pollTime if > 0 uses polling, else it uses onBlock event
  * @returns block number
  */
-export const useBlockNumber = (provider: TEthersProvider | undefined): [blockNumber: number, update: () => void] => {
+export const useBlockNumber = (
+  provider: TEthersProvider | undefined,
+  callback?: ((blockNumber?: number) => void) | ((blockNumber?: number) => Promise<void>)
+): [blockNumber: number, update: () => void] => {
   const isMounted = useIsMounted();
 
   const [blockNumber, setBlockNumber] = useState<number>(0);
@@ -36,8 +38,18 @@ export const useBlockNumber = (provider: TEthersProvider | undefined): [blockNum
 
   useEffect(() => {
     if (provider) {
-      const listener = (blockNumber: number): void => {
-        void setBlockNumber(blockNumber);
+      const listener = (blockNumberLocal: number): void => {
+        if (isMounted()) {
+          void setBlockNumber(blockNumberLocal);
+        }
+
+        if (callback != null) {
+          try {
+            void callback(blockNumberLocal);
+          } catch (e) {
+            console.warn('useBlockNumber callback failed', e);
+          }
+        }
       };
       provider?.addListener?.('block', listener);
 
@@ -50,7 +62,7 @@ export const useBlockNumber = (provider: TEthersProvider | undefined): [blockNum
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [provider, isMounted]);
+  }, [provider, isMounted, update]);
 
   return [blockNumber, update];
 };

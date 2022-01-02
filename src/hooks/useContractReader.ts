@@ -20,18 +20,21 @@ import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/mode
  * @param options
  * @returns
  */
-export const useContractReader = <GContract extends BaseContract, GFunc extends (...args: any[]) => Promise<any>>(
+export const useContractReader = <
+  GContract extends BaseContract,
+  GContractFunc extends (...args: any[]) => Promise<any>
+>(
   contract: GContract | undefined,
-  functionCallback: GFunc | undefined,
-  args?: Parameters<GFunc>,
+  functionCallback: GContractFunc | undefined,
+  args?: Parameters<GContractFunc>,
   options: THookOptions = defaultHookOptions()
-): [value: Awaited<ReturnType<GFunc>> | undefined, update: () => void] => {
+): [value: Awaited<ReturnType<GContractFunc>> | undefined, update: () => void] => {
   const isMounted = useIsMounted();
   const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(options.alternateEthersContextKey);
   const { signer } = checkEthersOverride(ethersContext, options);
 
-  const [value, setValue] = useState<Awaited<ReturnType<GFunc>>>();
+  const [value, setValue] = useState<Awaited<ReturnType<GContractFunc>>>();
   const validSigners = useAreSignerEqual(contract?.signer, signer);
 
   const update = useCallback(async () => {

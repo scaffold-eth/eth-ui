@@ -101,3 +101,12 @@ export const ethersAdaptorAsRequired = (ethersAdaptor: TEthersAdaptor | undefine
     throw new Error('Invalid ethersAdaptor, it is not a valid Required<TEthersAdaptor>');
   }
 };
+
+export const asEthersAdaptor = (ethersContext: IEthersContext): TEthersAdaptor => {
+  return {
+    provider: ethersContext.provider,
+    signer: ethersContext.signer,
+    chainId: ethersContext.chainId,
+    account: ethersContext.account,
+  };
+};

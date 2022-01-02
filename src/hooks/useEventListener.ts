@@ -8,6 +8,7 @@ import { TypedEvent } from '~~/models';
 const getEventKey = (m: Event | TypedEvent<Result>): string => {
   return `${m.transactionHash}_${m.logIndex}`;
 };
+
 /**
  * #### Summary
  * Tracks the events of associated with a contract
@@ -23,15 +24,15 @@ const getEventKey = (m: Event | TypedEvent<Result>): string => {
  * @param startBlock
  * @returns
  */
-export const useEventListener = <GContract extends BaseContract>(
-  contract: GContract | undefined,
-  event: string | EventFilter,
+export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
+  contract: BaseContract | undefined,
+  event: string | EventFilter | undefined,
   startBlock: number,
   toBlock?: number
-): [eventMap: TypedEvent<Result>[], queryEvents: () => void] => {
+): [eventMap: GTypedEvent[], queryEvents: () => void] => {
   const isMounted = useIsMounted();
 
-  const [eventMap, setEventMap] = useState<TypedEvent<Result>[]>([]);
+  const [eventMap, setEventMap] = useState<GTypedEvent[]>([]);
 
   const queryEvents = useCallback(
     (_listenerArgs: Event[] = []) => {
@@ -40,7 +41,7 @@ export const useEventListener = <GContract extends BaseContract>(
         if (isMounted() && result) {
           setEventMap((value) => {
             if (JSON.stringify(value.map(getEventKey)) !== JSON.stringify(result.map(getEventKey))) {
-              return result as TypedEvent<Result>[];
+              return result as GTypedEvent[];
             } else {
               return value;
             }
@@ -51,7 +52,7 @@ export const useEventListener = <GContract extends BaseContract>(
     [contract, event, isMounted, startBlock, toBlock]
   );
 
-  // // get the events on initial load of hooks, without waiting for the next event
+  // get the events on initial load of hooks, without waiting for the next event
   useEffect(() => {
     if (contract?.queryFilter != null && (eventMap?.length == null || eventMap?.length === 0)) {
       queryEvents?.([]);
@@ -60,13 +61,15 @@ export const useEventListener = <GContract extends BaseContract>(
   }, [contract?.queryFilter]);
 
   useEffect(() => {
-    try {
-      contract?.on(event, queryEvents);
-      return (): void => {
-        contract?.off(event, queryEvents);
-      };
-    } catch (e) {
-      console.log(e);
+    if (event != null) {
+      try {
+        contract?.on(event, queryEvents);
+        return (): void => {
+          contract?.off(event, queryEvents);
+        };
+      } catch (e) {
+        console.log(e);
+      }
     }
   }, [queryEvents, contract, event]);
 

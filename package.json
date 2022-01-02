@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.0.1-beta04",
+  "version": "4.0.1-beta07",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -59,6 +59,7 @@
     "@web3-react/types": "^6.0.7",
     "axios": "^0.24.0",
     "ethers": "^5.5.2",
+    "merge-anything": "^4.0.2",
     "tiny-invariant": "^1.2.0",
     "tiny-warning": "^1.0.3",
     "use-debounce": "^7.0.1",
