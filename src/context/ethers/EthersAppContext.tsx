@@ -32,11 +32,6 @@ import { IEthersContext } from '~~/models/ethersAppContextTypes';
  * @returns
  */
 export const useEthersContext = (contextKey?: string): IEthersContext => {
-  invariant.warn(
-    contextKey !== 'primary',
-    'do not pass in primary as key, use undefined as primary is the default context key'
-  );
-
   const { connector, activate, library, account, deactivate, chainId, ...context } =
     useWeb3React<TEthersProvider>(contextKey);
   if (!(connector instanceof EthersModalConnector || connector instanceof AbstractConnector) && connector != null) {

@@ -20,7 +20,7 @@ export const useResolveEnsAddress = (
   const [address, setAddress] = useState<string>(constants.AddressZero);
 
   const update = useCallback(async () => {
-    if (mainnetProvider) {
+    if (mainnetProvider != null) {
       const resolved = await mainnetProvider.resolveName(ensName);
       setAddress(resolved ?? constants.AddressZero);
     }
@@ -28,7 +28,7 @@ export const useResolveEnsAddress = (
 
   useEffect(() => {
     void update();
-  }, [mainnetProvider, ensName, update]);
+  }, [update]);
 
   return [address, update];
 };

@@ -7,7 +7,7 @@ import {
   WebSocketProvider,
 } from '@ethersproject/providers';
 import { Signer } from 'ethers';
-import invariant from 'tiny-invariant';
+import { invariant } from 'ts-invariant';
 
 import { TEthersProvider, THookOptions, IEthersContext, TEthersAdaptor } from '~~/models';
 
@@ -51,7 +51,7 @@ export const asEthersAdaptor = (ethersContext: IEthersContext): Readonly<TEthers
 export const checkEthersOverride = (context: IEthersContext, options: THookOptions): Readonly<TEthersAdaptor> => {
   if (options.adaptorOverrride?.enabled) {
     invariant(
-      options.adaptorOverrride != null && options.alternateContextOverride != null,
+      options.alternateContextOverride == null,
       'You cannot use both contextOverride and contextKey at the same time'
     );
 

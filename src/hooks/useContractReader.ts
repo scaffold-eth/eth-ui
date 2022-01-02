@@ -35,7 +35,7 @@ export const useContractReader = <
   const { signer } = checkEthersOverride(ethersContext, options);
 
   const [value, setValue] = useState<Awaited<ReturnType<GContractFunc>>>();
-  const validSigners = useAreSignerEqual(contract?.signer, signer);
+  const [validSigners] = useAreSignerEqual(contract?.signer, signer);
 
   const update = useCallback(async () => {
     if (validSigners && contract != null && functionCallback != null) {

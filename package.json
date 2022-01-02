@@ -60,6 +60,7 @@
     "axios": "^0.24.0",
     "ethers": "^5.5.2",
     "merge-anything": "^4.0.2",
+    "react-async-hook": "^4.0.0",
     "ts-invariant": "^0.9.4",
     "use-debounce": "^7.0.1",
     "usehooks-ts": "^2.1.1",
