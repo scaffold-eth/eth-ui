@@ -13,5 +13,6 @@ export const useEthersUpdater = (
     if (blockNumber != null && !options.update.query.refetchInterval) {
       void update();
     }
-  }, [blockNumberFilter, update, blockNumber, options.update.query.refetchInterval]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blockNumberFilter, update, options.update.query.refetchInterval]);
 };

@@ -8,6 +8,7 @@ import React, {
   useContext,
   useEffect,
   useReducer,
+  useRef,
 } from 'react';
 import { useQueryClient } from 'react-query';
 
@@ -247,14 +248,21 @@ export const contractsContextFactory = <
     const contract = contractsState?.contractsByName?.[contractName]?.[chainId ?? -1]; // -1 is unknown chainId
     const contractConnector = contractsState?.contractConnectors?.[contractName];
 
+    const msg = useRef(false);
+
     // just making sure app is initalized before spamming console logs
     // connector abi initialized, ethers context is initalized
     if (contract == null && ethersContext?.chainId != null && contractConnector?.abi != null) {
-      console.log(
-        `⚠️ Contract ${contractName} not found on chain ${
-          chainId ?? 'undefined'
-        }.  1. Did you setup the contract in the config? 2. Did you call useLoadAppContracts with an adaptor that has the correct chainId?`
-      );
+      if (!msg.current) {
+        console.warn(
+          `⚠️ Contract ${contractName} not found on chain ${
+            chainId ?? 'undefined'
+          }.  1. Did you setup the contract in the config? 2. Did you call useLoadAppContracts with an adaptor that has the correct chainId?`
+        );
+        msg.current = true;
+      }
+    } else {
+      msg.current = false;
     }
     return contract as GContract;
   };

@@ -1,5 +1,5 @@
 import { Provider } from '@ethersproject/providers';
-import { Event } from 'ethers';
+import { BaseContract, Event } from 'ethers';
 import { Result } from 'ethers/lib/utils';
 
 import { isValidEthersAdaptor } from '~~/functions';
@@ -16,12 +16,13 @@ export const providerKey = (providerOrSigner: TEthersProviderOrSigner | undefine
     };
   } else {
     const provider = providerOrSigner.provider as TEthersProvider;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const signerStr: string = (providerOrSigner as any)?.address ?? '';
     if (provider && provider?.network) {
       return {
-        provider: `${provider?.network?.chainId}_${provider?.network?.name}_${provider?.connection.url.substring(
-          0,
-          25
-        )}`,
+        provider: `${provider?.network?.chainId}_${signerStr}_${
+          provider?.network?.name
+        }_${provider?.connection.url.substring(0, 25)}`,
       };
     }
   }
@@ -43,4 +44,25 @@ export const adaptorKey = (adaptor: TEthersAdaptor | undefined): Record<string, 
 
 export const eventKey = (m: Event | TypedEvent<Result>): string => {
   return `${m.transactionHash}_${m.logIndex}`;
+};
+
+export const contractKey = (contract: BaseContract | undefined): Record<string, string> => {
+  if (contract == null) return { contract: 'undefined contract' };
+
+  const address = contract.address;
+  const provider = providerKey(contract.provider as TEthersProvider | undefined);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+  const signerStr: string = (contract.signer as any)?.address ?? '';
+  const fragments = contract.interface.fragments
+    .map((m) => m.name)
+    .reduce((value, current) => {
+      let newValue = value;
+      if (newValue == null) {
+        newValue = '';
+      }
+      newValue += `${current},`;
+      return value;
+    }, '');
+
+  return { contract: `${address}_${signerStr}_${fragments}`, ...provider };
 };

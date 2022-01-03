@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { ethersOverride, providerKey } from '~~/functions';
+import { contractKey, ethersOverride } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { defaultHookOptions, TContractFunctionInfo, TEthersProvider, THookOptions } from '~~/models';
+import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' } as const;
@@ -36,8 +36,7 @@ export const useContractReader = <
   const keys = [
     {
       ...queryKey,
-      ...providerKey(contract?.provider as TEthersProvider),
-      address: contract?.address,
+      ...contractKey(contract),
     },
     { functionCallback, args: args ?? [] },
   ] as const;

@@ -32,7 +32,7 @@ export const useTimestamp = (options: THookOptions = defaultHookOptions()): [tim
   ] as const;
   const { data, refetch } = useQuery(
     keys,
-    async (keys) => {
+    async (keys): Promise<number> => {
       const { provider } = keys.queryKey[1];
       const block = await provider?.getBlock(blockNumber);
       if (block?.timestamp != null) {

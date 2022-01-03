@@ -1,9 +1,9 @@
-import { useQuery } from 'react-query';
+import { useState, useCallback, useEffect } from 'react';
+import { useIsMounted } from 'usehooks-ts';
 
 import { useBlockNumberContext } from '~~/context';
-import { providerKey } from '~~/functions';
-import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { defaultHookOptions, TEthersSigner, THookOptions } from '~~/models';
+import { signerHasNetwork } from '~~/functions';
+import { TEthersSigner } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.signer, key: 'useSignerAddress' } as const;
@@ -18,24 +18,25 @@ const queryKey = { namespace: keyNamespace.signer, key: 'useSignerAddress' } as 
  * @returns
  */
 export const useSignerAddress = (
-  signer: TEthersSigner | undefined,
-  options: THookOptions = defaultHookOptions({ update: { blockNumberInterval: 100 } })
+  signer: TEthersSigner | undefined
 ): [address: string | undefined, update: () => void] => {
-  const keys = [{ ...queryKey, ...providerKey(signer) }, { signer }] as const;
-  const { data, refetch } = useQuery(
-    keys,
-    async (keys) => {
-      const { signer } = keys.queryKey[1];
-      const address = await signer?.getAddress();
-      return address;
-    },
-    {
-      ...options.update.query,
-    }
-  );
-
+  const isMounted = useIsMounted();
   const blockNumber = useBlockNumberContext();
-  useEthersUpdater(refetch, blockNumber, options);
 
-  return [data, refetch];
+  const [address, setAddress] = useState<string>();
+
+  const update = useCallback(async (): Promise<void> => {
+    if (signerHasNetwork(signer)) {
+      const address = await signer?.getAddress();
+      if (isMounted()) {
+        setAddress(address);
+      }
+    }
+  }, [isMounted, signer]);
+
+  useEffect(() => {
+    void update();
+  }, [blockNumber, update]);
+
+  return [address, update];
 };

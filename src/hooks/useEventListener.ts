@@ -3,10 +3,8 @@ import { Result } from 'ethers/lib/utils';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-import { useBlockNumberContext } from '~~/context';
-import { providerKey } from '~~/functions';
-import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { defaultHookOptions, TEthersProvider, THookOptions, TypedEvent } from '~~/models';
+import { contractKey } from '~~/functions';
+import { defaultHookOptions, THookOptions, TypedEvent } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;
@@ -35,17 +33,20 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
   const keys = [
     {
       ...queryKey,
-      ...providerKey(contract?.provider as TEthersProvider),
-      address: contract?.address,
+      ...contractKey(contract),
     },
-    { contract, eventFilter },
+    {
+      eventFilter,
+      startBlock,
+      toBlock,
+    },
   ] as const;
   const { data, refetch } = useQuery(
     keys,
     async (keys): Promise<GTypedEvent[]> => {
-      const { contract } = keys.queryKey[1];
       {
-        const result = await contract?.queryFilter(eventFilter as EventFilter, startBlock, toBlock);
+        const { eventFilter: eventFilter_, startBlock: startBlock_, toBlock: toBlock_ } = keys.queryKey[1];
+        const result = await contract?.queryFilter(eventFilter_ as EventFilter, startBlock_, toBlock_);
         return (result as GTypedEvent[]) ?? [];
       }
     },
@@ -57,10 +58,13 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
   // update the result when ethers calls the event listner
   useEffect(() => {
     if (eventFilter != null) {
+      const listener = (): void => {
+        void refetch();
+      };
       try {
-        contract?.on(eventFilter, () => refetch);
+        contract?.on(eventFilter, listener);
         return (): void => {
-          contract?.off(eventFilter, () => refetch);
+          contract?.off(eventFilter, listener);
         };
       } catch (e) {
         console.log(e);
@@ -68,8 +72,8 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
     }
   }, [contract, eventFilter, refetch]);
 
-  const blockNumber = useBlockNumberContext();
-  useEthersUpdater(refetch, blockNumber, options);
+  // const blockNumber = useBlockNumberContext();
+  // useEthersUpdater(refetch, blockNumber, options);
 
   return [data ?? [], refetch];
 };

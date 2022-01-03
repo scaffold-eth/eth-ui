@@ -21,11 +21,11 @@ export const useSignerChainId = (
   signer: TEthersSigner | undefined,
   options: THookOptions = defaultHookOptions({ update: { blockNumberInterval: 100 } })
 ): [address: number | undefined, update: () => void] => {
-  const keys = [{ ...queryKey, ...providerKey(signer) }, { signer }] as const;
+  const keys = [{ ...queryKey, ...providerKey(signer) }] as const;
   const { data, refetch } = useQuery(
     keys,
-    async (keys) => {
-      const { signer } = keys.queryKey[1];
+    async (keys): Promise<number | undefined> => {
+      // const { signer } = keys.queryKey[1];
       const chainId = await signer?.getChainId();
       return chainId;
     },
