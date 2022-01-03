@@ -45,7 +45,7 @@ export type TEthersModalConnector = ICommonModalConnector & AbstractConnector;
 
 /**
  * #### Summary
- * This is a connector for (web3-react)[https://github.com/NoahZinsmeister/web3-react] that allows it to interface with [web3Modal](https://github.com/Web3Modal/web3modal).
+ * This is a connector for [web3-react](https://github.com/NoahZinsmeister/web3-react) that allows it to interface with [web3Modal](https://github.com/Web3Modal/web3modal).
  * The provider selected by user via web3modal is interfaced to the web3-react context.
  *
  * #### Features

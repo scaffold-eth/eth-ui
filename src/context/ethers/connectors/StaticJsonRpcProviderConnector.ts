@@ -15,7 +15,7 @@ export interface IStaticJsonRpcProviderConnectorOptions extends IAbstractConnect
 
 /**
  * #### Summary
- * A connector that can be used by apps to connect let web3Modal connect to a StaticJsonRpcProvider
+ * A connector that can be used by apps to connect to a StaticJsonRpcProvider
  * - For example you can use this to connect to a localhost provider
  *
  * #### Notes

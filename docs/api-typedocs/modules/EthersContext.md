@@ -2,7 +2,7 @@
 
 # Module: EthersContext
 
-A context for your react app with [useEthersContext](EthersContext.md#useetherscontext) that provides you access to access to [IEthersContext](../interfaces/EthersContext.IEthersContext.md).  It gives you access to consistent interface to get the current provider [EthersModalConnector](../classes/EthersContext.EthersModalConnector.md).  Additionally integration with web3Modal gives you an easy way to guide your user with their web3 journey.
+A context for your react app with [useEthersContext](EthersContext.md#useetherscontext) that provides you access to [IEthersContext](../interfaces/EthersContext.IEthersContext.md).  It gives you access to consistent interface to get the current provider [EthersModalConnector](../classes/EthersContext.EthersModalConnector.md).  Additionally integration with web3Modal gives you an easy way to guide your user with their web3 journey.
 
 ## Table of contents
 
@@ -77,7 +77,7 @@ ___
 
 #### Summary
 This Hook provides you with access to the current Ethers Provider Context.
-This provider would be the one selected by using {@link EthersModalConnect} and Web3Modal
+This provider would be the one selected by using {@link EthersModalConnector} and Web3Modal
 
 #### Features
 Gives you access to consistent interface to get the current provider information [EthersModalConnector](../classes/EthersContext.EthersModalConnector.md)
@@ -110,7 +110,7 @@ ___
 ▸ `Const` **ConnectToStaticJsonRpcProvider**(`_package`, `opts`): `Promise`<`undefined` \| `StaticJsonRpcProvider`\>
 
 #### Summary
-A connector that can be used by apps to connect let web3Modal connect to a StaticJsonRpcProvider
+A connector that can be used by apps to connect to a StaticJsonRpcProvider
 - For example you can use this to connect to a localhost provider
 
 #### Notes
