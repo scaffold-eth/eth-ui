@@ -36,7 +36,7 @@ Utilities to write tests with ethers, waffle and react hooks
 
 #### Defined in
 
-[src/helpers/test-utils/constants/testConstants.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/constants/testConstants.ts#L3)
+[src/helpers/test-utils/constants/testConstants.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/constants/testConstants.ts#L3)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/constants/testConstants.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/constants/testConstants.ts#L5)
+[src/helpers/test-utils/constants/testConstants.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/constants/testConstants.ts#L5)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/constants/testConstants.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/constants/testConstants.ts#L7)
+[src/helpers/test-utils/constants/testConstants.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/constants/testConstants.ts#L7)
 
 ## Functions
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/eth/hardhatActions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/eth/hardhatActions.ts#L3)
+[src/helpers/test-utils/eth/hardhatActions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/eth/hardhatActions.ts#L3)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/functions/conversions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/functions/conversions.ts#L3)
+[src/helpers/test-utils/functions/conversions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/functions/conversions.ts#L3)
 
 ___
 
@@ -116,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/functions/conversions.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/functions/conversions.ts#L7)
+[src/helpers/test-utils/functions/conversions.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/functions/conversions.ts#L7)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/getMockProvider.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/harness/getMockProvider.ts#L6)
+[src/helpers/test-utils/harness/getMockProvider.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/getMockProvider.ts#L6)
 
 ___
 
@@ -163,7 +163,7 @@ Created a test hook with a Web3Wrapper
 
 #### Defined in
 
-[src/helpers/test-utils/harness/hookTestHarness.tsx:24](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/harness/hookTestHarness.tsx#L24)
+[src/helpers/test-utils/harness/hookTestHarness.tsx:24](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/hookTestHarness.tsx#L24)
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/mockHelpers.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/harness/mockHelpers.ts#L6)
+[src/helpers/test-utils/harness/mockHelpers.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/mockHelpers.ts#L6)
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/mockHelpers.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/harness/mockHelpers.ts#L15)
+[src/helpers/test-utils/harness/mockHelpers.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/mockHelpers.ts#L15)
 
 ___
 
@@ -224,7 +224,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/mockHelpers.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/harness/mockHelpers.ts#L26)
+[src/helpers/test-utils/harness/mockHelpers.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/mockHelpers.ts#L26)
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/mockHelpers.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/harness/mockHelpers.ts#L36)
+[src/helpers/test-utils/harness/mockHelpers.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/mockHelpers.ts#L36)
 
 ## Type aliases
 
@@ -262,4 +262,4 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/hookTestHarness.tsx:12](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/test-utils/harness/hookTestHarness.tsx#L12)
+[src/helpers/test-utils/harness/hookTestHarness.tsx:12](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/hookTestHarness.tsx#L12)

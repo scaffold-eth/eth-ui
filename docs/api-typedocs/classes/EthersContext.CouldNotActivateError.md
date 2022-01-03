@@ -162,4 +162,4 @@ Error.constructor
 
 #### Defined in
 
-[src/context/connectors/connectorErrors.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/connectors/connectorErrors.ts#L16)
+[src/context/connectors/connectorErrors.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/connectors/connectorErrors.ts#L16)

@@ -156,4 +156,4 @@ Error.constructor
 
 #### Defined in
 
-[src/context/connectors/connectorErrors.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/connectors/connectorErrors.ts#L5)
+[src/context/connectors/connectorErrors.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/connectors/connectorErrors.ts#L5)

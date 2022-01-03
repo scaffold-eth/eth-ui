@@ -31,4 +31,4 @@ In progress...
 
 #### Defined in
 
-[src/models/contractTypes.ts:8](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/contractTypes.ts#L8)
+[src/models/contractTypes.ts:8](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/models/contractTypes.ts#L8)

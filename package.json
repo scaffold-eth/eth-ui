@@ -71,7 +71,6 @@
   },
   "devDependencies": {
     "@atixlabs/hardhat-time-n-mine": "^0.0.5",
-    "lint-staged": "^11.2.6",
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.10",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@testing-library/dom": "^8.9.1",
@@ -115,6 +114,7 @@
     "hardhat-gas-reporter": "^1.0.4",
     "husky": "^7.0.0",
     "jsdom": "^18.0.0",
+    "lint-staged": "^11.2.6",
     "mocha": "^9.1.3",
     "mocha-github-actions-reporter": "^0.2.4",
     "mocha-junit-reporter": "^2.0.2",

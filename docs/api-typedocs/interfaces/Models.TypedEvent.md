@@ -222,7 +222,7 @@ Event.args
 
 #### Defined in
 
-[src/models/providerTypes.ts:66](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/models/providerTypes.ts#L66)
+[src/models/providerTypes.ts:66](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/models/providerTypes.ts#L66)
 
 ## Methods
 

@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:43](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L43)
+[src/context/EthersAppContext.tsx:43](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L43)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:44](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L44)
+[src/context/EthersAppContext.tsx:44](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L44)
 
 ## Properties
 
@@ -182,7 +182,7 @@ Web3ReactContextInterface.connector
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:36](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L36)
+[src/context/EthersAppContext.tsx:36](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L36)
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L37)
+[src/context/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L37)
 
 ___
 
@@ -206,7 +206,7 @@ Web3ReactContextInterface.active
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:38](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L38)
+[src/context/EthersAppContext.tsx:38](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L38)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:39](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L39)
+[src/context/EthersAppContext.tsx:39](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L39)
 
 ___
 
@@ -230,7 +230,7 @@ Web3ReactContextInterface.account
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:40](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L40)
+[src/context/EthersAppContext.tsx:40](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L40)
 
 ___
 
@@ -244,7 +244,7 @@ Web3ReactContextInterface.chainId
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:41](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L41)
+[src/context/EthersAppContext.tsx:41](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L41)
 
 ___
 
@@ -254,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:42](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L42)
+[src/context/EthersAppContext.tsx:42](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L42)
 
 ___
 
@@ -264,4 +264,4 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:45](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/context/EthersAppContext.tsx#L45)
+[src/context/EthersAppContext.tsx:45](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L45)
