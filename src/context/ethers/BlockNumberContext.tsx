@@ -2,7 +2,7 @@ import { createContext, FC, useContext, useEffect, useReducer } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
+import { ethersOverride } from '~~/functions';
 import { defaultHookOptions, THookOptions } from '~~/models';
 
 const Context = createContext<number | undefined>(undefined);
@@ -85,8 +85,8 @@ interface IProps {
  */
 export const BlockNumberContext: FC<IProps> = (props = { options: defaultHookOptions() }) => {
   const options = props.options ?? defaultHookOptions();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { chainId, provider } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const { chainId, provider } = ethersOverride(ethersContext, options);
 
   const isMounted = useIsMounted();
   const [state, dispatch] = useReducer(reducer, {});

@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
+import { ethersOverride } from '~~/functions';
 import { defaultHookOptions, THookOptions, TNetworkInfo } from '~~/models';
 
 /**
@@ -44,8 +44,8 @@ export const useGasPrice = (
   options: THookOptions = defaultHookOptions()
 ): [gasPrice: number | undefined, update: () => void] => {
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { provider } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, options);
 
   const [currentChainId, setCurrentChainId] = useState<number>();
   const [gasPrice, setGasPrice] = useState<number | undefined>();

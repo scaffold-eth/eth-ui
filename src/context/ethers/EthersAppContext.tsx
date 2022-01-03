@@ -1,14 +1,17 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
+import { merge } from 'merge-anything';
 import { cloneElement, FC, useCallback } from 'react';
+import { QueryClientProvider } from 'react-query';
 import { invariant } from 'ts-invariant';
 
 import { NoEthereumProviderFoundError } from '~~/context';
 import { BlockNumberContext } from '~~/context/ethers/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers/connectors/EthersModalConnector';
+import { contextQueryClient as ethersAppQueryClient } from '~~/context/ethers/queryClient';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
-import { TEthersProvider } from '~~/models';
+import { defaultHookOptions, TEthersProvider, THookOptions } from '~~/models';
 import { IEthersContext } from '~~/models/ethersAppContextTypes';
 
 /**
@@ -32,6 +35,8 @@ import { IEthersContext } from '~~/models/ethersAppContextTypes';
  * @returns
  */
 export const useEthersContext = (contextKey?: string): IEthersContext => {
+  if (contextKey === 'primary') console.warn('Do not explicitly use primary contextKey, pass in undefined instead');
+
   const { connector, activate, library, account, deactivate, chainId, ...context } =
     useWeb3React<TEthersProvider>(contextKey);
   if (!(connector instanceof EthersModalConnector || connector instanceof AbstractConnector) && connector != null) {
@@ -154,20 +159,24 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
     //   'When using alternate web3-react roots, you need to provide a valid web3ReactRoot'
     // );
 
+    const options: THookOptions = merge(defaultHookOptions(), {
+      contextOverride: { alternateContextKey: props.secondaryWeb3ReactRoot.contextKey },
+    });
+
     const alternateProvider = cloneElement(
       props.secondaryWeb3ReactRoot.web3ReactRoot,
       { getLibrary: getEthersAppProviderLibrary },
-      <BlockNumberContext options={{ alternateContextOverride: props.secondaryWeb3ReactRoot.contextKey }}>
-        {props.children}
-      </BlockNumberContext>
+      <BlockNumberContext options={options}>{props.children}</BlockNumberContext>
     );
 
     return alternateProvider;
   }
 
   return (
-    <Web3ReactProvider getLibrary={getEthersAppProviderLibrary}>
-      <BlockNumberContext>{props.children}</BlockNumberContext>
-    </Web3ReactProvider>
+    <QueryClientProvider client={ethersAppQueryClient}>
+      <Web3ReactProvider getLibrary={getEthersAppProviderLibrary}>
+        <BlockNumberContext>{props.children}</BlockNumberContext>
+      </Web3ReactProvider>
+    </QueryClientProvider>
   );
 };

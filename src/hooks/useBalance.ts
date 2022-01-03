@@ -1,12 +1,16 @@
 import { BigNumber } from 'ethers';
-import { useState, useCallback, useEffect } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
+
+import { useEthersUpdater } from './useEthersUpdater';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
+import { ethersOverride } from '~~/functions';
+import { providerKey } from '~~/functions/keyHelpers';
 import { defaultHookOptions, THookOptions } from '~~/models';
 
 const zero = BigNumber.from(0);
+const hookKey = 'useBalance' as const;
+
 /**
  * #### Summary
  * Gets your balance in ETH for the given address.
@@ -25,30 +29,30 @@ export const useBalance = (
   address: string | undefined,
   options: THookOptions = defaultHookOptions()
 ): [balance: BigNumber, update: () => void] => {
-  const isMounted = useIsMounted();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { provider } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, options);
+
+  const keys = [hookKey, providerKey(provider), { address }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys): Promise<BigNumber> => {
+      const { address } = keys.queryKey[2];
+
+      if (provider && address) {
+        const newBalance = await provider.getBalance(address);
+        return newBalance;
+      } else {
+        return zero;
+      }
+    },
+    {
+      isDataEqual: (oldResult, newResult) => oldResult?._hex === newResult._hex,
+      ...options.update.query,
+    }
+  );
 
   const blockNumber = useBlockNumberContext();
-  const [balance, setBalance] = useState<BigNumber>(zero);
+  useEthersUpdater(refetch, blockNumber, options);
 
-  const update = useCallback(async (): Promise<void> => {
-    if (provider && address) {
-      const newBalance = await provider.getBalance(address);
-      if (isMounted()) {
-        setBalance((value) => {
-          if (value.toHexString() !== newBalance?.toHexString()) {
-            return newBalance;
-          }
-          return value;
-        });
-      }
-    }
-  }, [address, provider, isMounted]);
-
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
-
-  return [balance, update];
+  return [data ?? zero, refetch];
 };

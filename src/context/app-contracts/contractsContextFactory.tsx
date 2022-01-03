@@ -10,8 +10,8 @@ import React, {
   useReducer,
 } from 'react';
 
-import { useEthersContext } from '~~/context';
-import { connectToContractWithSignerOrProvider, isValidEthersAdaptor, sortContractsByChainId } from '~~/functions';
+import { connectToContractWithSignerOrProvider, useEthersContext } from '~~/context';
+import { isValidEthersAdaptor, sortContractsByChainId } from '~~/functions';
 import { TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
 import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractContextTypes';
 

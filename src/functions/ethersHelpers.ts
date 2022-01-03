@@ -7,9 +7,8 @@ import {
   WebSocketProvider,
 } from '@ethersproject/providers';
 import { Signer } from 'ethers';
-import { invariant } from 'ts-invariant';
 
-import { TEthersProvider, THookOptions, IEthersContext, TEthersAdaptor } from '~~/models';
+import { TEthersProvider, IEthersContext, TEthersAdaptor } from '~~/models';
 
 /**
  * #### Summary
@@ -46,21 +45,6 @@ export const asEthersAdaptor = (ethersContext: IEthersContext): Readonly<TEthers
     chainId: ethersContext.chainId,
     account: ethersContext.account,
   } as const;
-};
-
-export const checkEthersOverride = (context: IEthersContext, options: THookOptions): Readonly<TEthersAdaptor> => {
-  if (options.adaptorOverrride?.enabled) {
-    invariant(
-      options.alternateContextOverride == null,
-      'You cannot use both contextOverride and contextKey at the same time'
-    );
-
-    if (options.adaptorOverrride) {
-      return options.adaptorOverrride.adaptor ?? {};
-    }
-  }
-
-  return asEthersAdaptor(context);
 };
 
 export const isValidEthersContext = (ethersContext: IEthersContext | undefined): boolean => {

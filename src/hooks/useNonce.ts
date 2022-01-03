@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
+import { ethersOverride } from '~~/functions';
 import { defaultHookOptions, THookOptions } from '~~/models';
 
 /**
@@ -24,8 +24,8 @@ export const useNonce = (
 ): [nonce: number, update: () => void] => {
   const isMounted = useIsMounted();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { provider } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, options);
 
   const [nonce, setNonce] = useState<number>(0);
 

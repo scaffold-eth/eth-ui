@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
+import { ethersOverride } from '~~/functions';
 import { defaultHookOptions, THardhatContractsFileJson, THardhatContractJson, THookOptions } from '~~/models';
 
 /**
@@ -99,8 +99,8 @@ export const useContractLoader = (
   options: THookOptions = defaultHookOptions()
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { provider, chainId } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const { provider, chainId } = ethersOverride(ethersContext, options);
 
   const [contracts, setContracts] = useState<Record<string, BaseContract>>({});
   const configDep: string = useMemo(

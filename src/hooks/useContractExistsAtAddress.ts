@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useBlockNumberContext, useEthersContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
+import { ethersOverride } from '~~/functions';
 import { defaultHookOptions, THookOptions } from '~~/models';
 /**
  * #### Summary
@@ -24,8 +24,8 @@ export const useContractExistsAtAddress = (
 ): [contractIsDeployed: boolean, update: () => void] => {
   const isMounted = useIsMounted();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { provider } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, options);
 
   const [contractIsDeployed, setContractIsDeployed] = useState(false);
 

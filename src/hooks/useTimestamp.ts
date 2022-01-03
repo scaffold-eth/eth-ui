@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useBlockNumberContext, useEthersContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
+import { ethersOverride } from '~~/functions';
 import { THookOptions, defaultHookOptions } from '~~/models';
 
 /**
@@ -21,8 +21,8 @@ import { THookOptions, defaultHookOptions } from '~~/models';
 export const useTimestamp = (options: THookOptions = defaultHookOptions()): [timestamp: number, update: () => void] => {
   const isMounted = useIsMounted();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { provider } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, options);
 
   const [timestamp, setTimestamp] = useState<number>(0);
 
