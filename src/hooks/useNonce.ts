@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
 
-import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { ethersOverride } from '~~/functions';
+import { useBlockNumberContext, useEthersContext } from '~~/context';
+import { ethersOverride, providerKey } from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { defaultHookOptions, THookOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey = { namespace: keyNamespace.signer, key: 'useGetEthersAdaptorFromProviderOrSigners' } as const;
 
 /**
  * #### Summary
@@ -22,31 +25,24 @@ export const useNonce = (
   address: string,
   options: THookOptions = defaultHookOptions()
 ): [nonce: number, update: () => void] => {
-  const isMounted = useIsMounted();
-  const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, options);
 
-  const [nonce, setNonce] = useState<number>(0);
-
-  const update = useCallback(async (): Promise<void> => {
-    let nextNonce: number = 0;
-    try {
-      nextNonce = (await provider?.getTransactionCount(address)) ?? 0;
-    } catch {
-      // do nothing
+  const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys) => {
+      const { address } = keys.queryKey[1];
+      const nextNonce = await provider?.getTransactionCount(address);
+      return nextNonce ?? 0;
+    },
+    {
+      ...options.update.query,
     }
-    if (isMounted()) {
-      setNonce((value) => {
-        if (nextNonce && value !== nextNonce && value < nextNonce) return nextNonce;
-        return value;
-      });
-    }
-  }, [address, provider, isMounted]);
+  );
 
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
 
-  return [nonce, update];
+  return [data ?? 0, refetch];
 };

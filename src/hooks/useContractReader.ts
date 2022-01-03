@@ -7,8 +7,9 @@ import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { ethersOverride, providerKey } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { defaultHookOptions, TContractFunctionInfo, TEthersProvider, THookOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
 
-const hookKey = 'useContractReader' as const;
+const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' } as const;
 
 /**
  * #### Summary
@@ -33,15 +34,17 @@ export const useContractReader = <
   options: THookOptions = defaultHookOptions()
 ): [value: Awaited<ReturnType<GContractFunc>> | undefined, update: () => void] => {
   const keys = [
-    hookKey,
-    providerKey(contract?.provider as TEthersProvider),
-    contract?.address,
+    {
+      ...queryKey,
+      ...providerKey(contract?.provider as TEthersProvider),
+      address: contract?.address,
+    },
     { functionCallback, args: args ?? [] },
   ] as const;
   const { data, refetch } = useQuery(
     keys,
     async (keys) => {
-      const { functionCallback, args } = keys.queryKey[3];
+      const { functionCallback, args } = keys.queryKey[1];
 
       if (functionCallback != null && contract != null) {
         return functionCallback(...args);

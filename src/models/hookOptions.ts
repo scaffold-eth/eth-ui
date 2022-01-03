@@ -1,3 +1,5 @@
+import { merge } from 'merge-anything';
+
 import { TEthersAdaptor } from './ethersAppContextTypes';
 
 export type THookOptions = {
@@ -17,8 +19,12 @@ export type THookOptions = {
   };
 };
 
-export const defaultHookOptions = (): THookOptions => {
-  return {
+export type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
+};
+
+export const defaultHookOptions = (overrides?: DeepPartial<THookOptions>): THookOptions => {
+  const defaultOptions: THookOptions = {
     contextOverride: {
       adaptorEnabled: false,
       adaptor: undefined,
@@ -34,4 +40,10 @@ export const defaultHookOptions = (): THookOptions => {
       },
     },
   };
+
+  if (overrides) {
+    return merge(defaultOptions, overrides as Partial<THookOptions>);
+  }
+
+  return defaultOptions;
 };

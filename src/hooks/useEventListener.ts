@@ -1,14 +1,15 @@
-import { EventFilter, Event, BaseContract } from 'ethers';
+import { EventFilter, BaseContract } from 'ethers';
 import { Result } from 'ethers/lib/utils';
-import { useState, useEffect, useCallback } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useEffect } from 'react';
+import { useQuery } from 'react-query';
 
-import { TypedEvent } from '~~/models';
+import { useBlockNumberContext } from '~~/context';
+import { providerKey } from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { defaultHookOptions, TEthersProvider, THookOptions, TypedEvent } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
 
-const getEventKey = (m: Event | TypedEvent<Result>): string => {
-  return `${m.transactionHash}_${m.logIndex}`;
-};
-
+const queryKey = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;
 /**
  * #### Summary
  * Tracks the events of associated with a contract
@@ -26,52 +27,49 @@ const getEventKey = (m: Event | TypedEvent<Result>): string => {
  */
 export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
   contract: BaseContract | undefined,
-  event: string | EventFilter | undefined,
+  eventFilter: string | EventFilter | undefined,
   startBlock: number,
-  toBlock?: number
+  toBlock: number | undefined = undefined,
+  options: THookOptions = defaultHookOptions({ update: { blockNumberInterval: 100 } })
 ): [eventMap: GTypedEvent[], queryEvents: () => void] => {
-  const isMounted = useIsMounted();
-
-  const [eventMap, setEventMap] = useState<GTypedEvent[]>([]);
-
-  const queryEvents = useCallback(
-    (_listenerArgs: Event[] = []) => {
-      void (async (): Promise<void> => {
-        const result = await contract?.queryFilter(event as EventFilter, startBlock, toBlock);
-        if (isMounted() && result) {
-          setEventMap((value) => {
-            if (JSON.stringify(value.map(getEventKey)) !== JSON.stringify(result.map(getEventKey))) {
-              return result as GTypedEvent[];
-            } else {
-              return value;
-            }
-          });
-        }
-      })();
+  const keys = [
+    {
+      ...queryKey,
+      ...providerKey(contract?.provider as TEthersProvider),
+      address: contract?.address,
     },
-    [contract, event, isMounted, startBlock, toBlock]
+    { contract, eventFilter },
+  ] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys): Promise<GTypedEvent[]> => {
+      const { contract } = keys.queryKey[1];
+      {
+        const result = await contract?.queryFilter(eventFilter as EventFilter, startBlock, toBlock);
+        return (result as GTypedEvent[]) ?? [];
+      }
+    },
+    {
+      ...options.update.query,
+    }
   );
 
-  // get the events on initial load of hooks, without waiting for the next event
+  // update the result when ethers calls the event listner
   useEffect(() => {
-    if (contract?.queryFilter != null && (eventMap?.length == null || eventMap?.length === 0)) {
-      queryEvents?.([]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contract?.queryFilter]);
-
-  useEffect(() => {
-    if (event != null) {
+    if (eventFilter != null) {
       try {
-        contract?.on(event, queryEvents);
+        contract?.on(eventFilter, () => refetch);
         return (): void => {
-          contract?.off(event, queryEvents);
+          contract?.off(eventFilter, () => refetch);
         };
       } catch (e) {
         console.log(e);
       }
     }
-  }, [queryEvents, contract, event]);
+  }, [contract, eventFilter, refetch]);
 
-  return [eventMap, queryEvents];
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
+
+  return [data ?? [], refetch];
 };

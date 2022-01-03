@@ -1,10 +1,14 @@
 import { utils } from 'ethers';
-import { useCallback, useEffect, useState } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
 
 import { useBlockNumberContext, useEthersContext } from '~~/context';
-import { ethersOverride } from '~~/functions';
+import { ethersOverride, providerKey } from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { defaultHookOptions, THookOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey = { namespace: keyNamespace.contracts, key: 'useContractExistsAtAddress' } as const;
+
 /**
  * #### Summary
  * Checks whether a contract exists on the blockchain
@@ -22,33 +26,32 @@ export const useContractExistsAtAddress = (
   contractAddress: string | undefined,
   options: THookOptions = defaultHookOptions()
 ): [contractIsDeployed: boolean, update: () => void] => {
-  const isMounted = useIsMounted();
-  const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, options);
 
-  const [contractIsDeployed, setContractIsDeployed] = useState(false);
-
-  /**
-   * We can look at the blockchain and see what's stored at `contractAddress`
-   * If we find code then we know that a contract exists there.
-   * If we find nothing (0x0) then there is no contract deployed to that address
-   */
-  const update = useCallback(async (): Promise<void> => {
-    if (contractAddress == null || provider == null || !utils.isAddress(contractAddress)) {
-      if (isMounted()) setContractIsDeployed(false);
-      return;
+  const keys = [{ ...queryKey, ...providerKey(provider) }, { contractAddress }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys): Promise<boolean> => {
+      const { contractAddress } = keys.queryKey[1];
+      /**
+       * We can look at the blockchain and see what's stored at `contractAddress`
+       * If we find code then we know that a contract exists there.
+       * If we find nothing (0x0) then there is no contract deployed to that address
+       */
+      if (contractAddress != null && provider != null && !utils.isAddress(contractAddress)) {
+        const bytecode = await provider.getCode(contractAddress);
+        return bytecode !== '0x';
+      }
+      return false;
+    },
+    {
+      ...options.update.query,
     }
+  );
 
-    const bytecode = await provider.getCode(contractAddress);
-    if (isMounted()) {
-      setContractIsDeployed(bytecode !== '0x');
-    }
-  }, [provider, contractAddress, isMounted]);
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
 
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
-
-  return [contractIsDeployed, update];
+  return [data ?? false, refetch];
 };

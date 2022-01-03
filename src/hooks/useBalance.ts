@@ -7,9 +7,10 @@ import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { ethersOverride } from '~~/functions';
 import { providerKey } from '~~/functions/keyHelpers';
 import { defaultHookOptions, THookOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
 
 const zero = BigNumber.from(0);
-const hookKey = 'useBalance' as const;
+const queryKey = { namespace: keyNamespace.signer, key: 'useBalance' } as const;
 
 /**
  * #### Summary
@@ -32,11 +33,11 @@ export const useBalance = (
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, options);
 
-  const keys = [hookKey, providerKey(provider), { address }] as const;
+  const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;
   const { data, refetch } = useQuery(
     keys,
     async (keys): Promise<BigNumber> => {
-      const { address } = keys.queryKey[2];
+      const { address } = keys.queryKey[1];
 
       if (provider && address) {
         const newBalance = await provider.getBalance(address);

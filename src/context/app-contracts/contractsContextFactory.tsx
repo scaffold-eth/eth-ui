@@ -9,10 +9,12 @@ import React, {
   useEffect,
   useReducer,
 } from 'react';
+import { useQueryClient } from 'react-query';
 
 import { connectToContractWithSignerOrProvider, useEthersContext } from '~~/context';
 import { isValidEthersAdaptor, sortContractsByChainId } from '~~/functions';
 import { TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
 import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractContextTypes';
 
 export type TContractsContextProps = {
@@ -263,11 +265,14 @@ export const contractsContextFactory = <
    */
   const useLoadAppContracts = (): void => {
     const actions = useAppContractsActions();
+    const queryClient = useQueryClient();
 
     const load = useCallback(() => {
       if (loadAppContractConnectors != null) {
         const connectors = loadAppContractConnectors();
         if (connectors != null && actions != null) {
+          console.log(queryClient.getQueriesData([keyNamespace.contracts]));
+          void queryClient?.invalidateQueries?.([keyNamespace.contracts]);
           actions.dispatch({ type: 'SET_CONTRACT_CONNECTORS', payload: { appContractConnectorList: connectors } });
         }
       }
@@ -281,10 +286,13 @@ export const contractsContextFactory = <
 
   const useConnectAppContracts = (adaptor: TEthersAdaptor | undefined): void => {
     const actions = useAppContractsActions();
+    const queryClient = useQueryClient();
 
     const connect = useCallback(() => {
-      if (adaptor?.chainId != null) {
-        actions?.dispatch({ type: 'CONNECT_TO_CONTRACTS_WITH_ADAPTOR', payload: { ethersAdaptor: adaptor } });
+      if (adaptor?.chainId != null && actions != null) {
+        console.log(queryClient.getQueriesData([keyNamespace.contracts]));
+        void queryClient?.invalidateQueries?.([keyNamespace.contracts]);
+        actions.dispatch({ type: 'CONNECT_TO_CONTRACTS_WITH_ADAPTOR', payload: { ethersAdaptor: adaptor } });
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [adaptor?.provider, adaptor?.signer, adaptor?.chainId]);
