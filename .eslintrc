@@ -122,8 +122,9 @@
       }
     ],
     "no-underscore-dangle": [
-      "warn",
+      "off",
       {
+        "allow": ["obj"],
         "allowFunctionParams": false,
         "allowAfterSuper": true,
         "allowAfterThis": true,

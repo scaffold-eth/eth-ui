@@ -1,5 +1,5 @@
 import { constants } from 'ethers';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { TEthersProvider } from '~~/models';
 
@@ -13,14 +13,22 @@ import { TEthersProvider } from '~~/models';
  * @param ensName
  * @returns
  */
-export const useResolveEnsAddress = (mainnetProvider: TEthersProvider, ensName: string): string => {
+export const useResolveEnsAddress = (
+  mainnetProvider: TEthersProvider | undefined,
+  ensName: string
+): [address: string, update: () => void] => {
   const [address, setAddress] = useState<string>(constants.AddressZero);
 
-  useEffect(() => {
-    if (mainnetProvider) {
-      void mainnetProvider.resolveName(ensName).then((resolvedAddress: string) => setAddress(resolvedAddress));
+  const update = useCallback(async () => {
+    if (mainnetProvider != null) {
+      const resolved = await mainnetProvider.resolveName(ensName);
+      setAddress(resolved ?? constants.AddressZero);
     }
-  }, [mainnetProvider, ensName]);
+  }, [ensName, mainnetProvider]);
 
-  return address;
+  useEffect(() => {
+    void update();
+  }, [update]);
+
+  return [address, update];
 };

@@ -1,56 +1,15 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
-import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
-import { Signer } from 'ethers';
-import { FC, useCallback } from 'react';
+import { cloneElement, FC, useCallback } from 'react';
+import { invariant } from 'ts-invariant';
 
 import { NoEthereumProviderFoundError } from '~~/context';
-import { BlockNumberContext } from '~~/context/BlockNumberContext';
-import { EthersModalConnector, TEthersModalConnector } from '~~/context/connectors/EthersModalConnector';
+import { BlockNumberContext } from '~~/context/ethers/BlockNumberContext';
+import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers/connectors/EthersModalConnector';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
-
-/**
- * #### Summary
- * A callback type that returns a EthersModalConnector
- *
- * #### Notes
- * - can be used by components that need to give a connector to {@link IEthersContext.openModal}
- *
- * @category EthersContext
- */
-export type CreateEthersModalConnector = () => TEthersModalConnector | undefined;
-
-/**
- * #### Summary
- * The return type of {@link EthersModalConnector}
- * - ethers compatable provider {@link TEthersProvider}
- * - a callback to change the current signer
- * - the current account, chainId and signer
- * - callbacks to open the web3Modal, logout or change theme
- *
- * @category EthersContext
- */
-export interface IEthersContext extends Web3ReactContextInterface<TEthersProvider> {
-  connector: TEthersModalConnector | undefined;
-  ethersProvider: TEthersProvider | undefined;
-  active: boolean;
-  signer: Signer | undefined;
-  account: string | undefined;
-  chainId: number | undefined;
-  changeSigner: ((signer: Signer) => Promise<void>) | undefined;
-  openModal: (ethersModalConnector: TEthersModalConnector) => void;
-  disconnectModal: () => void;
-  setModalTheme: ((theme: 'light' | 'dark') => void) | undefined;
-}
-
-/**
- * A wrapper around useWeb3React that provides functionality for web3modal
- * and eth-hooks compatability
- * @param providerKey (string) :: (optional) :: used if you want a secondary provider context, for example to mainnet
- * @returns (IEthersWeb3Context)
- */
+import { IEthersContext } from '~~/models/ethersAppContextTypes';
 
 /**
  * #### Summary
@@ -69,12 +28,12 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
  *
  * @category EthersContext
  *
- * @param providerKey
+ * @param contextKey
  * @returns
  */
-export const useEthersContext = (providerKey?: string): IEthersContext => {
+export const useEthersContext = (contextKey?: string): IEthersContext => {
   const { connector, activate, library, account, deactivate, chainId, ...context } =
-    useWeb3React<TEthersProvider>(providerKey);
+    useWeb3React<TEthersProvider>(contextKey);
   if (!(connector instanceof EthersModalConnector || connector instanceof AbstractConnector) && connector != null) {
     throw 'Connector is not a EthersModalConnector';
   }
@@ -87,7 +46,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
       }
 
       if (ethersModalConnector == null) {
-        console.error('A valid ethersModalConnector was not provided');
+        invariant.error('A valid ethersModalConnector was not provided');
       }
       if (ethersModalConnector != null) {
         const onError = (error: Error): void => {
@@ -109,7 +68,7 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
 
   const result: IEthersContext = {
     connector: ethersConnector,
-    ethersProvider: library,
+    provider: library,
     activate,
     deactivate,
     library,
@@ -127,6 +86,17 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
 };
 
 /**
+ * #### Summary
+ * Props for context that allow you specify alternate web3ReactRoot [See docs](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs#createweb3reactroot).  You must provide both an alternate key and its root.
+ */
+export type TEthersAppContextProps = {
+  secondaryWeb3ReactRoot?: {
+    contextKey: string;
+    web3ReactRoot: JSX.Element;
+  };
+};
+
+/**
  * Convert the provider obtained from web3Modal into a ethers.web3provider
  *
  * @internal
@@ -136,7 +106,6 @@ export const useEthersContext = (providerKey?: string): IEthersContext => {
  * @returns
  */
 export const getEthersAppProviderLibrary = (
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   provider: any,
   connector: AbstractConnector | undefined
 ): TEthersProvider => {
@@ -152,20 +121,50 @@ export const getEthersAppProviderLibrary = (
   if (isEthersProvider(provider)) {
     return provider as TEthersProvider;
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     return new Web3Provider(provider, anyNetwork);
   }
 };
 /**
  * #### Summary
  * Ethers App Context for your react app to be used with {@link useEthersContext}.
- * This is a wrapper around Web3ReactProvider that provides additional functionality such as a {@link BlockNumberContext} and access to {@link IEthersContext}
+ * This is a wrapper around Web3ReactProvider that provides additional functionality such as a {@link BlockNumberContext} and access to {@link IEthersContext}.  See {@link TEthersAppContextProps} for more information on props for alternate context roots.
  *
  * @category EthersContext
  *
  * @param props
  * @returns
  */
-export const EthersAppContext: FC = (props) => {
+export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
+  if (props.secondaryWeb3ReactRoot != null) {
+    invariant(
+      !!props.secondaryWeb3ReactRoot.contextKey,
+      'When using alternate web3-react roots, you need to provide a valid contextKeyName'
+    );
+
+    invariant(
+      props.secondaryWeb3ReactRoot.web3ReactRoot != null,
+      'When using alternate web3-react roots, you need to provide a valid web3ReactRoot'
+    );
+
+    invariant(props.secondaryWeb3ReactRoot.contextKey !== 'primary', 'You cannot use primary for alternate roots');
+
+    // invariant(
+    //   props.secondaryWeb3ReactRoot.web3ReactRoot.type != null,
+    //   'When using alternate web3-react roots, you need to provide a valid web3ReactRoot'
+    // );
+
+    const alternateProvider = cloneElement(
+      props.secondaryWeb3ReactRoot.web3ReactRoot,
+      { getLibrary: getEthersAppProviderLibrary },
+      <BlockNumberContext options={{ alternateContextOverride: props.secondaryWeb3ReactRoot.contextKey }}>
+        {props.children}
+      </BlockNumberContext>
+    );
+
+    return alternateProvider;
+  }
+
   return (
     <Web3ReactProvider getLibrary={getEthersAppProviderLibrary}>
       <BlockNumberContext>{props.children}</BlockNumberContext>

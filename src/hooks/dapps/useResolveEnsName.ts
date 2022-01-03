@@ -1,4 +1,4 @@
-import { utils } from 'ethers';
+import { utils, constants } from 'ethers';
 import { useState, useEffect } from 'react';
 
 import { TEthersProvider } from '~~/models';
@@ -16,11 +16,9 @@ const lookupAddress = async (provider: TEthersProvider, address: string): Promis
       // Accuracy of reverse resolution is not enforced.
       // We then manually ensure that the reported ens name resolves to address
       const reportedName = await provider.lookupAddress(address);
-
-      const resolvedAddress = await provider.resolveName(reportedName);
-
-      if (address && utils.getAddress(address) === utils.getAddress(resolvedAddress)) {
-        return reportedName;
+      const resolvedAddress = await provider.resolveName(reportedName ?? constants.AddressZero);
+      if (address && utils.getAddress(address) === utils.getAddress(resolvedAddress ?? '')) {
+        return reportedName ?? '';
       } else {
         return utils.getAddress(address);
       }

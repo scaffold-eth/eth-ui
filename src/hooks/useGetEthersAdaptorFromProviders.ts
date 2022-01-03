@@ -1,9 +1,10 @@
-import { ethers, Signer } from 'ethers';
+import { Signer } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 
 import { asyncSome } from '~~/functions/asyncSome';
 import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
-import { TEthersUser as TEthersUser, TEthersProvider } from '~~/models';
+import { TEthersProvider } from '~~/models';
+import { TEthersAdaptor } from '~~/models/ethersAppContextTypes';
 
 /**
  * #### Summary
@@ -18,14 +19,14 @@ import { TEthersUser as TEthersUser, TEthersProvider } from '~~/models';
  * @param moreProviders
  * @returns
  */
-export const useGetUserFromProviders = (
+export const useGetEthersAdaptorFromProviders = (
   currentProvider: TEthersProvider | undefined,
   ...moreProviders: TEthersProvider[]
-): TEthersUser => {
+): TEthersAdaptor | undefined => {
   const [signer, setSigner] = useState<Signer>();
   const [provider, setProvider] = useState<TEthersProvider>();
-  const [providerNetwork, setProviderNetwork] = useState<ethers.providers.Network>();
-  const [address, setAddress] = useState<string>();
+  const [chainId, setChainId] = useState<number>();
+  const [account, setAccount] = useState<string>();
 
   const allProviders = [currentProvider, ...moreProviders].filter((f) => f != null) as TEthersProvider[];
   const providerDeps: string = allProviders
@@ -37,16 +38,15 @@ export const useGetUserFromProviders = (
       return acc + value ?? '';
     }, '');
 
-  const callFunc = useCallback(
+  const update = useCallback(
     async (): Promise<void> => {
       const foundSigner = await asyncSome(allProviders, async (provider) => {
         const result = await parseProviderOrSigner(provider);
-        if (result.provider && result.providerNetwork && result.signer) {
+        if (result) {
           setSigner(result.signer);
           setProvider(result.provider);
-          setProviderNetwork(result.providerNetwork);
-          const address = await result.signer.getAddress();
-          setAddress(address);
+          setAccount(result.account);
+          setChainId(result.chainId);
           return true;
         }
         return false;
@@ -55,8 +55,9 @@ export const useGetUserFromProviders = (
       if (!foundSigner && currentProvider != null) {
         setProvider(currentProvider);
         setSigner(undefined);
-        setProviderNetwork(undefined);
-        setAddress(undefined);
+        setAccount(undefined);
+        setChainId(undefined);
+        setAccount(undefined);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,8 +65,17 @@ export const useGetUserFromProviders = (
   );
 
   useEffect(() => {
-    void callFunc();
-  }, [callFunc]);
+    void update();
+  }, [update]);
 
-  return { signer, provider, providerNetwork, address };
+  const result: TEthersAdaptor = {
+    signer,
+    provider,
+    chainId,
+    account,
+  };
+  if (result.account == null && provider == null && signer == null && chainId == null) {
+    return undefined;
+  }
+  return result;
 };

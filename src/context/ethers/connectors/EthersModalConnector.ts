@@ -4,10 +4,9 @@ import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer, utils } from 'ethers';
 import Core, { ICoreOptions, ThemeColors } from 'web3modal';
 
-import { isEthersProvider } from '../../functions/ethersHelpers';
-
 import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 
+import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser } from '~~/models/constants/common';
 

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 
-import { hookTestHarness } from '~~/helpers/test-utils';
+import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
-import { currentTestBlockNumber, harnessTestSetupHelper } from '~~/helpers/test-utils/harness/hardhatTestHelpers';
+import { currentTestBlockNumber, harnessTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useBlockNumber } from '~~/hooks';
 import { TEthersProvider } from '~~/models';
 
@@ -20,14 +20,14 @@ describe('useBlockNumber', function () {
   });
 
   it.skip('When the hook called without a new block arriving, useBlockNumber gets the current blockNumber', async () => {
-    const harness = await hookTestHarness(() => useBlockNumber(provider));
+    const harness = await hookTestWrapper(() => useBlockNumber(provider));
     expect(await harness.mockProvider.getBlockNumber()).to.exist;
     await harness.waitForNextUpdate(defaultBlockWaitOptions);
     expect(harness.result.current).to.equal(testStartBockNumber);
   });
 
   it('When the a new block arrives, useBlockNumberContext updates to the latest value', async () => {
-    const harness = await hookTestHarness(() => useBlockNumber(provider));
+    const harness = await hookTestWrapper(() => useBlockNumber(provider));
 
     // mine a block
     await mineBlock(harness.mockProvider);
@@ -44,7 +44,7 @@ describe('useBlockNumber', function () {
 
   describe('Given when polling', function () {
     it('When a new block arrives, useBlockNumberContext updates to the latest value', async () => {
-      const harness = await hookTestHarness(() => useBlockNumber(provider, 12000));
+      const harness = await hookTestWrapper(() => useBlockNumber(provider, 12000));
 
       // mine a block
       await mineBlock(harness.mockProvider);

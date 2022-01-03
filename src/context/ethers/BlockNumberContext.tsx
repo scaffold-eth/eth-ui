@@ -2,8 +2,10 @@ import { createContext, FC, useContext, useEffect, useReducer } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
+import { checkEthersOverride } from '~~/functions';
+import { defaultHookOptions, THookOptions } from '~~/models';
 
-const BlockNumberReactContext = createContext<number | undefined>(undefined);
+const Context = createContext<number | undefined>(undefined);
 
 /** *
  * @internal
@@ -60,16 +62,16 @@ const reducer = (state: State = {}, payload: Payload): State => {
  * @returns current block number
  */
 export const useBlockNumberContext = (): number => {
-  const blockNumber = useContext(BlockNumberReactContext);
-  if (blockNumber == null) {
-    console.log('blockNumber context is null');
-  }
+  const blockNumber = useContext(Context);
+  // if (blockNumber == null) {
+  //   console.log('blockNumber context is null');
+  // }
   // invariant(blockNumber != null, 'useBlockNumberContext needs to be used under BlockNumberContext');
   return blockNumber ?? 0;
 };
 
 interface IProps {
-  providerKey?: string;
+  options?: THookOptions;
 }
 
 /**
@@ -81,8 +83,10 @@ interface IProps {
  * @param props
  * @returns
  */
-export const BlockNumberContext: FC<IProps> = (props) => {
-  const { ethersProvider, chainId } = useEthersContext(props.providerKey);
+export const BlockNumberContext: FC<IProps> = (props = { options: defaultHookOptions() }) => {
+  const options = props.options ?? defaultHookOptions();
+  const ethersContext = useEthersContext(options.alternateContextOverride);
+  const { chainId, provider } = checkEthersOverride(ethersContext, options);
 
   const isMounted = useIsMounted();
   const [state, dispatch] = useReducer(reducer, {});
@@ -90,25 +94,30 @@ export const BlockNumberContext: FC<IProps> = (props) => {
   const blockNumber: number | undefined = chainId && state?.[chainId] ? state?.[chainId] : 0;
 
   useEffect(() => {
-    if (chainId && ethersProvider) {
+    if (chainId && provider) {
       const update = (blockNumber: number): void => {
         if (isMounted()) dispatch({ chainId, blockNumber });
       };
-      ethersProvider?.addListener?.('block', update);
+      provider?.addListener?.('block', update);
 
       // if the current value is undefined, do an initial fetch
       if (state?.[chainId] == null) {
-        ethersProvider?.getBlockNumber().then((val) => {
-          if (isMounted()) dispatch({ chainId, blockNumber: val });
-        });
+        provider
+          ?.getBlockNumber()
+          .then((val) => {
+            if (isMounted()) dispatch({ chainId, blockNumber: val });
+          })
+          .catch(() => {
+            /* ignore */
+          });
       }
 
       return (): void => {
-        ethersProvider?.removeListener?.('block', update);
+        provider?.removeListener?.('block', update);
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chainId, ethersProvider, isMounted]);
+  }, [chainId, provider, isMounted]);
 
-  return <BlockNumberReactContext.Provider value={blockNumber}>{props.children} </BlockNumberReactContext.Provider>;
+  return <Context.Provider value={blockNumber}>{props.children} </Context.Provider>;
 };

@@ -7,7 +7,7 @@ import { ThemeColors } from 'web3modal';
 
 import { ICommonModalConnector } from '~~/context';
 import { const_DefaultTestChainId } from '~~/helpers/test-utils/constants';
-import { getHardhatAccount } from '~~/helpers/test-utils/harness';
+import { getHardhatAccount } from '~~/helpers/test-utils/wrapper';
 import { TEthersProvider } from '~~/models';
 
 export class MockConnector extends AbstractConnector implements ICommonModalConnector {
@@ -57,7 +57,7 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
   public activate = async (): Promise<ConnectorUpdate> => {
     this.spyActivate();
     const account = await this.setMockAccount(0);
-    this.mockSigner = this.provider.getSigner(account);
+    this.mockSigner = this.provider.getSigner(account) as Signer;
 
     return { provider: await this.providerPromise(), chainId: this.mockChainId, account: account };
   };

@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 
-import { hookTestHarness } from '~~/helpers/test-utils';
+import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { useTimestamp } from '~~/hooks';
 
 describe('useTimestamp', function () {
   it('When the hook is called; then it returns the current block timestamp', async () => {
-    const harness = await hookTestHarness(() => useTimestamp());
+    const harness = await hookTestWrapper(() => useTimestamp());
     await harness.waitForNextUpdate(defaultBlockWaitOptions);
 
     const blockNumber = await harness.mockProvider.getBlockNumber();

@@ -5,7 +5,7 @@ import {
   Provider,
   JsonRpcSigner,
 } from '@ethersproject/providers';
-import { ethers, Signer, VoidSigner, Wallet, Event } from 'ethers';
+import { Signer, VoidSigner, Wallet, Event, EventFilter } from 'ethers';
 import { Result } from 'ethers/lib/utils';
 /**
  * #### Summary
@@ -49,19 +49,17 @@ export type TEthersSigner = Signer | JsonRpcSigner | Wallet | VoidSigner;
  */
 export type TAbstractProvider = Provider;
 
-/**
- * #### Summary
- * Essentially a provider and signer and network information for ease of use.
- *
- * @category Type Definition
- */
-export type TEthersUser = {
-  signer: Signer | undefined;
-  provider: TEthersProvider | undefined;
-  providerNetwork: ethers.providers.Network | undefined;
-  address: string | undefined;
+export type TypedEventFilter<
+  _EventArgsArray extends Array<any>,
+  _EventArgsObject extends Record<string, any>
+> = EventFilter;
+
+export type TypedEvent<EventArgs extends Result> = Event & {
+  args: EventArgs;
 };
 
-export interface TypedEvent<EventArgs extends Result> extends Event {
-  args: EventArgs;
-}
+export type TQueryFilter = <EventArgsArray extends Array<any>, EventArgsObject>(
+  event: TypedEventFilter<EventArgsArray, EventArgsObject>,
+  fromBlockOrBlockhash?: string | number | undefined,
+  toBlock?: string | number | undefined
+) => Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;

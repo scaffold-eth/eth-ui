@@ -1,32 +1,21 @@
-import { Provider } from '@ethersproject/providers';
-import { BaseContract, Signer } from 'ethers';
-
-/**
- * In progress...
- */
-export interface IContractFactoryBridge {
-  connect: (address: string, signerOrProvider: Signer | Provider) => BaseContract;
-  // attach: (address: string) => BaseContract;
-}
-
 /**
  * #### Summary
- * describes the sctructure of a contract in hardhat_contracts.json
+ * Describes the sctructure of each contract in hardhat_contracts.json
  */
 export type THardhatContractJson = {
   address: string;
-  abi: any[];
+  abi?: any[];
 };
 
 /**
  * #### Summary
- * Contracts deployed by hardhat
+ * Describes the structure of hardhat_contracts.json
  * - {chainIds: { networkNames: {contracts} }}, contains an record of contracts
  * - Used by {@link useContractLoader}
  *
  * @category Models
  */
-export type TDeployedContractsJson = {
+export type THardhatContractsFileJson = {
   [chainId: string]: {
     [networkName: string]: {
       name: string;
@@ -38,32 +27,28 @@ export type TDeployedContractsJson = {
 
 /**
  * #### Summary
- * Contract factories for contracts deployed by hardhat
- * - contractName: ethers.ContractFactory
- * - Used by {@link useContractLoader}
- *
- * @category Models
+ * Contracts by contract name
+ * - A record of contract names and their hardhat contract json
+ * - includes chain id
  */
-export type TDeployedContractHelper = {
-  factoryBridge: { [contractName: string]: IContractFactoryBridge };
-  contractList: {
-    [chainId: number]: { [contractName: string]: BaseContract };
+export type TDeployedContractJsonData = {
+  [contractName: string]: THardhatContractJson & {
+    chainId: number;
   };
 };
 
 /**
+ * {chainId: {contract: address}}, contains an record of contracts
  * #### Summary
  * A type for external contracts
- * - {chainId: {contracts}}, contains an record of contracts
- * - Used by {@link useContractLoader}
+ * - it is a record of contract names and their deployed address
+ * - this data type is used by {@link ContractsAppContext} to connect to external contracts
  *
  * @category Models
  */
-export type TExternalContracts = {
+export type TExternalContractsAddressMap = {
   [chainId: number]: {
-    name?: string;
-    chainId?: string;
-    contracts?: { [contractName: string]: THardhatContractJson };
+    [contractName: string]: string;
   };
 };
 
@@ -80,36 +65,4 @@ export type TContractFunctionInfo = {
   contractName: string;
   functionName: string;
   functionArgs?: any[];
-};
-
-/**
- * #### Summary
- * Configuration for useContractLoader
- *
- * @category Models
- */
-export type TContractLoaderConfig = {
-  /**
-   * your local hardhat network name
-   */
-  hardhatNetworkName?: string;
-  /**
-   * the address:contractName key value pair
-   */
-  customAddresses?: Record<string, string>;
-  /**
-   * Hardhat deployed contracts
-   * untyped and should be @deprecated
-   */
-  deployedContractsJson?: TDeployedContractsJson;
-  /**
-   * ⚠ in progress... not used currently
-   * Harhard deployed contract with TypeChain typings
-   * Contracts are created via contract factories
-   */
-  deployedContractHelper?: TDeployedContractHelper;
-  /**
-   * External contracts (such as DAI)
-   */
-  externalContracts?: TExternalContracts;
 };

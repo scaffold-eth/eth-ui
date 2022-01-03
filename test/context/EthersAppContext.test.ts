@@ -2,11 +2,12 @@
 import { expect, use } from 'chai';
 import * as sinonChai from 'sinon-chai';
 
-import { IEthersContext, useEthersContext } from '~~/context';
-import { hookTestHarness } from '~~/helpers/test-utils';
+import { useEthersContext } from '~~/context';
+import { hookTestWrapper } from '~~/helpers/test-utils';
 import { const_DefaultTestChainId, defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
-import { getHardhatAccount } from '~~/helpers/test-utils/harness';
-import { MockConnector } from '~~/helpers/test-utils/harness/wrapper';
+import { getHardhatAccount } from '~~/helpers/test-utils/wrapper';
+import { MockConnector } from '~~/helpers/test-utils/wrapper/connector';
+import { IEthersContext } from '~~/models';
 
 use(sinonChai);
 
@@ -18,7 +19,7 @@ describe('EthersAppContext', function () {
   describe('useEthersContext', function () {
     describe('Give that ethersContext is initalized', function () {
       it('When context is loaded; then it provides an initalized IEthersContext', async () => {
-        const harness = await hookTestHarness(() => TestHook());
+        const harness = await hookTestWrapper(() => TestHook());
         const context = harness.result.current;
         // signer and network data
         expect(context.connector).to.exist;
@@ -28,7 +29,7 @@ describe('EthersAppContext', function () {
         expect(context.signer).not.be.undefined;
 
         // provider
-        expect(context.ethersProvider).not.be.undefined;
+        expect(context.provider).not.be.undefined;
 
         // state
         expect(context.active).to.be.true;
@@ -46,7 +47,7 @@ describe('EthersAppContext', function () {
       });
 
       it('When openModal is called; then the old connector is deactivated and new connector is activated', async () => {
-        const harness = await hookTestHarness(() => TestHook());
+        const harness = await hookTestWrapper(() => TestHook());
         const firstContext = harness.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
@@ -62,7 +63,7 @@ describe('EthersAppContext', function () {
       });
 
       it('When activate is called; then the old connector is deactivated and new connector is activated', async () => {
-        const harness = await hookTestHarness(() => TestHook());
+        const harness = await hookTestWrapper(() => TestHook());
         const firstContext = harness.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
@@ -77,7 +78,7 @@ describe('EthersAppContext', function () {
       });
 
       it('When disconnectModal is called; then the connector is deactivated', async () => {
-        const harness = await hookTestHarness(() => TestHook());
+        const harness = await hookTestWrapper(() => TestHook());
         const firstContext = harness.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
@@ -89,12 +90,12 @@ describe('EthersAppContext', function () {
       });
 
       it('When changeSigner is called; then the connector.changeSigner is called once', async () => {
-        const harness = await hookTestHarness(() => TestHook());
+        const harness = await hookTestWrapper(() => TestHook());
         const firstContext = harness.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
         const newAccount = await getHardhatAccount(harness.mockProvider, 2);
-        const newSigner = firstContext.ethersProvider!.getSigner(newAccount);
+        const newSigner = firstContext.provider!.getSigner(newAccount);
         expect(newSigner).to.exist;
         await firstContext.changeSigner?.(newSigner);
 
@@ -103,7 +104,7 @@ describe('EthersAppContext', function () {
       });
 
       it('When setModalTheme is invoked with `dark`; then the connector.setModalTheme is called once with same value', async () => {
-        const harness = await hookTestHarness(() => TestHook());
+        const harness = await hookTestWrapper(() => TestHook());
         const firstContext = harness.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
