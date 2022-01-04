@@ -5,8 +5,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { ethersOverride, mergeDefaultHookOptions } from '~~/functions';
-import { THookOptions, TNetworkInfo } from '~~/models';
+import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
+import { TOverride, TNetworkInfo, TUpdateOptions } from '~~/models';
 
 /**
  * Preset speeds for Eth Gas Station API
@@ -41,11 +41,12 @@ export const useGasPrice = (
   chainId: number | undefined,
   speed: TGasStationSpeed,
   currentNetworkInfo?: TNetworkInfo,
-  options: THookOptions = mergeDefaultHookOptions()
+  override: TOverride = mergeDefaultOverride(),
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [gasPrice: number | undefined, update: () => void] => {
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.override.alternateContextKey);
-  const { provider } = ethersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, override);
 
   const [currentChainId, setCurrentChainId] = useState<number>();
   const [gasPrice, setGasPrice] = useState<number | undefined>();

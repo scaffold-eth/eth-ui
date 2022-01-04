@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 import { useEthersUpdater } from './useEthersUpdater';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { ethersOverride, mergeDefaultHookOptions } from '~~/functions';
+import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
 import { providerKey } from '~~/functions/keyHelpers';
-import { THookOptions } from '~~/models';
+import { TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const zero = BigNumber.from(0);
@@ -28,10 +28,11 @@ const queryKey = { namespace: keyNamespace.signer, key: 'useBalance' } as const;
  */
 export const useBalance = (
   address: string | undefined,
-  options: THookOptions = mergeDefaultHookOptions()
+  override: TOverride = mergeDefaultOverride(),
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [balance: BigNumber, update: () => void] => {
-  const ethersContext = useEthersContext(options.override.alternateContextKey);
-  const { provider } = ethersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, override);
 
   const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;
   const { data, refetch } = useQuery(
@@ -48,7 +49,7 @@ export const useBalance = (
     },
     {
       isDataEqual: (oldResult, newResult) => oldResult?._hex === newResult._hex,
-      ...options.update.query,
+      ...options.query,
     }
   );
 

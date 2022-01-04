@@ -2,9 +2,9 @@ import { BaseContract, utils } from 'ethers';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { contractKey, mergeDefaultHookOptions } from '~~/functions';
+import { contractKey, mergeDefaultUpdateOptions } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { THookOptions } from '~~/models';
+import { TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useContractExistsAtAddress' } as const;
@@ -24,7 +24,7 @@ const queryKey = { namespace: keyNamespace.contracts, key: 'useContractExistsAtA
  */
 export const useContractExistsAtAddress = (
   contract: BaseContract | undefined,
-  options: THookOptions = mergeDefaultHookOptions()
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [contractIsDeployed: boolean, update: () => void] => {
   const keys = [{ ...queryKey, ...contractKey(contract) }, { contractAddress: contract?.address }] as const;
   const { data, refetch } = useQuery(
@@ -43,7 +43,7 @@ export const useContractExistsAtAddress = (
       return false;
     },
     {
-      ...options.update.query,
+      ...options.query,
     }
   );
 

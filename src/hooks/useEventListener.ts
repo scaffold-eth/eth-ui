@@ -3,8 +3,8 @@ import { Result } from 'ethers/lib/utils';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-import { contractKey, mergeDefaultHookOptions } from '~~/functions';
-import { const_blockNumberInterval100, THookOptions, TypedEvent } from '~~/models';
+import { contractKey, mergeDefaultUpdateOptions } from '~~/functions';
+import { const_blockNumberInterval100, TUpdateOptions, TypedEvent } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;
@@ -28,7 +28,7 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
   eventFilter: string | EventFilter | undefined,
   startBlock: number,
   toBlock: number | undefined = undefined,
-  options: THookOptions = mergeDefaultHookOptions({ ...const_blockNumberInterval100 })
+  options: TUpdateOptions = mergeDefaultUpdateOptions({ ...const_blockNumberInterval100 })
 ): [eventMap: GTypedEvent[], queryEvents: () => void] => {
   const keys = [
     {
@@ -51,7 +51,7 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
       }
     },
     {
-      ...options.update.query,
+      ...options.query,
     }
   );
 

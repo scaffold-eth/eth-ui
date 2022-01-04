@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext, useEthersContext } from '~~/context';
-import { ethersOverride, mergeDefaultHookOptions, providerKey } from '~~/functions';
+import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions, providerKey } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { THookOptions } from '~~/models';
+import { TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.signer, key: 'useGetEthersAdaptorFromProviderOrSigners' } as const;
@@ -23,10 +23,11 @@ const queryKey = { namespace: keyNamespace.signer, key: 'useGetEthersAdaptorFrom
  */
 export const useNonce = (
   address: string,
-  options: THookOptions = mergeDefaultHookOptions()
+  override: TOverride = mergeDefaultOverride(),
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [nonce: number, update: () => void] => {
-  const ethersContext = useEthersContext(options.override.alternateContextKey);
-  const { provider } = ethersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, override);
 
   const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;
   const { data, refetch } = useQuery(
@@ -37,7 +38,7 @@ export const useNonce = (
       return nextNonce ?? 0;
     },
     {
-      ...options.update.query,
+      ...options.query,
     }
   );
 

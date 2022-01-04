@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
 
-import { THookOptions } from '~~/models';
+import { TUpdateOptions } from '~~/models';
 
 export const useEthersUpdater = (
   update: (() => void) | (() => Promise<void>),
   blockNumber: number | undefined,
-  options: THookOptions,
+  options: TUpdateOptions,
   allowBlockNumberUpdate: boolean = true
 ): void => {
-  const blockNumberFilter = Math.floor((blockNumber ?? 0) / (options.update.blockNumberInterval ?? 1));
+  const blockNumberFilter = Math.floor((blockNumber ?? 0) / (options.blockNumberInterval ?? 1));
 
   useEffect(() => {
-    if (blockNumber != null && !options.update.query.refetchInterval && allowBlockNumberUpdate) {
+    if (blockNumber != null && !options.query.refetchInterval && allowBlockNumberUpdate) {
       void update();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [blockNumberFilter, update, options.update.query.refetchInterval]);
+  }, [blockNumberFilter, update, options.query.refetchInterval]);
 };

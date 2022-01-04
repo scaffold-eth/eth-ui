@@ -3,8 +3,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { ethersOverride, mergeDefaultHookOptions } from '~~/functions';
-import { THardhatContractsFileJson, THardhatContractJson, THookOptions } from '~~/models';
+import { ethersOverride, mergeDefaultOverride } from '~~/functions';
+import { THardhatContractsFileJson, THardhatContractJson, TOverride } from '~~/models';
 
 /**
  * #### Summary
@@ -96,11 +96,11 @@ export const parseContractsInJson = (
  */
 export const useContractLoader = (
   config: TContractLoaderConfig = {},
-  options: THookOptions = mergeDefaultHookOptions()
+  override: TOverride = mergeDefaultOverride()
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
-  const ethersContext = useEthersContext(options.override.alternateContextKey);
-  const { provider, chainId } = ethersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider, chainId } = ethersOverride(ethersContext, override);
 
   const [contracts, setContracts] = useState<Record<string, BaseContract>>({});
   const configDep: string = useMemo(

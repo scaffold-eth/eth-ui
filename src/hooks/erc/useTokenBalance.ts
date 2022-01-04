@@ -3,9 +3,9 @@ import { BaseContract } from '@ethersproject/contracts';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { contractKey, mergeDefaultHookOptions } from '~~/functions';
+import { contractKey, mergeDefaultUpdateOptions } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { THookOptions } from '~~/models';
+import { TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const zero = BigNumber.from(0);
@@ -33,7 +33,7 @@ type ERC20 = {
 export const useTokenBalance = <GContract extends BaseContract & ERC20>(
   contract: GContract,
   address: string,
-  options: THookOptions = mergeDefaultHookOptions()
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [balance: BigNumber, update: () => void] => {
   const keys = [{ ...queryKey, ...contractKey(contract) }, { address }] as const;
   const { data, refetch } = useQuery(
@@ -50,7 +50,7 @@ export const useTokenBalance = <GContract extends BaseContract & ERC20>(
     },
     {
       isDataEqual: (oldResult, newResult) => oldResult?._hex === newResult._hex,
-      ...options.update.query,
+      ...options.query,
     }
   );
 

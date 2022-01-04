@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { contractKey, ethersOverride, mergeDefaultHookOptions } from '~~/functions';
+import { contractKey, ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { TContractFunctionInfo, THookOptions } from '~~/models';
+import { TContractFunctionInfo, TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' } as const;
@@ -32,7 +32,7 @@ export const useContractReader = <
   contractFunc: GContractFunc | undefined,
   args?: Parameters<GContractFunc>,
   funcEventFilter?: EventFilter | undefined,
-  options: THookOptions = mergeDefaultHookOptions()
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [value: Awaited<ReturnType<GContractFunc>> | undefined, update: () => void] => {
   const keys = [
     {
@@ -51,7 +51,7 @@ export const useContractReader = <
       }
     },
     {
-      ...options.update.query,
+      ...options.query,
     }
   );
 
@@ -101,13 +101,13 @@ export const useContractReaderUntyped = <GOutput>(
   contractFunctionInfo: TContractFunctionInfo,
   formatter?: (_value: GOutput | undefined) => GOutput,
   onChange?: (_value?: GOutput) => void,
-  options: THookOptions = mergeDefaultHookOptions()
+  override: TOverride = mergeDefaultOverride()
 ): GOutput | undefined => {
   const isMounted = useIsMounted();
   const [value, setValue] = useState<GOutput>();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.override.alternateContextKey);
-  const { chainId } = ethersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { chainId } = ethersOverride(ethersContext, override);
 
   const callContractFunction = useCallback(async () => {
     const contractFunction = contract.functions?.[contractFunctionInfo.functionName] as ContractFunction<GOutput>;

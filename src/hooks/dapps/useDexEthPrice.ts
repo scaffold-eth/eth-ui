@@ -2,9 +2,9 @@ import { Token, WETH, Fetcher, Route } from '@uniswap/sdk';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { mergeDefaultHookOptions, providerKey } from '~~/functions';
+import { mergeDefaultUpdateOptions, providerKey } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { const_blockNumberInterval100, THookOptions, TNetworkInfo } from '~~/models';
+import { TNetworkInfo, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 import { TEthersProvider } from '~~/models/providerTypes';
 
@@ -27,7 +27,7 @@ const queryKey = { namespace: keyNamespace.signer, key: 'useDexEthPrice' } as co
 export const useDexEthPrice = (
   mainnetProvider: TEthersProvider | undefined,
   targetNetworkInfo?: TNetworkInfo,
-  options: THookOptions = mergeDefaultHookOptions({ ...const_blockNumberInterval100 })
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [price: number, update: () => void] => {
   const keys = [{ ...queryKey, ...providerKey(mainnetProvider) }, { networkPrice: targetNetworkInfo?.price }] as const;
   const { data, refetch } = useQuery(
@@ -47,7 +47,7 @@ export const useDexEthPrice = (
       }
     },
     {
-      ...options.update.query,
+      ...options.query,
     }
   );
 

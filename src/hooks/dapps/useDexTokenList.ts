@@ -4,9 +4,9 @@ import isEqual from 'lodash.isequal';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { mergeDefaultHookOptions } from '~~/functions';
+import { mergeDefaultUpdateOptions } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { THookOptions, const_blockNumberInterval100 } from '~~/models';
+import { TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.signer, key: 'useDexTokenList' } as const;
@@ -27,7 +27,7 @@ const queryKey = { namespace: keyNamespace.signer, key: 'useDexTokenList' } as c
 export const useDexTokenList = (
   tokenListUri: string = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org',
   chainId?: number,
-  options: THookOptions = mergeDefaultHookOptions({ ...const_blockNumberInterval100 })
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [tokenList: TokenInfo[], update: () => void] => {
   const keys = [{ ...queryKey }, { tokenListUri, chainId }] as const;
   const { data, refetch } = useQuery(
@@ -49,7 +49,7 @@ export const useDexTokenList = (
     },
     {
       isDataEqual: (oldResult, newResult) => isEqual(oldResult, newResult),
-      ...options.update.query,
+      ...options.query,
     }
   );
 
