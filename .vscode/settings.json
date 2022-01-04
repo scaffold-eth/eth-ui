@@ -30,5 +30,6 @@
     "node_modules/*/**": true,
     "lib": true
   },
-  "explorerExclude.backup": null
+  "explorerExclude.backup": null,
+  "exportall.config.relExclusion": ["/src/helpers/test-utils", "/src/helpers/typedoc", "/src/helpers/__global.ts"]
 }

@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { providerKey } from '~~/functions';
+import { mergeDefaultHookOptions, providerKey } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { const_blockNumberInterval100, mergeDefaultHookOptions, TEthersSigner, THookOptions } from '~~/models';
+import { const_blockNumberInterval100, TEthersSigner, THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.signer, key: 'useSignerChainId' } as const;

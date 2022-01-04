@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { contractKey, ethersOverride } from '~~/functions';
+import { contractKey, ethersOverride, mergeDefaultHookOptions } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { mergeDefaultHookOptions as mergeDefaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/models';
+import { TContractFunctionInfo, THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' } as const;
@@ -106,7 +106,7 @@ export const useContractReaderUntyped = <GOutput>(
   const isMounted = useIsMounted();
   const [value, setValue] = useState<GOutput>();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const ethersContext = useEthersContext(options.override.alternateContextKey);
   const { chainId } = ethersOverride(ethersContext, options);
 
   const callContractFunction = useCallback(async () => {

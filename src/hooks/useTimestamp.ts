@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext, useEthersContext } from '~~/context';
-import { ethersOverride, providerKey } from '~~/functions';
+import { ethersOverride, mergeDefaultHookOptions, providerKey } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { THookOptions, mergeDefaultHookOptions } from '~~/models';
+import { THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.signer, key: 'useTimestamp' } as const;
@@ -25,7 +25,7 @@ export const useTimestamp = (
   options: THookOptions = mergeDefaultHookOptions()
 ): [timestamp: number, update: () => void] => {
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const ethersContext = useEthersContext(options.override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, options);
 
   const keys = [

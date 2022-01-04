@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 import { useEthersUpdater } from './useEthersUpdater';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { ethersOverride } from '~~/functions';
+import { ethersOverride, mergeDefaultHookOptions } from '~~/functions';
 import { providerKey } from '~~/functions/keyHelpers';
-import { mergeDefaultHookOptions, THookOptions } from '~~/models';
+import { THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const zero = BigNumber.from(0);
@@ -30,7 +30,7 @@ export const useBalance = (
   address: string | undefined,
   options: THookOptions = mergeDefaultHookOptions()
 ): [balance: BigNumber, update: () => void] => {
-  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const ethersContext = useEthersContext(options.override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, options);
 
   const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;

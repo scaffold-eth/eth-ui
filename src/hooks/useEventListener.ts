@@ -3,8 +3,8 @@ import { Result } from 'ethers/lib/utils';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-import { contractKey } from '~~/functions';
-import { const_blockNumberInterval100, mergeDefaultHookOptions, THookOptions, TypedEvent } from '~~/models';
+import { contractKey, mergeDefaultHookOptions } from '~~/functions';
+import { const_blockNumberInterval100, THookOptions, TypedEvent } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;

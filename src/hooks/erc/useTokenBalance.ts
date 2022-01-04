@@ -3,9 +3,9 @@ import { BaseContract } from '@ethersproject/contracts';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { contractKey } from '~~/functions';
+import { contractKey, mergeDefaultHookOptions } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { mergeDefaultHookOptions, THookOptions } from '~~/models';
+import { THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const zero = BigNumber.from(0);

@@ -1,5 +1,3 @@
-import { merge } from 'merge-anything';
-
 import { TEthersAdaptor } from './ethersAppContextTypes';
 
 import { DeepPartial } from '~~/models/utilityTypes';
@@ -10,7 +8,7 @@ import { DeepPartial } from '~~/models/utilityTypes';
 export const const_blockNumberInterval100: DeepPartial<THookOptions> = { update: { blockNumberInterval: 100 } };
 
 export type THookOptions = {
-  contextOverride: {
+  override: {
     adaptorEnabled: boolean;
     adaptor: TEthersAdaptor | undefined;
     alternateContextKey?: string;
@@ -26,9 +24,9 @@ export type THookOptions = {
   };
 };
 
-const defaultHookOptions = (): THookOptions => {
+export const defaultHookOptions = (): THookOptions => {
   return {
-    contextOverride: {
+    override: {
       adaptorEnabled: false,
       adaptor: undefined,
       alternateContextKey: undefined,
@@ -43,14 +41,4 @@ const defaultHookOptions = (): THookOptions => {
       },
     },
   };
-};
-
-export const mergeDefaultHookOptions = (...overrides: DeepPartial<THookOptions>[]): THookOptions => {
-  const defaultOptions: THookOptions = defaultHookOptions();
-
-  if (overrides?.length > 0) {
-    return merge(defaultOptions, ...overrides);
-  }
-
-  return defaultOptions;
 };

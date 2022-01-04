@@ -2,9 +2,9 @@ import { Token, WETH, Fetcher, Route } from '@uniswap/sdk';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { providerKey } from '~~/functions';
+import { mergeDefaultHookOptions, providerKey } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { const_blockNumberInterval100, mergeDefaultHookOptions, THookOptions, TNetworkInfo } from '~~/models';
+import { const_blockNumberInterval100, THookOptions, TNetworkInfo } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 import { TEthersProvider } from '~~/models/providerTypes';
 

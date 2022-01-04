@@ -1,10 +1,10 @@
-import { utils } from 'ethers';
+import { BaseContract, utils } from 'ethers';
 import { useQuery } from 'react-query';
 
-import { useBlockNumberContext, useEthersContext } from '~~/context';
-import { ethersOverride, providerKey } from '~~/functions';
+import { useBlockNumberContext } from '~~/context';
+import { contractKey, mergeDefaultHookOptions } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { mergeDefaultHookOptions, THookOptions } from '~~/models';
+import { THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useContractExistsAtAddress' } as const;
@@ -23,13 +23,10 @@ const queryKey = { namespace: keyNamespace.contracts, key: 'useContractExistsAtA
  * @returns
  */
 export const useContractExistsAtAddress = (
-  contractAddress: string | undefined,
+  contract: BaseContract | undefined,
   options: THookOptions = mergeDefaultHookOptions()
 ): [contractIsDeployed: boolean, update: () => void] => {
-  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
-  const { provider } = ethersOverride(ethersContext, options);
-
-  const keys = [{ ...queryKey, ...providerKey(provider) }, { contractAddress }] as const;
+  const keys = [{ ...queryKey, ...contractKey(contract) }, { contractAddress: contract?.address }] as const;
   const { data, refetch } = useQuery(
     keys,
     async (keys): Promise<boolean> => {
@@ -39,8 +36,8 @@ export const useContractExistsAtAddress = (
        * If we find code then we know that a contract exists there.
        * If we find nothing (0x0) then there is no contract deployed to that address
        */
-      if (contractAddress != null && provider != null && !utils.isAddress(contractAddress)) {
-        const bytecode = await provider.getCode(contractAddress);
+      if (contractAddress != null && utils.isAddress(contractAddress) && contract?.provider != null) {
+        const bytecode = await contract.provider.getCode(contractAddress);
         return bytecode !== '0x';
       }
       return false;

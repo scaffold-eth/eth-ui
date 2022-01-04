@@ -1,7 +1,6 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
-import { merge } from 'merge-anything';
 import { cloneElement, FC, useCallback } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { invariant } from 'ts-invariant';
@@ -10,8 +9,9 @@ import { NoEthereumProviderFoundError } from '~~/context';
 import { BlockNumberContext } from '~~/context/ethers/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers/connectors/EthersModalConnector';
 import { contextQueryClient as ethersAppQueryClient } from '~~/context/ethers/queryClient';
+import { mergeDefaultHookOptions } from '~~/functions';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
-import { mergeDefaultHookOptions, TEthersProvider, THookOptions } from '~~/models';
+import { TEthersProvider, THookOptions } from '~~/models';
 import { IEthersContext } from '~~/models/ethersAppContextTypes';
 
 /**
@@ -159,8 +159,8 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
     //   'When using alternate web3-react roots, you need to provide a valid web3ReactRoot'
     // );
 
-    const options: THookOptions = merge(mergeDefaultHookOptions(), {
-      contextOverride: { alternateContextKey: props.secondaryWeb3ReactRoot.contextKey },
+    const options: THookOptions = mergeDefaultHookOptions({
+      override: { alternateContextKey: props.secondaryWeb3ReactRoot.contextKey },
     });
 
     const alternateProvider = cloneElement(

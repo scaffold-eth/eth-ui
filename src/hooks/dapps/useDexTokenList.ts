@@ -4,8 +4,9 @@ import isEqual from 'lodash.isequal';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
+import { mergeDefaultHookOptions } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { THookOptions, mergeDefaultHookOptions, const_blockNumberInterval100 } from '~~/models';
+import { THookOptions, const_blockNumberInterval100 } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.signer, key: 'useDexTokenList' } as const;

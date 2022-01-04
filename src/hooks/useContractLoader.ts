@@ -3,8 +3,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
-import { ethersOverride } from '~~/functions';
-import { mergeDefaultHookOptions, THardhatContractsFileJson, THardhatContractJson, THookOptions } from '~~/models';
+import { ethersOverride, mergeDefaultHookOptions } from '~~/functions';
+import { THardhatContractsFileJson, THardhatContractJson, THookOptions } from '~~/models';
 
 /**
  * #### Summary
@@ -99,7 +99,7 @@ export const useContractLoader = (
   options: THookOptions = mergeDefaultHookOptions()
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
-  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
+  const ethersContext = useEthersContext(options.override.alternateContextKey);
   const { provider, chainId } = ethersOverride(ethersContext, options);
 
   const [contracts, setContracts] = useState<Record<string, BaseContract>>({});
