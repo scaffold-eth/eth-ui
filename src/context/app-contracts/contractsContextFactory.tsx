@@ -86,7 +86,7 @@ export const contractsContextFactory = <
   useAppContractsActions: () => TContractsContextActions<GContractNames, GAppConnectorList> | undefined;
   useAppContractsContext: <GContract extends GContractTypes>(
     contractName: GContractNames,
-    chainId: number
+    chainId: number | undefined
   ) => GContract | undefined;
   useLoadAppContracts: () => void;
   useConnectAppContracts: (adaptor: TEthersAdaptor | undefined) => void;
