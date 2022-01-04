@@ -1,6 +1,14 @@
 import { TokenInfo, TokenList } from '@uniswap/token-lists';
 import axios from 'axios';
-import { useState, useCallback, useEffect } from 'react';
+import isEqual from 'lodash.isequal';
+import { useQuery } from 'react-query';
+
+import { useBlockNumberContext } from '~~/context';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { THookOptions, mergeDefaultHookOptions, const_blockNumberInterval100 } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey = { namespace: keyNamespace.signer, key: 'useDexTokenList' } as const;
 
 /**
  * #### Summary
@@ -17,16 +25,17 @@ import { useState, useCallback, useEffect } from 'react';
  */
 export const useDexTokenList = (
   tokenListUri: string = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org',
-  chainId?: number
+  chainId?: number,
+  options: THookOptions = mergeDefaultHookOptions({ ...const_blockNumberInterval100 })
 ): [tokenList: TokenInfo[], update: () => void] => {
-  const [tokenList, setTokenList] = useState<TokenInfo[]>([]);
-
-  const update = useCallback(async (): Promise<void> => {
-    try {
+  const keys = [{ ...queryKey }, { tokenListUri, chainId }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys): Promise<TokenInfo[]> => {
+      const { tokenListUri, chainId } = keys.queryKey[1];
+      let tokenInfo: TokenInfo[] = [];
       const tokenListResp: TokenList = (await axios(tokenListUri)).data as TokenList;
       if (tokenListResp != null) {
-        let tokenInfo: TokenInfo[] = [];
-
         if (chainId) {
           tokenInfo = tokenListResp.tokens.filter((t: TokenInfo) => {
             return t.chainId === chainId;
@@ -34,17 +43,17 @@ export const useDexTokenList = (
         } else {
           tokenInfo = tokenListResp.tokens;
         }
-
-        setTokenList(tokenInfo);
       }
-    } catch (e) {
-      console.log(e);
+      return tokenInfo;
+    },
+    {
+      isDataEqual: (oldResult, newResult) => isEqual(oldResult, newResult),
+      ...options.update.query,
     }
-  }, [chainId, tokenListUri]);
+  );
 
-  useEffect(() => {
-    void update();
-  }, [update]);
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
 
-  return [tokenList, update];
+  return [data ?? [], refetch];
 };

@@ -1,4 +1,4 @@
-import { BaseContract, ContractFunction } from 'ethers';
+import { BaseContract, ContractFunction, EventFilter } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useIsMounted } from 'usehooks-ts';
@@ -6,7 +6,7 @@ import { useIsMounted } from 'usehooks-ts';
 import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { contractKey, ethersOverride } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/models';
+import { mergeDefaultHookOptions as mergeDefaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' } as const;
@@ -19,7 +19,7 @@ const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' }
  * - uses the ethers.Contract object's provider to access the network
  * - formatter is a function that can change the format of the output
  * @param contract
- * @param functionCallback
+ * @param contractFunc
  * @param args
  * @param options
  * @returns
@@ -29,16 +29,17 @@ export const useContractReader = <
   GContractFunc extends (...args: any[]) => Promise<any>
 >(
   contract: GContract | undefined,
-  functionCallback: GContractFunc | undefined,
+  contractFunc: GContractFunc | undefined,
   args?: Parameters<GContractFunc>,
-  options: THookOptions = defaultHookOptions()
+  funcEventFilter?: EventFilter | undefined,
+  options: THookOptions = mergeDefaultHookOptions()
 ): [value: Awaited<ReturnType<GContractFunc>> | undefined, update: () => void] => {
   const keys = [
     {
       ...queryKey,
       ...contractKey(contract),
     },
-    { functionCallback, args: args ?? [] },
+    { functionCallback: contractFunc, args: args ?? [] },
   ] as const;
   const { data, refetch } = useQuery(
     keys,
@@ -54,8 +55,26 @@ export const useContractReader = <
     }
   );
 
+  // update the result when there is an event
+  useEffect(() => {
+    if (funcEventFilter != null) {
+      const listener = (): void => {
+        void refetch();
+      };
+      try {
+        contract?.on(funcEventFilter, listener);
+        return (): void => {
+          contract?.off(funcEventFilter, listener);
+        };
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [contract, funcEventFilter, refetch]);
+
   const blockNumber = useBlockNumberContext();
-  useEthersUpdater(refetch, blockNumber, options);
+  const allowBlockNumberIntervalUpdate = funcEventFilter == null;
+  useEthersUpdater(refetch, blockNumber, options, allowBlockNumberIntervalUpdate);
 
   return [data, refetch];
 };
@@ -82,7 +101,7 @@ export const useContractReaderUntyped = <GOutput>(
   contractFunctionInfo: TContractFunctionInfo,
   formatter?: (_value: GOutput | undefined) => GOutput,
   onChange?: (_value?: GOutput) => void,
-  options: THookOptions = defaultHookOptions()
+  options: THookOptions = mergeDefaultHookOptions()
 ): GOutput | undefined => {
   const isMounted = useIsMounted();
   const [value, setValue] = useState<GOutput>();

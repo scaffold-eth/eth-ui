@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.0.2-beta01",
+  "version": "4.0.2-beta02",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -59,6 +59,7 @@
     "@web3-react/types": "^6.0.7",
     "axios": "^0.24.0",
     "ethers": "^5.5.2",
+    "lodash.isequal": "^4.5.0",
     "merge-anything": "^4.0.2",
     "react-query": "^3.34.7",
     "react-use-promise": "^0.4.1",
@@ -81,6 +82,7 @@
     "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/chai": "^4.3.0",
+    "@types/lodash.isequal": "^4.5.5",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.11.17",
     "@types/pretty-time": "^1.1.2",

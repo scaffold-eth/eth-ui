@@ -6,7 +6,7 @@ import { useEthersUpdater } from './useEthersUpdater';
 import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { ethersOverride } from '~~/functions';
 import { providerKey } from '~~/functions/keyHelpers';
-import { defaultHookOptions, THookOptions } from '~~/models';
+import { mergeDefaultHookOptions, THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const zero = BigNumber.from(0);
@@ -28,7 +28,7 @@ const queryKey = { namespace: keyNamespace.signer, key: 'useBalance' } as const;
  */
 export const useBalance = (
   address: string | undefined,
-  options: THookOptions = defaultHookOptions()
+  options: THookOptions = mergeDefaultHookOptions()
 ): [balance: BigNumber, update: () => void] => {
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, options);

@@ -3,7 +3,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { ethersOverride } from '~~/functions';
-import { defaultHookOptions, THookOptions } from '~~/models';
+import { mergeDefaultHookOptions, THookOptions } from '~~/models';
 
 const Context = createContext<number | undefined>(undefined);
 
@@ -83,8 +83,8 @@ interface IProps {
  * @param props
  * @returns
  */
-export const BlockNumberContext: FC<IProps> = (props = { options: defaultHookOptions() }) => {
-  const options = props.options ?? defaultHookOptions();
+export const BlockNumberContext: FC<IProps> = (props = { options: mergeDefaultHookOptions() }) => {
+  const options = props.options ?? mergeDefaultHookOptions();
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
   const { chainId, provider } = ethersOverride(ethersContext, options);
 

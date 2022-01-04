@@ -11,7 +11,7 @@ import { BlockNumberContext } from '~~/context/ethers/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers/connectors/EthersModalConnector';
 import { contextQueryClient as ethersAppQueryClient } from '~~/context/ethers/queryClient';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
-import { defaultHookOptions, TEthersProvider, THookOptions } from '~~/models';
+import { mergeDefaultHookOptions, TEthersProvider, THookOptions } from '~~/models';
 import { IEthersContext } from '~~/models/ethersAppContextTypes';
 
 /**
@@ -159,7 +159,7 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
     //   'When using alternate web3-react roots, you need to provide a valid web3ReactRoot'
     // );
 
-    const options: THookOptions = merge(defaultHookOptions(), {
+    const options: THookOptions = merge(mergeDefaultHookOptions(), {
       contextOverride: { alternateContextKey: props.secondaryWeb3ReactRoot.contextKey },
     });
 

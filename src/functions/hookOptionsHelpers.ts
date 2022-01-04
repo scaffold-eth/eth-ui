@@ -23,7 +23,7 @@ export const checkUpdateOptions = (context: IEthersContext, options: THookOption
   if (options.update.query.refetchInterval) {
     invariant(
       options.update.query.refetchInterval == null || options.update.query.refetchInterval >= 10000,
-      'Invalid refetchInterval (polling), must be at least 1000ms or undefined (disabled)'
+      'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
     );
     invariant(
       options.update.blockNumberInterval == null,

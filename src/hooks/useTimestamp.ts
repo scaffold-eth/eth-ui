@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useBlockNumberContext, useEthersContext } from '~~/context';
 import { ethersOverride, providerKey } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { THookOptions, defaultHookOptions } from '~~/models';
+import { THookOptions, mergeDefaultHookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.signer, key: 'useTimestamp' } as const;
@@ -21,7 +21,9 @@ const queryKey = { namespace: keyNamespace.signer, key: 'useTimestamp' } as cons
  * @param pollTime
  * @returns
  */
-export const useTimestamp = (options: THookOptions = defaultHookOptions()): [timestamp: number, update: () => void] => {
+export const useTimestamp = (
+  options: THookOptions = mergeDefaultHookOptions()
+): [timestamp: number, update: () => void] => {
   const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, options);

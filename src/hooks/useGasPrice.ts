@@ -6,7 +6,7 @@ import { useDebounce } from 'use-debounce';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { ethersOverride } from '~~/functions';
-import { defaultHookOptions, THookOptions, TNetworkInfo } from '~~/models';
+import { mergeDefaultHookOptions, THookOptions, TNetworkInfo } from '~~/models';
 
 /**
  * Preset speeds for Eth Gas Station API
@@ -41,7 +41,7 @@ export const useGasPrice = (
   chainId: number | undefined,
   speed: TGasStationSpeed,
   currentNetworkInfo?: TNetworkInfo,
-  options: THookOptions = defaultHookOptions()
+  options: THookOptions = mergeDefaultHookOptions()
 ): [gasPrice: number | undefined, update: () => void] => {
   const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);

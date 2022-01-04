@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useBlockNumberContext, useEthersContext } from '~~/context';
 import { ethersOverride, providerKey } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { defaultHookOptions, THookOptions } from '~~/models';
+import { mergeDefaultHookOptions, THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.signer, key: 'useGetEthersAdaptorFromProviderOrSigners' } as const;
@@ -23,7 +23,7 @@ const queryKey = { namespace: keyNamespace.signer, key: 'useGetEthersAdaptorFrom
  */
 export const useNonce = (
   address: string,
-  options: THookOptions = defaultHookOptions()
+  options: THookOptions = mergeDefaultHookOptions()
 ): [nonce: number, update: () => void] => {
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, options);

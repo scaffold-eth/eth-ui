@@ -1491,6 +1491,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.isequal@npm:^4.5.5":
+  version: 4.5.5
+  resolution: "@types/lodash.isequal@npm:4.5.5"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 9dd22ceb5453a711e3ce6cd5a31d0ba8fe2263b3c989bc3b64e398933dbe7e9fd22a77a585ab7ee4f27d80a00845e15602b2a4a4b113f01291e2fd236a7707f7
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.178
+  resolution: "@types/lodash@npm:4.14.178"
+  checksum: a69a04a60bfc5257c3130a554b4efa0c383f0141b7b3db8ab7cf07ad2a46ea085fce66d0242da41da7e5647b133d5dfb2c15add9cbed8d7fef955e4a1e5b3128
+  languageName: node
+  linkType: hard
+
 "@types/lru-cache@npm:^5.1.0":
   version: 5.1.1
   resolution: "@types/lru-cache@npm:5.1.1"
@@ -6142,6 +6158,7 @@ __metadata:
     "@testing-library/react-hooks": ^7.0.2
     "@testing-library/user-event": ^13.5.0
     "@types/chai": ^4.3.0
+    "@types/lodash.isequal": ^4.5.5
     "@types/mocha": ^9.0.0
     "@types/node": ^16.11.17
     "@types/pretty-time": ^1.1.2
@@ -6186,6 +6203,7 @@ __metadata:
     husky: ^7.0.4
     jsdom: ^19.0.0
     lint-staged: ^12.1.4
+    lodash.isequal: ^4.5.0
     merge-anything: ^4.0.2
     mocha: ^9.1.3
     mocha-github-actions-reporter: ^0.2.4
@@ -9955,6 +9973,13 @@ __metadata:
   version: 4.4.2
   resolution: "lodash.get@npm:4.4.2"
   checksum: e403047ddb03181c9d0e92df9556570e2b67e0f0a930fcbbbd779370972368f5568e914f913e93f3b08f6d492abc71e14d4e9b7a18916c31fa04bd2306efe545
+  languageName: node
+  linkType: hard
+
+"lodash.isequal@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.isequal@npm:4.5.0"
+  checksum: da27515dc5230eb1140ba65ff8de3613649620e8656b19a6270afe4866b7bd461d9ba2ac8a48dcc57f7adac4ee80e1de9f965d89d4d81a0ad52bb3eec2609644
   languageName: node
   linkType: hard
 

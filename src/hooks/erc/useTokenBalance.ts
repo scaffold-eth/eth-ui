@@ -1,31 +1,19 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { BaseContract } from '@ethersproject/contracts';
-import { useCallback, useEffect, useState } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
 
-import { useBlockNumberContext, useEthersContext } from '~~/context';
-import { ethersOverride } from '~~/functions';
-import { useAreSignerEqual } from '~~/hooks';
-import { defaultHookOptions, THookOptions } from '~~/models';
+import { useBlockNumberContext } from '~~/context';
+import { contractKey } from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { mergeDefaultHookOptions, THookOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
 
 const zero = BigNumber.from(0);
+const queryKey = { namespace: keyNamespace.signer, key: 'useTokenBalance' } as const;
 
 type ERC20 = {
   balanceOf: (address: string) => Promise<BigNumber>;
 };
-
-/**
- * Get the balance of an ERC20 token in an address
- * 
- * ~ Features ~
-  - Provide address and get balance corresponding to given address
-  - Change provider to access balance on different chains (ex. mainnetProvider)
-  - If no pollTime is passed, the balance will update on every new block
- * @param contract (ethers->Contract) contract object for the ERC20 token
- * @param address (string)
- * @param pollTime (number) :: if >0 use polling, else use instead of onBlock event
- * @returns (BigNumber) :: balance
- */
 
 /**
  * #### Summary
@@ -45,37 +33,29 @@ type ERC20 = {
 export const useTokenBalance = <GContract extends BaseContract & ERC20>(
   contract: GContract,
   address: string,
-  options: THookOptions = defaultHookOptions()
+  options: THookOptions = mergeDefaultHookOptions()
 ): [balance: BigNumber, update: () => void] => {
-  const isMounted = useIsMounted();
-  const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
-  const { signer } = ethersOverride(ethersContext, options);
+  const keys = [{ ...queryKey, ...contractKey(contract) }, { address }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys): Promise<BigNumber> => {
+      const { address } = keys.queryKey[1];
 
-  const [balance, setBalance] = useState<BigNumber>(zero);
-  const validSigners = useAreSignerEqual(contract.signer, signer);
-
-  const update = useCallback(async (): Promise<void> => {
-    if (contract != null) {
-      try {
-        if (validSigners) {
-          const newBalance: BigNumber = (await contract?.balanceOf?.(address)) ?? zero;
-          if (isMounted()) {
-            setBalance((value) => {
-              if (value.toHexString() !== newBalance.toHexString()) return newBalance;
-              return value;
-            });
-          }
-        }
-      } catch (e) {
-        console.log('⚠ Could not get token balance', e);
+      if (contract?.provider && address) {
+        const newBalance: BigNumber = (await contract?.balanceOf?.(address)) ?? zero;
+        return newBalance;
+      } else {
+        return zero;
       }
+    },
+    {
+      isDataEqual: (oldResult, newResult) => oldResult?._hex === newResult._hex,
+      ...options.update.query,
     }
-  }, [contract, validSigners, address, isMounted]);
+  );
 
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
 
-  return [balance, update];
+  return [data ?? zero, refetch];
 };

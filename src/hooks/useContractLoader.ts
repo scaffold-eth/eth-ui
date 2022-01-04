@@ -4,7 +4,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext } from '~~/context';
 import { ethersOverride } from '~~/functions';
-import { defaultHookOptions, THardhatContractsFileJson, THardhatContractJson, THookOptions } from '~~/models';
+import { mergeDefaultHookOptions, THardhatContractsFileJson, THardhatContractJson, THookOptions } from '~~/models';
 
 /**
  * #### Summary
@@ -96,7 +96,7 @@ export const parseContractsInJson = (
  */
 export const useContractLoader = (
   config: TContractLoaderConfig = {},
-  options: THookOptions = defaultHookOptions()
+  options: THookOptions = mergeDefaultHookOptions()
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);

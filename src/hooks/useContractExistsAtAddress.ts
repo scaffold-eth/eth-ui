@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useBlockNumberContext, useEthersContext } from '~~/context';
 import { ethersOverride, providerKey } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { defaultHookOptions, THookOptions } from '~~/models';
+import { mergeDefaultHookOptions, THookOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useContractExistsAtAddress' } as const;
@@ -24,7 +24,7 @@ const queryKey = { namespace: keyNamespace.contracts, key: 'useContractExistsAtA
  */
 export const useContractExistsAtAddress = (
   contractAddress: string | undefined,
-  options: THookOptions = defaultHookOptions()
+  options: THookOptions = mergeDefaultHookOptions()
 ): [contractIsDeployed: boolean, update: () => void] => {
   const ethersContext = useEthersContext(options.contextOverride.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, options);
