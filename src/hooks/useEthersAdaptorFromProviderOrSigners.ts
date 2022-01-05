@@ -1,9 +1,7 @@
-import { Signer } from 'ethers';
-import { useState, useCallback, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
-import { isValidEthersAdaptor } from '~~/functions';
-import { parseProviderOrSigner } from '~~/functions/parseProviderOrSigner';
-import { TEthersProvider, TEthersProviderOrSigner } from '~~/models';
+import { isAdaptorEqual, mergeDefaultUpdateOptions, parseProviderOrSigner, providerKey } from '~~/functions';
+import { TEthersProviderOrSigner, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 import { TEthersAdaptor } from '~~/models/ethersAppContextTypes';
 
@@ -19,37 +17,21 @@ const queryKey = { namespace: keyNamespace.network, key: 'useGetEthersAdaptorFro
  * @returns
  */
 export const useEthersAdaptorFromProviderOrSigners = (
-  providerOrSigner: TEthersProviderOrSigner | undefined
+  providerOrSigner: TEthersProviderOrSigner | undefined,
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [adaptor: TEthersAdaptor | undefined, update: () => void] => {
-  const [resolvedSigner, setResolvedSigner] = useState<Signer>();
-  const [provider, setProvider] = useState<TEthersProvider>();
-  const [chainId, setChainId] = useState<number>();
-  const [account, setAccount] = useState<string>();
-
-  const update = useCallback(async (): Promise<void> => {
-    const result = await parseProviderOrSigner(providerOrSigner);
-    if (result && isValidEthersAdaptor(result)) {
-      setResolvedSigner(result.signer);
-      setProvider(result.provider);
-      setAccount(result.account);
-      setChainId(result.chainId);
-    } else {
-      setProvider(undefined);
-      setResolvedSigner(undefined);
-      setChainId(undefined);
-      setAccount(undefined);
+  const keys = [{ ...queryKey, ...providerKey(providerOrSigner) }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (_keys): Promise<TEthersAdaptor | undefined> => {
+      const result = await parseProviderOrSigner(providerOrSigner);
+      return result;
+    },
+    {
+      isDataEqual: (oldData, newData) => isAdaptorEqual(oldData, newData),
+      ...options.query,
     }
-  }, [providerOrSigner]);
+  );
 
-  useEffect(() => {
-    void update();
-  }, [update]);
-
-  const result: TEthersAdaptor = {
-    signer: resolvedSigner,
-    provider,
-    chainId,
-    account,
-  } as const;
-  return [result, update];
+  return [data, refetch];
 };

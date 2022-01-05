@@ -1,12 +1,14 @@
-import { FeeData } from '@ethersproject/providers';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { utils } from 'ethers';
-import { useCallback, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useDebounce } from 'use-debounce';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
-import { TOverride, TNetworkInfo, TUpdateOptions } from '~~/models';
+import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions, providerKey } from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { TOverride, TNetworkInfo, TUpdateOptions, keyNamespace } from '~~/models';
+
+const queryKey = { namespace: keyNamespace.state, key: 'useGasPrice' } as const;
 
 /**
  * Preset speeds for Eth Gas Station API
@@ -44,69 +46,51 @@ export const useGasPrice = (
   override: TOverride = mergeDefaultOverride(),
   options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [gasPrice: number | undefined, update: () => void] => {
-  const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
-  const [currentChainId, setCurrentChainId] = useState<number>();
-  const [gasPrice, setGasPrice] = useState<number | undefined>();
-  const [gasPriceDebounced] = useDebounce(gasPrice, 250, { trailing: true });
-
-  const update = useCallback((): void => {
-    if (currentChainId !== chainId) {
-      setCurrentChainId(chainId);
-      setGasPrice(undefined);
-    }
-
-    if (!chainId) {
-      setGasPrice(undefined);
-    } else if (chainId === 1) {
-      if (navigator.onLine) {
-        const gweiFactor = 10;
-        axios
-          .get('https://ethgasstation.info/json/ethgasAPI.json')
-          .then((response: AxiosResponse<any>) => {
-            const result: Record<string, any> = (response.data as Record<string, any>) ?? {};
-            let newGasPrice: number | undefined = result[speed] / gweiFactor;
-            if (!newGasPrice) newGasPrice = result['fast'] / gweiFactor;
-            setGasPrice(newGasPrice);
-          })
-          .catch((error) => {
-            console.log('⚠ Could not get gas Price!', error);
-            setGasPrice(undefined);
-          });
+  const keys = [
+    { ...queryKey, ...providerKey(provider) },
+    { chainId, speed, currentNetworkInfo },
+  ] as const;
+  const { data, refetch, isError } = useQuery(
+    keys,
+    async (keys): Promise<number | undefined> => {
+      const { chainId, speed, currentNetworkInfo } = keys.queryKey[1];
+      if (!chainId) {
+        return undefined;
+      } else if (chainId === 1) {
+        if (navigator?.onLine) {
+          const gweiFactor = 10;
+          const response = await axios.get('https://ethgasstation.info/json/ethgasAPI.json');
+          const result: Record<string, any> = (response.data as Record<string, any>) ?? {};
+          let newGasPrice: number | undefined = result[speed] / gweiFactor;
+          if (!newGasPrice) newGasPrice = result['fast'] / gweiFactor;
+          return newGasPrice;
+        }
+      } else if (provider) {
+        const fee = await provider.getFeeData();
+        const price = fee.gasPrice ?? fee.maxFeePerGas;
+        if (price && price?.toBigInt() > 0) {
+          const result = parseInt(utils.formatUnits(price, 'gwei')) ?? 0;
+          return result;
+        }
       }
-    } else if (provider) {
-      void provider
-        .getFeeData()
-        .then((fee: FeeData) => {
-          const price = fee.gasPrice ?? fee.maxFeePerGas;
-          if (price && price?.toBigInt() > 0) {
-            const result = parseInt(utils.formatUnits(price, 'gwei')) ?? 0;
-            setGasPrice(result);
-          } else if (currentNetworkInfo?.gasPrice) {
-            setGasPrice(currentNetworkInfo.gasPrice);
-          } else {
-            setGasPrice(undefined);
-          }
-        })
-        .catch((_error) => {
-          console.log('⚠ Could not estimate gas!');
-          if (currentNetworkInfo?.gasPrice) {
-            setGasPrice(currentNetworkInfo.gasPrice);
-          } else {
-            setGasPrice(undefined);
-          }
-        });
-    } else if (currentNetworkInfo?.gasPrice) {
-      setGasPrice(currentNetworkInfo.gasPrice);
-    } else {
-      setGasPrice(undefined);
-    }
-  }, [currentChainId, chainId, provider, currentNetworkInfo?.gasPrice, speed]);
 
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
-  return [gasPriceDebounced, update];
+      if (currentNetworkInfo?.gasPrice) {
+        return currentNetworkInfo.gasPrice;
+      }
+      return undefined;
+    },
+    {
+      ...options.query,
+    }
+  );
+
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
+
+  const result = isError ? undefined : data;
+  const [gasPriceDebounced] = useDebounce(result, 250, { trailing: true });
+  return [gasPriceDebounced, refetch];
 };

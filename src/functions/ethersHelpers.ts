@@ -8,6 +8,7 @@ import {
 } from '@ethersproject/providers';
 import { Signer } from 'ethers';
 
+import { providerKey } from '~~/functions';
 import { TEthersProvider, IEthersContext, TEthersAdaptor } from '~~/models';
 
 /**
@@ -62,6 +63,17 @@ export const isValidEthersContext = (ethersContext: IEthersContext | undefined):
 export const isValidEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined): boolean => {
   if (ethersAdaptor != null && ethersAdaptor.chainId != null) {
     if (ethersAdaptor.provider != null || (ethersAdaptor.signer != null && !!ethersAdaptor.account)) return true;
+  }
+  return false;
+};
+
+export const isAdaptorEqual = (adaptor1: TEthersAdaptor | undefined, adaptor2: TEthersAdaptor | undefined): boolean => {
+  if (isValidEthersAdaptor(adaptor1) && isValidEthersAdaptor(adaptor2)) {
+    return (
+      adaptor1?.chainId === adaptor2?.chainId &&
+      adaptor1?.account === adaptor2?.account &&
+      providerKey(adaptor1?.provider) === providerKey(adaptor2?.provider)
+    );
   }
   return false;
 };

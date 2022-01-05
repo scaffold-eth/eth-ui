@@ -55,7 +55,7 @@ export const useContractReader = <
     }
   );
 
-  // update the result when there is an event
+  // you can use an event and only call the network/contract the result when there is an event
   useEffect(() => {
     if (funcEventFilter != null) {
       const listener = (): void => {

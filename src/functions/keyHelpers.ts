@@ -55,13 +55,13 @@ export const contractKey = (contract: BaseContract | undefined): Record<string, 
   const signerStr: string = (contract.signer as any)?.address ?? '';
   const fragments = contract.interface.fragments
     .map((m) => m.name)
-    .reduce((value, current) => {
-      let newValue = value;
+    .reduce((oldValue, current) => {
+      let newValue = oldValue;
       if (newValue == null) {
         newValue = '';
       }
       newValue += `${current},`;
-      return value;
+      return newValue;
     }, '');
 
   return { contract: `${address}_${signerStr}_${fragments}`, ...provider };
