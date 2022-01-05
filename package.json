@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.0.2-beta07",
+  "version": "4.0.2-beta08",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
