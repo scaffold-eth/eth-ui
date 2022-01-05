@@ -135,8 +135,8 @@ export const useContractReaderUntyped = <GOutput>(
         let newResult: GOutput | undefined = await callContractFunction();
         if (formatter != null) {
           newResult = formatter(newResult);
-        } else if (Array.isArray(newResult) && newResult.length === 1) {
-          // eslint-disable-next-line
+        } else if (Array.isArray(newResult) && newResult.length === 1 && typeof newResult[0] === 'string') {
+          // @ts-ignore
           newResult = newResult[0];
         }
 

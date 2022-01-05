@@ -247,22 +247,21 @@ export const contractsContextFactory = <
     const ethersContext = useEthersContext();
     const contract = contractsState?.contractsByName?.[contractName]?.[chainId ?? -1]; // -1 is unknown chainId
     const contractConnector = contractsState?.contractConnectors?.[contractName];
-
-    const msg = useRef(false);
+    const chainIdRef = useRef(-1);
 
     // just making sure app is initalized before spamming console logs
     // connector abi initialized, ethers context is initalized
-    if (contract == null && ethersContext?.chainId != null && contractConnector?.abi != null) {
-      if (!msg.current) {
-        console.warn(
-          `⚠️ Contract ${contractName} not found on chain ${
-            chainId ?? 'undefined'
-          }.  1. Did you setup the contract in the config? 2. Did you call useLoadAppContracts with an adaptor that has the correct chainId?`
-        );
-        msg.current = true;
-      }
-    } else {
-      msg.current = false;
+    if (
+      contract == null &&
+      ethersContext?.chainId != null &&
+      contractConnector?.abi != null &&
+      chainId === chainIdRef.current
+    ) {
+      console.warn(`⚠️ Contract ${contractName} not found on chain ${chainId}.`);
+      console.warn(
+        `🙋🏽‍♂️ 1. Did you setup the contract in the config ? 2. Did you call useLoadAppContracts with an adaptor that has the correct chainId ?`
+      );
+      chainIdRef.current = chainId;
     }
     return contract as GContract;
   };
@@ -279,8 +278,8 @@ export const contractsContextFactory = <
       if (loadAppContractConnectors != null) {
         const connectors = loadAppContractConnectors();
         if (connectors != null && actions != null) {
-          console.log(queryClient.getQueriesData([keyNamespace.contracts]));
-          void queryClient?.invalidateQueries?.([keyNamespace.contracts]);
+          console.log(queryClient.getQueriesData([{ namespace: keyNamespace.contracts }]));
+          void queryClient?.invalidateQueries?.([{ namespace: keyNamespace.contracts }]);
           actions.dispatch({ type: 'SET_CONTRACT_CONNECTORS', payload: { appContractConnectorList: connectors } });
         }
       }
@@ -298,8 +297,8 @@ export const contractsContextFactory = <
 
     const connect = useCallback(() => {
       if (adaptor?.chainId != null && actions != null) {
-        console.log(queryClient.getQueriesData([keyNamespace.contracts]));
-        void queryClient?.invalidateQueries?.([keyNamespace.contracts]);
+        console.log(queryClient.getQueriesData([{ namespace: keyNamespace.contracts }]));
+        void queryClient?.invalidateQueries?.([{ namespace: keyNamespace.contracts }]);
         actions.dispatch({ type: 'CONNECT_TO_CONTRACTS_WITH_ADAPTOR', payload: { ethersAdaptor: adaptor } });
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
