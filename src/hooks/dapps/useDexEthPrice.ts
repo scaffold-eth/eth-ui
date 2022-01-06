@@ -1,9 +1,14 @@
 import { Token, WETH, Fetcher, Route } from '@uniswap/sdk';
-import { useCallback, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
-import { useBlockNumber } from '~~/hooks';
-import { TNetworkInfo } from '~~/models';
+import { useBlockNumberContext } from '~~/context';
+import { mergeDefaultUpdateOptions, providerKey, TRequiredKeys } from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { TNetworkInfo, TUpdateOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
 import { TEthersProvider } from '~~/models/providerTypes';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useDexEthPrice' } as const;
 
 /**
  * #### Summary
@@ -21,31 +26,33 @@ import { TEthersProvider } from '~~/models/providerTypes';
  */
 export const useDexEthPrice = (
   mainnetProvider: TEthersProvider | undefined,
-  targetNetworkInfo?: TNetworkInfo
+  targetNetworkInfo?: TNetworkInfo,
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [price: number, update: () => void] => {
-  const [price, setPrice] = useState(0);
-  const [blockNumber] = useBlockNumber(mainnetProvider);
-
-  const update = useCallback(() => {
-    const getPrice = async (): Promise<void> => {
-      if (targetNetworkInfo?.price) {
-        setPrice(targetNetworkInfo.price);
+  const keys = [{ ...queryKey, ...providerKey(mainnetProvider) }, { networkPrice: targetNetworkInfo?.price }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys): Promise<number | undefined> => {
+      const { networkPrice } = keys.queryKey[1];
+      if (networkPrice) {
+        return networkPrice;
       } else if (mainnetProvider) {
         const network = await mainnetProvider.getNetwork();
 
         const DAI = new Token(network ? network.chainId : 1, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18);
         const pair = await Fetcher.fetchPairData(DAI, WETH[DAI.chainId], mainnetProvider);
         const route = new Route([pair], WETH[DAI.chainId]);
-        setPrice(parseFloat(route.midPrice.toSignificant(6)));
+        const price = parseFloat(route.midPrice.toSignificant(6));
+        return price;
       }
-    };
+    },
+    {
+      ...options.query,
+    }
+  );
 
-    void getPrice();
-  }, [targetNetworkInfo?.price, mainnetProvider]);
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
 
-  useEffect(() => {
-    update();
-  }, [blockNumber, update]);
-
-  return [price, update];
+  return [data ?? 0, refetch];
 };

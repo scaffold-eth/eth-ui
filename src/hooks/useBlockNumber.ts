@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useCounter, useIsMounted } from 'usehooks-ts';
 
 import { TEthersProvider } from '~~/models';
 

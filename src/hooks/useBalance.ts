@@ -1,12 +1,18 @@
 import { BigNumber } from 'ethers';
-import { useState, useCallback, useEffect } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
+
+import { useEthersUpdater } from './useEthersUpdater';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
-import { defaultHookOptions, THookOptions } from '~~/models';
+import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
+import { providerKey, TRequiredKeys } from '~~/functions/keyHelpers';
+import { TOverride, TUpdateOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useBalance' };
 
 const zero = BigNumber.from(0);
+
 /**
  * #### Summary
  * Gets your balance in ETH for the given address.
@@ -23,32 +29,33 @@ const zero = BigNumber.from(0);
  */
 export const useBalance = (
   address: string | undefined,
-  options: THookOptions = defaultHookOptions()
+  override: TOverride = mergeDefaultOverride(),
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [balance: BigNumber, update: () => void] => {
-  const isMounted = useIsMounted();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { provider } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, override);
+
+  const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys): Promise<BigNumber> => {
+      const { address } = keys.queryKey[1];
+
+      if (provider && address) {
+        const newBalance = await provider.getBalance(address);
+        return newBalance;
+      } else {
+        return zero;
+      }
+    },
+    {
+      isDataEqual: (oldResult, newResult) => oldResult?._hex === newResult._hex,
+      ...options.query,
+    }
+  );
 
   const blockNumber = useBlockNumberContext();
-  const [balance, setBalance] = useState<BigNumber>(zero);
+  useEthersUpdater(refetch, blockNumber, options);
 
-  const update = useCallback(async (): Promise<void> => {
-    if (provider && address) {
-      const newBalance = await provider.getBalance(address);
-      if (isMounted()) {
-        setBalance((value) => {
-          if (value.toHexString() !== newBalance?.toHexString()) {
-            return newBalance;
-          }
-          return value;
-        });
-      }
-    }
-  }, [address, provider, isMounted]);
-
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
-
-  return [balance, update];
+  return [data ?? zero, refetch];
 };

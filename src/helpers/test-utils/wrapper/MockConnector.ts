@@ -36,6 +36,10 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
     this.changeSigner = this.spyChangeSigner as (_signer: Signer) => Promise<void>;
   }
 
+  public hasCachedProvider(): boolean {
+    return false;
+  }
+
   public getSigner(): Signer | undefined {
     return this.mockSigner;
   }

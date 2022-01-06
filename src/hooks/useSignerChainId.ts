@@ -1,9 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { signerHasNetwork } from '~~/functions';
-import { TEthersSigner } from '~~/models';
+import { mergeDefaultUpdateOptions, providerKey, TRequiredKeys } from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { const_blockNumberInterval100, TEthersSigner, TUpdateOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useSignerChainId' } as const;
 
 /**
  * #### Summary
@@ -15,25 +18,24 @@ import { TEthersSigner } from '~~/models';
  * @returns
  */
 export const useSignerChainId = (
-  signer: TEthersSigner | undefined
+  signer: TEthersSigner | undefined,
+  options: TUpdateOptions = mergeDefaultUpdateOptions({ ...const_blockNumberInterval100 })
 ): [address: number | undefined, update: () => void] => {
-  const isMounted = useIsMounted();
-  const blockNumber = useBlockNumberContext();
-
-  const [chainId, setChainId] = useState<number>();
-
-  const update = useCallback(async (): Promise<void> => {
-    if (signerHasNetwork(signer)) {
+  const keys = [{ ...queryKey, ...providerKey(signer) }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys): Promise<number | undefined> => {
+      // const { signer } = keys.queryKey[1];
       const chainId = await signer?.getChainId();
-      if (isMounted()) {
-        setChainId(chainId);
-      }
+      return chainId;
+    },
+    {
+      ...options.query,
     }
-  }, [isMounted, signer]);
+  );
 
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
 
-  return [chainId, update];
+  return [data, refetch];
 };

@@ -39,6 +39,7 @@ export interface ICommonModalConnector {
   setModalTheme(theme: TWeb3ModalTheme | ThemeColors): void;
   resetModal(): void;
   changeSigner(signer: Signer): Promise<void>;
+  hasCachedProvider(): boolean;
 }
 
 export type TEthersModalConnector = ICommonModalConnector & AbstractConnector;
@@ -64,12 +65,16 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   protected _web3Modal?: Core;
   protected _id: string | undefined;
   protected _debug: boolean = false;
-  protected _config: TEthersModalConfig;
+  protected _config: Readonly<TEthersModalConfig>;
   protected _signer: Signer | undefined;
   protected _theme: TWeb3ModalTheme | ThemeColors;
 
-  get config(): TEthersModalConfig {
+  get config(): Readonly<TEthersModalConfig> {
     return this._config;
+  }
+
+  public hasCachedProvider(): boolean {
+    return !!this._web3Modal?.cachedProvider;
   }
 
   /**
@@ -145,7 +150,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     this.deactivate();
   }
 
-  private load(): void {
+  public loadCore(): void {
     if (!this._web3Modal) {
       this._web3Modal = new Core({ ...this._options, theme: this._theme });
     }
@@ -168,7 +173,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
    */
   public async activate(): Promise<ConnectorUpdate> {
     try {
-      this.load();
+      this.loadCore();
 
       if (this._web3Modal) {
         if (this._options.cacheProvider === false) this.resetModal();

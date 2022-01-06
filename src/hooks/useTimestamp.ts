@@ -1,9 +1,18 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
 
 import { useBlockNumberContext, useEthersContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
-import { THookOptions, defaultHookOptions } from '~~/models';
+import {
+  ethersOverride,
+  mergeDefaultOverride,
+  mergeDefaultUpdateOptions,
+  providerKey,
+  TRequiredKeys,
+} from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { TOverride, TUpdateOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useTimestamp' } as const;
 
 /**
  * #### Summary
@@ -18,27 +27,34 @@ import { THookOptions, defaultHookOptions } from '~~/models';
  * @param pollTime
  * @returns
  */
-export const useTimestamp = (options: THookOptions = defaultHookOptions()): [timestamp: number, update: () => void] => {
-  const isMounted = useIsMounted();
+export const useTimestamp = (
+  override: TOverride = mergeDefaultOverride(),
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
+): [timestamp: number, update: () => void] => {
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { provider } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, override);
 
-  const [timestamp, setTimestamp] = useState<number>(0);
-
-  const update = useCallback(async (): Promise<void> => {
-    if (blockNumber != null) {
+  const keys = [
+    { ...queryKey, ...providerKey(provider) },
+    { provider, blockNumber },
+  ] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys): Promise<number> => {
+      const { provider } = keys.queryKey[1];
       const block = await provider?.getBlock(blockNumber);
       if (block?.timestamp != null) {
-        const nextTimestamp = block.timestamp;
-        if (isMounted()) setTimestamp(nextTimestamp);
+        return block.timestamp;
       }
+      return 0;
+    },
+    {
+      ...options.query,
     }
-  }, [blockNumber, provider, isMounted]);
+  );
 
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
+  useEthersUpdater(refetch, blockNumber, options);
 
-  return [timestamp, update];
+  return [data ?? 0, refetch];
 };

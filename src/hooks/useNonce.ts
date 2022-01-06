@@ -1,9 +1,21 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
 
-import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
-import { defaultHookOptions, THookOptions } from '~~/models';
+import { useBlockNumberContext, useEthersContext } from '~~/context';
+import {
+  ethersOverride,
+  mergeDefaultOverride,
+  mergeDefaultUpdateOptions,
+  providerKey,
+  TRequiredKeys,
+} from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { TOverride, TUpdateOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey: TRequiredKeys = {
+  namespace: keyNamespace.signer,
+  key: 'useGetEthersAdaptorFromProviderOrSigners',
+} as const;
 
 /**
  * #### Summary
@@ -20,33 +32,27 @@ import { defaultHookOptions, THookOptions } from '~~/models';
  */
 export const useNonce = (
   address: string,
-  options: THookOptions = defaultHookOptions()
+  override: TOverride = mergeDefaultOverride(),
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [nonce: number, update: () => void] => {
-  const isMounted = useIsMounted();
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, override);
+
+  const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys) => {
+      const { address } = keys.queryKey[1];
+      const nextNonce = await provider?.getTransactionCount(address);
+      return nextNonce ?? 0;
+    },
+    {
+      ...options.query,
+    }
+  );
+
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { provider } = checkEthersOverride(ethersContext, options);
+  useEthersUpdater(refetch, blockNumber, options);
 
-  const [nonce, setNonce] = useState<number>(0);
-
-  const update = useCallback(async (): Promise<void> => {
-    let nextNonce: number = 0;
-    try {
-      nextNonce = (await provider?.getTransactionCount(address)) ?? 0;
-    } catch {
-      // do nothing
-    }
-    if (isMounted()) {
-      setNonce((value) => {
-        if (nextNonce && value !== nextNonce && value < nextNonce) return nextNonce;
-        return value;
-      });
-    }
-  }, [address, provider, isMounted]);
-
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
-
-  return [nonce, update];
+  return [data ?? 0, refetch];
 };

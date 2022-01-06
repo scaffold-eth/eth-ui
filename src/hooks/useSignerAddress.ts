@@ -1,9 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useBlockNumberContext } from '~~/context';
 import { signerHasNetwork } from '~~/functions';
 import { TEthersSigner } from '~~/models';
+
+// / const queryKey = { namespace: keyNamespace.signer, key: 'useSignerAddress' } as const;
 
 /**
  * #### Summary

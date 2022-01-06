@@ -1,11 +1,15 @@
-import { BaseContract, ContractFunction } from 'ethers';
+import { BaseContract, ContractFunction, EventFilter } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { checkEthersOverride } from '~~/functions';
-import { useAreSignerEqual } from '~~/hooks';
-import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/models';
+import { contractKey, ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { TContractFunctionInfo, TOverride, TUpdateOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' } as const;
 
 /**
  * #### Summary
@@ -15,7 +19,7 @@ import { defaultHookOptions, TContractFunctionInfo, THookOptions } from '~~/mode
  * - uses the ethers.Contract object's provider to access the network
  * - formatter is a function that can change the format of the output
  * @param contract
- * @param functionCallback
+ * @param contractFunc
  * @param args
  * @param options
  * @returns
@@ -25,38 +29,54 @@ export const useContractReader = <
   GContractFunc extends (...args: any[]) => Promise<any>
 >(
   contract: GContract | undefined,
-  functionCallback: GContractFunc | undefined,
+  contractFunc: GContractFunc | undefined,
   args?: Parameters<GContractFunc>,
-  options: THookOptions = defaultHookOptions()
+  funcEventFilter?: EventFilter | undefined,
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [value: Awaited<ReturnType<GContractFunc>> | undefined, update: () => void] => {
-  const isMounted = useIsMounted();
-  const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { signer } = checkEthersOverride(ethersContext, options);
+  const keys = [
+    {
+      ...queryKey,
+      ...contractKey(contract),
+    },
+    { functionCallback: contractFunc, args: args ?? [] },
+  ] as const;
+  const { data, refetch } = useQuery(
+    keys,
+    async (keys) => {
+      const { functionCallback, args } = keys.queryKey[1];
 
-  const [value, setValue] = useState<Awaited<ReturnType<GContractFunc>>>();
-  const [validSigners] = useAreSignerEqual(contract?.signer, signer);
-
-  const update = useCallback(async () => {
-    if (validSigners && contract != null && functionCallback != null) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const result = await functionCallback(...(args ?? []));
-      if (isMounted()) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setValue(result);
+      if (functionCallback != null && contract != null) {
+        return functionCallback(...args);
       }
-    } else {
-      if (isMounted()) {
-        setValue(undefined);
+    },
+    {
+      ...options.query,
+    }
+  );
+
+  // you can use an event and only call the network/contract the result when there is an event
+  useEffect(() => {
+    if (funcEventFilter != null) {
+      const listener = (): void => {
+        void refetch();
+      };
+      try {
+        contract?.on(funcEventFilter, listener);
+        return (): void => {
+          contract?.off(funcEventFilter, listener);
+        };
+      } catch (e) {
+        console.log(e);
       }
     }
-  }, [validSigners, contract, functionCallback, args, isMounted]);
+  }, [contract, funcEventFilter, refetch]);
 
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
+  const blockNumber = useBlockNumberContext();
+  const allowBlockNumberIntervalUpdate = funcEventFilter == null;
+  useEthersUpdater(refetch, blockNumber, options, allowBlockNumberIntervalUpdate);
 
-  return [value, update];
+  return [data, refetch];
 };
 
 /**
@@ -81,13 +101,13 @@ export const useContractReaderUntyped = <GOutput>(
   contractFunctionInfo: TContractFunctionInfo,
   formatter?: (_value: GOutput | undefined) => GOutput,
   onChange?: (_value?: GOutput) => void,
-  options: THookOptions = defaultHookOptions()
+  override: TOverride = mergeDefaultOverride()
 ): GOutput | undefined => {
   const isMounted = useIsMounted();
   const [value, setValue] = useState<GOutput>();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(options.alternateContextOverride);
-  const { chainId } = checkEthersOverride(ethersContext, options);
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { chainId } = ethersOverride(ethersContext, override);
 
   const callContractFunction = useCallback(async () => {
     const contractFunction = contract.functions?.[contractFunctionInfo.functionName] as ContractFunction<GOutput>;
@@ -115,6 +135,9 @@ export const useContractReaderUntyped = <GOutput>(
         let newResult: GOutput | undefined = await callContractFunction();
         if (formatter != null) {
           newResult = formatter(newResult);
+        } else if (Array.isArray(newResult) && newResult.length === 1 && typeof newResult[0] === 'string') {
+          // @ts-ignore
+          newResult = newResult[0];
         }
 
         if (isMounted()) {

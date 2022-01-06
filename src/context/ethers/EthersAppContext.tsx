@@ -2,13 +2,16 @@ import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import { cloneElement, FC, useCallback } from 'react';
+import { QueryClientProvider } from 'react-query';
 import { invariant } from 'ts-invariant';
 
 import { NoEthereumProviderFoundError } from '~~/context';
 import { BlockNumberContext } from '~~/context/ethers/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers/connectors/EthersModalConnector';
+import { contextQueryClient as ethersAppQueryClient } from '~~/context/ethers/queryClient';
+import { mergeDefaultOverride } from '~~/functions';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
-import { TEthersProvider } from '~~/models';
+import { TEthersProvider, TOverride } from '~~/models';
 import { IEthersContext } from '~~/models/ethersAppContextTypes';
 
 /**
@@ -32,6 +35,8 @@ import { IEthersContext } from '~~/models/ethersAppContextTypes';
  * @returns
  */
 export const useEthersContext = (contextKey?: string): IEthersContext => {
+  if (contextKey === 'primary') console.warn('Do not explicitly use primary contextKey, pass in undefined instead');
+
   const { connector, activate, library, account, deactivate, chainId, ...context } =
     useWeb3React<TEthersProvider>(contextKey);
   if (!(connector instanceof EthersModalConnector || connector instanceof AbstractConnector) && connector != null) {
@@ -94,6 +99,7 @@ export type TEthersAppContextProps = {
     contextKey: string;
     web3ReactRoot: JSX.Element;
   };
+  disableQueryClientRoot?: boolean;
 };
 
 /**
@@ -149,25 +155,28 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
 
     invariant(props.secondaryWeb3ReactRoot.contextKey !== 'primary', 'You cannot use primary for alternate roots');
 
-    // invariant(
-    //   props.secondaryWeb3ReactRoot.web3ReactRoot.type != null,
-    //   'When using alternate web3-react roots, you need to provide a valid web3ReactRoot'
-    // );
+    const options: TOverride = mergeDefaultOverride({
+      alternateContextKey: props.secondaryWeb3ReactRoot.contextKey,
+    });
 
     const alternateProvider = cloneElement(
       props.secondaryWeb3ReactRoot.web3ReactRoot,
       { getLibrary: getEthersAppProviderLibrary },
-      <BlockNumberContext options={{ alternateContextOverride: props.secondaryWeb3ReactRoot.contextKey }}>
-        {props.children}
-      </BlockNumberContext>
+      <BlockNumberContext override={options}>{props.children}</BlockNumberContext>
     );
 
     return alternateProvider;
   }
 
-  return (
+  const element = (
     <Web3ReactProvider getLibrary={getEthersAppProviderLibrary}>
       <BlockNumberContext>{props.children}</BlockNumberContext>
     </Web3ReactProvider>
   );
+
+  if (props.disableQueryClientRoot) {
+    return element;
+  }
+
+  return <QueryClientProvider client={ethersAppQueryClient}>{element}</QueryClientProvider>;
 };
