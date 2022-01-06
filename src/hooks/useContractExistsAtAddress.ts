@@ -2,12 +2,12 @@ import { BaseContract, utils } from 'ethers';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { contractKey, mergeDefaultUpdateOptions } from '~~/functions';
+import { contractKey, mergeDefaultUpdateOptions, TRequiredKeys } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
-const queryKey = { namespace: keyNamespace.contracts, key: 'useContractExistsAtAddress' } as const;
+const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useContractExistsAtAddress' } as const;
 
 /**
  * #### Summary

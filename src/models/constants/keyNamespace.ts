@@ -1,6 +1,6 @@
 export const keyNamespace = {
-  contracts: 'contracts',
   network: 'network',
   signer: 'signer',
+  contracts: 'contracts',
   state: 'state',
 } as const;

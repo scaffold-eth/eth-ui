@@ -1,11 +1,20 @@
 import { useQuery } from 'react-query';
 
-import { isAdaptorEqual, mergeDefaultUpdateOptions, parseProviderOrSigner, providerKey } from '~~/functions';
+import {
+  isAdaptorEqual,
+  mergeDefaultUpdateOptions,
+  parseProviderOrSigner,
+  providerKey,
+  TRequiredKeys,
+} from '~~/functions';
 import { TEthersProviderOrSigner, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 import { TEthersAdaptor } from '~~/models/ethersAppContextTypes';
 
-const queryKey = { namespace: keyNamespace.network, key: 'useGetEthersAdaptorFromProviderOrSigners' } as const;
+const queryKey: TRequiredKeys = {
+  namespace: keyNamespace.network,
+  key: 'useGetEthersAdaptorFromProviderOrSigners',
+} as const;
 
 /**
  * #### Summary

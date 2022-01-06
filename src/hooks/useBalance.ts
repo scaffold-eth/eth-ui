@@ -5,12 +5,13 @@ import { useEthersUpdater } from './useEthersUpdater';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
 import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
-import { providerKey } from '~~/functions/keyHelpers';
+import { providerKey, TRequiredKeys } from '~~/functions/keyHelpers';
 import { TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useBalance' };
+
 const zero = BigNumber.from(0);
-const queryKey = { namespace: keyNamespace.signer, key: 'useBalance' } as const;
 
 /**
  * #### Summary

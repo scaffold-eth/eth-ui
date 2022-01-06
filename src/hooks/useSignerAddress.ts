@@ -4,9 +4,8 @@ import { useIsMounted } from 'usehooks-ts';
 import { useBlockNumberContext } from '~~/context';
 import { signerHasNetwork } from '~~/functions';
 import { TEthersSigner } from '~~/models';
-import { keyNamespace } from '~~/models/constants';
 
-const queryKey = { namespace: keyNamespace.signer, key: 'useSignerAddress' } as const;
+// / const queryKey = { namespace: keyNamespace.signer, key: 'useSignerAddress' } as const;
 
 /**
  * #### Summary

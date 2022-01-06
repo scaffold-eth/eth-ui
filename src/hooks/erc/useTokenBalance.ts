@@ -3,13 +3,13 @@ import { BaseContract } from '@ethersproject/contracts';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { contractKey, mergeDefaultUpdateOptions } from '~~/functions';
+import { contractKey, mergeDefaultUpdateOptions, TRequiredKeys } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const zero = BigNumber.from(0);
-const queryKey = { namespace: keyNamespace.signer, key: 'useTokenBalance' } as const;
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useTokenBalance' } as const;
 
 type ERC20 = {
   balanceOf: (address: string) => Promise<BigNumber>;

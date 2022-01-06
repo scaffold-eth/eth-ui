@@ -3,11 +3,11 @@ import { Result } from 'ethers/lib/utils';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-import { contractKey, mergeDefaultUpdateOptions } from '~~/functions';
+import { contractKey, mergeDefaultUpdateOptions, TRequiredKeys } from '~~/functions';
 import { const_blockNumberInterval100, TUpdateOptions, TypedEvent } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
-const queryKey = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;
+const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;
 /**
  * #### Summary
  * Tracks the events of associated with a contract

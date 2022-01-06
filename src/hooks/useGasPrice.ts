@@ -4,11 +4,17 @@ import { useQuery } from 'react-query';
 import { useDebounce } from 'use-debounce';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions, providerKey } from '~~/functions';
+import {
+  ethersOverride,
+  mergeDefaultOverride,
+  mergeDefaultUpdateOptions,
+  providerKey,
+  TRequiredKeys,
+} from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { TOverride, TNetworkInfo, TUpdateOptions, keyNamespace } from '~~/models';
 
-const queryKey = { namespace: keyNamespace.state, key: 'useGasPrice' } as const;
+const queryKey: TRequiredKeys = { namespace: keyNamespace.state, key: 'useGasPrice' } as const;
 
 /**
  * Preset speeds for Eth Gas Station API

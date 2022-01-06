@@ -1,12 +1,18 @@
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext, useEthersContext } from '~~/context';
-import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions, providerKey } from '~~/functions';
+import {
+  ethersOverride,
+  mergeDefaultOverride,
+  mergeDefaultUpdateOptions,
+  providerKey,
+  TRequiredKeys,
+} from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
-const queryKey = { namespace: keyNamespace.signer, key: 'useTimestamp' } as const;
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useTimestamp' } as const;
 
 /**
  * #### Summary

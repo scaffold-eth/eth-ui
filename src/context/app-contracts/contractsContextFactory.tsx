@@ -13,7 +13,7 @@ import React, {
 import { useQueryClient } from 'react-query';
 
 import { connectToContractWithSignerOrProvider, useEthersContext } from '~~/context';
-import { isValidEthersAdaptor, sortContractsByChainId } from '~~/functions';
+import { invalidateCache, isValidEthersAdaptor, sortContractsByChainId } from '~~/functions';
 import { TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractContextTypes';
@@ -278,8 +278,7 @@ export const contractsContextFactory = <
       if (loadAppContractConnectors != null) {
         const connectors = loadAppContractConnectors();
         if (connectors != null && actions != null) {
-          console.log(queryClient.getQueriesData([{ namespace: keyNamespace.contracts }]));
-          void queryClient?.invalidateQueries?.([{ namespace: keyNamespace.contracts }]);
+          invalidateCache(queryClient, keyNamespace.contracts);
           actions.dispatch({ type: 'SET_CONTRACT_CONNECTORS', payload: { appContractConnectorList: connectors } });
         }
       }
@@ -297,8 +296,7 @@ export const contractsContextFactory = <
 
     const connect = useCallback(() => {
       if (adaptor?.chainId != null && actions != null) {
-        console.log(queryClient.getQueriesData([{ namespace: keyNamespace.contracts }]));
-        void queryClient?.invalidateQueries?.([{ namespace: keyNamespace.contracts }]);
+        invalidateCache(queryClient, keyNamespace.contracts);
         actions.dispatch({ type: 'CONNECT_TO_CONTRACTS_WITH_ADAPTOR', payload: { ethersAdaptor: adaptor } });
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps

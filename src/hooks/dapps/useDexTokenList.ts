@@ -4,12 +4,12 @@ import isEqual from 'lodash.isequal';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { mergeDefaultUpdateOptions } from '~~/functions';
+import { mergeDefaultUpdateOptions, TRequiredKeys } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
-const queryKey = { namespace: keyNamespace.signer, key: 'useDexTokenList' } as const;
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useDexTokenList' } as const;
 
 /**
  * #### Summary

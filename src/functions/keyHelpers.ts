@@ -1,6 +1,8 @@
 import { Provider } from '@ethersproject/providers';
 import { BaseContract, Event } from 'ethers';
 import { Result } from 'ethers/lib/utils';
+import { QueryClient } from 'react-query';
+import { invariant } from 'ts-invariant';
 
 import { isValidEthersAdaptor } from '~~/functions';
 import { TEthersAdaptor, TEthersProvider, TEthersProviderOrSigner, TypedEvent } from '~~/models';
@@ -65,4 +67,33 @@ export const contractKey = (contract: BaseContract | undefined): Record<string, 
     }, '');
 
   return { contract: `${address}_${signerStr}_${fragments}`, ...provider };
+};
+
+export type TRequiredKeys = {
+  namespace: string;
+  key: string;
+};
+
+export type TKeyTypes = {
+  provider?: string;
+  adaptor?: string;
+  contract?: string;
+};
+
+export const invalidateCache = (
+  queryClient: QueryClient,
+  namespace: string,
+  otherKeys: TKeyTypes & { key?: string } = {},
+  variables: Record<string, any> = {}
+): void => {
+  void queryClient?.invalidateQueries?.([{ namespace, ...otherKeys }, variables]);
+};
+
+export const logQueryCache = (
+  queryClient: QueryClient,
+  namespace: string,
+  otherKeys: TKeyTypes & { key?: string } = {},
+  variables: Record<string, any> = {}
+): void => {
+  invariant.log(queryClient.getQueriesData([{ namespace, ...otherKeys }, variables]));
 };

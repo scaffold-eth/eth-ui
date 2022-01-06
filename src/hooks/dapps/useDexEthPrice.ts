@@ -2,13 +2,13 @@ import { Token, WETH, Fetcher, Route } from '@uniswap/sdk';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { mergeDefaultUpdateOptions, providerKey } from '~~/functions';
+import { mergeDefaultUpdateOptions, providerKey, TRequiredKeys } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { TNetworkInfo, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 import { TEthersProvider } from '~~/models/providerTypes';
 
-const queryKey = { namespace: keyNamespace.signer, key: 'useDexEthPrice' } as const;
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useDexEthPrice' } as const;
 
 /**
  * #### Summary
