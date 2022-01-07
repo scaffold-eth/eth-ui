@@ -7,7 +7,20 @@ import { invariant } from 'ts-invariant';
 import { isValidEthersAdaptor } from '~~/functions';
 import { TEthersAdaptor, TEthersProvider, TEthersProviderOrSigner, TypedEvent } from '~~/models';
 
-export const providerKey = (providerOrSigner: TEthersProviderOrSigner | undefined): Record<string, string> => {
+export type TRequiredKeys = {
+  namespace: string;
+  key: string;
+};
+
+export type TKeyTypes = {
+  provider?: string;
+  adaptor?: string;
+  contract?: string;
+  contractFunc?: string;
+};
+type TKeys = keyof TKeyTypes;
+
+export const providerKey = (providerOrSigner: TEthersProviderOrSigner | undefined): Partial<Record<TKeys, string>> => {
   if (providerOrSigner == null) return { provider: 'undefined provider' };
 
   if (providerOrSigner instanceof Provider) {
@@ -32,7 +45,7 @@ export const providerKey = (providerOrSigner: TEthersProviderOrSigner | undefine
   return { provider: 'unknown provider' };
 };
 
-export const adaptorKey = (adaptor: TEthersAdaptor | undefined): Record<string, string> => {
+export const adaptorKey = (adaptor: TEthersAdaptor | undefined): Partial<Record<TKeys, string>> => {
   if (adaptor == null && !isValidEthersAdaptor(adaptor)) return { adaptor: 'undefined adaptor' };
 
   if (adaptor?.signer != null && adaptor.account != null && adaptor.provider != null) {
@@ -48,7 +61,7 @@ export const eventKey = (m: Event | TypedEvent<Result>): string => {
   return `${m.transactionHash}_${m.logIndex}`;
 };
 
-export const contractKey = (contract: BaseContract | undefined): Record<string, string> => {
+export const contractKey = (contract: BaseContract | undefined): Partial<Record<TKeys, string>> => {
   if (contract == null) return { contract: 'undefined contract' };
 
   const address = contract.address;
@@ -69,15 +82,24 @@ export const contractKey = (contract: BaseContract | undefined): Record<string, 
   return { contract: `${address}_${signerStr}_${fragments}`, ...provider };
 };
 
-export type TRequiredKeys = {
-  namespace: string;
-  key: string;
-};
+export const contractFuncKey = (
+  contract: BaseContract | undefined,
+  func: ((...args: any[]) => Promise<any>) | undefined
+): Partial<Record<TKeys, string>> => {
+  if (contract == null || func == null) return { contractFunc: 'undefined contract or contractFunc' };
 
-export type TKeyTypes = {
-  provider?: string;
-  adaptor?: string;
-  contract?: string;
+  let methodName: string | undefined = undefined;
+  Object.getOwnPropertyNames(contract).forEach((prop) => {
+    // @ts-expect-error
+    if (contract[prop] === func) {
+      methodName = prop;
+    }
+  });
+
+  if (methodName !== null) {
+    return { contractFunc: methodName ?? 'unknown contractFunc', ...contractKey(contract) };
+  }
+  return { contractFunc: 'unknown contractFunc', ...contractKey(contract) };
 };
 
 export const invalidateCache = (

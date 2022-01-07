@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { contractKey, ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
+import { contractFuncKey, ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
 import { TContractFunctionInfo, TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
@@ -37,25 +37,32 @@ export const useContractReader = <
   const keys = [
     {
       ...queryKey,
-      ...contractKey(contract),
+      ...contractFuncKey(contract, contractFunc),
     },
-    { functionCallback: contractFunc, args: args ?? [] },
+    { args: args ?? [], funcEventFilter },
   ] as const;
   const { data, refetch } = useQuery(
     keys,
     async (keys) => {
-      const { functionCallback, args } = keys.queryKey[1];
+      const { args } = keys.queryKey[1];
 
-      if (functionCallback != null && contract != null) {
-        return functionCallback(...args);
+      if (contractFunc != null && contract != null) {
+        const result = await contractFunc(...args);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return result;
       }
+
+      return undefined;
     },
     {
       ...options.query,
     }
   );
 
-  // you can use an event and only call the network/contract the result when there is an event
+  /**
+   * event based updates:
+   * you can use an event and only call the contract when there is an event
+   */
   useEffect(() => {
     if (funcEventFilter != null) {
       const listener = (): void => {
@@ -73,6 +80,9 @@ export const useContractReader = <
   }, [contract, funcEventFilter, refetch]);
 
   const blockNumber = useBlockNumberContext();
+  /**
+   * if event based updates is on, interval updates are disabled
+   */
   const allowBlockNumberIntervalUpdate = funcEventFilter == null;
   useEthersUpdater(refetch, blockNumber, options, allowBlockNumberIntervalUpdate);
 

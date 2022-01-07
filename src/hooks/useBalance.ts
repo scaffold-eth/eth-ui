@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useEthersUpdater } from './useEthersUpdater';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
+import { asyncForEach, ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
 import { providerKey, TRequiredKeys } from '~~/functions/keyHelpers';
 import { TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
@@ -12,6 +12,10 @@ import { keyNamespace } from '~~/models/constants';
 const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useBalance' };
 
 const zero = BigNumber.from(0);
+
+type TUseBalanceResult<GAddress extends string | Array<string>> = GAddress extends string[]
+  ? Record<GAddress[number], BigNumber>
+  : BigNumber;
 
 /**
  * #### Summary
@@ -23,33 +27,42 @@ const zero = BigNumber.from(0);
  *
  * @category Hooks
  *
- * @param address
+ * @param addresses
  * @param options
  * @returns current balance
  */
-export const useBalance = (
-  address: string | undefined,
+export const useBalance = <GAddress extends string | Array<string>, GResult = TUseBalanceResult<GAddress>>(
+  addresses: GAddress | undefined,
   override: TOverride = mergeDefaultOverride(),
   options: TUpdateOptions = mergeDefaultUpdateOptions()
-): [balance: BigNumber, update: () => void] => {
+): [balance: GResult | undefined, update: () => void] => {
   const ethersContext = useEthersContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
-  const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;
+  const keys = [{ ...queryKey, ...providerKey(provider) }, { addresses }] as const;
   const { data, refetch } = useQuery(
     keys,
-    async (keys): Promise<BigNumber> => {
-      const { address } = keys.queryKey[1];
+    async (keys) => {
+      const { addresses } = keys.queryKey[1];
 
-      if (provider && address) {
-        const newBalance = await provider.getBalance(address);
-        return newBalance;
-      } else {
-        return zero;
+      if (provider && addresses) {
+        if (Array.isArray(addresses)) {
+          const result: Record<string, BigNumber> = {};
+          await asyncForEach(addresses, async (address: string) => {
+            const balance = await provider.getBalance(address);
+            result[address] = balance;
+          });
+          return result;
+        } else {
+          const address: string = addresses;
+          const newBalance = await provider.getBalance(address);
+          return newBalance;
+        }
       }
+      return undefined;
     },
     {
-      isDataEqual: (oldResult, newResult) => oldResult?._hex === newResult._hex,
+      // isDataEqual: (oldResult, newResult) => oldResult?._hex === newResult._hex,
       ...options.query,
     }
   );
@@ -57,5 +70,5 @@ export const useBalance = (
   const blockNumber = useBlockNumberContext();
   useEthersUpdater(refetch, blockNumber, options);
 
-  return [data ?? zero, refetch];
+  return [data as unknown as GResult | undefined, refetch];
 };
