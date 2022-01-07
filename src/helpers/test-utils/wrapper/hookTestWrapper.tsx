@@ -5,8 +5,8 @@ import { FC } from 'react';
 import { waitForActivation, isActive } from './wrapperHelpers';
 
 import { getMockProvider } from '~~/helpers/test-utils/wrapper/getMockProvider';
-import { MockAppWrapper } from '~~/helpers/test-utils/wrapper/MockAppWrapper';
 import { MockConnector } from '~~/helpers/test-utils/wrapper/MockConnector';
+import { TestAppWrapper } from '~~/helpers/test-utils/wrapper/TestAppWrapper';
 import { TCreateEthersModalConnector } from '~~/models/ethersAppContextTypes';
 
 export type TTestHookResult<PropsT, TResult> = RenderHookResult<PropsT, TResult, Renderer<PropsT>> & {
@@ -30,7 +30,7 @@ export const hookTestWrapper = async <PropsT, ResultT>(
   };
 
   const wrapper: FC = (props) => (
-    <MockAppWrapper createMockConnector={createMockConnector}>{props.children}</MockAppWrapper>
+    <TestAppWrapper createMockConnector={createMockConnector}>{props.children}</TestAppWrapper>
   );
 
   const result = renderHook(callbackToHook, { wrapper: wrapper });

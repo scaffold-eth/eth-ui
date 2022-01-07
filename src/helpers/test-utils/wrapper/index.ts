@@ -1,4 +1,4 @@
-export * from './MockAppWrapper';
+export * from './TestAppWrapper';
 export * from './MockConnector';
 export * from './getMockProvider';
 export * from './hardhatTestHelpers';

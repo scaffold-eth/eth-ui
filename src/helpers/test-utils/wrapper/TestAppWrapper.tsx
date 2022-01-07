@@ -1,10 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { createElement, FC, useEffect } from 'react';
 
 import { EthersAppContext, useEthersContext } from '~~/context';
 import { TCreateEthersModalConnector } from '~~/models/ethersAppContextTypes';
 
 interface IMockProps {
   createMockConnector: TCreateEthersModalConnector;
+  contractContext?: FC;
 }
 
 const TestConnectorWrapper: FC<IMockProps> = (props) => {
@@ -28,10 +29,23 @@ const TestConnectorWrapper: FC<IMockProps> = (props) => {
   return <>{props.children}</>;
 };
 
-export const MockAppWrapper: FC<IMockProps> = (props) => {
-  return (
+/**
+ * This is a wrapper for tests
+ * @param props
+ * @returns
+ */
+export const TestAppWrapper: FC<IMockProps> = (props) => {
+  const element = (
     <EthersAppContext>
-      <TestConnectorWrapper {...props}>{props.children}</TestConnectorWrapper>
+      <TestConnectorWrapper createMockConnector={props.createMockConnector}>{props.children}</TestConnectorWrapper>
     </EthersAppContext>
   );
+
+  // wrap in contract context if provided
+  if (props.contractContext != null) {
+    const wrappedElement = createElement(props.contractContext, {}, element);
+    return wrappedElement;
+  }
+
+  return element;
 };
