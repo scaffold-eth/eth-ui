@@ -62,8 +62,18 @@ export const isValidEthersContext = (ethersContext: IEthersContext | undefined):
 
 export const isValidEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined): boolean => {
   if (ethersAdaptor != null && ethersAdaptor.chainId != null) {
-    if (ethersAdaptor.provider != null || (ethersAdaptor.signer != null && !!ethersAdaptor.account)) return true;
+    if (ethersAdaptor.provider != null && ethersAdaptor.provider?.network?.chainId === ethersAdaptor.chainId) {
+      return true;
+    } else if (
+      ethersAdaptor.signer != null &&
+      !!ethersAdaptor.account &&
+      (ethersAdaptor?.signer?.provider as TEthersProvider)?.network?.chainId === ethersAdaptor.chainId
+    ) {
+      return true;
+    }
   }
+
+  console.log('isValidEthersAdaptorπ', false, ethersAdaptor);
   return false;
 };
 

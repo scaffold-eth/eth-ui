@@ -19,14 +19,17 @@ export type TKeyTypes = {
   contractFunc?: string;
 };
 
-export const providerKey = (providerOrSigner: TEthersProviderOrSigner | undefined): Record<'provider', string> => {
-  if (providerOrSigner == null) return { provider: 'undefined provider' };
+export const providerKey = (
+  providerOrSigner: TEthersProviderOrSigner | undefined
+): Record<'provider' | 'signer', string> => {
+  if (providerOrSigner == null) return { provider: 'undefined provider', signer: 'undefined signer' };
 
   if (providerOrSigner instanceof Provider) {
     return {
       provider: `${providerOrSigner?.network?.chainId}_${
         providerOrSigner?.network?.name
       }_${providerOrSigner?.connection.url.substring(0, 25)}`,
+      signer: 'isProvider',
     };
   } else {
     const provider = providerOrSigner.provider as TEthersProvider;
@@ -34,14 +37,16 @@ export const providerKey = (providerOrSigner: TEthersProviderOrSigner | undefine
     const signerStr: string = (providerOrSigner as any)?.address ?? '';
     if (provider && provider?.network) {
       return {
-        provider: `${provider?.network?.chainId}_${signerStr}_${
-          provider?.network?.name
-        }_${provider?.connection.url.substring(0, 25)}`,
+        signer: `isSigner_${providerOrSigner._isSigner}_${signerStr}`,
+        provider: `${provider?.network?.chainId}_${provider?.network?.name}_${provider?.connection.url.substring(
+          0,
+          25
+        )}`,
       };
     }
   }
 
-  return { provider: 'unknown provider' };
+  return { provider: 'unknown provider', signer: 'unknown signer' };
 };
 
 export const adaptorKey = (adaptor: TEthersAdaptor | undefined): Partial<Record<'adaptor' | 'provider', string>> => {
@@ -60,7 +65,7 @@ export const eventKey = (m: Event | TypedEvent<Result>): string => {
   return `${m.transactionHash}_${m.logIndex}`;
 };
 
-export const contractKey = (contract: BaseContract | undefined): Record<'contract', string> => {
+export const contractKey = (contract: BaseContract | undefined): Partial<Record<'contract' | 'provider', string>> => {
   if (contract == null) return { contract: 'undefined contract' };
 
   const address = contract.address;

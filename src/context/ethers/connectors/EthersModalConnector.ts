@@ -125,9 +125,10 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
 
   private handleChainChanged(chainId: number | string): void {
     this.log(`Handling chain changed to ${chainId}! updating providers`);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    this._signer = undefined;
     this.emitUpdate?.({ chainId, provider: this._providerBase });
     this.setEthersProvider();
+    void this.getSignerFromAccount();
     this.maybeReload();
   }
 
@@ -277,6 +278,12 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
 
   public getSigner(): Signer | undefined {
     return this._signer;
+  }
+
+  public async getSignerFromAccount(): Promise<void> {
+    const account = await this.getAccount();
+    await this.setSignerFromAccount(account);
+    this.emitUpdate?.({ account });
   }
 
   /**
