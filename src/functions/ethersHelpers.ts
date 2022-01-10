@@ -73,7 +73,7 @@ export const isValidEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined):
     }
   }
 
-  console.log('isValidEthersAdaptorπ', false, ethersAdaptor);
+  // console.log('isValidEthersAdaptorπ', false, ethersAdaptor);
   return false;
 };
 

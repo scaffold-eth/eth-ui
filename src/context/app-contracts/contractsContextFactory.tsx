@@ -299,8 +299,8 @@ export const contractsContextFactory = <
       if (loadAppContractConnectors != null) {
         const connectors = loadAppContractConnectors();
         if (connectors != null && actions != null) {
-          invalidateCache(queryClient, keyNamespace.contracts);
           actions.dispatch({ type: 'SET_CONTRACT_CONNECTORS', payload: { appContractConnectorList: connectors } });
+          invalidateCache(queryClient, keyNamespace.contracts);
         }
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -318,8 +318,8 @@ export const contractsContextFactory = <
 
     const connect = useCallback(() => {
       if (adaptor?.chainId != null && actions != null) {
-        invalidateCache(queryClient, keyNamespace.contracts);
         actions.dispatch({ type: 'CONNECT_TO_CONTRACTS_WITH_ADAPTOR', payload: { ethersAdaptor: adaptor } });
+        invalidateCache(queryClient, keyNamespace.contracts);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [adaptor?.provider, adaptor?.signer, adaptor?.chainId, adaptor?.account, validAdaptorState]);
