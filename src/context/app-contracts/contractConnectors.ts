@@ -1,14 +1,15 @@
-import { BaseContract, ethers } from 'ethers';
+import { BaseContract, ethers, utils } from 'ethers';
 
-import { TConnectorConnectorBase, TContractConnector, TEthersProviderOrSigner } from '~~/models';
+import { isValidEthersAdaptor } from '~~/functions';
+import { TConnectorConnectorBase, TContractConnector, TEthersAdaptor } from '~~/models';
 import {
-  TDeployedContractJsonData,
+  TBasicContractDataRecord,
   TExternalContractsAddressMap,
-  THardhatContractsFileJson,
+  TDeployedHardhatContractsJson,
 } from '~~/models/contractTypes';
 
-const extractHardhatContracts = (configJson: THardhatContractsFileJson): TDeployedContractJsonData => {
-  const contractData: TDeployedContractJsonData = {};
+const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): TBasicContractDataRecord => {
+  const contractData: TBasicContractDataRecord = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
@@ -26,8 +27,8 @@ const extractHardhatContracts = (configJson: THardhatContractsFileJson): TDeploy
   return contractData;
 };
 
-const extractExternalContracts = (configJson: TExternalContractsAddressMap): TDeployedContractJsonData => {
-  const contractData: TDeployedContractJsonData = {};
+const extractExternalContracts = (configJson: TExternalContractsAddressMap): TBasicContractDataRecord => {
+  const contractData: TBasicContractDataRecord = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
@@ -40,14 +41,14 @@ const extractExternalContracts = (configJson: TExternalContractsAddressMap): TDe
   return contractData;
 };
 
-export const createConnectorsForHardhatContracts = <
+export const createConnectorForHardhatContract = <
   GContractNames extends string,
   GBaseContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
   contractName: GContractNames,
   typechainFactory: TConnectorConnectorBase<GBaseContract, GContractInterface>,
-  deployedHardhatContractJson: THardhatContractsFileJson
+  deployedHardhatContractJson: TDeployedHardhatContractsJson
 ): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
   const info = extractHardhatContracts(deployedHardhatContractJson)[contractName];
 
@@ -67,11 +68,10 @@ export const createConnectorsForHardhatContracts = <
         address: info.address,
       },
     },
-    chainId: info.chainId,
   };
 };
 
-export const createConnectorsForExternalContract = <
+export const createConnectorForExternalContract = <
   GContractNames extends string,
   GBaseContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
@@ -98,30 +98,52 @@ export const createConnectorsForExternalContract = <
         address: info.address,
       },
     },
-    chainId: info.chainId,
   };
 };
 
-export const connectToContractWithSignerOrProvider = <
+export const createConnectorForExternalAbi = <GContractNames extends string>(
+  contractName: GContractNames,
+  config: { [key in number]: { address: string } },
+  abi: Record<string, any>[]
+): TContractConnector<GContractNames, BaseContract, ethers.utils.Interface> => {
+  return {
+    contractName,
+    connect: (address: string, signerOrProvider: ethers.Signer | ethers.providers.Provider): BaseContract => {
+      return new BaseContract(address, abi, signerOrProvider);
+    },
+    createInterface: (): ethers.utils.Interface => new utils.Interface(abi),
+    abi: abi,
+    config: config,
+  };
+};
+
+export const connectToContractWithAdaptor = <
   GContractNames extends string,
   GContract extends BaseContract,
   GContractInterface extends ethers.utils.Interface
 >(
   connector: TContractConnector<GContractNames, GContract, GContractInterface>,
-  singerOrProvider: TEthersProviderOrSigner,
-  chainId: number
+  adaptor: TEthersAdaptor
 ): GContract | undefined => {
-  const contractAddress = connector?.config?.[chainId]?.address;
-  if (chainId != null && contractAddress != null && singerOrProvider != null) {
-    const contract = connector.connect(connector.config[chainId].address, singerOrProvider);
+  if (adaptor == null || !isValidEthersAdaptor(adaptor)) {
+    console.warn('No valid ethers adaptor provided.  Skipping contract connection');
+    return undefined;
+  }
 
-    if (chainId != null && contract != null) {
+  const { signer, provider } = adaptor;
+  const signerOrProvider = signer ?? provider;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const chainId = adaptor.chainId!;
+  const contractAddress = connector?.config?.[chainId]?.address;
+  if (contractAddress != null && signerOrProvider != null) {
+    const contract = connector.connect(connector.config[chainId].address, signerOrProvider);
+    if (contract != null) {
       return contract;
     }
   }
 
   // error handling
-  if (connector.chainId !== chainId) {
+  if (connector.config[chainId] != null) {
     console.warn('ContractConnector requires signer with the same chainId to connect contract');
   }
   console.log(

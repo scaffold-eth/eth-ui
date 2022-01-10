@@ -1,1 +1,1 @@
-export * from './wrapper/hookTestWrapper';
+export * from './wrapper/testWrapper';

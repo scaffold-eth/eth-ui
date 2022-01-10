@@ -18,9 +18,8 @@ export type TKeyTypes = {
   contract?: string;
   contractFunc?: string;
 };
-type TKeys = keyof TKeyTypes;
 
-export const providerKey = (providerOrSigner: TEthersProviderOrSigner | undefined): Partial<Record<TKeys, string>> => {
+export const providerKey = (providerOrSigner: TEthersProviderOrSigner | undefined): Record<'provider', string> => {
   if (providerOrSigner == null) return { provider: 'undefined provider' };
 
   if (providerOrSigner instanceof Provider) {
@@ -45,7 +44,7 @@ export const providerKey = (providerOrSigner: TEthersProviderOrSigner | undefine
   return { provider: 'unknown provider' };
 };
 
-export const adaptorKey = (adaptor: TEthersAdaptor | undefined): Partial<Record<TKeys, string>> => {
+export const adaptorKey = (adaptor: TEthersAdaptor | undefined): Partial<Record<'adaptor' | 'provider', string>> => {
   if (adaptor == null && !isValidEthersAdaptor(adaptor)) return { adaptor: 'undefined adaptor' };
 
   if (adaptor?.signer != null && adaptor.account != null && adaptor.provider != null) {
@@ -61,7 +60,7 @@ export const eventKey = (m: Event | TypedEvent<Result>): string => {
   return `${m.transactionHash}_${m.logIndex}`;
 };
 
-export const contractKey = (contract: BaseContract | undefined): Partial<Record<TKeys, string>> => {
+export const contractKey = (contract: BaseContract | undefined): Record<'contract', string> => {
   if (contract == null) return { contract: 'undefined contract' };
 
   const address = contract.address;
@@ -85,7 +84,7 @@ export const contractKey = (contract: BaseContract | undefined): Partial<Record<
 export const contractFuncKey = (
   contract: BaseContract | undefined,
   func: ((...args: any[]) => Promise<any>) | undefined
-): Partial<Record<TKeys, string>> => {
+): Record<'contractFunc', string> => {
   if (contract == null || func == null) return { contractFunc: 'undefined contract or contractFunc' };
 
   let methodName: string | undefined = undefined;

@@ -19,7 +19,6 @@ export type TContractConnector<
   config: {
     [chainId: number]: { address: string };
   };
-  chainId: number;
 } & TConnectorConnectorBase<GContract, GContractInterface>;
 
 export type TConnectorList<GContactNames extends string> = {

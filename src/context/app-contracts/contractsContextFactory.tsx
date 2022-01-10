@@ -12,7 +12,7 @@ import React, {
 } from 'react';
 import { useQueryClient } from 'react-query';
 
-import { connectToContractWithSignerOrProvider, useEthersContext } from '~~/context';
+import { connectToContractWithAdaptor, useEthersContext } from '~~/context';
 import { invalidateCache, isValidEthersAdaptor, sortContractsByChainId } from '~~/functions';
 import { TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
@@ -139,8 +139,8 @@ export const contractsContextFactory = <
     const providerOrSigner = signer ?? provider;
     for (const contractName in newState.contractConnectors) {
       const connector = newState.contractConnectors[contractName];
-      if (chainId && connector.chainId === chainId && providerOrSigner != null) {
-        const contract = connectToContractWithSignerOrProvider(connector, providerOrSigner, chainId);
+      if (chainId && connector.config[chainId] != null && providerOrSigner != null) {
+        const contract = connectToContractWithAdaptor(connector, ethersAdaptor);
         const data = { [contractName]: { [chainId]: contract } } as TContractsByName<GContractNames>;
         newState.contractsByName = merge(newState.contractsByName, data) as TContractsByName<GContractNames>;
       }
@@ -164,12 +164,11 @@ export const contractsContextFactory = <
     if (ethersAdaptor == null || !isValidEthersAdaptor(ethersAdaptor)) return state;
 
     const newState = cloneContextState(state);
-    const { chainId, signer, provider } = ethersAdaptor;
-    const providerOrSigner = signer ?? provider;
+    const { chainId } = ethersAdaptor;
     const contractConnector = newState.contractConnectors[contractName];
 
-    if (chainId && contractConnector.chainId === chainId && providerOrSigner != null) {
-      const contract = connectToContractWithSignerOrProvider(contractConnector, providerOrSigner, chainId);
+    if (chainId && contractConnector.config[chainId] != null) {
+      const contract = connectToContractWithAdaptor(contractConnector, ethersAdaptor);
       newState.contractsByName[contractConnector.contractName] = {};
       newState.contractsByName[contractConnector.contractName][chainId] = contract;
       newState.contractsByChainId = sortContractsByChainId(newState.contractsByName);

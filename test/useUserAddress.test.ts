@@ -7,17 +7,19 @@ import { useSignerAddress } from '~~/hooks';
 
 describe('useUserAddress', function () {
   it('When an signer is provider; the hook returns the correct address', async () => {
-    const harness = await hookTestWrapper((signer: Signer) => useSignerAddress(signer));
-    const [wallet, secondWallet] = harness.mockProvider.getWallets();
+    const wrapper = await hookTestWrapper((signer: Signer) => useSignerAddress(signer));
+    const [wallet, secondWallet] = wrapper.mockProvider.getWallets();
 
-    harness.rerender(wallet);
-    await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
-    expect(wallet.address).be.equal(harness.result.current);
-    expect(harness.result.current).to.be.properAddress;
+    wrapper.rerender(wallet);
+    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+    const [result1, updateResult1] = wrapper.result.current;
+    expect(wallet.address).be.equal(result1);
+    expect(result1).to.be.properAddress;
 
-    harness.rerender(secondWallet);
-    await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
-    expect(secondWallet.address).be.equal(harness.result.current);
-    expect(harness.result.current).to.be.properAddress;
+    wrapper.rerender(secondWallet);
+    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+    const [result2, updateResult2] = wrapper.result.current;
+    expect(secondWallet.address).be.equal(result2);
+    expect(result2).to.be.properAddress;
   });
 });

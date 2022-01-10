@@ -1,4 +1,4 @@
-import { Renderer, renderHook, RenderHookResult } from '@testing-library/react-hooks';
+import { renderHook, RenderHookResult } from '@testing-library/react-hooks';
 import { MockProvider } from 'ethereum-waffle';
 import { FC } from 'react';
 
@@ -8,13 +8,16 @@ import { getMockProvider } from '~~/helpers/test-utils/wrapper/getMockProvider';
 import { MockConnector } from '~~/helpers/test-utils/wrapper/MockConnector';
 import { TestAppWrapper } from '~~/helpers/test-utils/wrapper/TestAppWrapper';
 import { TCreateEthersModalConnector } from '~~/models/ethersAppContextTypes';
-
-export type TTestHookResult<PropsT, TResult> = RenderHookResult<PropsT, TResult, Renderer<PropsT>> & {
-  mockProvider: MockProvider;
-};
-
 const mockProvider = getMockProvider();
 const mockConnector = new MockConnector(mockProvider);
+
+export type TTestHookResult<TCallbackToHook extends (input: any) => any> = Omit<
+  RenderHookResult<Parameters<TCallbackToHook>, ReturnType<TCallbackToHook>>,
+  'rerender'
+> & {
+  mockProvider: MockProvider;
+  rerender: (input: Parameters<TCallbackToHook>[0]) => void;
+};
 
 /**
  * Created a test hook with a Web3Wrapper
@@ -22,22 +25,23 @@ const mockConnector = new MockConnector(mockProvider);
  * @see renderHook from @link testing-library/react-hooks
  * @returns (TTestHookResult)
  */
-export const hookTestWrapper = async <PropsT, ResultT>(
-  callbackToHook: (input: PropsT) => ResultT
-): Promise<TTestHookResult<PropsT, ResultT>> => {
+export const hookTestWrapper = async <TCallbackToHook extends (input: any) => any>(
+  callbackToHook: TCallbackToHook
+): Promise<TTestHookResult<TCallbackToHook>> => {
   const createMockConnector: TCreateEthersModalConnector = () => {
     return mockConnector;
   };
 
-  const wrapper: FC = (props) => (
+  const wrapper: FC<Parameters<TCallbackToHook>> = (props) => (
     <TestAppWrapper createMockConnector={createMockConnector}>{props.children}</TestAppWrapper>
   );
 
-  const result = renderHook(callbackToHook, { wrapper: wrapper });
+  const result = renderHook(callbackToHook, { wrapper });
   await waitForActivation(() => isActive(mockConnector));
 
   return {
     ...result,
+    rerender: result.rerender as (input: Parameters<TCallbackToHook>[0]) => void,
     mockProvider: mockProvider,
   };
 };

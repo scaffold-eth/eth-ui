@@ -5,8 +5,7 @@ import * as sinonChai from 'sinon-chai';
 import { useEthersContext } from '~~/context';
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { const_DefaultTestChainId, defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
-import { getHardhatAccount } from '~~/helpers/test-utils/wrapper';
-import { MockConnector } from '~~/helpers/test-utils/wrapper/connector';
+import { getHardhatAccount, MockConnector } from '~~/helpers/test-utils/wrapper';
 import { IEthersContext } from '~~/models';
 
 use(sinonChai);

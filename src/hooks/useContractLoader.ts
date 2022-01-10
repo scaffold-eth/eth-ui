@@ -2,9 +2,12 @@ import { BaseContract } from 'ethers';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useEthersContext } from '~~/context';
-import { ethersOverride, mergeDefaultOverride } from '~~/functions';
-import { THardhatContractsFileJson, THardhatContractJson, TOverride } from '~~/models';
+import { parseProviderOrSigner, providerKey } from '~~/functions';
+import {
+  TDeployedHardhatContractsJson as THardhatDeployedContractsJson,
+  TBasicContractData,
+  TEthersProviderOrSigner,
+} from '~~/models';
 
 /**
  * #### Summary
@@ -14,11 +17,16 @@ import { THardhatContractsFileJson, THardhatContractJson, TOverride } from '~~/m
  *
  * @category Models
  */
-export type TExternalContracts = {
+type TExternalContracts = {
   [chainId: number]: {
     name?: string;
     chainId?: string;
-    contracts?: { [contractName: string]: THardhatContractJson };
+    contracts?: {
+      [contractName: string]: {
+        address: string;
+        abi?: any[];
+      };
+    };
   };
 };
 
@@ -41,7 +49,7 @@ export type TContractLoaderConfig = {
    * Hardhat deployed contracts
    * untyped
    */
-  deployedContractsJson?: THardhatContractsFileJson;
+  deployedContractsJson?: THardhatDeployedContractsJson;
   /**
    * External contracts (such as DAI)
    */
@@ -49,10 +57,10 @@ export type TContractLoaderConfig = {
 };
 
 export const parseContractsInJson = (
-  contractList: THardhatContractsFileJson,
+  contractList: THardhatDeployedContractsJson,
   chainId: number
-): Record<string, THardhatContractJson> => {
-  let combinedContracts: Record<string, THardhatContractJson> = {};
+): Record<string, TBasicContractData> => {
+  let combinedContracts: Record<string, TBasicContractData> = {};
 
   // combine partitioned contracts based on all the available and chain id.
   if (contractList?.[chainId] != null) {
@@ -96,27 +104,28 @@ export const parseContractsInJson = (
  */
 export const useContractLoader = (
   config: TContractLoaderConfig = {},
-  override: TOverride = mergeDefaultOverride()
+  providerOrSigner: TEthersProviderOrSigner | undefined
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
-  const ethersContext = useEthersContext(override.alternateContextKey);
-  const { provider, chainId } = ethersOverride(ethersContext, override);
 
   const [contracts, setContracts] = useState<Record<string, BaseContract>>({});
+
   const configDep: string = useMemo(
-    () => `${JSON.stringify(config ?? {})}, ${JSON.stringify({ chainId: chainId })}`,
-    [chainId, config]
+    () => `${JSON.stringify(config ?? {})}, ${providerKey(providerOrSigner).provider}`,
+    [config, providerOrSigner]
   );
 
   const callFunc = useCallback(
-    (): void => {
-      if (provider && chainId && chainId > 0) {
+    async (): Promise<void> => {
+      const adaptor = await parseProviderOrSigner(providerOrSigner);
+      const chainId = adaptor?.chainId;
+      if (providerOrSigner != null && chainId && chainId > 0) {
         try {
-          const contractList: THardhatContractsFileJson = { ...(config.deployedContractsJson ?? {}) };
+          const contractList: THardhatDeployedContractsJson = { ...(config.deployedContractsJson ?? {}) };
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
-          let combinedContracts: Record<string, THardhatContractJson> = parseContractsInJson(contractList, chainId);
+          let combinedContracts: Record<string, TBasicContractData> = parseContractsInJson(contractList, chainId);
 
           // load external contracts if its the right chain
           if (externalContractList?.[chainId] != null) {
@@ -132,7 +141,7 @@ export const useContractLoader = (
 
               const abi = combinedContracts[contractName].abi;
               if (abi) {
-                accumulator[contractName] = new BaseContract(address, abi, provider);
+                accumulator[contractName] = new BaseContract(address, abi, providerOrSigner);
               }
               return accumulator;
             },
@@ -158,12 +167,12 @@ export const useContractLoader = (
     },
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [provider, configDep, provider]
+    [configDep]
   );
 
   useEffect(() => {
     void callFunc();
-  }, [callFunc, chainId]);
+  }, [callFunc]);
 
   return contracts;
 };

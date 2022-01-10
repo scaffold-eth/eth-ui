@@ -25,6 +25,7 @@ const config: HardhatUserConfig = {
     allowUncaught: false,
     require: ['ts-node/register'],
     timeout: 30000,
+    slow: 9900,
     reporter: process.env.GITHUB_ACTIONS === 'true' ? 'mocha-junit-reporter' : 'spec',
     reporterOptions: {
       mochaFile: 'testresult.xml',
@@ -35,8 +36,8 @@ const config: HardhatUserConfig = {
     cache: './test-files/__mocks__/generated/cache',
     artifacts: './test-files/__mocks__/generated/artifacts',
     deployments: './test-files/__mocks__/generated/deployments',
-    sources: './test-files/__mocks__/contracts',
-    deploy: '_./test-files/__mocks_/deploy',
+    sources: './test-files/contracts',
+    deploy: './test-files/deploy',
   },
   typechain: {
     outDir: './test-files/__mocks__/generated/contract-types',
