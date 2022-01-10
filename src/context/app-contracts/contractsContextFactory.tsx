@@ -11,9 +11,10 @@ import React, {
   useRef,
 } from 'react';
 import { useQueryClient } from 'react-query';
+import invariant from 'ts-invariant';
 
 import { connectToContractWithAdaptor, useEthersContext } from '~~/context';
-import { invalidateCache, isValidEthersAdaptor, sortContractsByChainId } from '~~/functions';
+import { invalidateCache, isValidEthersAdaptor, sortContractsByChainId, sortContractsByName } from '~~/functions';
 import { TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractContextTypes';
@@ -120,6 +121,21 @@ export const contractsContextFactory = <
     return newState;
   };
 
+  const removeInvalidContracts = (
+    state: TAppContractsContext<GContractNames>,
+    ethersAdaptor: TEthersAdaptor | undefined
+  ): TAppContractsContext<GContractNames> => {
+    if (ethersAdaptor?.chainId != null) {
+      const newState = cloneContextState(state);
+      const chainId = ethersAdaptor.chainId;
+      delete newState.contractsByChainId[chainId];
+
+      newState.contractsByName = sortContractsByName(newState.contractsByChainId);
+      return newState;
+    }
+    return state;
+  };
+
   /* *************** ******** ****************************************** */
   /* *************** Contract Action Helper Functions ****************** */
   /**
@@ -132,8 +148,11 @@ export const contractsContextFactory = <
     state: TAppContractsContext<GContractNames>,
     ethersAdaptor: TEthersAdaptor | undefined
   ): TAppContractsContext<GContractNames> => {
+    if (ethersAdaptor == null || !isValidEthersAdaptor(ethersAdaptor)) {
+      invariant.log('connectToAllContracts: Invalid ethers adaptor');
+      return removeInvalidContracts(state, ethersAdaptor);
+    }
     const newState = cloneContextState(state);
-    if (ethersAdaptor == null || !isValidEthersAdaptor(ethersAdaptor)) return newState;
 
     const { chainId, signer, provider } = ethersAdaptor;
     const providerOrSigner = signer ?? provider;
@@ -161,7 +180,10 @@ export const contractsContextFactory = <
     contractName: GContractNames,
     ethersAdaptor: TEthersAdaptor | undefined
   ): TAppContractsContext<GContractNames> => {
-    if (ethersAdaptor == null || !isValidEthersAdaptor(ethersAdaptor)) return state;
+    if (ethersAdaptor == null || !isValidEthersAdaptor(ethersAdaptor)) {
+      invariant.log('connectToAllContracts: Invalid ethers adaptor');
+      return removeInvalidContracts(state, ethersAdaptor);
+    }
 
     const newState = cloneContextState(state);
     const { chainId } = ethersAdaptor;
@@ -292,6 +314,7 @@ export const contractsContextFactory = <
   const useConnectAppContracts = (adaptor: TEthersAdaptor | undefined): void => {
     const actions = useAppContractsActions();
     const queryClient = useQueryClient();
+    const validAdaptorState = isValidEthersAdaptor(adaptor);
 
     const connect = useCallback(() => {
       if (adaptor?.chainId != null && actions != null) {
@@ -299,7 +322,7 @@ export const contractsContextFactory = <
         actions.dispatch({ type: 'CONNECT_TO_CONTRACTS_WITH_ADAPTOR', payload: { ethersAdaptor: adaptor } });
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [adaptor?.provider, adaptor?.signer, adaptor?.chainId]);
+    }, [adaptor?.provider, adaptor?.signer, adaptor?.chainId, adaptor?.account, validAdaptorState]);
 
     useEffect(() => {
       void connect();

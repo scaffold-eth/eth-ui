@@ -34,12 +34,15 @@ export type TTypedContract<
   ? TypedContract
   : BaseContract;
 
-export type TContractsByName<GContractNames extends string> = {
-  [contractName in GContractNames]: { [chainId: number]: BaseContract | undefined };
-};
-export type TContractsByChainId<GContractNames extends string> = {
-  [chainId: number]: { [contractName in GContractNames]: BaseContract | undefined };
-};
+export type TContractsByName<GContractNames extends string> = Record<
+  GContractNames,
+  { [chainId: number]: BaseContract | undefined }
+>;
+
+export type TContractsByChainId<GContractNames extends string> = Record<
+  number,
+  { [contractName in GContractNames]: BaseContract | undefined }
+>;
 
 /**
  *

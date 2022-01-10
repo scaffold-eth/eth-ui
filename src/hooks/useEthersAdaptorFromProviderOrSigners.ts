@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
 import {
   isAdaptorEqual,
+  isValidEthersAdaptor,
   mergeDefaultUpdateOptions,
   parseProviderOrSigner,
   providerKey,
@@ -41,6 +43,26 @@ export const useEthersAdaptorFromProviderOrSigners = (
       ...options.query,
     }
   );
+
+  const validAdaptorState = isValidEthersAdaptor(data);
+
+  // if the adaptor is not valid, refetch when the network is obtained
+  useEffect(() => {
+    if (data != null && !validAdaptorState) {
+      console.log('not valid');
+      if (data.provider) {
+        void data.provider
+          .getNetwork()
+          .then(() => refetch())
+          .catch();
+      } else if (data.signer && data.account) {
+        void data.signer.provider
+          ?.getNetwork()
+          .then(() => refetch())
+          .catch();
+      }
+    }
+  }, [data, refetch, validAdaptorState]);
 
   return [data, refetch];
 };

@@ -36,9 +36,9 @@ import { IEthersContext } from '~~/models/ethersAppContextTypes';
  */
 export const useEthersContext = (contextKey?: string): IEthersContext => {
   if (contextKey === 'primary') console.warn('Do not explicitly use primary contextKey, pass in undefined instead');
-
   const { connector, activate, library, account, deactivate, chainId, ...context } =
     useWeb3React<TEthersProvider>(contextKey);
+
   if (!(connector instanceof EthersModalConnector || connector instanceof AbstractConnector) && connector != null) {
     throw 'Connector is not a EthersModalConnector';
   }
