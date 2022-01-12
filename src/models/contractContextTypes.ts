@@ -19,7 +19,6 @@ export type TContractConnector<
   config: {
     [chainId: number]: { address: string };
   };
-  chainId: number;
 } & TConnectorConnectorBase<GContract, GContractInterface>;
 
 export type TConnectorList<GContactNames extends string> = {
@@ -35,12 +34,15 @@ export type TTypedContract<
   ? TypedContract
   : BaseContract;
 
-export type TContractsByName<GContractNames extends string> = {
-  [contractName in GContractNames]: { [chainId: number]: BaseContract | undefined };
-};
-export type TContractsByChainId<GContractNames extends string> = {
-  [chainId: number]: { [contractName in GContractNames]: BaseContract | undefined };
-};
+export type TContractsByName<GContractNames extends string> = Record<
+  GContractNames,
+  { [chainId: number]: BaseContract | undefined }
+>;
+
+export type TContractsByChainId<GContractNames extends string> = Record<
+  number,
+  { [contractName in GContractNames]: BaseContract | undefined }
+>;
 
 /**
  *

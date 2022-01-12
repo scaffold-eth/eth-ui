@@ -14,7 +14,7 @@ import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = {
   namespace: keyNamespace.signer,
-  key: 'useGetEthersAdaptorFromProviderOrSigners',
+  key: 'useNonce',
 } as const;
 
 /**
@@ -31,7 +31,7 @@ const queryKey: TRequiredKeys = {
  * @returns
  */
 export const useNonce = (
-  address: string,
+  address: string | undefined,
   override: TOverride = mergeDefaultOverride(),
   options: TUpdateOptions = mergeDefaultUpdateOptions()
 ): [nonce: number, update: () => void] => {
@@ -43,8 +43,11 @@ export const useNonce = (
     keys,
     async (keys) => {
       const { address } = keys.queryKey[1];
-      const nextNonce = await provider?.getTransactionCount(address);
-      return nextNonce ?? 0;
+      if (address) {
+        const nextNonce = await provider?.getTransactionCount(address);
+        return nextNonce ?? 0;
+      }
+      return undefined;
     },
     {
       ...options.query,

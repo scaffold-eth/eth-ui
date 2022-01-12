@@ -143,11 +143,17 @@ export const useContractReaderUntyped = <GOutput>(
     if (callContractFunction != null && contractChainId === chainId && contractProvider != null && chainId != null) {
       try {
         let newResult: GOutput | undefined = await callContractFunction();
-        if (formatter != null) {
-          newResult = formatter(newResult);
-        } else if (Array.isArray(newResult) && newResult.length === 1 && typeof newResult[0] === 'string') {
+        if (
+          Array.isArray(newResult) &&
+          newResult.length === 1 &&
+          (typeof newResult[0] === 'string' || typeof newResult[0] === 'number')
+        ) {
           // @ts-ignore
           newResult = newResult[0];
+        }
+
+        if (formatter != null) {
+          newResult = formatter(newResult);
         }
 
         if (isMounted()) {

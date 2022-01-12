@@ -2,9 +2,21 @@
  * #### Summary
  * Describes the sctructure of each contract in hardhat_contracts.json
  */
-export type THardhatContractJson = {
+export type TBasicContractData = {
   address: string;
   abi?: any[];
+};
+
+/**
+ * #### Summary
+ * Contracts by contract name
+ * - A record of contract names and their hardhat contract json
+ * - includes chain id
+ */
+export type TBasicContractDataRecord = {
+  [contractName: string]: TBasicContractData & {
+    chainId: number;
+  };
 };
 
 /**
@@ -15,25 +27,18 @@ export type THardhatContractJson = {
  *
  * @category Models
  */
-export type THardhatContractsFileJson = {
+export type TDeployedHardhatContractsJson = {
   [chainId: string]: {
     [networkName: string]: {
       name: string;
       chainId: string;
-      contracts: { [contractName: string]: THardhatContractJson };
+      contracts: {
+        [contractName: string]: {
+          address: string;
+          abi?: any[];
+        };
+      };
     };
-  };
-};
-
-/**
- * #### Summary
- * Contracts by contract name
- * - A record of contract names and their hardhat contract json
- * - includes chain id
- */
-export type TDeployedContractJsonData = {
-  [contractName: string]: THardhatContractJson & {
-    chainId: number;
   };
 };
 

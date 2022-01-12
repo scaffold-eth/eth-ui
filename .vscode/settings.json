@@ -24,10 +24,7 @@
     "**/build/**/*": true,
     "**/debug/": true,
     "**/dist/": true,
-    "**/node_modules/": true,
     "**/obj": true,
-    "node_modules": true,
-    "node_modules/*/**": true,
     "lib": true
   },
   "explorerExclude.backup": null,

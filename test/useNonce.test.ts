@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
-import { fromEther } from '~~/helpers/test-utils/functions';
+import { expectValidWallets, fromEther } from '~~/helpers/test-utils/functions';
 import { useNonce } from '~~/hooks';
 
 describe('useNonce', function () {
@@ -11,16 +11,19 @@ describe('useNonce', function () {
     const [wallet, secondWallet] = harness.mockProvider.getWallets();
     harness.rerender(wallet.address);
 
-    const oldNonce = harness.result.current;
+    await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+    const [oldNonce] = harness.result.current;
     expect(oldNonce).be.greaterThanOrEqual(0);
 
+    expectValidWallets(wallet, secondWallet);
     await wallet.sendTransaction({
       to: secondWallet.address,
+      from: wallet.address,
       value: fromEther(0.1),
     });
 
-    await harness.waitForNextUpdate(defaultBlockWaitOptions);
-    const newNonce = harness.result.current;
+    await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+    const [newNonce] = harness.result.current;
     expect(newNonce).be.equal(oldNonce + 1);
   });
 });

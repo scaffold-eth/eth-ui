@@ -1,6 +1,7 @@
 import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { ethers, Signer } from 'ethers';
 
+import { isValidEthersAdaptor } from '~~/functions';
 import { TEthersProviderOrSigner, TEthersProvider } from '~~/models';
 import { TEthersAdaptor } from '~~/models/ethersAppContextTypes';
 
@@ -23,10 +24,9 @@ export const parseProviderOrSigner = async (
   let account: string | undefined;
 
   if (
-    providerOrSigner &&
-    (providerOrSigner instanceof JsonRpcProvider ||
-      providerOrSigner instanceof Web3Provider ||
-      providerOrSigner instanceof StaticJsonRpcProvider)
+    providerOrSigner instanceof JsonRpcProvider ||
+    providerOrSigner instanceof Web3Provider ||
+    providerOrSigner instanceof StaticJsonRpcProvider
   ) {
     provider = providerOrSigner;
     providerNetwork = await providerOrSigner.getNetwork();
@@ -52,5 +52,8 @@ export const parseProviderOrSigner = async (
     chainId: providerNetwork?.chainId,
     account,
   } as const;
-  return result;
+
+  if (isValidEthersAdaptor(result)) return result;
+
+  return undefined;
 };
