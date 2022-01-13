@@ -1,7 +1,10 @@
 import { constants } from 'ethers';
-import { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
-import { TEthersProvider } from '~~/models';
+import { providerKey, TRequiredKeys } from '~~/functions';
+import { keyNamespace, TEthersProvider } from '~~/models';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useResolveEnsAddress' } as const;
 
 /**
  * #### Summary
@@ -13,14 +16,19 @@ import { TEthersProvider } from '~~/models';
  * @param ensName
  * @returns
  */
-export const useResolveEnsAddress = (mainnetProvider: TEthersProvider, ensName: string): string => {
-  const [address, setAddress] = useState<string>(constants.AddressZero);
-
-  useEffect(() => {
-    if (mainnetProvider) {
-      void mainnetProvider.resolveName(ensName).then((resolvedAddress: string) => setAddress(resolvedAddress));
+export const useResolveEnsAddress = (
+  mainnetProvider: TEthersProvider | undefined,
+  ensName: string | undefined
+): [address: string | undefined, update: () => void] => {
+  const keys = [{ ...queryKey, ...providerKey(mainnetProvider) }, { ensName }] as const;
+  const { data, refetch } = useQuery(keys, async (keys): Promise<string | undefined> => {
+    const { ensName } = keys.queryKey[1];
+    if (mainnetProvider && ensName) {
+      const resolved = await mainnetProvider.resolveName(ensName);
+      return resolved ?? constants.AddressZero;
     }
-  }, [mainnetProvider, ensName]);
+    return constants.AddressZero;
+  });
 
-  return address;
+  return [data, refetch];
 };

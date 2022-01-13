@@ -1,28 +1,31 @@
 import { expect } from 'chai';
 
-import { hookTestHarness } from '~~/helpers/test-utils';
+import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants/testConstants';
+import { expectValidWallets } from '~~/helpers/test-utils/functions';
 import { fromEther } from '~~/helpers/test-utils/functions/conversions';
 import { useBalance } from '~~/hooks';
 
 describe('useBalance', function () {
   it('When the hook is called; then it returns the initial balance', async () => {
-    const harness = await hookTestHarness((address: string | undefined) => useBalance(address));
+    const harness = await hookTestWrapper((address: string | undefined) => useBalance(address ?? ''));
     const [wallet, secondWallet] = harness.mockProvider.getWallets();
     harness.rerender(wallet.address);
 
-    expect(wallet.address).to.be.properAddress;
-    expect(secondWallet.address).to.be.properAddress;
+    expectValidWallets(wallet, secondWallet);
 
     await harness.waitForNextUpdate(defaultBlockWaitOptions);
     const balance = await wallet.getBalance();
-    expect(harness.result.current).be.equal(balance);
+    const [result, updateResult] = harness.result.current;
+    expect(result).be.equal(balance);
   });
 
   it('When wallet balances changes; then the hook returns the new balance', async () => {
-    const harness = await hookTestHarness((address: string | undefined) => useBalance(address));
+    const harness = await hookTestWrapper((address: string | undefined) => useBalance(address));
     const [wallet, secondWallet] = harness.mockProvider.getWallets();
     harness.rerender(wallet.address);
+
+    expectValidWallets(wallet, secondWallet);
 
     const oldBalance = await wallet.getBalance();
     const valueToSend = fromEther(1);
@@ -37,7 +40,8 @@ describe('useBalance', function () {
 
     await harness.waitForNextUpdate(defaultBlockWaitOptions);
     const newBalance = await wallet.getBalance();
-    expect(harness.result.current).to.equal(newBalance);
-    expect(harness.result.current).not.to.equal(oldBalance);
+    const [result, updateResult] = harness.result.current;
+    expect(result).to.equal(newBalance);
+    expect(result).not.to.equal(oldBalance);
   });
 });

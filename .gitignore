@@ -9,3 +9,4 @@ cache
 test/testresult.xml
 testresult.xml
 .yarn/install-state.gz
+test-files/__mocks__/generated

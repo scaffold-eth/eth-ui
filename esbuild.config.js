@@ -1,6 +1,13 @@
-const esbuild = require('esbuild');
+import esbuild from 'esbuild';
 // Automatically exclude all node_modules from the bundled version
-const { nodeExternalsPlugin } = require('esbuild-node-externals');
+import { nodeExternalsPlugin } from 'esbuild-node-externals';
+import path from 'path';
+
+function tsPathResolver(content) {
+  const relativePath = path.relative(path.dirname(this.resourcePath), path.resolve(__dirname, '../src'));
+
+  return content.replaceAll(`from "~~/`, `from "${relativePath ? relativePath + '/' : './'}`);
+}
 
 esbuild
   .build({
@@ -21,7 +28,7 @@ esbuild
     minifyIdentifiers: false,
     platform: 'browser',
     sourcemap: true,
-    target: ['node14', 'esnext'],
+    target: ['node16', 'esnext'],
     splitting: true,
     format: 'esm',
     inject: ['esbuild.shim.js'],
