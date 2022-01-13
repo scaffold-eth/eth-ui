@@ -19,21 +19,8 @@ yarn add eth-hooks
 [@austinGriffith](https://github.com/austintgriffith)
 [@shravansunder](https://github.com/ShravanSunder)
 
-## Dependencies
-
-- peer dependencies
-  - react/react-dom
-  - web3
-    - @uniswap/sdk
-- dependencies
-  - ethers
-  - web3-react
-  - web3modal
-- test utilities dependencies: `/helpers/test-utils`
-  - hardhat/hardhat-waffle/hardhat-ethers
-  - waffle
-
 # API Docs
 
-- [Docs @gitbook](https://docs.scaffoldeth.io/scaffold-eth-libraries/v/eth-hooks-v3/)
-- [Docs @github.io](https://scaffold-eth.github.io/eth-hooks/)
+[Check out the documentation!](https://scaffold-eth.github.io/eth-hooks/)
+
+The docs are also available on gitbook: [Documentation@gitbook](https://docs.scaffoldeth.io/scaffold-eth-libraries/v/eth-hooks-v3/)
