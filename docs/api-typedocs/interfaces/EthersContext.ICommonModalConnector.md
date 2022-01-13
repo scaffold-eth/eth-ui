@@ -1,4 +1,4 @@
-[eth-hooks - v3.4.0](../README.md) / [EthersContext](../modules/EthersContext.md) / ICommonModalConnector
+[eth-hooks - v4.0.8](../README.md) / [EthersContext](../modules/EthersContext.md) / ICommonModalConnector
 
 # Interface: ICommonModalConnector
 
@@ -10,6 +10,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersContext.Ethe
 ## Implemented by
 
 - [`EthersModalConnector`](../classes/EthersContext.EthersModalConnector.md)
+- [`MockConnector`](../classes/TestUtils.MockConnector.md)
 
 ## Table of contents
 
@@ -19,6 +20,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersContext.Ethe
 - [setModalTheme](EthersContext.ICommonModalConnector.md#setmodaltheme)
 - [resetModal](EthersContext.ICommonModalConnector.md#resetmodal)
 - [changeSigner](EthersContext.ICommonModalConnector.md#changesigner)
+- [hasCachedProvider](EthersContext.ICommonModalConnector.md#hascachedprovider)
 
 ## Methods
 
@@ -32,7 +34,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersContext.Ethe
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/connectors/EthersModalConnector.ts#L39)
+[src/context/ethers/connectors/EthersModalConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/context/ethers/connectors/EthersModalConnector.ts#L38)
 
 ___
 
@@ -44,7 +46,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `theme` | `ThemeColors` \| `TWeb3ModalTheme` |
+| `theme` | `TWeb3ModalTheme` \| `ThemeColors` |
 
 #### Returns
 
@@ -52,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/connectors/EthersModalConnector.ts#L40)
+[src/context/ethers/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/context/ethers/connectors/EthersModalConnector.ts#L39)
 
 ___
 
@@ -66,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/connectors/EthersModalConnector.ts#L41)
+[src/context/ethers/connectors/EthersModalConnector.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/context/ethers/connectors/EthersModalConnector.ts#L40)
 
 ___
 
@@ -86,4 +88,18 @@ ___
 
 #### Defined in
 
-[src/context/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/connectors/EthersModalConnector.ts#L42)
+[src/context/ethers/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/context/ethers/connectors/EthersModalConnector.ts#L41)
+
+___
+
+### hasCachedProvider
+
+▸ **hasCachedProvider**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/context/ethers/connectors/EthersModalConnector.ts#L42)

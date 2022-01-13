@@ -1,8 +1,8 @@
-[eth-hooks - v3.4.0](../README.md) / [EthersContext](../modules/EthersContext.md) / IEthersContext
+[eth-hooks - v4.0.8](../README.md) / [Models](../modules/Models.md) / IEthersContext
 
 # Interface: IEthersContext
 
-[EthersContext](../modules/EthersContext.md).IEthersContext
+[Models](../modules/Models.md).IEthersContext
 
 #### Summary
 The return type of [EthersModalConnector](../classes/EthersContext.EthersModalConnector.md)
@@ -21,24 +21,24 @@ The return type of [EthersModalConnector](../classes/EthersContext.EthersModalCo
 
 ### Methods
 
-- [activate](EthersContext.IEthersContext.md#activate)
-- [setError](EthersContext.IEthersContext.md#seterror)
-- [deactivate](EthersContext.IEthersContext.md#deactivate)
-- [openModal](EthersContext.IEthersContext.md#openmodal)
-- [disconnectModal](EthersContext.IEthersContext.md#disconnectmodal)
+- [activate](Models.IEthersContext.md#activate)
+- [setError](Models.IEthersContext.md#seterror)
+- [deactivate](Models.IEthersContext.md#deactivate)
+- [openModal](Models.IEthersContext.md#openmodal)
+- [disconnectModal](Models.IEthersContext.md#disconnectmodal)
 
 ### Properties
 
-- [library](EthersContext.IEthersContext.md#library)
-- [error](EthersContext.IEthersContext.md#error)
-- [connector](EthersContext.IEthersContext.md#connector)
-- [ethersProvider](EthersContext.IEthersContext.md#ethersprovider)
-- [active](EthersContext.IEthersContext.md#active)
-- [signer](EthersContext.IEthersContext.md#signer)
-- [account](EthersContext.IEthersContext.md#account)
-- [chainId](EthersContext.IEthersContext.md#chainid)
-- [changeSigner](EthersContext.IEthersContext.md#changesigner)
-- [setModalTheme](EthersContext.IEthersContext.md#setmodaltheme)
+- [library](Models.IEthersContext.md#library)
+- [error](Models.IEthersContext.md#error)
+- [connector](Models.IEthersContext.md#connector)
+- [provider](Models.IEthersContext.md#provider)
+- [active](Models.IEthersContext.md#active)
+- [signer](Models.IEthersContext.md#signer)
+- [account](Models.IEthersContext.md#account)
+- [chainId](Models.IEthersContext.md#chainid)
+- [changeSigner](Models.IEthersContext.md#changesigner)
+- [setModalTheme](Models.IEthersContext.md#setmodaltheme)
 
 ## Methods
 
@@ -126,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:43](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L43)
+[src/models/ethersAppContextTypes.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L37)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:44](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L44)
+[src/models/ethersAppContextTypes.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L38)
 
 ## Properties
 
@@ -182,17 +182,17 @@ Web3ReactContextInterface.connector
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:36](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L36)
+[src/models/ethersAppContextTypes.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L30)
 
 ___
 
-### ethersProvider
+### provider
 
-• **ethersProvider**: `undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)
+• **provider**: `undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L37)
+[src/models/ethersAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L31)
 
 ___
 
@@ -206,17 +206,17 @@ Web3ReactContextInterface.active
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:38](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L38)
+[src/models/ethersAppContextTypes.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L32)
 
 ___
 
 ### signer
 
-• **signer**: `undefined` \| `Signer`
+• **signer**: `undefined` \| [`TEthersSigner`](../modules/Models.md#tetherssigner)
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:39](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L39)
+[src/models/ethersAppContextTypes.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L33)
 
 ___
 
@@ -230,7 +230,7 @@ Web3ReactContextInterface.account
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:40](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L40)
+[src/models/ethersAppContextTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L34)
 
 ___
 
@@ -244,7 +244,7 @@ Web3ReactContextInterface.chainId
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:41](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L41)
+[src/models/ethersAppContextTypes.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L35)
 
 ___
 
@@ -254,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:42](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L42)
+[src/models/ethersAppContextTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L36)
 
 ___
 
@@ -264,4 +264,4 @@ ___
 
 #### Defined in
 
-[src/context/EthersAppContext.tsx:45](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/context/EthersAppContext.tsx#L45)
+[src/models/ethersAppContextTypes.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/models/ethersAppContextTypes.ts#L39)

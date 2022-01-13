@@ -1,4 +1,4 @@
-[eth-hooks - v3.4.0](../README.md) / TestUtils
+[eth-hooks - v4.0.8](../README.md) / TestUtils
 
 # Module: TestUtils
 
@@ -11,18 +11,26 @@ Utilities to write tests with ethers, waffle and react hooks
 - [const\_basicGasPrice](TestUtils.md#const_basicgasprice)
 - [const\_DefaultTestChainId](TestUtils.md#const_defaulttestchainid)
 - [defaultBlockWaitOptions](TestUtils.md#defaultblockwaitoptions)
+- [TestAppWrapper](TestUtils.md#testappwrapper)
 
 ### Functions
 
 - [mineBlock](TestUtils.md#mineblock)
 - [fromGwei](TestUtils.md#fromgwei)
 - [fromEther](TestUtils.md#fromether)
+- [expectValidWallets](TestUtils.md#expectvalidwallets)
 - [getMockProvider](TestUtils.md#getmockprovider)
-- [hookTestHarness](TestUtils.md#hooktestharness)
+- [wrapperTestSetupHelper](TestUtils.md#wrappertestsetuphelper)
+- [currentTestBlockNumber](TestUtils.md#currenttestblocknumber)
+- [hookTestWrapper](TestUtils.md#hooktestwrapper)
 - [isActive](TestUtils.md#isactive)
 - [waitForActivation](TestUtils.md#waitforactivation)
 - [getHardhatAccount](TestUtils.md#gethardhataccount)
 - [getHardhatSigner](TestUtils.md#gethardhatsigner)
+
+### Classes
+
+- [MockConnector](../classes/TestUtils.MockConnector.md)
 
 ### Type aliases
 
@@ -36,7 +44,7 @@ Utilities to write tests with ethers, waffle and react hooks
 
 #### Defined in
 
-[src/helpers/test-utils/constants/testConstants.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/constants/testConstants.ts#L3)
+[src/helpers/test-utils/constants/testConstants.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/constants/testConstants.ts#L3)
 
 ___
 
@@ -46,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/constants/testConstants.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/constants/testConstants.ts#L5)
+[src/helpers/test-utils/constants/testConstants.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/constants/testConstants.ts#L5)
 
 ___
 
@@ -56,7 +64,23 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/constants/testConstants.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/constants/testConstants.ts#L7)
+[src/helpers/test-utils/constants/testConstants.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/constants/testConstants.ts#L7)
+
+___
+
+### TestAppWrapper
+
+• **TestAppWrapper**: `FC`<`IMockProps`\>
+
+This is a wrapper for tests
+
+**`param`**
+
+**`returns`**
+
+#### Defined in
+
+[src/helpers/test-utils/wrapper/TestAppWrapper.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/TestAppWrapper.tsx#L37)
 
 ## Functions
 
@@ -76,7 +100,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/eth/hardhatActions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/eth/hardhatActions.ts#L3)
+[src/helpers/test-utils/eth/hardhatActions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/eth/hardhatActions.ts#L3)
 
 ___
 
@@ -96,7 +120,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/functions/conversions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/functions/conversions.ts#L3)
+[src/helpers/test-utils/functions/conversions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/functions/conversions.ts#L3)
 
 ___
 
@@ -116,7 +140,27 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/functions/conversions.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/functions/conversions.ts#L7)
+[src/helpers/test-utils/functions/conversions.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/functions/conversions.ts#L7)
+
+___
+
+### expectValidWallets
+
+▸ `Const` **expectValidWallets**(...`wallets`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `...wallets` | `Wallet`[] |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/helpers/test-utils/functions/expect.ts:4](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/functions/expect.ts#L4)
 
 ___
 
@@ -130,13 +174,41 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/getMockProvider.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/getMockProvider.ts#L6)
+[src/helpers/test-utils/wrapper/getMockProvider.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/getMockProvider.ts#L6)
 
 ___
 
-### hookTestHarness
+### wrapperTestSetupHelper
 
-▸ `Const` **hookTestHarness**<`PropsT`, `ResultT`\>(`callbackToHook`): `Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<`PropsT`, `ResultT`\>\>
+▸ `Const` **wrapperTestSetupHelper**(): `Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<() => `number`\>\>
+
+#### Returns
+
+`Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<() => `number`\>\>
+
+#### Defined in
+
+[src/helpers/test-utils/wrapper/hardhatTestHelpers.ts:4](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/hardhatTestHelpers.ts#L4)
+
+___
+
+### currentTestBlockNumber
+
+▸ `Const` **currentTestBlockNumber**(): `Promise`<`number`\>
+
+#### Returns
+
+`Promise`<`number`\>
+
+#### Defined in
+
+[src/helpers/test-utils/wrapper/hardhatTestHelpers.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/hardhatTestHelpers.ts#L12)
+
+___
+
+### hookTestWrapper
+
+▸ `Const` **hookTestWrapper**<`TCallbackToHook`\>(`callbackToHook`): `Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<`TCallbackToHook`\>\>
 
 Created a test hook with a Web3Wrapper
 
@@ -144,26 +216,25 @@ Created a test hook with a Web3Wrapper
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `PropsT` |
-| `ResultT` |
+| Name | Type |
+| :------ | :------ |
+| `TCallbackToHook` | extends (`input`: `any`) => `any` |
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `callbackToHook` | (`input`: `PropsT`) => `ResultT` | callback to init hook |
+| `callbackToHook` | `TCallbackToHook` | callback to init hook |
 
 #### Returns
 
-`Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<`PropsT`, `ResultT`\>\>
+`Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<`TCallbackToHook`\>\>
 
 (TTestHookResult)
 
 #### Defined in
 
-[src/helpers/test-utils/harness/hookTestHarness.tsx:24](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/hookTestHarness.tsx#L24)
+[src/helpers/test-utils/wrapper/testWrapper.tsx:28](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/testWrapper.tsx#L28)
 
 ___
 
@@ -175,7 +246,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `connector` | `MockConnector` |
+| `connector` | [`MockConnector`](../classes/TestUtils.MockConnector.md) |
 
 #### Returns
 
@@ -183,7 +254,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/mockHelpers.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/mockHelpers.ts#L6)
+[src/helpers/test-utils/wrapper/wrapperHelpers.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L6)
 
 ___
 
@@ -203,7 +274,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/mockHelpers.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/mockHelpers.ts#L15)
+[src/helpers/test-utils/wrapper/wrapperHelpers.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L15)
 
 ___
 
@@ -224,7 +295,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/mockHelpers.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/mockHelpers.ts#L26)
+[src/helpers/test-utils/wrapper/wrapperHelpers.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L26)
 
 ___
 
@@ -245,21 +316,20 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/harness/mockHelpers.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/mockHelpers.ts#L36)
+[src/helpers/test-utils/wrapper/wrapperHelpers.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L36)
 
 ## Type aliases
 
 ### TTestHookResult
 
-Ƭ **TTestHookResult**<`PropsT`, `TResult`\>: `RenderHookResult`<`PropsT`, `TResult`, `Renderer`<`PropsT`\>\> & { `mockProvider`: `MockProvider`  }
+Ƭ **TTestHookResult**<`TCallbackToHook`\>: `Omit`<`RenderHookResult`<`Parameters`<`TCallbackToHook`\>, `ReturnType`<`TCallbackToHook`\>\>, ``"rerender"``\> & { `mockProvider`: `MockProvider` ; `rerender`: (`input`: `Parameters`<`TCallbackToHook`\>[``0``]) => `void`  }
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `PropsT` |
-| `TResult` |
+| Name | Type |
+| :------ | :------ |
+| `TCallbackToHook` | extends (`input`: `any`) => `any` |
 
 #### Defined in
 
-[src/helpers/test-utils/harness/hookTestHarness.tsx:12](https://github.com/scaffold-eth/eth-hooks/blob/cec59cb/src/helpers/test-utils/harness/hookTestHarness.tsx#L12)
+[src/helpers/test-utils/wrapper/testWrapper.tsx:14](https://github.com/scaffold-eth/eth-hooks/blob/bddaee9/src/helpers/test-utils/wrapper/testWrapper.tsx#L14)
