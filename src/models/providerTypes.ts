@@ -14,7 +14,7 @@ import { Result } from 'ethers/lib/utils';
  * #### Notes
  * Used by eth-hooks, eth-components and scaffold-eth-typescript
  *
- * @category Type Definition
+ * @category Models
  */
 export type TEthersProvider = JsonRpcProvider | Web3Provider | StaticJsonRpcProvider;
 
@@ -22,7 +22,7 @@ export type TEthersProvider = JsonRpcProvider | Web3Provider | StaticJsonRpcProv
  * #### Summary
  * A union of various providers and signers in ethers to give maximum flexibility
  *
- * @category Type Definition
+ * @category Models
  */
 export type TEthersProviderOrSigner =
   | JsonRpcProvider
@@ -37,7 +37,7 @@ export type TEthersProviderOrSigner =
  * #### Summary
  * A union of various providers in ethers to give maximum flexibility
  *
- * @category Type Definition
+ * @category Models
  */
 export type TEthersSigner = Signer | JsonRpcSigner | Wallet | VoidSigner;
 
@@ -45,21 +45,27 @@ export type TEthersSigner = Signer | JsonRpcSigner | Wallet | VoidSigner;
  * #### Summary
  * A union of abstract, non initalizable providers, used by some functions
  *
- * @category Type Definition
+ * @category Models
  */
 export type TAbstractProvider = Provider;
 
+/**
+ * #### Summary
+ * An generic extension of EventFilter that is used by TypedEvent.  It allows for typed events to be returned
+ *
+ * @category Models
+ */
 export type TypedEventFilter<
   _EventArgsArray extends Array<any>,
   _EventArgsObject extends Record<string, any>
 > = EventFilter;
 
+/**
+ * #### Summary
+ * An generic extension of Event.  It types the the arguments and return values of the contract event to be used in typescript.
+ *
+ * @category Models
+ */
 export type TypedEvent<EventArgs extends Result> = Event & {
   args: EventArgs;
 };
-
-export type TQueryFilter = <EventArgsArray extends Array<any>, EventArgsObject>(
-  event: TypedEventFilter<EventArgsArray, EventArgsObject>,
-  fromBlockOrBlockhash?: string | number | undefined,
-  toBlock?: string | number | undefined
-) => Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;

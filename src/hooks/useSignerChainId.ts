@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useBlockNumberContext } from '~~/context';
 import { mergeDefaultUpdateOptions, providerKey, TRequiredKeys } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { const_blockNumberInterval100, TEthersSigner, TUpdateOptions } from '~~/models';
+import { const_blockNumberIntervalMedium, TEthersSigner, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useSignerChainId' } as const;
@@ -19,7 +19,7 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useSigne
  */
 export const useSignerChainId = (
   signer: TEthersSigner | undefined,
-  options: TUpdateOptions = mergeDefaultUpdateOptions({ ...const_blockNumberInterval100 })
+  options: TUpdateOptions = mergeDefaultUpdateOptions({ ...const_blockNumberIntervalMedium })
 ): [address: number | undefined, update: () => void] => {
   const keys = [{ ...queryKey, ...providerKey(signer) }] as const;
   const { data, refetch } = useQuery(
