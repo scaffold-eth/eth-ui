@@ -15,7 +15,7 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useDexTo
  * #### Summary
  * Gets a tokenlist from uniswap ipfs tokenlist
  *
- * #### Note
+ * ##### ✏️ Notes
  * - you can also point it to another URI
  *
  * @category Hooks

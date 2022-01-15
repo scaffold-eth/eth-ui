@@ -12,7 +12,7 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useEv
  * #### Summary
  * Tracks the events of associated with a contract
  *
- * ##### Notes
+ * ##### ✏️ Notes
  * - updates triggered through ethers event listener
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *

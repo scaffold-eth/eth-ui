@@ -25,7 +25,7 @@ export const const_blockNumberIntervalLong: DeepPartial<TUpdateOptions> = { bloc
  * Options for hooks that describe the behviour of updates.
  * By default, depending on the hook, it will update every block.
  *
- * ##### Notes
+ * ##### ✏️ Notes
  * The following options are available:
  * - interval: interval in blocknumber to update in (default 1) see {@link TUpdateOptions.blockNumberInterval}
  * - polling: in ms, should be over 10000ms.  This is set by {@link TUpdateOptions.query.refetchInterval}
@@ -65,7 +65,7 @@ export type TUpdateOptions = {
  * - pass in an {@link TEthersAdaptor} to override the provider
  * - give the alternateContextKey for a secondary context provider.
  *
- * ##### Notes
+ * ##### ✏️ Notes
  * Adaptor
  * - To create a adaptor from a provider/signer see {@link useGetEthersAdaptorFromSignerOrProvider}
  * - You need to set adaptorEnabled to true

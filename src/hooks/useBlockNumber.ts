@@ -7,7 +7,7 @@ import { TEthersProvider } from '~~/models';
  * #### Summary
  * Get the current block number of the network. ✋🏽 @deprecated
  *
- * ##### Notes
+ * ##### ✏️ Notes
  * - ✋🏽 For app wide block number access use {@link useBlockNumberContext} instead.  See {@link BlockNumberContext} for more details, you get this as part of {@link EthersAppContext}
  * - uses the current provided block number
  *

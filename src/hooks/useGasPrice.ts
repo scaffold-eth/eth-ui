@@ -34,7 +34,7 @@ export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
  * - uses ethers.estimateGas other networks
  * - can use currentNetworkInfo {@link TNetworkInfo.gasPrice} gasPrice as fallback
  *
- * ##### Notes
+ * ##### ✏️ Notes
  * - if the gas price is unknown it returns undefined
  * - updates triggered by {@link BlockNumberContext}
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}

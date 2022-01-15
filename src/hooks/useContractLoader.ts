@@ -84,7 +84,7 @@ export const parseContractsInJson = (
  * Loads your contracts and returns them. ✋🏽 @deprecated
  * Gives options to read values from contracts or write transactions into them.
  *
- * ##### Notes
+ * ##### ✏️ Notes
  * - ✋🏽 For easy app wide contract access use {@link AppContractContex} created by {@link contractsContextFactory}.  See {@link contractsContextFactory} for more details.
  *
  * A optional providerOrSigner is needed to initalize the contract class

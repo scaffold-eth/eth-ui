@@ -14,7 +14,7 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useDexEt
  * #### Summary
  * Get the Exchange price of ETH/USD (extrapolated from WETH/DAI) from uniswap
  *
- * ##### Notes
+ * ##### ✏️ Notes
  * - uses useOnRepetition, does not use context
  *
  * @category Hooks

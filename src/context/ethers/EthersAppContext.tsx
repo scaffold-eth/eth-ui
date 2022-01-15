@@ -19,14 +19,14 @@ import { IEthersContext } from '~~/models/ethersAppContextTypes';
  * This Hook provides you with access to the current Ethers Provider Context.
  * This provider would be the one selected by using {@link EthersModalConnector} and Web3Modal
  *
- * ##### Features
+ * ##### ✨ Features
  * Gives you access to consistent interface to get the current provider information {@link EthersModalConnector}
  * - ethers compatable provider {@link TEthersProvider}
  * - a callback to change the current account (signer)
  * - the current account, chainId and signer
  * - callbacks to open the web3Modal, logout or change theme
  *
- * ##### Notes
+ * ##### ✏️ Notes
  * - currently providerKey isnt being used
  *
  * @category EthersContext
