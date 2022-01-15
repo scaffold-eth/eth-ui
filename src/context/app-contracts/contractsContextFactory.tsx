@@ -32,6 +32,7 @@ export type TContractsContextProps = {
 
 /* *************** **************** ******************** */
 /* *************** Actions & Dispatch ****************** */
+/* *************** **************** ******************** */
 
 type TActionConnectToContract<GContractNames extends string> = {
   type: 'CONNECT_TO_CONTRACT';
@@ -77,6 +78,7 @@ export type TContractsContextActions<GContractNames extends string, GAppConnecto
 
 /* *************** **************** ****************** */
 /* *************** Contract Factory ****************** */
+/* *************** **************** ****************** */
 
 /**
  *
@@ -92,17 +94,15 @@ export const contractsContextFactory = <
 ): {
   ContractsAppContext: FC<PropsWithChildren<TContractsContextProps>>;
   useAppContractsActions: () => TContractsContextActions<GContractNames, GAppConnectorList> | undefined;
-  useAppContractsContext: <GContract extends GContractsTypes>(
-    contractName: GContractNames,
-    chainId: number | undefined
-  ) => GContract | undefined;
+  useAppContractsContext: (contractName: GContractNames, chainId: number | undefined) => GContractsTypes | undefined;
   useLoadAppContracts: () => void;
   useConnectAppContracts: (adaptor: TEthersAdaptor | undefined) => void;
 } => {
   type GAppContractsContext = TAppContractsContext<GContractNames, GContractsTypes>;
 
-  /* *************** ******** ************************************ */
-  /* *************** Contract Helpers Functions ****************** */
+  /* *************** ******** *************************** */
+  /* *************** Helpers Functions ****************** */
+  /* *************** ******** *************************** */
   const defaultAppContractsContext = (): GAppContractsContext => {
     return {
       contractConnectors: {},
@@ -195,8 +195,9 @@ export const contractsContextFactory = <
     return state;
   };
 
-  /* *************** ******** ****************************************** */
-  /* *************** Contract Action Helper Functions ****************** */
+  /* *************** ******** ************************** */
+  /* *************** Action Functions ****************** */
+  /* *************** ******** ************************** */
 
   const connectToContractWithAdaptor = (
     connector: TContractConnector<GContractNames, GContractsTypes>,
@@ -327,8 +328,9 @@ export const contractsContextFactory = <
     return state;
   };
 
-  /* *************** ******** *************************** */
-  /* *************** Contract Contexts ****************** */
+  /* *************** ******** ****************** */
+  /* *************** Contexts ****************** */
+  /* *************** ******** ****************** */
   /**
    * @internal
    */
@@ -349,8 +351,9 @@ export const contractsContextFactory = <
     return useContext(ContractsStateContext);
   };
 
-  /* *************** ******** ************************ */
-  /* *************** Contract Hooks ****************** */
+  /* *************** ******** *************** */
+  /* *************** Hooks ****************** */
+  /* *************** ******** *************** */
 
   /**
    * Get Contracts for the given contract name
@@ -358,10 +361,10 @@ export const contractsContextFactory = <
    * @param chainId
    * @returns
    */
-  const useAppContractsContext = <GContract extends GContractsTypes>(
+  const useAppContractsContext = (
     contractName: GContractNames,
     chainId: number | undefined
-  ): GContract | undefined => {
+  ): GContractsTypes | undefined => {
     const contractsState = useContractsState();
     const ethersContext = useEthersContext();
     const contract = contractsState?.contractsByName?.[contractName]?.[chainId ?? -1]; // -1 is unknown chainId
@@ -382,7 +385,8 @@ export const contractsContextFactory = <
       );
       chainIdRef.current = chainId;
     }
-    return contract as GContract;
+
+    return contract;
   };
 
   /**
@@ -429,6 +433,8 @@ export const contractsContextFactory = <
 
   /* *************** ******** *************************** */
   /* *************** Context Component ****************** */
+  /* *************** ******** *************************** */
+
   /**
    * #### Summary
    *
