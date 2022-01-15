@@ -8,7 +8,7 @@ import { TEthersProvider, TEthersSigner } from '~~/models';
  * #### Summary
  * A callback type that returns a EthersModalConnector
  *
- * #### Notes
+ * ##### Notes
  * - can be used by components that need to give a connector to {@link IEthersContext.openModal}
  * - id is the identifier of the provider:  [See docs](https://github.com/Web3Modal/web3modal#connect-to-specific-provider)
  *

@@ -15,7 +15,7 @@ const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' }
  * #### Summary
  * Enables you to call a contract function with arguments and receive the output.  You can use this to easily track of contract outputs in react states
  *
- * #### Notes
+ * ##### Notes
  * - uses the ethers.Contract object's provider to access the network
  * - formatter is a function that can change the format of the output
  * @param contract
@@ -93,7 +93,7 @@ export const useContractReader = <
  * #### Summary
  * Enables you to call a contract function with arguments and receive the output.  You can use this to easily track of contract outputs in react states
  *
- * #### Notes
+ * ##### Notes
  * - uses the ethers.Contract object's provider to access the network
  * - formatter is a function that can change the format of the output
  *

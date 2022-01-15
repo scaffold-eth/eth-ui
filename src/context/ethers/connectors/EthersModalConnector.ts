@@ -49,11 +49,11 @@ export type TEthersModalConnector = ICommonModalConnector & AbstractConnector;
  * This is a connector for [web3-react](https://github.com/NoahZinsmeister/web3-react) that allows it to interface with [web3Modal](https://github.com/Web3Modal/web3modal).
  * The provider selected by user via web3modal is interfaced to the web3-react context.
  *
- * #### Features
+ * ##### Features
  * - This connector used with {@link useEthersContext} allows the app and all the hooks to effortlessly access the current network, provider, signer, address information {@link IEthersContext}
  * - The connector centralizes and takes care of management of the web3 interaction and provides a consistent exprience for your app.
  *
- * #### Notes
+ * ##### Notes
  * - inherits from web3-react class AbstractConnector
  *
  * @category EthersContext
@@ -161,13 +161,13 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
    * #### Summary
    * Inherits from AbstractConnector.  This activates web3Modal and opens the modal.
    *
-   * #### Notes
+   * ##### Notes
    * Once the user selects a provider
    * - this will activate the provider and attach the appropriate event listeners.
    * - get the account and signer
    * - gets the ethers compatable provider
    *
-   * #### Errors
+   * ##### Errors
    * - {@link UserClosedModalError}
    * - {@link CouldNotActivateError}
    * @returns

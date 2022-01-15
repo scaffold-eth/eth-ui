@@ -18,7 +18,7 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useTimes
  * #### Summary
  * Get the current timestamp from the latest block
  *
- * #### Notes
+ * ##### Notes
  * - updates triggered by {@link BlockNumberContext}
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *

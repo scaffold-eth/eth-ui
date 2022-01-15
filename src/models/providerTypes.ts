@@ -11,7 +11,7 @@ import { Result } from 'ethers/lib/utils';
  * #### Summary
  * A union of various ethers providers for ease of use and maximum flexiblity
  *
- * #### Notes
+ * ##### Notes
  * Used by eth-hooks, eth-components and scaffold-eth-typescript
  *
  * @category Models

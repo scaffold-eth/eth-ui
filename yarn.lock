@@ -6410,6 +6410,7 @@ __metadata:
     typechain: ^7.0.0
     typedoc: ^0.22.10
     typedoc-plugin-markdown: ^3.11.11
+    typedoc-plugin-mermaid: ^1.6.0
     typescript: ^4.5.4
     typescript-transform-paths: ^3.3.1
     use-debounce: ^7.0.1
@@ -8370,6 +8371,13 @@ __metadata:
   dependencies:
     whatwg-encoding: ^2.0.0
   checksum: 8d806aa00487e279e5ccb573366a951a9f68f65c90298eac9c3a2b440a7ffe46615aff2995a2f61c6746c639234e6179a97e18ca5ccbbf93d3725ef2099a4502
+  languageName: node
+  linkType: hard
+
+"html-escaper@npm:^3.0.0":
+  version: 3.0.3
+  resolution: "html-escaper@npm:3.0.3"
+  checksum: a2678be42c15d2ef6e629775dac0925a729f4615c6593db8358b9262c7565c4627134987c00f548eb4eb76cbc3b3392f78475cd02b022f8ae7aeb9a88280831b
   languageName: node
   linkType: hard
 
@@ -15136,6 +15144,17 @@ __metadata:
   peerDependencies:
     typedoc: ">=0.22.0"
   checksum: 6a34d3b6e4477f191db36d507f3bb752bbae4d3db2857249bd795b653cd1afe2c1c95a26d813cbb24e720dbc83e68a94ab7b7f740e341d7fb7a79d1a8d7d4171
+  languageName: node
+  linkType: hard
+
+"typedoc-plugin-mermaid@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "typedoc-plugin-mermaid@npm:1.6.0"
+  dependencies:
+    html-escaper: ^3.0.0
+  peerDependencies:
+    typedoc: ">=0.22.0"
+  checksum: 32433605b379759ffea19e9bda026c88bce253c5a4c21c45bbbd2601c9b357b7895d3e54e9c4fbba67e7371e20d67eea972d409477658afc986579920006b84c
   languageName: node
   linkType: hard
 

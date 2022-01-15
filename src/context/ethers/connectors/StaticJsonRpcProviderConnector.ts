@@ -18,7 +18,7 @@ export interface IStaticJsonRpcProviderConnectorOptions extends IAbstractConnect
  * A connector that can be used by apps to connect to a StaticJsonRpcProvider
  * - For example you can use this to connect to a localhost provider
  *
- * #### Notes
+ * ##### Notes
  * See scaffold-eth-typescript for an example that uses it to connect to a localhost burner wallet.
  * - [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/0225179a2a8bb7b3a255d6eff4802b47d72809dd/packages/vite-app-ts/src/config/web3ModalConfig.ts#L86)
  *
