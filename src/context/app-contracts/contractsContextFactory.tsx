@@ -95,10 +95,10 @@ export const contractsContextFactory = <
 ): {
   ContractsAppContext: FC<PropsWithChildren<TContractsContextProps>>;
   useAppContractsActions: () => TContractsContextActions<GContractNames, GAppConnectorList> | undefined;
-  useAppContractsContext: <GName extends GContractNames>(
-    contractName: GName,
+  useAppContracts: <GContractName extends GContractNames>(
+    contractName: GContractName,
     chainId: number | undefined
-  ) => TTypedContract<GName, GAppConnectorList> | undefined;
+  ) => TTypedContract<GContractName, GAppConnectorList> | undefined;
   useLoadAppContracts: () => void;
   useConnectAppContracts: (adaptor: TEthersAdaptor | undefined) => void;
 } => {
@@ -365,10 +365,10 @@ export const contractsContextFactory = <
    * @param chainId
    * @returns
    */
-  const useAppContractsContext = <GName extends GContractNames>(
-    contractName: GName,
+  const useAppContracts = <GContractName extends GContractNames>(
+    contractName: GContractName,
     chainId: number | undefined
-  ): TTypedContract<GName, GAppConnectorList> | undefined => {
+  ): TTypedContract<GContractName, GAppConnectorList> | undefined => {
     const contractsState = useContractsState();
     const ethersContext = useEthersContext();
     const contract = contractsState?.contractsByName?.[contractName]?.[chainId ?? -1]; // -1 is unknown chainId
@@ -390,8 +390,8 @@ export const contractsContextFactory = <
       chainIdRef.current = chainId;
     }
 
-    if (contract?.contractName) {
-      return contract as TTypedContract<GName, GAppConnectorList>;
+    if (contract) {
+      return contract as TTypedContract<GContractName, GAppConnectorList>;
     }
     return undefined;
   };
@@ -487,7 +487,7 @@ export const contractsContextFactory = <
   return {
     ContractsAppContext: ContractsAppContext,
     useAppContractsActions,
-    useAppContractsContext,
+    useAppContracts,
     useLoadAppContracts,
     useConnectAppContracts,
   };
