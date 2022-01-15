@@ -24,6 +24,7 @@ import {
   TContractConnector,
   TContractsByChainId,
   TContractsByName,
+  TTypedContract,
 } from '~~/models/contractContextTypes';
 
 export type TContractsContextProps = {
@@ -76,9 +77,9 @@ export type TContractsContextActions<GContractNames extends string, GAppConnecto
   dispatch: Dispatch<TActions<GContractNames, GAppConnectorList>>;
 };
 
-/* *************** **************** ****************** */
-/* *************** Contract Factory ****************** */
-/* *************** **************** ****************** */
+/* *************** ********************* ****************** */
+/* *************** 🏭 Contract Factory 🏭 ****************** */
+/* *************** ********************* ****************** */
 
 /**
  *
@@ -94,7 +95,10 @@ export const contractsContextFactory = <
 ): {
   ContractsAppContext: FC<PropsWithChildren<TContractsContextProps>>;
   useAppContractsActions: () => TContractsContextActions<GContractNames, GAppConnectorList> | undefined;
-  useAppContractsContext: (contractName: GContractNames, chainId: number | undefined) => GContractsTypes | undefined;
+  useAppContractsContext: <GName extends GContractNames>(
+    contractName: GName,
+    chainId: number | undefined
+  ) => TTypedContract<GName, GAppConnectorList> | undefined;
   useLoadAppContracts: () => void;
   useConnectAppContracts: (adaptor: TEthersAdaptor | undefined) => void;
 } => {
@@ -361,10 +365,10 @@ export const contractsContextFactory = <
    * @param chainId
    * @returns
    */
-  const useAppContractsContext = (
-    contractName: GContractNames,
+  const useAppContractsContext = <GName extends GContractNames>(
+    contractName: GName,
     chainId: number | undefined
-  ): GContractsTypes | undefined => {
+  ): TTypedContract<GName, GAppConnectorList> | undefined => {
     const contractsState = useContractsState();
     const ethersContext = useEthersContext();
     const contract = contractsState?.contractsByName?.[contractName]?.[chainId ?? -1]; // -1 is unknown chainId
@@ -386,7 +390,10 @@ export const contractsContextFactory = <
       chainIdRef.current = chainId;
     }
 
-    return contract;
+    if (contract?.contractName) {
+      return contract as TTypedContract<GName, GAppConnectorList>;
+    }
+    return undefined;
   };
 
   /**
