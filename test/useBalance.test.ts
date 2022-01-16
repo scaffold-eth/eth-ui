@@ -38,7 +38,7 @@ describe('useBalance', function () {
 
     // ).to.changeEtherBalances([wallet], [fromEther(-1)]);
 
-    await harness.waitForNextUpdate(defaultBlockWaitOptions);
+    await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
     const newBalance = await wallet.getBalance();
     const [result, updateResult] = harness.result.current;
     expect(result).to.equal(newBalance);

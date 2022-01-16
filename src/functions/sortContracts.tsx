@@ -1,45 +1,50 @@
-import { merge } from 'merge-anything';
+// export const sortContractsByChainId = <
+//   GContractNames extends string,
+// import { TContractsByName, TContractsByChainId } from '~~/models/contractContextTypes';
+// >(
+//   contractsByName: TContractsByName<GContractNames, GContracts>
+// ): TContractsByChainId<GContractNames, GContracts> => {
+//   let contractsByChainId: TContractsByChainId<GContractNames, GContracts> = {};
 
-import { TContractsByName, TContractsByChainId } from '~~/models/contractContextTypes';
+//   const names: GContractNames[] = Object.keys(contractsByName) as GContractNames[];
+//   names.forEach((name) => {
+//     const chainIds = Object.keys(contractsByName[name]).map(Number);
+//     chainIds.forEach((chainId) => {
+//       const contracts: GContracts | undefined = contractsByName[name][chainId];
+//       const data = {
+//         [chainId]: { [name]: contracts },
+//       };
+//       const temp = merge(contractsByChainId, data);
+//       // @ts-expect-error
+//       contractsByChainId = temp as TContractsByChainId<GContractNames, GContracts>;
+//     });
+//   });
+//   return contractsByChainId;
+// };
 
-export const sortContractsByChainId = <GContractNames extends string>(
-  contractsByName: TContractsByName<GContractNames>
-): TContractsByChainId<GContractNames> => {
-  let contractsByChainId: TContractsByChainId<GContractNames> = {} as TContractsByChainId<GContractNames>;
+// export const sortContractsByName = <
+//   GContractNames extends string,
+//   GContracts extends TBaseContractExtended<GContractNames>
+// >(
+//   contractsByChainId: TContractsByChainId<GContractNames, GContracts>
+// ): TContractsByName<GContractNames, GContracts> => {
+//   const contractsByName: TContractsByName<GContractNames, GContracts> = {} as TContractsByName<
+//     GContractNames,
+//     GContracts
+//   >;
 
-  for (const nameStr in contractsByName) {
-    const name: GContractNames = nameStr;
-    for (const chainIdStr in contractsByName[name]) {
-      const chainId = parseInt(chainIdStr);
-      const data: TContractsByChainId<GContractNames> = {
-        [chainId]: { [name]: contractsByName[name][chainId] },
-      } as TContractsByChainId<GContractNames>;
-      const temp = contractsByChainId;
-      // @ts-ignore
-      contractsByChainId = merge(temp, data);
-    }
-  }
+//   const chainIds = Object.keys(contractsByChainId).map(Number);
+//   chainIds.forEach((chainId) => {
+//     const names = Object.keys(contractsByChainId[chainId]) as GContractNames[];
+//     names.forEach((name) => {
+//       const data = {
+//         [name]: { [chainId]: contractsByChainId[chainId][name] },
+//       };
+//       const temp = merge(contractsByName, data);
+//       // @ts-expect-error
+//       contractsByName = temp as TContractsByName<GContractNames, GContracts>;
+//     });
+//   });
 
-  return contractsByChainId;
-};
-
-export const sortContractsByName = <GContractNames extends string>(
-  contractsByChainId: TContractsByChainId<GContractNames>
-): TContractsByName<GContractNames> => {
-  let contractsByName: TContractsByName<GContractNames> = {} as TContractsByName<GContractNames>;
-
-  for (const chainIdStr in contractsByChainId) {
-    const chainId = parseInt(chainIdStr);
-    for (const nameStr in contractsByChainId[chainId]) {
-      const name: GContractNames = nameStr;
-      const data: TContractsByName<GContractNames> = {
-        [name]: { [chainId]: contractsByChainId[chainId][name] },
-      } as TContractsByName<GContractNames>;
-      const temp = contractsByName;
-      // @ts-ignore
-      contractsByName = merge(temp, data);
-    }
-  }
-
-  return contractsByName;
-};
+//   return contractsByName;
+// };
