@@ -27,7 +27,7 @@ type TUseBalanceResult<GAddress extends string | string[]> = GAddress extends st
  * #### Summary
  * Gets your balance in ETH for the given address.
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - updates triggered by {@link BlockNumberContext}
  * - uses the current provider {@link provider} from {@link useEthersContext}
  *

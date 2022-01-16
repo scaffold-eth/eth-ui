@@ -36,7 +36,7 @@ export const checkUpdateOptions = (context: IEthersContext, update: TUpdateOptio
       'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
     );
     invariant(
-      update.blockNumberInterval == null,
+      update.blockNumberInterval === 1,
       'You cannot use both refetchInterval (polling) and blockNumberInterval at the same time'
     );
   } else {

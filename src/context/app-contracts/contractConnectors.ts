@@ -1,7 +1,6 @@
-import { BaseContract, ethers, utils } from 'ethers';
+import { BaseContract, ethers } from 'ethers';
 
-import { isValidEthersAdaptor } from '~~/functions';
-import { TConnectorConnectorBase, TContractConnector, TEthersAdaptor } from '~~/models';
+import { TConnectorConnectorBase, TContractConnector } from '~~/models';
 import {
   TBasicContractDataRecord,
   TExternalContractsAddressMap,
@@ -41,15 +40,11 @@ const extractExternalContracts = (configJson: TExternalContractsAddressMap): TBa
   return contractData;
 };
 
-export const createConnectorForHardhatContract = <
-  GContractNames extends string,
-  GBaseContract extends BaseContract,
-  GContractInterface extends ethers.utils.Interface
->(
+export const createConnectorForHardhatContract = <GContractNames extends string, GBaseContract extends BaseContract>(
   contractName: GContractNames,
-  typechainFactory: TConnectorConnectorBase<GBaseContract, GContractInterface>,
+  typechainFactory: TConnectorConnectorBase<GBaseContract>,
   deployedHardhatContractJson: TDeployedHardhatContractsJson
-): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
+): TContractConnector<GContractNames, GBaseContract> => {
   const info = extractHardhatContracts(deployedHardhatContractJson)[contractName];
 
   if (info == null) {
@@ -61,7 +56,7 @@ export const createConnectorForHardhatContract = <
   return {
     contractName,
     connect: typechainFactory.connect,
-    createInterface: typechainFactory.createInterface,
+    // createInterface: typechainFactory.createInterface,
     abi: (info?.abi ?? typechainFactory.abi ?? []) as Record<string, any>[],
     config: {
       [info.chainId]: {
@@ -71,15 +66,11 @@ export const createConnectorForHardhatContract = <
   };
 };
 
-export const createConnectorForExternalContract = <
-  GContractNames extends string,
-  GBaseContract extends BaseContract,
-  GContractInterface extends ethers.utils.Interface
->(
+export const createConnectorForExternalContract = <GContractNames extends string, GBaseContract extends BaseContract>(
   contractName: GContractNames,
-  typechainFactory: TConnectorConnectorBase<GBaseContract, GContractInterface>,
+  typechainFactory: TConnectorConnectorBase<GBaseContract>,
   deployedContractJson: TExternalContractsAddressMap
-): TContractConnector<GContractNames, GBaseContract, GContractInterface> => {
+): TContractConnector<GContractNames, GBaseContract> => {
   const info = extractExternalContracts(deployedContractJson)[contractName];
 
   if (info == null) {
@@ -91,7 +82,7 @@ export const createConnectorForExternalContract = <
   return {
     contractName,
     connect: typechainFactory.connect,
-    createInterface: typechainFactory.createInterface,
+    // : typechainFactory.createInterface,
     abi: (info?.abi ?? typechainFactory.abi ?? []) as Record<string, any>[],
     config: {
       [info.chainId]: {
@@ -105,52 +96,13 @@ export const createConnectorForExternalAbi = <GContractNames extends string>(
   contractName: GContractNames,
   config: { [key in number]: { address: string } },
   abi: Record<string, any>[]
-): TContractConnector<GContractNames, BaseContract, ethers.utils.Interface> => {
+): TContractConnector<GContractNames, BaseContract> => {
   return {
     contractName,
     connect: (address: string, signerOrProvider: ethers.Signer | ethers.providers.Provider): BaseContract => {
       return new BaseContract(address, abi, signerOrProvider);
     },
-    createInterface: (): ethers.utils.Interface => new utils.Interface(abi),
     abi: abi,
     config: config,
   };
-};
-
-export const connectToContractWithAdaptor = <
-  GContractNames extends string,
-  GContract extends BaseContract,
-  GContractInterface extends ethers.utils.Interface
->(
-  connector: TContractConnector<GContractNames, GContract, GContractInterface>,
-  adaptor: TEthersAdaptor
-): GContract | undefined => {
-  if (adaptor == null || !isValidEthersAdaptor(adaptor)) {
-    console.warn('No valid ethers adaptor provided.  Skipping contract connection');
-    return undefined;
-  }
-
-  const { signer, provider } = adaptor;
-  const signerOrProvider = signer ?? provider;
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const chainId = adaptor.chainId!;
-  const contractAddress = connector?.config?.[chainId]?.address;
-  if (contractAddress != null && signerOrProvider != null) {
-    const contract = connector.connect(connector.config[chainId].address, signerOrProvider);
-    if (contract != null) {
-      return contract;
-    }
-  }
-
-  // error handling
-  if (connector.config[chainId] != null) {
-    console.warn('ContractConnector requires signer with the same chainId to connect contract');
-  }
-  console.log(
-    `Couldn't connect to contract ${connector?.contractName}:   signer chainId: ${chainId}, config: ${JSON.stringify(
-      connector?.config
-    )}.`
-  );
-  console.log('🙅🏽‍♂️ Please make sure the correct network is connected and the contract is deployed.');
-  return undefined;
 };

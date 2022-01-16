@@ -1,4 +1,4 @@
-[eth-hooks - v3.4.0](../README.md) / Helpers
+[eth-hooks - v4.0.8](../README.md) / Helpers
 
 # Module: Helpers
 
@@ -34,7 +34,7 @@ const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `importFactory` | () => `Promise`<`Object`\> | a callback that imports e.g. () => import('./exampleui/ExampleUI') |
+| `importFactory` | () => `Promise`<{ [name: string]: `T`;  }\> | a callback that imports e.g. () => import('./exampleui/ExampleUI') |
 | `importName` | `string` | the named export you want to import. |
 
 #### Returns
@@ -43,4 +43,4 @@ const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
 
 #### Defined in
 
-[src/helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/2b71461/src/helpers/lazier.ts#L18)
+[src/helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/helpers/lazier.ts#L18)

@@ -13,7 +13,7 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useCo
  * #### Summary
  * Checks whether a contract exists on the blockchain
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - uses the ethers.Contract object's provider to access the network
  * - checks the contract address to see if the contract is deployed
  *

@@ -48,12 +48,12 @@ const reducer = (state: State = {}, payload: Payload): State => {
  * A hook that gets you the current blocknumber via react context
  * - can be shared by your whole app.
  *
- * #### Use
+ * ##### ❔Use
  * Make sure to wrap your main app with the {@link EthersAppContext}.
  * - See [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/0225179a2a8bb7b3a255d6eff4802b47d72809dd/packages/vite-app-ts/src/components/routes/App.tsx#L38)
  *
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - this extensively used by eth-hooks to trigger hooks when a new block arrives
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *

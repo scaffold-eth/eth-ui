@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.0.9",
+  "version": "4.0.10",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -38,6 +38,7 @@
     "docs": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/api-typedocs/readme.md ./docs/api-typedocs/api-overview.md",
     "deprecate": "npm deprecate",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*.(ts|tsx) ./test/**/*.(ts|tsx)",
+    "test": "yarn test:hardhat",
     "test:hardhat": "yarn hh:run test  --network hardhat",
     "test:mocha": "yarn hh:env yarn mocha --config .mocharc.js",
     "hh:run": "yarn hh:env yarn hardhat",
@@ -143,6 +144,7 @@
     "typechain": "^7.0.0",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.11.11",
+    "typedoc-plugin-mermaid": "^1.6.0",
     "typescript": "^4.5.4",
     "typescript-transform-paths": "^3.3.1"
   },

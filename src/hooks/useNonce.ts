@@ -22,7 +22,7 @@ const queryKey: TRequiredKeys = {
  * #### Summary
  * Get the current nonce for the address provided
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - updates triggered by {@link BlockNumberContext}
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *

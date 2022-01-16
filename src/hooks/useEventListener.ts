@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
 import { contractKey, mergeDefaultUpdateOptions, processQueryOptions, TRequiredKeys } from '~~/functions';
-import { const_blockNumberInterval100, THookResult, TUpdateOptions, TypedEvent } from '~~/models';
+import { const_blockNumberIntervalMedium, THookResult, TUpdateOptions, TypedEvent } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;
@@ -12,7 +12,7 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useEv
  * #### Summary
  * Tracks the events of associated with a contract
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - updates triggered through ethers event listener
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *
@@ -28,7 +28,7 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
   eventFilter: string | EventFilter | undefined,
   startBlock: number,
   toBlock: number | undefined = undefined,
-  options: TUpdateOptions = mergeDefaultUpdateOptions({ ...const_blockNumberInterval100 })
+  options: TUpdateOptions = mergeDefaultUpdateOptions({ ...const_blockNumberIntervalMedium })
 ): THookResult<GTypedEvent[]> => {
   const keys = [
     {
