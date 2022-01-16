@@ -4,9 +4,15 @@ import { useQuery } from 'react-query';
 import { useIsMounted } from 'usehooks-ts';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { contractFuncKey, ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
+import {
+  contractFuncKey,
+  ethersOverride,
+  mergeDefaultOverride,
+  mergeDefaultUpdateOptions,
+  processQueryOptions,
+} from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { TContractFunctionInfo, TOverride, TUpdateOptions } from '~~/models';
+import { TContractFunctionInfo, THookResult, TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' } as const;
@@ -33,7 +39,7 @@ export const useContractReader = <
   args?: Parameters<GContractFunc>,
   funcEventFilter?: EventFilter | undefined,
   options: TUpdateOptions = mergeDefaultUpdateOptions()
-): [value: Awaited<ReturnType<GContractFunc>> | undefined, update: () => void] => {
+): THookResult<Awaited<ReturnType<GContractFunc>> | undefined> => {
   const keys = [
     {
       ...queryKey,
@@ -41,12 +47,13 @@ export const useContractReader = <
     },
     { args: args ?? [], funcEventFilter },
   ] as const;
-  const { data, refetch } = useQuery(
+  const { data, refetch, status } = useQuery(
     keys,
-    async (keys) => {
+    async (keys): Promise<Awaited<ReturnType<GContractFunc>> | undefined> => {
       const { args } = keys.queryKey[1];
 
       if (contractFunc != null && contract != null) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const result = await contractFunc(...args);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return result;
@@ -55,7 +62,7 @@ export const useContractReader = <
       return undefined;
     },
     {
-      ...options.query,
+      ...processQueryOptions<Awaited<ReturnType<GContractFunc>> | undefined>(options),
     }
   );
 
@@ -86,7 +93,7 @@ export const useContractReader = <
   const allowBlockNumberIntervalUpdate = funcEventFilter == null;
   useEthersUpdater(refetch, blockNumber, options, allowBlockNumberIntervalUpdate);
 
-  return [data, refetch];
+  return [data, refetch, status];
 };
 
 /**

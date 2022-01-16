@@ -5,11 +5,12 @@ import {
   ethersOverride,
   mergeDefaultOverride,
   mergeDefaultUpdateOptions,
+  processQueryOptions,
   providerKey,
   TRequiredKeys,
 } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { TOverride, TUpdateOptions } from '~~/models';
+import { THookResult, TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = {
@@ -34,14 +35,14 @@ export const useNonce = (
   address: string | undefined,
   override: TOverride = mergeDefaultOverride(),
   options: TUpdateOptions = mergeDefaultUpdateOptions()
-): [nonce: number, update: () => void] => {
+): THookResult<number> => {
   const ethersContext = useEthersContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
   const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;
-  const { data, refetch } = useQuery(
+  const { data, refetch, status } = useQuery(
     keys,
-    async (keys) => {
+    async (keys): Promise<number | undefined> => {
       const { address } = keys.queryKey[1];
       if (address) {
         const nextNonce = await provider?.getTransactionCount(address);
@@ -50,12 +51,12 @@ export const useNonce = (
       return undefined;
     },
     {
-      ...options.query,
+      ...processQueryOptions<number | undefined>(options),
     }
   );
 
   const blockNumber = useBlockNumberContext();
   useEthersUpdater(refetch, blockNumber, options);
 
-  return [data ?? 0, refetch];
+  return [data ?? 0, refetch, status];
 };

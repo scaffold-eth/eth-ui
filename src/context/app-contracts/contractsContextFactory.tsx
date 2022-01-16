@@ -17,7 +17,7 @@ import { connectToContractWithAdaptor, useEthersContext } from '~~/context';
 import { invalidateCache, isValidEthersAdaptor, sortContractsByChainId, sortContractsByName } from '~~/functions';
 import { TTypedContract, TEthersAdaptor, TConnectorList } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
-import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractContextTypes';
+import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractAppContextTypes';
 
 export type TContractsContextProps = {
   ethersContextKey?: string | undefined;
@@ -367,8 +367,7 @@ export const contractsContextFactory = <
           connectToContractAction,
           setContractConnectors,
           addContractConnectors,
-        }}
-      >
+        }}>
         <ContractsStateContext.Provider value={rState}>{props.children}</ContractsStateContext.Provider>
       </ContractsActionsContext.Provider>
     );

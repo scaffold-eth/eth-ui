@@ -8,11 +8,12 @@ import {
   ethersOverride,
   mergeDefaultOverride,
   mergeDefaultUpdateOptions,
+  processQueryOptions,
   providerKey,
   TRequiredKeys,
 } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { TOverride, TNetworkInfo, TUpdateOptions, keyNamespace } from '~~/models';
+import { TOverride, TNetworkInfo, TUpdateOptions, keyNamespace, THookResult } from '~~/models';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.state, key: 'useGasPrice' } as const;
 
@@ -51,7 +52,7 @@ export const useGasPrice = (
   currentNetworkInfo?: TNetworkInfo,
   override: TOverride = mergeDefaultOverride(),
   options: TUpdateOptions = mergeDefaultUpdateOptions()
-): [gasPrice: number | undefined, update: () => void] => {
+): THookResult<number | undefined> => {
   const ethersContext = useEthersContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
@@ -59,7 +60,7 @@ export const useGasPrice = (
     { ...queryKey, ...providerKey(provider) },
     { chainId, speed, currentNetworkInfo },
   ] as const;
-  const { data, refetch, isError } = useQuery(
+  const { data, refetch, isError, status } = useQuery(
     keys,
     async (keys): Promise<number | undefined> => {
       const { chainId, speed, currentNetworkInfo } = keys.queryKey[1];
@@ -89,7 +90,7 @@ export const useGasPrice = (
       return undefined;
     },
     {
-      ...options.query,
+      ...processQueryOptions<number | undefined>(options),
     }
   );
 
@@ -98,5 +99,5 @@ export const useGasPrice = (
 
   const result = isError ? undefined : data;
   const [gasPriceDebounced] = useDebounce(result, 250, { trailing: true });
-  return [gasPriceDebounced, refetch];
+  return [gasPriceDebounced, refetch, status];
 };

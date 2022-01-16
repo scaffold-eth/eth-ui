@@ -2,9 +2,9 @@ import { Token, WETH, Fetcher, Route } from '@uniswap/sdk';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { mergeDefaultUpdateOptions, providerKey, TRequiredKeys } from '~~/functions';
+import { mergeDefaultUpdateOptions, processQueryOptions, providerKey, TRequiredKeys } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { TNetworkInfo, TUpdateOptions } from '~~/models';
+import { THookResult, TNetworkInfo, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 import { TEthersProvider } from '~~/models/providerTypes';
 
@@ -28,11 +28,13 @@ export const useDexEthPrice = (
   mainnetProvider: TEthersProvider | undefined,
   targetNetworkInfo?: TNetworkInfo,
   options: TUpdateOptions = mergeDefaultUpdateOptions()
-): [price: number, update: () => void] => {
+): THookResult<number> => {
   const keys = [{ ...queryKey, ...providerKey(mainnetProvider) }, { networkPrice: targetNetworkInfo?.price }] as const;
-  const { data, refetch } = useQuery(
+  type TAsyncResult = number | undefined;
+
+  const { data, refetch, status } = useQuery(
     keys,
-    async (keys): Promise<number | undefined> => {
+    async (keys): Promise<TAsyncResult> => {
       const { networkPrice } = keys.queryKey[1];
       if (networkPrice) {
         return networkPrice;
@@ -47,12 +49,12 @@ export const useDexEthPrice = (
       }
     },
     {
-      ...options.query,
+      ...processQueryOptions<TAsyncResult>(options),
     }
   );
 
   const blockNumber = useBlockNumberContext();
   useEthersUpdater(refetch, blockNumber, options);
 
-  return [data ?? 0, refetch];
+  return [data ?? 0, refetch, status];
 };
