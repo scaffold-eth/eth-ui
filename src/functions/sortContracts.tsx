@@ -1,6 +1,6 @@
 import { merge } from 'merge-anything';
 
-import { TContractsByName, TContractsByChainId } from '~~/models/contractContextTypes';
+import { TContractsByName, TContractsByChainId } from '~~/models/contractAppContextTypes';
 
 export const sortContractsByChainId = <GContractNames extends string>(
   contractsByName: TContractsByName<GContractNames>

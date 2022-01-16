@@ -2,7 +2,7 @@ import { constants } from 'ethers';
 import { useQuery } from 'react-query';
 
 import { providerKey, TRequiredKeys } from '~~/functions';
-import { keyNamespace, TEthersProvider } from '~~/models';
+import { keyNamespace, TEthersProvider, THookResult } from '~~/models';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useResolveEnsAddress' } as const;
 
@@ -19,9 +19,9 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useResol
 export const useResolveEnsAddress = (
   mainnetProvider: TEthersProvider | undefined,
   ensName: string | undefined
-): [address: string | undefined, update: () => void] => {
+): THookResult<string | undefined> => {
   const keys = [{ ...queryKey, ...providerKey(mainnetProvider) }, { ensName }] as const;
-  const { data, refetch } = useQuery(keys, async (keys): Promise<string | undefined> => {
+  const { data, refetch, status } = useQuery(keys, async (keys): Promise<string | undefined> => {
     const { ensName } = keys.queryKey[1];
     if (mainnetProvider && ensName) {
       const resolved = await mainnetProvider.resolveName(ensName);
@@ -30,5 +30,5 @@ export const useResolveEnsAddress = (
     return constants.AddressZero;
   });
 
-  return [data, refetch];
+  return [data, refetch, status];
 };

@@ -1,9 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { signerHasNetwork } from '~~/functions';
-import { TEthersSigner } from '~~/models';
+import { mergeDefaultUpdateOptions, processQueryOptions, providerKey, signerHasNetwork } from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { keyNamespace, TEthersSigner, THookResult, TUpdateOptions } from '~~/models';
+
+const queryKey = { namespace: keyNamespace.signer, key: 'useAreSignerEqual' } as const;
 
 /**
  * #### Summary
@@ -16,31 +18,32 @@ import { TEthersSigner } from '~~/models';
  */
 export const useAreSignerEqual = (
   signer1: TEthersSigner | undefined,
-  signer2: TEthersSigner | undefined
-): [isEqual: boolean | undefined, update: () => void] => {
-  const isMounted = useIsMounted();
-  const [isEqual, setIsEqual] = useState<boolean>();
-  const blockNumber = useBlockNumberContext();
+  signer2: TEthersSigner | undefined,
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
+): THookResult<boolean | undefined> => {
+  const keys = [{ ...queryKey }, { singer1Key: providerKey(signer1), signer2Key: providerKey(signer2) }] as const;
+  const { data, refetch, status } = useQuery(
+    keys,
+    async (keys): Promise<boolean | undefined> => {
+      if (signerHasNetwork(signer1)) {
+        const chainId1 = await signer1?.getChainId();
+        const chainId2 = await signer2?.getChainId();
 
-  const update = useCallback(async (): Promise<void> => {
-    if (signerHasNetwork(signer1)) {
-      const chainId1 = await signer1?.getChainId();
-      const chainId2 = await signer2?.getChainId();
-
-      const address1 = await signer1?.getAddress();
-      const address2 = await signer2?.getAddress();
-      const isEqual =
-        address1 === address2 && chainId1 === chainId2 && address1 !== undefined && chainId1 !== undefined;
-
-      if (isMounted()) {
-        setIsEqual(isEqual);
+        const address1 = await signer1?.getAddress();
+        const address2 = await signer2?.getAddress();
+        const isEqual =
+          address1 === address2 && chainId1 === chainId2 && address1 !== undefined && chainId1 !== undefined;
+        return isEqual;
       }
+      return undefined;
+    },
+    {
+      ...processQueryOptions<boolean | undefined>(options),
     }
-  }, [isMounted, signer1, signer2]);
+  );
 
-  useEffect(() => {
-    void update();
-  }, [blockNumber, update]);
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
 
-  return [isEqual, update];
+  return [data, refetch, status];
 };

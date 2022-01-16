@@ -10,6 +10,7 @@ import {
   defaultOverride,
   TUpdateOptions,
   defaultUpdateOptions,
+  TQueryOptions,
 } from '~~/models';
 import { DeepPartial } from '~~/models/utilityTypes';
 
@@ -29,9 +30,9 @@ export const ethersOverride = (context: IEthersContext, options: TOverride): Rea
 
 export const checkUpdateOptions = (context: IEthersContext, update: TUpdateOptions): void => {
   // check if there is an override
-  if (update.query.refetchInterval) {
+  if (update.refetchInterval) {
     invariant(
-      update.query.refetchInterval == null || update.query.refetchInterval >= 10000,
+      update.refetchInterval == null || update.refetchInterval >= 10000,
       'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
     );
     invariant(
@@ -53,7 +54,9 @@ export const mergeDefaultOverride = (...overrides: DeepPartial<TOverride>[]): TO
   return defaultOptions;
 };
 
-export const mergeDefaultUpdateOptions = (...overrides: DeepPartial<TUpdateOptions>[]): TUpdateOptions => {
+export const mergeDefaultUpdateOptions = <GResult = any>(
+  ...overrides: DeepPartial<TUpdateOptions<GResult>>[]
+): TUpdateOptions<GResult> => {
   const defaultOptions: TUpdateOptions = defaultUpdateOptions();
 
   if (overrides?.length > 0) {
@@ -65,4 +68,16 @@ export const mergeDefaultUpdateOptions = (...overrides: DeepPartial<TUpdateOptio
 
 export const setContextOverride = (adaptor: TEthersAdaptor | undefined, enabled: boolean = true): TOverride => {
   return mergeDefaultOverride({ adaptor, adaptorEnabled: enabled });
+};
+
+export const processQueryOptions = <GResult>(
+  options: TUpdateOptions<GResult>
+): typeof options.query & { refetchInterval?: number } => {
+  const queryOptions: TQueryOptions<GResult> & { refetchInterval?: number } = { ...options.query };
+
+  if (options.refetchInterval) {
+    queryOptions.enabled = true;
+    queryOptions.refetchInterval = options.refetchInterval;
+  }
+  return queryOptions;
 };

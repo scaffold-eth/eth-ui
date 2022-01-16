@@ -2,7 +2,7 @@ import { utils, constants } from 'ethers';
 import { useQuery } from 'react-query';
 
 import { providerKey, TRequiredKeys } from '~~/functions';
-import { keyNamespace, TEthersProvider } from '~~/models';
+import { keyNamespace, TEthersProvider, THookResult } from '~~/models';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useResolveEnsName' } as const;
 
@@ -45,9 +45,9 @@ const lookupAddress = async (provider: TEthersProvider, address: string): Promis
 export const useResolveEnsName = (
   mainnetProvider: TEthersProvider | undefined,
   address: string
-): [ensName: string | undefined, update: () => void] => {
+): THookResult<string | undefined> => {
   const keys = [{ ...queryKey, ...providerKey(mainnetProvider) }, { address }] as const;
-  const { data, refetch } = useQuery(keys, async (keys): Promise<string | undefined> => {
+  const { data, refetch, status } = useQuery(keys, async (keys): Promise<string | undefined> => {
     const { address } = keys.queryKey[1];
 
     const storedData: any = window.localStorage.getItem('ethhooks_ensCache_' + address);
@@ -73,5 +73,5 @@ export const useResolveEnsName = (
     }
   });
 
-  return [data, refetch];
+  return [data, refetch, status];
 };
