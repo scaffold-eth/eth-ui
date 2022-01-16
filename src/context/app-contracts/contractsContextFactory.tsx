@@ -15,17 +15,16 @@ import invariant from 'ts-invariant';
 
 import { useEthersContext } from '~~/context';
 import { invalidateCache, isValidEthersAdaptor } from '~~/functions';
-import { TEthersAdaptor } from '~~/models';
-import { keyNamespace } from '~~/models/constants';
-import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractContextTypes';
+import {
   TAppContractsContext,
-  TBaseContractExtended,
   TConnectorList,
   TContractConnector,
   TContractsByChainId,
   TContractsByName,
+  TEthersAdaptor,
   TTypedContract,
-} from '~~/models/contractContextTypes';
+} from '~~/models';
+import { keyNamespace } from '~~/models/constants';
 
 export type TContractsContextProps = {
   ethersContextKey?: string | undefined;
