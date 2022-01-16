@@ -367,7 +367,8 @@ export const contractsContextFactory = <
           connectToContractAction,
           setContractConnectors,
           addContractConnectors,
-        }}>
+        }}
+      >
         <ContractsStateContext.Provider value={rState}>{props.children}</ContractsStateContext.Provider>
       </ContractsActionsContext.Provider>
     );
