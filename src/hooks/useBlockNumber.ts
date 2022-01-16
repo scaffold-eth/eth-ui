@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 import { mergeDefaultUpdateOptions, processQueryOptions, providerKey, TRequiredKeys } from '~~/functions';
 import { keyNamespace, TEthersProvider, THookResult, TUpdateOptions } from '~~/models';

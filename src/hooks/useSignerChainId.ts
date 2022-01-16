@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useBlockNumberContext } from '~~/context';
 import { mergeDefaultUpdateOptions, processQueryOptions, providerKey, TRequiredKeys } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { const_blockNumberInterval100, TEthersSigner, TUpdateOptions } from '~~/models';
+import { const_blockNumberIntervalMedium, TEthersSigner, THookResult, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useSignerChainId' } as const;

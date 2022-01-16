@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
 import { contractKey, mergeDefaultUpdateOptions, processQueryOptions, TRequiredKeys } from '~~/functions';
-import { const_blockNumberInterval100, TUpdateOptions, TypedEvent } from '~~/models';
+import { const_blockNumberIntervalMedium, THookResult, TUpdateOptions, TypedEvent } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;
