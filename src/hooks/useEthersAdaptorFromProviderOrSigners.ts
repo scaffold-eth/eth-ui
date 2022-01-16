@@ -6,10 +6,11 @@ import {
   isValidEthersAdaptor,
   mergeDefaultUpdateOptions,
   parseProviderOrSigner,
+  processQueryOptions,
   providerKey,
   TRequiredKeys,
 } from '~~/functions';
-import { TEthersProviderOrSigner, TUpdateOptions } from '~~/models';
+import { TEthersProviderOrSigner, THookResult, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 import { TEthersAdaptor } from '~~/models/ethersAppContextTypes';
 
@@ -30,17 +31,17 @@ const queryKey: TRequiredKeys = {
 export const useEthersAdaptorFromProviderOrSigners = (
   providerOrSigner: TEthersProviderOrSigner | undefined,
   options: TUpdateOptions = mergeDefaultUpdateOptions()
-): [adaptor: TEthersAdaptor | undefined, update: () => void] => {
+): THookResult<TEthersAdaptor | undefined> => {
   const keys = [{ ...queryKey, ...providerKey(providerOrSigner) }] as const;
-  const { data, refetch } = useQuery(
+  const { data, refetch, status } = useQuery(
     keys,
     async (_keys): Promise<TEthersAdaptor | undefined> => {
       const result = await parseProviderOrSigner(providerOrSigner);
       return result;
     },
     {
+      ...processQueryOptions<TEthersAdaptor | undefined>(options),
       isDataEqual: (oldData, newData) => isAdaptorEqual(oldData, newData),
-      ...options.query,
     }
   );
 
@@ -64,5 +65,5 @@ export const useEthersAdaptorFromProviderOrSigners = (
     }
   }, [data, refetch, validAdaptorState]);
 
-  return [data, refetch];
+  return [data, refetch, status];
 };

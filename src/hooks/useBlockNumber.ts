@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useEffect } from 'react';
 
-import { TEthersProvider } from '~~/models';
+import { mergeDefaultUpdateOptions, processQueryOptions, providerKey, TRequiredKeys } from '~~/functions';
+import { keyNamespace, TEthersProvider, THookResult, TUpdateOptions } from '~~/models';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useBlockNumber' };
 
 /**
  * #### Summary
@@ -18,30 +20,36 @@ import { TEthersProvider } from '~~/models';
  */
 export const useBlockNumber = (
   provider: TEthersProvider | undefined,
-  callback?: ((blockNumber?: number) => void) | ((blockNumber?: number) => Promise<void>)
-): [blockNumber: number, update: () => void] => {
-  const isMounted = useIsMounted();
+  callback?: ((blockNumber?: number) => void) | ((blockNumber?: number) => Promise<void>),
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
+): THookResult<number> => {
+  type TAsyncResult = number | undefined;
+  const keys = [
+    {
+      ...queryKey,
+      ...providerKey(provider),
+    },
+  ] as const;
 
-  const [blockNumber, setBlockNumber] = useState<number>(0);
+  const { data, refetch, status } = useQuery(
+    keys,
+    async (keys): Promise<TAsyncResult> => {
+      if (provider) {
+        const nextBlockNumber = await provider?.getBlockNumber();
+        return nextBlockNumber;
+      }
 
-  const update = useCallback(async (): Promise<void> => {
-    const nextBlockNumber = await provider?.getBlockNumber();
-    if (isMounted() && provider != null) {
-      setBlockNumber((value) => {
-        if (value !== nextBlockNumber) {
-          return nextBlockNumber ?? 0;
-        }
-        return value;
-      });
+      return undefined;
+    },
+    {
+      ...processQueryOptions<TAsyncResult>(options),
     }
-  }, [provider, isMounted]);
+  );
 
   useEffect(() => {
     if (provider) {
       const listener = (blockNumberLocal: number): void => {
-        if (isMounted()) {
-          void setBlockNumber(blockNumberLocal);
-        }
+        void refetch();
 
         if (callback != null) {
           try {
@@ -53,8 +61,8 @@ export const useBlockNumber = (
       };
       provider?.addListener?.('block', listener);
 
-      if (blockNumber == null) {
-        void update();
+      if (data == null) {
+        void refetch();
       }
 
       return (): void => {
@@ -62,7 +70,7 @@ export const useBlockNumber = (
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [provider, isMounted, update]);
+  }, [callback, provider, refetch]);
 
-  return [blockNumber, update];
+  return [data ?? 0, refetch, status];
 };

@@ -5,11 +5,12 @@ import {
   ethersOverride,
   mergeDefaultOverride,
   mergeDefaultUpdateOptions,
+  processQueryOptions,
   providerKey,
   TRequiredKeys,
 } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { TOverride, TUpdateOptions } from '~~/models';
+import { THookResult, TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useTimestamp' } as const;
@@ -30,13 +31,13 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useTimes
 export const useTimestamp = (
   override: TOverride = mergeDefaultOverride(),
   options: TUpdateOptions = mergeDefaultUpdateOptions()
-): [timestamp: number, update: () => void] => {
+): THookResult<number> => {
   const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
   const keys = [{ ...queryKey, ...providerKey(provider) }, { blockNumber }] as const;
-  const { data, refetch } = useQuery(
+  const { data, refetch, status } = useQuery(
     keys,
     async (keys): Promise<number> => {
       const { blockNumber } = keys.queryKey[1];
@@ -47,11 +48,11 @@ export const useTimestamp = (
       return 0;
     },
     {
-      ...options.query,
+      ...processQueryOptions<number>(options),
     }
   );
 
   useEthersUpdater(refetch, blockNumber, options);
 
-  return [data ?? 0, refetch];
+  return [data ?? 0, refetch, status];
 };

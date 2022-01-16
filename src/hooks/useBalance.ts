@@ -4,17 +4,23 @@ import { useQuery } from 'react-query';
 import { useEthersUpdater } from './useEthersUpdater';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { asyncForEach, ethersOverride, mergeDefaultOverride, mergeDefaultUpdateOptions } from '~~/functions';
+import {
+  asyncForEach,
+  ethersOverride,
+  mergeDefaultOverride,
+  mergeDefaultUpdateOptions,
+  processQueryOptions,
+} from '~~/functions';
 import { providerKey, TRequiredKeys } from '~~/functions/keyHelpers';
-import { TOverride, TUpdateOptions } from '~~/models';
+import { THookResult, TOverride, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useBalance' };
 
 const zero = BigNumber.from(0);
 
-type TUseBalanceResult<GAddress extends string | Array<string>> = GAddress extends string[]
-  ? Record<GAddress[number], BigNumber>
+type TUseBalanceResult<GAddress extends string | string[]> = GAddress extends string[]
+  ? Record<string, BigNumber>
   : BigNumber;
 
 /**
@@ -31,44 +37,51 @@ type TUseBalanceResult<GAddress extends string | Array<string>> = GAddress exten
  * @param options
  * @returns current balance
  */
-export const useBalance = <GAddress extends string | Array<string>, GResult = TUseBalanceResult<GAddress>>(
+export const useBalance = <GAddress extends string | Array<string>>(
   addresses: GAddress | undefined,
   override: TOverride = mergeDefaultOverride(),
   options: TUpdateOptions = mergeDefaultUpdateOptions()
-): [balance: GResult | undefined, update: () => void] => {
+): THookResult<TUseBalanceResult<GAddress>> => {
   const ethersContext = useEthersContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
   const keys = [{ ...queryKey, ...providerKey(provider) }, { addresses }] as const;
-  const { data, refetch } = useQuery(
+  const { data, refetch, status } = useQuery(
     keys,
-    async (keys) => {
+    async (keys): Promise<TUseBalanceResult<GAddress> | undefined> => {
       const { addresses } = keys.queryKey[1];
 
       if (provider && addresses) {
         if (Array.isArray(addresses)) {
-          const result: Record<string, BigNumber> = {};
+          const result: TUseBalanceResult<string[]> = {};
           await asyncForEach(addresses, async (address: string) => {
             const balance = await provider.getBalance(address);
             result[address] = balance;
           });
-          return result;
+          return result as TUseBalanceResult<GAddress>;
         } else {
           const address: string = addresses;
           const newBalance = await provider.getBalance(address);
-          return newBalance;
+          return newBalance as TUseBalanceResult<GAddress>;
         }
       }
       return undefined;
     },
     {
-      // isDataEqual: (oldResult, newResult) => oldResult?._hex === newResult._hex,
-      ...options.query,
+      ...processQueryOptions<TUseBalanceResult<GAddress> | undefined>(options),
+      isDataEqual: (oldResult, newResult) => oldResult?._hex === newResult?._hex,
     }
   );
 
   const blockNumber = useBlockNumberContext();
   useEthersUpdater(refetch, blockNumber, options);
 
-  return [data as unknown as GResult | undefined, refetch];
+  let result: TUseBalanceResult<GAddress>;
+  if (Array.isArray(addresses)) {
+    result = data ?? ({} as TUseBalanceResult<GAddress>);
+  } else {
+    result = data ?? (zero as TUseBalanceResult<GAddress>);
+  }
+
+  return [result, refetch, status];
 };

@@ -3,8 +3,8 @@ import { Result } from 'ethers/lib/utils';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-import { contractKey, mergeDefaultUpdateOptions, TRequiredKeys } from '~~/functions';
-import { const_blockNumberIntervalMedium, TUpdateOptions, TypedEvent } from '~~/models';
+import { contractKey, mergeDefaultUpdateOptions, processQueryOptions, TRequiredKeys } from '~~/functions';
+import { const_blockNumberInterval100, TUpdateOptions, TypedEvent } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;
@@ -29,7 +29,7 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
   startBlock: number,
   toBlock: number | undefined = undefined,
   options: TUpdateOptions = mergeDefaultUpdateOptions({ ...const_blockNumberIntervalMedium })
-): [eventMap: GTypedEvent[], queryEvents: () => void] => {
+): THookResult<GTypedEvent[]> => {
   const keys = [
     {
       ...queryKey,
@@ -41,7 +41,7 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
       toBlock,
     },
   ] as const;
-  const { data, refetch } = useQuery(
+  const { data, refetch, status } = useQuery(
     keys,
     async (keys): Promise<GTypedEvent[]> => {
       {
@@ -51,7 +51,7 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
       }
     },
     {
-      ...options.query,
+      ...processQueryOptions<GTypedEvent[]>(options),
     }
   );
 
@@ -75,5 +75,5 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
   // const blockNumber = useBlockNumberContext();
   // useEthersUpdater(refetch, blockNumber, options);
 
-  return [data ?? [], refetch];
+  return [data ?? [], refetch, status];
 };

@@ -2,9 +2,9 @@ import { BaseContract, utils } from 'ethers';
 import { useQuery } from 'react-query';
 
 import { useBlockNumberContext } from '~~/context';
-import { contractKey, mergeDefaultUpdateOptions, TRequiredKeys } from '~~/functions';
+import { contractKey, mergeDefaultUpdateOptions, processQueryOptions, TRequiredKeys } from '~~/functions';
 import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
-import { TUpdateOptions } from '~~/models';
+import { THookResult, TUpdateOptions } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
 
 const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useContractExistsAtAddress' } as const;
@@ -24,10 +24,10 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useCo
  */
 export const useContractExistsAtAddress = (
   contract: BaseContract | undefined,
-  options: TUpdateOptions = mergeDefaultUpdateOptions()
-): [contractIsDeployed: boolean, update: () => void] => {
+  options: TUpdateOptions<boolean> = mergeDefaultUpdateOptions()
+): THookResult<boolean> => {
   const keys = [{ ...queryKey, ...contractKey(contract) }, { contractAddress: contract?.address }] as const;
-  const { data, refetch } = useQuery(
+  const { data, refetch, status } = useQuery(
     keys,
     async (keys): Promise<boolean> => {
       const { contractAddress } = keys.queryKey[1];
@@ -43,12 +43,12 @@ export const useContractExistsAtAddress = (
       return false;
     },
     {
-      ...options.query,
+      ...processQueryOptions<boolean>(options),
     }
   );
 
   const blockNumber = useBlockNumberContext();
   useEthersUpdater(refetch, blockNumber, options);
 
-  return [data ?? false, refetch];
+  return [data ?? false, refetch, status];
 };

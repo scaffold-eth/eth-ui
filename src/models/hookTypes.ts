@@ -1,3 +1,5 @@
+import { QueryObserverOptions, QueryStatus } from 'react-query';
+
 import { TEthersAdaptor } from './ethersAppContextTypes';
 
 import { DeepPartial } from '~~/models/utilityTypes';
@@ -8,12 +10,9 @@ import { DeepPartial } from '~~/models/utilityTypes';
  */
 export const const_blockNumberIntervalShort: DeepPartial<TUpdateOptions> = { blockNumberInterval: 10 };
 
-/**
- * #### Summary
- * An constant for block number interval of 50 blocks
  */
 export const const_blockNumberIntervalMedium: DeepPartial<TUpdateOptions> = { blockNumberInterval: 50 };
-
+>;
 /**
  * #### Summary
  * An constant for block number interval of 250 blocks
@@ -30,7 +29,7 @@ export const const_blockNumberIntervalLong: DeepPartial<TUpdateOptions> = { bloc
  * - interval: interval in blocknumber to update in (default 1) see {@link TUpdateOptions.blockNumberInterval}
  * - polling: in ms, should be over 10000ms.  This is set by {@link TUpdateOptions.query.refetchInterval}
  */
-export type TUpdateOptions = {
+export type TUpdateOptions<GResult = any> = {
   /**
    * The interval in blocknumber for the hook to update in (default 1)
    */
@@ -38,25 +37,21 @@ export type TUpdateOptions = {
   /**
    * react query options
    */
-  query: {
     /**
      * update when window comes into focus (default: false)
      */
-    refetchOnWindowFocus: boolean;
     /**
      * update on mount of component (default: true)
      */
-    refetchOnMount: boolean;
     /**
      * consider the data stale after this time (default: 30s)
      */
-    staleTime: number;
     /**
      * polling interval in ms (default: undefined)
      * if you set this, this will turn of blockNumberInterval option
      */
-    refetchInterval: number | undefined;
-  };
+  refetchInterval: number | undefined;
+  query: TQueryOptions<GResult>;
 };
 
 /**
@@ -105,14 +100,16 @@ export const defaultOverride = (): TOverride => {
  * A helper to create default update options for hooks
  * @returns {TUpdateOptions}
  */
-export const defaultUpdateOptions = (): TUpdateOptions => {
+export const defaultUpdateOptions = <GResult = any>(): TUpdateOptions<GResult> => {
   return {
     blockNumberInterval: 1,
+    refetchInterval: undefined,
     query: {
       refetchOnWindowFocus: false,
       refetchOnMount: true,
       staleTime: 30000,
-      refetchInterval: undefined,
     },
   };
 };
+
+export type THookResult<T> = [result: T, update: () => void, status: QueryStatus];

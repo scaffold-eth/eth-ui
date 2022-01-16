@@ -17,7 +17,7 @@ import { useEthersContext } from '~~/context';
 import { invalidateCache, isValidEthersAdaptor } from '~~/functions';
 import { TEthersAdaptor } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
-import {
+import { TAppContractsContext, defaultAppContractsContext, TContractsByName } from '~~/models/contractContextTypes';
   TAppContractsContext,
   TBaseContractExtended,
   TConnectorList,

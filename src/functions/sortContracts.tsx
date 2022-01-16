@@ -1,6 +1,6 @@
 // export const sortContractsByChainId = <
 //   GContractNames extends string,
-//   GContracts extends TBaseContractExtended<GContractNames>
+// import { TContractsByName, TContractsByChainId } from '~~/models/contractContextTypes';
 // >(
 //   contractsByName: TContractsByName<GContractNames, GContracts>
 // ): TContractsByChainId<GContractNames, GContracts> => {
