@@ -64,7 +64,6 @@
     "lodash.isequal": "^4.5.0",
     "merge-anything": "^4.0.2",
     "react-query": "^3.34.7",
-    "react-use-promise": "^0.4.1",
     "ts-invariant": "^0.9.4",
     "use-debounce": "^7.0.1",
     "usehooks-ts": "^2.2.0",
