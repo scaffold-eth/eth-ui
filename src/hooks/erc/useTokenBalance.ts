@@ -25,9 +25,9 @@ type ERC20 = {
  *
  * @category Hooks
  *
- * @param contract ethers.Contract class
- * @param address
- * @param pollTime if >0 use polling, else use instead of onBlock event
+ * @param contract ERC20 token to get the balance of
+ * @param address Address of wallet that holds the tokens
+ * @param options Options for how often and when to update
  * @returns
  */
 export const useTokenBalance = <GContract extends BaseContract & ERC20>(
