@@ -1,14 +1,17 @@
 import { BaseContract, ethers } from 'ethers';
+import { merge } from 'merge-anything';
 
 import { TConnectorConnectorBase, TContractConnector } from '~~/models';
 import {
-  TBasicContractDataRecord,
+  THardhatContractDataRecord,
   TExternalContractsAddressMap,
   TDeployedHardhatContractsJson,
+  TBasicContractDataConfig,
+  TExternalContractDataRecord,
 } from '~~/models/contractTypes';
 
-const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): TBasicContractDataRecord => {
-  const contractData: TBasicContractDataRecord = {};
+const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): THardhatContractDataRecord => {
+  const contractData: THardhatContractDataRecord = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
@@ -18,7 +21,15 @@ const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): TBa
     )?.[0];
     if (deployedDataByNetwork?.chainId != null) {
       for (const contractName in deployedDataByNetwork.contracts) {
-        contractData[contractName] = { ...deployedDataByNetwork.contracts[contractName], chainId: chainId };
+        const config: TBasicContractDataConfig = {
+          [chainId]: { address: deployedDataByNetwork.contracts[contractName].address, chainId },
+        };
+
+        const abi = deployedDataByNetwork.contracts[contractName].abi;
+        if (abi && abi?.length > 0) {
+          contractData[contractName] = merge(contractData[contractName] ?? {}, { abi: abi });
+        }
+        contractData[contractName] = merge({ ...contractData[contractName] }, { config });
       }
     }
   }
@@ -26,14 +37,17 @@ const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): TBa
   return contractData;
 };
 
-const extractExternalContracts = (configJson: TExternalContractsAddressMap): TBasicContractDataRecord => {
-  const contractData: TBasicContractDataRecord = {};
+const extractExternalContracts = (configJson: TExternalContractsAddressMap): TExternalContractDataRecord => {
+  const contractData: TExternalContractDataRecord = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
 
     for (const contractName in configJson[chainId]) {
-      contractData[contractName] = { address: configJson[chainId][contractName], chainId: chainId };
+      const config: TBasicContractDataConfig = {
+        [chainId]: { address: configJson[chainId][contractName], chainId: chainId },
+      };
+      contractData[contractName] = merge({ ...(contractData[contractName] ?? {}) }, { config });
     }
   }
 
@@ -47,7 +61,7 @@ export const createConnectorForHardhatContract = <GContractNames extends string,
 ): TContractConnector<GContractNames, GBaseContract> => {
   const info = extractHardhatContracts(deployedHardhatContractJson)[contractName];
 
-  if (info == null) {
+  if (info == null || info.abi == null) {
     throw new Error(
       `Contract ${contractName} not found in deployed contracts (hardhat_config.json).  Check your hardhat deploy scripts and hardhat_config.json`
     );
@@ -59,9 +73,7 @@ export const createConnectorForHardhatContract = <GContractNames extends string,
     // createInterface: typechainFactory.createInterface,
     abi: (info?.abi ?? typechainFactory.abi ?? []) as Record<string, any>[],
     config: {
-      [info.chainId]: {
-        address: info.address,
-      },
+      ...info.config,
     },
   };
 };
@@ -83,18 +95,16 @@ export const createConnectorForExternalContract = <GContractNames extends string
     contractName,
     connect: typechainFactory.connect,
     // : typechainFactory.createInterface,
-    abi: (info?.abi ?? typechainFactory.abi ?? []) as Record<string, any>[],
+    abi: typechainFactory.abi ?? [],
     config: {
-      [info.chainId]: {
-        address: info.address,
-      },
+      ...info.config,
     },
   };
 };
 
 export const createConnectorForExternalAbi = <GContractNames extends string>(
   contractName: GContractNames,
-  config: { [key in number]: { address: string } },
+  config: TBasicContractDataConfig,
   abi: Record<string, any>[]
 ): TContractConnector<GContractNames, BaseContract> => {
   return {
@@ -103,6 +113,6 @@ export const createConnectorForExternalAbi = <GContractNames extends string>(
       return new BaseContract(address, abi, signerOrProvider);
     },
     abi: abi,
-    config: config,
+    config: { ...config },
   };
 };

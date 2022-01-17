@@ -7,15 +7,35 @@ export type TBasicContractData = {
   abi?: any[];
 };
 
+export type TBasicContractDataConfig = {
+  [chainId: number]: {
+    chainId: number;
+    address: string;
+  };
+};
+
 /**
  * #### Summary
  * Contracts by contract name
  * - A record of contract names and their hardhat contract json
  * - includes chain id
  */
-export type TBasicContractDataRecord = {
-  [contractName: string]: TBasicContractData & {
-    chainId: number;
+export type THardhatContractDataRecord = {
+  [contractName: string]: {
+    config: TBasicContractDataConfig;
+    abi: any[];
+  };
+};
+
+/**
+ * #### Summary
+ * Contracts by contract name
+ * - A record of contract names and their hardhat contract json
+ * - includes chain id
+ */
+export type TExternalContractDataRecord = {
+  [contractName: string]: {
+    config: TBasicContractDataConfig;
   };
 };
 

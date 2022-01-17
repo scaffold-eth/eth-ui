@@ -1,25 +1,27 @@
 import { Provider } from '@ethersproject/providers';
 import { BaseContract, Signer } from 'ethers';
 
+import { TBasicContractDataConfig } from '~~/models';
+
 export type TConnectorConnectorBase<
   GContract extends BaseContract
   // GContractInterface extends ethers.utils.Interface
-> = {
+> = Readonly<{
   connect: (address: string, signerOrProvider: Signer | Provider) => GContract;
   // createInterface: () => GContractInterface;
-  abi: Record<string, any>[];
-};
+  abi: Readonly<Record<string, any>[]>;
+}>;
 
 export type TContractConnector<
   GContractNames extends string,
   GContract extends BaseContract
   // GContractInterface extends ethers.utils.Interface
-> = {
-  contractName: GContractNames;
-  config: {
-    [chainId: number]: { address: string };
-  };
-} & TConnectorConnectorBase<GContract>;
+> = Readonly<
+  {
+    contractName: GContractNames;
+    config: TBasicContractDataConfig;
+  } & TConnectorConnectorBase<GContract>
+>;
 
 export type TBaseContractExtended<GContractNames extends string> = BaseContract & { contractName: GContractNames };
 
