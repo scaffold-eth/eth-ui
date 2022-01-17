@@ -1,6 +1,8 @@
-# 🖇 Eth-Hooks Overview
+# 🖇 Eth-Hooks
 
-Commonly used Ethereum hooks.
+## Overview
+
+Commonly used Ethereum hooks to supercharge your web3 dev!
 
 Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) and 🏭 [scaffold-eth-typescript](https://github.com/scaffold-eth/scaffold-eth-typescript)
 
@@ -8,9 +10,72 @@ Used by ⚙ [eth-components](https://github.com/scaffold-eth/eth-components)
 
 Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
-## Authors
+### Author
 
 [@shravansunder](https://github.com/ShravanSunder)
+
+### Contributors
+
+- [@ss6]()
+
+# Features
+
+> See this [video summary on v4 features](https://www.youtube.com/watch?v=STxAdE8wQwY)!
+
+## EthersAppContext
+
+A context that allows you to access the current ethers.js context and information such as provider, signer, account. This allows your user to easily log into web3 account using web3modal. You can setup up overrides and multiple providers.
+
+## ContractAppContext
+
+Gives you a `contractContextFactory` that allows you to easily setup typed contracts, load typed contracts, create connectors, and access them with hooks anywhere in your app.
+
+## Caching & optional updates
+
+Caches the network RPC calls so that unecessary requests to the network is prevented. You can setup an update interval from every block, every (n) blocks, polling, onMount, onWindow focus and other react-query update options.
+
+## Hooks!
+
+Ethers App Context
+
+- useBlockNumberContext
+- useEthersContext
+
+Network
+
+- useBalance
+- useBlockNumber
+- useContractExistsAtAddress
+- useEventListener
+- useGasPrice
+- useNonce
+- useSignerAddress
+
+Contracts
+
+- useContractReader
+- contractContextFactory
+  - useLoadAppContracts
+  - useConnectAppContracts
+  - useConnectAppContracts
+- legacy (eth-hooks v2+)
+  - useContractLoader
+  - useContractReaderUntyped
+
+ERC
+
+- useTokenBalance
+
+Dapps
+
+- useDexEthPrice
+- useDexTokenList
+- useResolveEnsAddress
+- useResolveEnsName
+
+Utility
+
+- useBurnerSigner
 
 # Quickstart
 
@@ -229,3 +294,18 @@ const [purpose, update] = useContractReader(
 Check out [the documentation here!](https://scaffold-eth.github.io/eth-hooks/)
 
 The documentation are also available on [scaffold-eth's gitbook](https://docs.scaffoldeth.io/scaffold-eth-libraries/v/eth-hooks-v3/)
+
+# Dependencies
+
+## Main package dependencies
+
+- ethers.js
+- @uniswap/token-lists
+- @web3-react: core, abstractconnector, types
+- web3modal
+- react-query
+
+## Peer dependencies
+
+- react, react/dom
+- uniswap/sdk

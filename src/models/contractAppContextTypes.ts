@@ -1,4 +1,3 @@
-
 import { Provider } from '@ethersproject/providers';
 import { BaseContract, Signer } from 'ethers';
 
@@ -27,10 +26,6 @@ export type TBaseContractExtended<GContractNames extends string> = BaseContract 
 export type TConnectorList<GContractNames extends string, GContracts extends TBaseContractExtended<GContractNames>> = {
   [contractName in GContractNames]: TContractConnector<GContractNames, GContracts>;
 };
-
-// export type TConnectorList<GContactNames extends string, GContracts extends TBaseContractExtended> = {
-//   [contractName in GContactNames]: TContractConnector<GContactNames, GContracts>;
-// };
 
 export type TTypedContract<
   GContractNames extends string,
