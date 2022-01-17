@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { QueryStatus } from 'react-query';
 
 import { hookTestWrapper, TTestHookResult } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
@@ -6,7 +7,7 @@ import { mineBlock } from '~~/helpers/test-utils/eth';
 import { useTimestamp } from '~~/hooks';
 
 const expectTimestamp = async (
-  harness: TTestHookResult<() => [timestamp: number, update: () => void]>
+  harness: TTestHookResult<() => [timestamp: number, update: () => void, status: QueryStatus]>
 ): Promise<number> => {
   const blockNumber = await harness.mockProvider.getBlockNumber();
   expect(blockNumber).to.exist;

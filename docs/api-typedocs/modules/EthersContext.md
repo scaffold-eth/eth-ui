@@ -1,4 +1,4 @@
-[eth-hooks - v4.0.8](../README.md) / EthersContext
+[eth-hooks - v4.0.14](../README.md) / EthersContext
 
 # Module: EthersContext
 
@@ -17,7 +17,6 @@ A context for your react app with [useEthersContext](EthersContext.md#useethersc
 - [createConnectorForHardhatContract](EthersContext.md#createconnectorforhardhatcontract)
 - [createConnectorForExternalContract](EthersContext.md#createconnectorforexternalcontract)
 - [createConnectorForExternalAbi](EthersContext.md#createconnectorforexternalabi)
-- [connectToContractWithAdaptor](EthersContext.md#connecttocontractwithadaptor)
 - [contractsContextFactory](EthersContext.md#contractscontextfactory)
 
 ### Type aliases
@@ -77,7 +76,7 @@ current block number
 
 #### Defined in
 
-[src/context/ethers/BlockNumberContext.tsx:64](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/ethers/BlockNumberContext.tsx#L64)
+[src/context/ethers/BlockNumberContext.tsx:64](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/ethers/BlockNumberContext.tsx#L64)
 
 ___
 
@@ -111,7 +110,7 @@ Gives you access to consistent interface to get the current provider information
 
 #### Defined in
 
-[src/context/ethers/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/ethers/EthersAppContext.tsx#L37)
+[src/context/ethers/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/ethers/EthersAppContext.tsx#L37)
 
 ___
 
@@ -140,7 +139,7 @@ See scaffold-eth-typescript for an example that uses it to connect to a localhos
 
 #### Defined in
 
-[src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L31)
+[src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L31)
 
 ___
 
@@ -148,7 +147,7 @@ ___
 
 ### createConnectorForHardhatContract
 
-▸ `Const` **createConnectorForHardhatContract**<`GContractNames`, `GBaseContract`, `GContractInterface`\>(`contractName`, `typechainFactory`, `deployedHardhatContractJson`): [`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `GBaseContract`, `GContractInterface`\>
+▸ `Const` **createConnectorForHardhatContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedHardhatContractJson`): [`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `GBaseContract`\>
 
 #### Type parameters
 
@@ -156,29 +155,28 @@ ___
 | :------ | :------ |
 | `GContractNames` | extends `string` |
 | `GBaseContract` | extends `BaseContract`<`GBaseContract`\> |
-| `GContractInterface` | extends `Interface`<`GContractInterface`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `contractName` | `GContractNames` |
-| `typechainFactory` | [`TConnectorConnectorBase`](Models.md#tconnectorconnectorbase)<`GBaseContract`, `GContractInterface`\> |
+| `typechainFactory` | [`TConnectorConnectorBase`](Models.md#tconnectorconnectorbase)<`GBaseContract`\> |
 | `deployedHardhatContractJson` | [`TDeployedHardhatContractsJson`](Models.md#tdeployedhardhatcontractsjson) |
 
 #### Returns
 
-[`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `GBaseContract`, `GContractInterface`\>
+[`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `GBaseContract`\>
 
 #### Defined in
 
-[src/context/app-contracts/contractConnectors.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/app-contracts/contractConnectors.ts#L44)
+[src/context/app-contracts/contractConnectors.ts:43](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/app-contracts/contractConnectors.ts#L43)
 
 ___
 
 ### createConnectorForExternalContract
 
-▸ `Const` **createConnectorForExternalContract**<`GContractNames`, `GBaseContract`, `GContractInterface`\>(`contractName`, `typechainFactory`, `deployedContractJson`): [`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `GBaseContract`, `GContractInterface`\>
+▸ `Const` **createConnectorForExternalContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedContractJson`): [`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `GBaseContract`\>
 
 #### Type parameters
 
@@ -186,29 +184,28 @@ ___
 | :------ | :------ |
 | `GContractNames` | extends `string` |
 | `GBaseContract` | extends `BaseContract`<`GBaseContract`\> |
-| `GContractInterface` | extends `Interface`<`GContractInterface`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `contractName` | `GContractNames` |
-| `typechainFactory` | [`TConnectorConnectorBase`](Models.md#tconnectorconnectorbase)<`GBaseContract`, `GContractInterface`\> |
+| `typechainFactory` | [`TConnectorConnectorBase`](Models.md#tconnectorconnectorbase)<`GBaseContract`\> |
 | `deployedContractJson` | [`TExternalContractsAddressMap`](Models.md#texternalcontractsaddressmap) |
 
 #### Returns
 
-[`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `GBaseContract`, `GContractInterface`\>
+[`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `GBaseContract`\>
 
 #### Defined in
 
-[src/context/app-contracts/contractConnectors.ts:74](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/app-contracts/contractConnectors.ts#L74)
+[src/context/app-contracts/contractConnectors.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/app-contracts/contractConnectors.ts#L69)
 
 ___
 
 ### createConnectorForExternalAbi
 
-▸ `Const` **createConnectorForExternalAbi**<`GContractNames`\>(`contractName`, `config`, `abi`): [`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `BaseContract`, `Interface`\>
+▸ `Const` **createConnectorForExternalAbi**<`GContractNames`\>(`contractName`, `config`, `abi`): [`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `BaseContract`\>
 
 #### Type parameters
 
@@ -226,54 +223,25 @@ ___
 
 #### Returns
 
-[`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `BaseContract`, `Interface`\>
+[`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `BaseContract`\>
 
 #### Defined in
 
-[src/context/app-contracts/contractConnectors.ts:104](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/app-contracts/contractConnectors.ts#L104)
-
-___
-
-### connectToContractWithAdaptor
-
-▸ `Const` **connectToContractWithAdaptor**<`GContractNames`, `GContract`, `GContractInterface`\>(`connector`, `adaptor`): `undefined` \| `GContract`
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `GContractNames` | extends `string` |
-| `GContract` | extends `BaseContract`<`GContract`\> |
-| `GContractInterface` | extends `Interface`<`GContractInterface`\> |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `connector` | [`TContractConnector`](Models.md#tcontractconnector)<`GContractNames`, `GContract`, `GContractInterface`\> |
-| `adaptor` | [`TEthersAdaptor`](Models.md#tethersadaptor) |
-
-#### Returns
-
-`undefined` \| `GContract`
-
-#### Defined in
-
-[src/context/app-contracts/contractConnectors.ts:120](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/app-contracts/contractConnectors.ts#L120)
+[src/context/app-contracts/contractConnectors.ts:95](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/app-contracts/contractConnectors.ts#L95)
 
 ___
 
 ### contractsContextFactory
 
-▸ `Const` **contractsContextFactory**<`GContractNames`, `GAppConnectorList`, `GContractTypes`\>(`loadAppContractConnectors`): `Object`
+▸ `Const` **contractsContextFactory**<`GContractNames`, `GAppConnectorList`, `GContractsTypes`\>(`loadAppContractConnectors`): `Object`
 
 #### Type parameters
 
 | Name | Type |
 | :------ | :------ |
 | `GContractNames` | extends `string` |
-| `GAppConnectorList` | `GAppConnectorList` |
-| `GContractTypes` | extends `unknown` |
+| `GAppConnectorList` | extends [`TConnectorList`](Models.md#tconnectorlist)<`GContractNames`, [`TBaseContractExtended`](Models.md#tbasecontractextended)<`GContractNames`\>\> |
+| `GContractsTypes` | extends `BaseContract`<`GContractsTypes`\> & { `contractName`: `GContractNames`  } |
 
 #### Parameters
 
@@ -289,13 +257,13 @@ ___
 | :------ | :------ |
 | `ContractsAppContext` | `FC`<`PropsWithChildren`<[`TContractsContextProps`](EthersContext.md#tcontractscontextprops)\>\> |
 | `useAppContractsActions` | () => `undefined` \| [`TContractsContextActions`](EthersContext.md#tcontractscontextactions)<`GContractNames`, `GAppConnectorList`\> |
-| `useAppContractsContext` | <GContract\>(`contractName`: `GContractNames`, `chainId`: `undefined` \| `number`) => `undefined` \| `GContract` |
+| `useAppContracts` | <GContractName\>(`contractName`: `GContractName`, `chainId`: `undefined` \| `number`) => `undefined` \| [`TTypedContract`](Models.md#ttypedcontract)<`GContractName`, `GAppConnectorList`\> |
 | `useLoadAppContracts` | () => `void` |
 | `useConnectAppContracts` | (`adaptor`: `undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor)) => `void` |
 
 #### Defined in
 
-[src/context/app-contracts/contractsContextFactory.tsx:79](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/app-contracts/contractsContextFactory.tsx#L79)
+[src/context/app-contracts/contractsContextFactory.tsx:89](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/app-contracts/contractsContextFactory.tsx#L89)
 
 ## Type aliases
 
@@ -311,7 +279,7 @@ ___
 
 #### Defined in
 
-[src/context/app-contracts/contractsContextFactory.tsx:22](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/app-contracts/contractsContextFactory.tsx#L22)
+[src/context/app-contracts/contractsContextFactory.tsx:30](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/app-contracts/contractsContextFactory.tsx#L30)
 
 ___
 
@@ -338,7 +306,7 @@ ___
 
 #### Defined in
 
-[src/context/app-contracts/contractsContextFactory.tsx:60](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/app-contracts/contractsContextFactory.tsx#L60)
+[src/context/app-contracts/contractsContextFactory.tsx:69](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/app-contracts/contractsContextFactory.tsx#L69)
 
 ___
 
@@ -360,7 +328,7 @@ Props for context that allow you specify alternate web3ReactRoot [See docs](http
 
 #### Defined in
 
-[src/context/ethers/EthersAppContext.tsx:97](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/ethers/EthersAppContext.tsx#L97)
+[src/context/ethers/EthersAppContext.tsx:97](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/ethers/EthersAppContext.tsx#L97)
 
 ___
 
@@ -370,7 +338,7 @@ ___
 
 #### Defined in
 
-[src/context/ethers/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/ethers/connectors/EthersModalConnector.ts#L45)
+[src/context/ethers/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/ethers/connectors/EthersModalConnector.ts#L45)
 
 ## EthersContext Variables
 
@@ -387,7 +355,7 @@ A context that works with [useBlockNumberContext](EthersContext.md#useblocknumbe
 
 #### Defined in
 
-[src/context/ethers/BlockNumberContext.tsx:86](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/ethers/BlockNumberContext.tsx#L86)
+[src/context/ethers/BlockNumberContext.tsx:86](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/ethers/BlockNumberContext.tsx#L86)
 
 ___
 
@@ -405,7 +373,7 @@ This is a wrapper around Web3ReactProvider that provides additional functionalit
 
 #### Defined in
 
-[src/context/ethers/EthersAppContext.tsx:144](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/ethers/EthersAppContext.tsx#L144)
+[src/context/ethers/EthersAppContext.tsx:144](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/ethers/EthersAppContext.tsx#L144)
 
 ___
 
@@ -417,4 +385,4 @@ ___
 
 #### Defined in
 
-[src/context/ethers/queryClient.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/context/ethers/queryClient.ts#L3)
+[src/context/ethers/queryClient.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/context/ethers/queryClient.ts#L3)

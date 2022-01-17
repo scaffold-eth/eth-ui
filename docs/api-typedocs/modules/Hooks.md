@@ -1,4 +1,4 @@
-[eth-hooks - v4.0.8](../README.md) / Hooks
+[eth-hooks - v4.0.14](../README.md) / Hooks
 
 # Module: Hooks
 
@@ -46,7 +46,7 @@ Commonly used ethereum hooks to turbocharge your development!  Works with [useEt
 
 ### useDexEthPrice
 
-▸ `Const` **useDexEthPrice**(`mainnetProvider`, `targetNetworkInfo?`, `options?`): [price: number, update: Function]
+▸ `Const` **useDexEthPrice**(`mainnetProvider`, `targetNetworkInfo?`, `options?`): [`THookResult`](Models.md#thookresult)<`number`\>
 
 #### Summary
 Get the Exchange price of ETH/USD (extrapolated from WETH/DAI) from uniswap
@@ -60,23 +60,23 @@ Get the Exchange price of ETH/USD (extrapolated from WETH/DAI) from uniswap
 | :------ | :------ |
 | `mainnetProvider` | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider) |
 | `targetNetworkInfo?` | [`TNetworkInfo`](Models.md#tnetworkinfo) |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
 
 #### Returns
 
-[price: number, update: Function]
+[`THookResult`](Models.md#thookresult)<`number`\>
 
 price in USD
 
 #### Defined in
 
-[src/hooks/dapps/useDexEthPrice.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/dapps/useDexEthPrice.ts#L27)
+[src/hooks/dapps/useDexEthPrice.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/dapps/useDexEthPrice.ts#L27)
 
 ___
 
 ### useDexTokenList
 
-▸ `Const` **useDexTokenList**(`tokenListUri?`, `chainId?`, `options?`): [tokenList: TokenInfo[], update: Function]
+▸ `Const` **useDexTokenList**(`tokenListUri?`, `chainId?`, `options?`): [`THookResult`](Models.md#thookresult)<`TokenInfo`[]\>
 
 #### Summary
 Gets a tokenlist from uniswap ipfs tokenlist
@@ -90,23 +90,23 @@ Gets a tokenlist from uniswap ipfs tokenlist
 | :------ | :------ | :------ | :------ |
 | `tokenListUri` | `string` | `'https://gateway.ipfs.io/ipns/tokens.uniswap.org'` |  |
 | `chainId?` | `number` | `undefined` | optional, you can filter by a particular chainId |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) | `undefined` | - |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | `undefined` | - |
 
 #### Returns
 
-[tokenList: TokenInfo[], update: Function]
+[`THookResult`](Models.md#thookresult)<`TokenInfo`[]\>
 
 (TokenInfo[]) from '@uniswap/token-lists'
 
 #### Defined in
 
-[src/hooks/dapps/useDexTokenList.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/dapps/useDexTokenList.ts#L27)
+[src/hooks/dapps/useDexTokenList.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/dapps/useDexTokenList.ts#L27)
 
 ___
 
 ### useResolveEnsAddress
 
-▸ `Const` **useResolveEnsAddress**(`mainnetProvider`, `ensName`): [address: string, update: Function]
+▸ `Const` **useResolveEnsAddress**(`mainnetProvider`, `ensName`): [`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
 
 #### Summary
 Gets the address from an ENS name
@@ -120,17 +120,17 @@ Gets the address from an ENS name
 
 #### Returns
 
-[address: string, update: Function]
+[`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
 
 #### Defined in
 
-[src/hooks/dapps/useResolveEnsAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/dapps/useResolveEnsAddress.ts#L19)
+[src/hooks/dapps/useResolveEnsAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/dapps/useResolveEnsAddress.ts#L19)
 
 ___
 
 ### useResolveEnsName
 
-▸ `Const` **useResolveEnsName**(`mainnetProvider`, `address`): [ensName: string, update: Function]
+▸ `Const` **useResolveEnsName**(`mainnetProvider`, `address`): [`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
 
 #### Summary
 Gets ENS name for given address
@@ -144,17 +144,17 @@ Gets ENS name for given address
 
 #### Returns
 
-[ensName: string, update: Function]
+[`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
 
 #### Defined in
 
-[src/hooks/dapps/useResolveEnsName.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/dapps/useResolveEnsName.ts#L45)
+[src/hooks/dapps/useResolveEnsName.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/dapps/useResolveEnsName.ts#L45)
 
 ___
 
 ### useTokenBalance
 
-▸ `Const` **useTokenBalance**<`GContract`\>(`contract`, `address`, `options?`): [balance: BigNumber, update: Function]
+▸ `Const` **useTokenBalance**<`GContract`\>(`contract`, `address`, `options?`): [`THookResult`](Models.md#thookresult)<`BigNumber`\>
 
 #### Summary
 Get the balance of an ERC20 token in an address
@@ -175,21 +175,21 @@ Get the balance of an ERC20 token in an address
 | :------ | :------ | :------ |
 | `contract` | `GContract` | ethers.Contract class |
 | `address` | `string` |  |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) | - |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | - |
 
 #### Returns
 
-[balance: BigNumber, update: Function]
+[`THookResult`](Models.md#thookresult)<`BigNumber`\>
 
 #### Defined in
 
-[src/hooks/erc/useTokenBalance.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/erc/useTokenBalance.ts#L33)
+[src/hooks/erc/useTokenBalance.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/erc/useTokenBalance.ts#L33)
 
 ___
 
 ### useAreSignerEqual
 
-▸ `Const` **useAreSignerEqual**(`signer1`, `signer2`): [isEqual: boolean, update: Function]
+▸ `Const` **useAreSignerEqual**(`signer1`, `signer2`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `boolean`\>
 
 #### Summary
 Are the signers equal and valid
@@ -200,20 +200,21 @@ Are the signers equal and valid
 | :------ | :------ |
 | `signer1` | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner) |
 | `signer2` | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner) |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
 
 #### Returns
 
-[isEqual: boolean, update: Function]
+[`THookResult`](Models.md#thookresult)<`undefined` \| `boolean`\>
 
 #### Defined in
 
-[src/hooks/useAreSignerEqual.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useAreSignerEqual.ts#L17)
+[src/hooks/useAreSignerEqual.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useAreSignerEqual.ts#L19)
 
 ___
 
 ### useBalance
 
-▸ `Const` **useBalance**<`GAddress`, `GResult`\>(`addresses`, `override?`, `options?`): [balance: GResult, update: Function]
+▸ `Const` **useBalance**<`GAddress`\>(`addresses`, `options?`, `override?`): [`THookResult`](Models.md#thookresult)<`TUseBalanceResult`<`GAddress`\>\>
 
 #### Summary
 Gets your balance in ETH for the given address.
@@ -227,31 +228,30 @@ Gets your balance in ETH for the given address.
 | Name | Type |
 | :------ | :------ |
 | `GAddress` | extends `string` \| `string`[] |
-| `GResult` | `TUseBalanceResult`<`GAddress`\> |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `addresses` | `undefined` \| `GAddress` |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
 | `override` | [`TOverride`](Models.md#toverride) |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) |
 
 #### Returns
 
-[balance: GResult, update: Function]
+[`THookResult`](Models.md#thookresult)<`TUseBalanceResult`<`GAddress`\>\>
 
 current balance
 
 #### Defined in
 
-[src/hooks/useBalance.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useBalance.ts#L34)
+[src/hooks/useBalance.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useBalance.ts#L40)
 
 ___
 
 ### useBlockNumber
 
-▸ `Const` **useBlockNumber**(`provider`, `callback?`): [blockNumber: number, update: Function]
+▸ `Const` **useBlockNumber**(`provider`, `callback?`, `options?`): [`THookResult`](Models.md#thookresult)<`number`\>
 
 #### Summary
 Get the current block number of the network. ✋🏽 @deprecated
@@ -266,16 +266,17 @@ Get the current block number of the network. ✋🏽 @deprecated
 | :------ | :------ |
 | `provider` | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider) |
 | `callback?` | (`blockNumber?`: `number`) => `void` \| (`blockNumber?`: `number`) => `Promise`<`void`\> |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
 
 #### Returns
 
-[blockNumber: number, update: Function]
+[`THookResult`](Models.md#thookresult)<`number`\>
 
 block number
 
 #### Defined in
 
-[src/hooks/useBlockNumber.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useBlockNumber.ts#L19)
+[src/hooks/useBlockNumber.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useBlockNumber.ts#L22)
 
 ___
 
@@ -301,13 +302,13 @@ IBurnerSigner
 
 #### Defined in
 
-[src/hooks/useBurnerSigner.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useBurnerSigner.ts#L87)
+[src/hooks/useBurnerSigner.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useBurnerSigner.ts#L87)
 
 ___
 
 ### useContractExistsAtAddress
 
-▸ `Const` **useContractExistsAtAddress**(`contract`, `options?`): [contractIsDeployed: boolean, update: Function]
+▸ `Const` **useContractExistsAtAddress**(`contract`, `options?`): [`THookResult`](Models.md#thookresult)<`boolean`\>
 
 #### Summary
 Checks whether a contract exists on the blockchain
@@ -321,15 +322,15 @@ Checks whether a contract exists on the blockchain
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `contract` | `undefined` \| `BaseContract` | ethers.BaseContract class |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) | - |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`boolean`\> | - |
 
 #### Returns
 
-[contractIsDeployed: boolean, update: Function]
+[`THookResult`](Models.md#thookresult)<`boolean`\>
 
 #### Defined in
 
-[src/hooks/useContractExistsAtAddress.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useContractExistsAtAddress.ts#L25)
+[src/hooks/useContractExistsAtAddress.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useContractExistsAtAddress.ts#L25)
 
 ___
 
@@ -367,7 +368,7 @@ Record of contractName:Contracts
 
 #### Defined in
 
-[src/hooks/useContractLoader.ts:105](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useContractLoader.ts#L105)
+[src/hooks/useContractLoader.ts:105](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useContractLoader.ts#L105)
 
 ___
 
@@ -406,13 +407,13 @@ Enables you to call a contract function with arguments and receive the output.  
 
 #### Defined in
 
-[src/hooks/useContractReader.ts:109](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useContractReader.ts#L109)
+[src/hooks/useContractReader.ts:116](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useContractReader.ts#L116)
 
 ___
 
 ### useEthersAdaptorFromProviderOrSigners
 
-▸ `Const` **useEthersAdaptorFromProviderOrSigners**(`providerOrSigner`, `options?`): [adaptor: TEthersAdaptor, update: Function]
+▸ `Const` **useEthersAdaptorFromProviderOrSigners**(`providerOrSigner`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor)\>
 
 #### Summary
 Gets the user {@link TEthersUser} for a signer or wallet
@@ -422,21 +423,21 @@ Gets the user {@link TEthersUser} for a signer or wallet
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `providerOrSigner` | `undefined` \| [`TEthersProviderOrSigner`](Models.md#tethersproviderorsigner) | input signer |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) | - |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | - |
 
 #### Returns
 
-[adaptor: TEthersAdaptor, update: Function]
+[`THookResult`](Models.md#thookresult)<`undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor)\>
 
 #### Defined in
 
-[src/hooks/useEthersAdaptorFromProviderOrSigners.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useEthersAdaptorFromProviderOrSigners.ts#L30)
+[src/hooks/useEthersAdaptorFromProviderOrSigners.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useEthersAdaptorFromProviderOrSigners.ts#L31)
 
 ___
 
 ### useEventListener
 
-▸ `Const` **useEventListener**<`GTypedEvent`\>(`contract`, `eventFilter`, `startBlock`, `toBlock?`, `options?`): [eventMap: GTypedEvent[], queryEvents: Function]
+▸ `Const` **useEventListener**<`GTypedEvent`\>(`contract`, `eventFilter`, `startBlock`, `toBlock?`, `options?`): [`THookResult`](Models.md#thookresult)<`GTypedEvent`[]\>
 
 #### Summary
 Tracks the events of associated with a contract
@@ -459,21 +460,21 @@ Tracks the events of associated with a contract
 | `eventFilter` | `undefined` \| `string` \| `EventFilter` | `undefined` | - |
 | `startBlock` | `number` | `undefined` |  |
 | `toBlock` | `undefined` \| `number` | `undefined` | - |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) | `undefined` | - |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | `undefined` | - |
 
 #### Returns
 
-[eventMap: GTypedEvent[], queryEvents: Function]
+[`THookResult`](Models.md#thookresult)<`GTypedEvent`[]\>
 
 #### Defined in
 
-[src/hooks/useEventListener.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useEventListener.ts#L26)
+[src/hooks/useEventListener.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useEventListener.ts#L26)
 
 ___
 
 ### useGasPrice
 
-▸ `Const` **useGasPrice**(`chainId`, `speed`, `currentNetworkInfo?`, `override?`, `options?`): [gasPrice: number, update: Function]
+▸ `Const` **useGasPrice**(`chainId`, `speed`, `currentNetworkInfo?`, `options?`, `override?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `number`\>
 
 #### Summary
 Gets the gas price for the current network as gwei
@@ -493,24 +494,24 @@ Gets the gas price for the current network as gwei
 | `chainId` | `undefined` \| `number` | - |
 | `speed` | [`TGasStationSpeed`](Hooks.md#tgasstationspeed) |  |
 | `currentNetworkInfo?` | [`TNetworkInfo`](Models.md#tnetworkinfo) | uses gasPrice as a fallback |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | - |
 | `override` | [`TOverride`](Models.md#toverride) | - |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) | - |
 
 #### Returns
 
-[gasPrice: number, update: Function]
+[`THookResult`](Models.md#thookresult)<`undefined` \| `number`\>
 
 gas as gwei
 
 #### Defined in
 
-[src/hooks/useGasPrice.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useGasPrice.ts#L48)
+[src/hooks/useGasPrice.ts:49](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useGasPrice.ts#L49)
 
 ___
 
 ### useNonce
 
-▸ `Const` **useNonce**(`address`, `override?`, `options?`): [nonce: number, update: Function]
+▸ `Const` **useNonce**(`address`, `options?`, `override?`): [`THookResult`](Models.md#thookresult)<`number`\>
 
 #### Summary
 Get the current nonce for the address provided
@@ -524,22 +525,22 @@ Get the current nonce for the address provided
 | Name | Type |
 | :------ | :------ |
 | `address` | `undefined` \| `string` |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
 | `override` | [`TOverride`](Models.md#toverride) |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) |
 
 #### Returns
 
-[nonce: number, update: Function]
+[`THookResult`](Models.md#thookresult)<`number`\>
 
 #### Defined in
 
-[src/hooks/useNonce.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useNonce.ts#L33)
+[src/hooks/useNonce.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useNonce.ts#L34)
 
 ___
 
 ### useSignerAddress
 
-▸ `Const` **useSignerAddress**(`signer`): [address: string, update: Function]
+▸ `Const` **useSignerAddress**(`signer`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
 
 #### Summary
 Get the address from the signer
@@ -549,20 +550,21 @@ Get the address from the signer
 | Name | Type |
 | :------ | :------ |
 | `signer` | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner) |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
 
 #### Returns
 
-[address: string, update: Function]
+[`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
 
 #### Defined in
 
-[src/hooks/useSignerAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useSignerAddress.ts#L19)
+[src/hooks/useSignerAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useSignerAddress.ts#L19)
 
 ___
 
 ### useSignerChainId
 
-▸ `Const` **useSignerChainId**(`signer`, `options?`): [address: number, update: Function]
+▸ `Const` **useSignerChainId**(`signer`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `number`\>
 
 #### Summary
 Get the address from the signer
@@ -572,21 +574,21 @@ Get the address from the signer
 | Name | Type |
 | :------ | :------ |
 | `signer` | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner) |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
 
 #### Returns
 
-[address: number, update: Function]
+[`THookResult`](Models.md#thookresult)<`undefined` \| `number`\>
 
 #### Defined in
 
-[src/hooks/useSignerChainId.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useSignerChainId.ts#L20)
+[src/hooks/useSignerChainId.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useSignerChainId.ts#L20)
 
 ___
 
 ### useTimestamp
 
-▸ `Const` **useTimestamp**(`override?`, `options?`): [timestamp: number, update: Function]
+▸ `Const` **useTimestamp**(`options?`, `override?`): [`THookResult`](Models.md#thookresult)<`number`\>
 
 #### Summary
 Get the current timestamp from the latest block
@@ -599,16 +601,16 @@ Get the current timestamp from the latest block
 
 | Name | Type |
 | :------ | :------ |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
 | `override` | [`TOverride`](Models.md#toverride) |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) |
 
 #### Returns
 
-[timestamp: number, update: Function]
+[`THookResult`](Models.md#thookresult)<`number`\>
 
 #### Defined in
 
-[src/hooks/useTimestamp.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useTimestamp.ts#L30)
+[src/hooks/useTimestamp.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useTimestamp.ts#L31)
 
 ___
 
@@ -631,13 +633,13 @@ ___
 
 #### Defined in
 
-[src/hooks/useContractLoader.ts:59](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useContractLoader.ts#L59)
+[src/hooks/useContractLoader.ts:59](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useContractLoader.ts#L59)
 
 ___
 
 ### useContractReader
 
-▸ `Const` **useContractReader**<`GContract`, `GContractFunc`\>(`contract`, `contractFunc`, `args?`, `funcEventFilter?`, `options?`): [value: Awaited<ReturnType<GContractFunc\>\>, update: Function]
+▸ `Const` **useContractReader**<`GContract`, `GContractFunc`\>(`contract`, `contractFunc`, `args?`, `funcEventFilter?`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `Awaited`<`ReturnType`<`GContractFunc`\>\>\>
 
 #### Summary
 Enables you to call a contract function with arguments and receive the output.  You can use this to easily track of contract outputs in react states
@@ -661,15 +663,15 @@ Enables you to call a contract function with arguments and receive the output.  
 | `contractFunc` | `undefined` \| `GContractFunc` |
 | `args?` | `Parameters`<`GContractFunc`\> |
 | `funcEventFilter?` | `EventFilter` |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions) |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
 
 #### Returns
 
-[value: Awaited<ReturnType<GContractFunc\>\>, update: Function]
+[`THookResult`](Models.md#thookresult)<`undefined` \| `Awaited`<`ReturnType`<`GContractFunc`\>\>\>
 
 #### Defined in
 
-[src/hooks/useContractReader.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useContractReader.ts#L27)
+[src/hooks/useContractReader.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useContractReader.ts#L33)
 
 ## Hooks Type aliases
 
@@ -698,7 +700,7 @@ Return type of useBurnerSigner:
 
 #### Defined in
 
-[src/hooks/useBurnerSigner.ts:56](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useBurnerSigner.ts#L56)
+[src/hooks/useBurnerSigner.ts:56](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useBurnerSigner.ts#L56)
 
 ___
 
@@ -714,7 +716,7 @@ Preset speeds for Eth Gas Station API
 
 #### Defined in
 
-[src/hooks/useGasPrice.ts:28](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useGasPrice.ts#L28)
+[src/hooks/useGasPrice.ts:29](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useGasPrice.ts#L29)
 
 ___
 
@@ -738,4 +740,4 @@ Configuration for useContractLoader
 
 #### Defined in
 
-[src/hooks/useContractLoader.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/hooks/useContractLoader.ts#L39)
+[src/hooks/useContractLoader.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/hooks/useContractLoader.ts#L39)

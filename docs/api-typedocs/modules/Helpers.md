@@ -1,4 +1,4 @@
-[eth-hooks - v4.0.8](../README.md) / Helpers
+[eth-hooks - v4.0.14](../README.md) / Helpers
 
 # Module: Helpers
 
@@ -43,4 +43,4 @@ const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
 
 #### Defined in
 
-[src/helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/97c8775/src/helpers/lazier.ts#L18)
+[src/helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/lazier.ts#L18)
