@@ -69,8 +69,18 @@ An example of changing an update interval
 ```ts
 // normally the hooks update every block
 const [yourLocalBalance, update, status] = useBalance(ethersContext.account);
-// you can update then every other block
-const [yourLocalBalance, update, status] = useBalance(ethersContext.account, {});
+// you can change the update schedule to every 10 blocks, the default is every 1 block:
+const [yourLocalBalance, update, status] = useBalance(ethersContext.account, { blockNumberInterval: 10 });
+// you can change the update schedule to every polling, min is 10000ms
+const [yourLocalBalance, update, status] = useBalance(ethersContext.account, {
+  refetchInterval: 100000,
+  blockNumberInterval: undefined,
+});
+// you can use advanced react-query update options
+const [yourLocalBalance, update, status] = useBalance(ethersContext.account, {
+  blockNumberInterval: 1,
+  query: { refetchOnWindowFocus: true },
+});
 ```
 
 # API Documentation

@@ -41,7 +41,7 @@ export type TUpdateOptions<GResult = any> = {
   /**
    * The interval in blocknumber for the hook to update in (default 1)
    */
-  blockNumberInterval?: number;
+  blockNumberInterval: number | undefined;
   refetchInterval?: number;
   query?: TQueryOptions<GResult>;
 };
