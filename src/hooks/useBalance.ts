@@ -39,8 +39,8 @@ type TUseBalanceResult<GAddress extends string | string[]> = GAddress extends st
  */
 export const useBalance = <GAddress extends string | Array<string>>(
   addresses: GAddress | undefined,
-  override: TOverride = mergeDefaultOverride(),
-  options: TUpdateOptions = mergeDefaultUpdateOptions()
+  options: TUpdateOptions = mergeDefaultUpdateOptions(),
+  override: TOverride = mergeDefaultOverride()
 ): THookResult<TUseBalanceResult<GAddress>> => {
   const ethersContext = useEthersContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);

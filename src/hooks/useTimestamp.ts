@@ -29,8 +29,8 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useTimes
  * @returns
  */
 export const useTimestamp = (
-  override: TOverride = mergeDefaultOverride(),
-  options: TUpdateOptions = mergeDefaultUpdateOptions()
+  options: TUpdateOptions = mergeDefaultUpdateOptions(),
+  override: TOverride = mergeDefaultOverride()
 ): THookResult<number> => {
   const blockNumber = useBlockNumberContext();
   const ethersContext = useEthersContext(override.alternateContextKey);

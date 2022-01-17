@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { checkUpdateOptions } from '~~/functions';
 import { TUpdateOptions } from '~~/models';
 
 export const useEthersUpdater = (
@@ -8,6 +9,8 @@ export const useEthersUpdater = (
   options: TUpdateOptions,
   allowBlockNumberUpdate: boolean = true
 ): void => {
+  checkUpdateOptions(options);
+
   const blockNumberFilter = Math.floor((blockNumber ?? 0) / (options.blockNumberInterval ?? 1));
 
   useEffect(() => {

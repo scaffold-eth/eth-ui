@@ -50,8 +50,8 @@ export const useGasPrice = (
   chainId: number | undefined,
   speed: TGasStationSpeed,
   currentNetworkInfo?: TNetworkInfo,
-  override: TOverride = mergeDefaultOverride(),
-  options: TUpdateOptions = mergeDefaultUpdateOptions()
+  options: TUpdateOptions = mergeDefaultUpdateOptions(),
+  override: TOverride = mergeDefaultOverride()
 ): THookResult<number | undefined> => {
   const ethersContext = useEthersContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);

@@ -33,8 +33,8 @@ const queryKey: TRequiredKeys = {
  */
 export const useNonce = (
   address: string | undefined,
-  override: TOverride = mergeDefaultOverride(),
-  options: TUpdateOptions = mergeDefaultUpdateOptions()
+  options: TUpdateOptions = mergeDefaultUpdateOptions(),
+  override: TOverride = mergeDefaultOverride()
 ): THookResult<number> => {
   const ethersContext = useEthersContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
