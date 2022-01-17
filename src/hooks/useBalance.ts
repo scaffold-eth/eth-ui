@@ -33,8 +33,9 @@ type TUseBalanceResult<GAddress extends string | string[]> = GAddress extends st
  *
  * @category Hooks
  *
- * @param addresses
- * @param options
+ * @param addresses Addresses of wallets to get balance for
+ * @param override Options to override adapters and context
+ * @param options Options for how often and when to update
  * @returns current balance
  */
 export const useBalance = <GAddress extends string | Array<string>>(
