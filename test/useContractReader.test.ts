@@ -51,6 +51,7 @@ describe('useContractReaderUntyped', function () {
         await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
         expect(harness.result.current).to.eql(secondPurpose);
       });
+
       it('When the hook is invoked after multiple setPurpose calls; then it returns the last result of the contract', async () => {
         const harness = await hookTestWrapper(() =>
           useContractReaderUntyped<string>(yourContract!, yourContractPurposeInfo)
