@@ -1,6 +1,6 @@
 /**
  * #### Summary
- * A type that describes a network for applications
+ * A type that describes the basics of a network for applications. e.g. mainnet, ropsten, rinkeby, etc.
  *
  * @category Models
  */

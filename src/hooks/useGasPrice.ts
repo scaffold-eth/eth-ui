@@ -1,11 +1,21 @@
-import { FeeData } from '@ethersproject/providers';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { utils } from 'ethers';
-import { useCallback, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useDebounce } from 'use-debounce';
 
 import { useEthersContext, useBlockNumberContext } from '~~/context';
-import { TNetworkInfo } from '~~/models';
+import {
+  ethersOverride,
+  mergeDefaultOverride,
+  mergeDefaultUpdateOptions,
+  processQueryOptions,
+  providerKey,
+  TRequiredKeys,
+} from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { TOverride, TNetworkInfo, TUpdateOptions, keyNamespace, THookResult } from '~~/models';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.state, key: 'useGasPrice' } as const;
 
 /**
  * Preset speeds for Eth Gas Station API
@@ -25,7 +35,7 @@ export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
  * - uses ethers.estimateGas other networks
  * - can use currentNetworkInfo {@link TNetworkInfo.gasPrice} gasPrice as fallback
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - if the gas price is unknown it returns undefined
  * - updates triggered by {@link BlockNumberContext}
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
@@ -39,69 +49,55 @@ export type TGasStationSpeed = 'fast' | 'fastest' | 'safeLow' | 'average';
 export const useGasPrice = (
   chainId: number | undefined,
   speed: TGasStationSpeed,
-  currentNetworkInfo?: TNetworkInfo
-): number | undefined => {
-  const { ethersProvider } = useEthersContext();
-  const blockNumber = useBlockNumberContext();
-  const [currentChainId, setCurrentChainId] = useState<number>();
-  const [gasPrice, setGasPrice] = useState<number | undefined>();
-  const [gasPriceDebounced] = useDebounce(gasPrice, 250, { trailing: true });
+  currentNetworkInfo?: TNetworkInfo,
+  options: TUpdateOptions = mergeDefaultUpdateOptions(),
+  override: TOverride = mergeDefaultOverride()
+): THookResult<number | undefined> => {
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, override);
 
-  const callFunc = useCallback((): void => {
-    if (currentChainId !== chainId) {
-      setCurrentChainId(chainId);
-      setGasPrice(undefined);
-    }
-
-    if (!chainId) {
-      setGasPrice(undefined);
-    } else if (chainId === 1) {
-      if (navigator.onLine) {
-        const gweiFactor = 10;
-        axios
-          .get('https://ethgasstation.info/json/ethgasAPI.json')
-          .then((response: AxiosResponse<any>) => {
-            const result: Record<string, any> = (response.data as Record<string, any>) ?? {};
-            let newGasPrice: number | undefined = result[speed] / gweiFactor;
-            if (!newGasPrice) newGasPrice = result['fast'] / gweiFactor;
-            setGasPrice(newGasPrice);
-          })
-          .catch((error) => {
-            console.log('⚠ Could not get gas Price!', error);
-            setGasPrice(undefined);
-          });
+  const keys = [
+    { ...queryKey, ...providerKey(provider) },
+    { chainId, speed, currentNetworkInfo },
+  ] as const;
+  const { data, refetch, isError, status } = useQuery(
+    keys,
+    async (keys): Promise<number | undefined> => {
+      const { chainId, speed, currentNetworkInfo } = keys.queryKey[1];
+      if (!chainId) {
+        return undefined;
+      } else if (chainId === 1) {
+        if (navigator?.onLine) {
+          const gweiFactor = 10;
+          const response = await axios.get('https://ethgasstation.info/json/ethgasAPI.json');
+          const result: Record<string, any> = (response.data as Record<string, any>) ?? {};
+          let newGasPrice: number | undefined = result[speed] / gweiFactor;
+          if (!newGasPrice) newGasPrice = result['fast'] / gweiFactor;
+          return newGasPrice;
+        }
+      } else if (provider) {
+        const fee = await provider.getFeeData();
+        const price = fee.gasPrice ?? fee.maxFeePerGas;
+        if (price && price?.toBigInt() > 0) {
+          const result = parseInt(utils.formatUnits(price, 'gwei')) ?? 0;
+          return result;
+        }
       }
-    } else if (ethersProvider) {
-      void ethersProvider
-        .getFeeData()
-        .then((fee: FeeData) => {
-          const price = fee.gasPrice ?? fee.maxFeePerGas;
-          if (price && price?.toBigInt() > 0) {
-            const result = parseInt(utils.formatUnits(price, 'gwei')) ?? 0;
-            setGasPrice(result);
-          } else if (currentNetworkInfo?.gasPrice) {
-            setGasPrice(currentNetworkInfo.gasPrice);
-          } else {
-            setGasPrice(undefined);
-          }
-        })
-        .catch((_error) => {
-          console.log('⚠ Could not estimate gas!');
-          if (currentNetworkInfo?.gasPrice) {
-            setGasPrice(currentNetworkInfo.gasPrice);
-          } else {
-            setGasPrice(undefined);
-          }
-        });
-    } else if (currentNetworkInfo?.gasPrice) {
-      setGasPrice(currentNetworkInfo.gasPrice);
-    } else {
-      setGasPrice(undefined);
-    }
-  }, [currentChainId, chainId, ethersProvider, currentNetworkInfo?.gasPrice, speed]);
 
-  useEffect(() => {
-    void callFunc();
-  }, [blockNumber, callFunc]);
-  return gasPriceDebounced;
+      if (currentNetworkInfo?.gasPrice) {
+        return currentNetworkInfo.gasPrice;
+      }
+      return undefined;
+    },
+    {
+      ...processQueryOptions<number | undefined>(options),
+    }
+  );
+
+  const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
+
+  const result = isError ? undefined : data;
+  const [gasPriceDebounced] = useDebounce(result, 250, { trailing: true });
+  return [gasPriceDebounced, refetch, status];
 };

@@ -8,11 +8,12 @@ import {
 } from '@ethersproject/providers';
 import { Signer } from 'ethers';
 
-import { TEthersProvider } from '~~/models';
+import { providerKey } from '~~/functions';
+import { TEthersProvider, IEthersContext, TEthersAdaptor } from '~~/models';
 
 /**
  * #### Summary
- * Is it a ethers compatable provider
+ * Is it a ethers compatable provider, used by {@link EthersModalConnector} and {@link useEthersProvider}
  *
  * @category Helpers
  *
@@ -33,8 +34,56 @@ export const isEthersProvider = (providerBase: unknown): boolean => {
 
 export const signerHasNetwork = (signer: Signer | undefined): boolean => {
   const provider = signer?.provider as TEthersProvider;
-  // eslint-disable-next-line no-underscore-dangle
   if (provider?.network?.chainId > 0 && signer?._isSigner) return true;
 
+  return false;
+};
+
+export const asEthersAdaptor = (ethersContext: IEthersContext): Readonly<TEthersAdaptor> => {
+  return {
+    provider: ethersContext.provider,
+    signer: ethersContext.signer,
+    chainId: ethersContext.chainId,
+    account: ethersContext.account,
+  } as const;
+};
+
+export const isValidEthersContext = (ethersContext: IEthersContext | undefined): boolean => {
+  if (
+    ethersContext != null &&
+    ethersContext.chainId != null &&
+    ethersContext.provider != null &&
+    ethersContext.signer != null &&
+    !!ethersContext.account
+  )
+    return true;
+  return false;
+};
+
+export const isValidEthersAdaptor = (ethersAdaptor: TEthersAdaptor | undefined): boolean => {
+  if (ethersAdaptor != null && ethersAdaptor.chainId != null) {
+    if (ethersAdaptor.provider != null && ethersAdaptor.provider?.network?.chainId === ethersAdaptor.chainId) {
+      return true;
+    } else if (
+      ethersAdaptor.signer != null &&
+      !!ethersAdaptor.account &&
+      (ethersAdaptor?.signer?.provider as TEthersProvider)?.network?.chainId === ethersAdaptor.chainId
+    ) {
+      return true;
+    }
+  }
+
+  // console.log('isValidEthersAdaptorπ', false, ethersAdaptor);
+  return false;
+};
+
+export const isAdaptorEqual = (adaptor1: TEthersAdaptor | undefined, adaptor2: TEthersAdaptor | undefined): boolean => {
+  if (isValidEthersAdaptor(adaptor1) && isValidEthersAdaptor(adaptor2)) {
+    return (
+      adaptor1?.chainId === adaptor2?.chainId &&
+      adaptor1?.account === adaptor2?.account &&
+      providerKey(adaptor1?.provider) === providerKey(adaptor2?.provider)
+    );
+  }
   return false;
 };

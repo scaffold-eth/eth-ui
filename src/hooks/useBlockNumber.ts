@@ -1,41 +1,77 @@
-import { useCallback, useState } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useEffect } from 'react';
+import { useQuery } from 'react-query';
 
-import { useOnRepetition } from '~~/hooks';
-import { TEthersProvider } from '~~/models';
+import { mergeDefaultUpdateOptions, processQueryOptions, providerKey, TRequiredKeys } from '~~/functions';
+import { keyNamespace, TEthersProvider, THookResult, TUpdateOptions } from '~~/models';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useBlockNumber' };
 
 /**
  * #### Summary
  * Get the current block number of the network. ✋🏽 @deprecated
  *
- * #### Notes
- * - ✋🏽 For app wide block number access use {@link BlockNumberContext} instead
- * - ⚠ Deprecated
- * - uses the current ethersProvider from context
+ * ##### ✏️ Notes
+ * - ✋🏽 For app wide block number access use {@link useBlockNumberContext} instead.  See {@link BlockNumberContext} for more details, you get this as part of {@link EthersAppContext}
+ * - uses the current provided block number
  *
  * @category Hooks
  *
  * @param provider
- * @param pollTime if > 0 uses polling, else it uses onBlock event
  * @returns block number
  */
-export const useBlockNumber = (provider: TEthersProvider, pollTime: number = 0): number => {
-  const [blockNumber, setBlockNumber] = useState<number>(0);
-  const isMounted = useIsMounted();
+export const useBlockNumber = (
+  provider: TEthersProvider | undefined,
+  callback?: ((blockNumber?: number) => void) | ((blockNumber?: number) => Promise<void>),
+  options: TUpdateOptions = mergeDefaultUpdateOptions()
+): THookResult<number> => {
+  type TAsyncResult = number | undefined;
+  const keys = [
+    {
+      ...queryKey,
+      ...providerKey(provider),
+    },
+  ] as const;
 
-  const getBlockNumber = useCallback(async (): Promise<void> => {
-    const nextBlockNumber = await provider?.getBlockNumber();
-    if (isMounted() && provider != null) {
-      setBlockNumber((value) => {
-        if (value !== nextBlockNumber) {
-          return nextBlockNumber ?? 0;
-        }
-        return value;
-      });
+  const { data, refetch, status } = useQuery(
+    keys,
+    async (keys): Promise<TAsyncResult> => {
+      if (provider) {
+        const nextBlockNumber = await provider?.getBlockNumber();
+        return nextBlockNumber;
+      }
+
+      return undefined;
+    },
+    {
+      ...processQueryOptions<TAsyncResult>(options),
     }
-  }, [provider, isMounted]);
+  );
 
-  useOnRepetition(getBlockNumber, { provider: provider, pollTime });
+  useEffect(() => {
+    if (provider) {
+      const listener = (blockNumberLocal: number): void => {
+        void refetch();
 
-  return blockNumber;
+        if (callback != null) {
+          try {
+            void callback(blockNumberLocal);
+          } catch (e) {
+            console.warn('useBlockNumber callback failed', e);
+          }
+        }
+      };
+      provider?.addListener?.('block', listener);
+
+      if (data == null) {
+        void refetch();
+      }
+
+      return (): void => {
+        provider?.removeListener?.('block', listener);
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callback, provider, refetch]);
+
+  return [data ?? 0, refetch, status];
 };

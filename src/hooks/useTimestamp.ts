@@ -1,13 +1,25 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
 
 import { useBlockNumberContext, useEthersContext } from '~~/context';
+import {
+  ethersOverride,
+  mergeDefaultOverride,
+  mergeDefaultUpdateOptions,
+  processQueryOptions,
+  providerKey,
+  TRequiredKeys,
+} from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { THookResult, TOverride, TUpdateOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useTimestamp' } as const;
 
 /**
  * #### Summary
  * Get the current timestamp from the latest block
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - updates triggered by {@link BlockNumberContext}
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *
@@ -16,26 +28,31 @@ import { useBlockNumberContext, useEthersContext } from '~~/context';
  * @param pollTime
  * @returns
  */
-export const useTimestamp = (): number => {
-  const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext();
+export const useTimestamp = (
+  options: TUpdateOptions = mergeDefaultUpdateOptions(),
+  override: TOverride = mergeDefaultOverride()
+): THookResult<number> => {
   const blockNumber = useBlockNumberContext();
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, override);
 
-  const [timestamp, setTimestamp] = useState<number>(0);
-
-  const callFunc = useCallback(async (): Promise<void> => {
-    if (blockNumber != null) {
-      const block = await ethersProvider?.getBlock(blockNumber);
+  const keys = [{ ...queryKey, ...providerKey(provider) }, { blockNumber }] as const;
+  const { data, refetch, status } = useQuery(
+    keys,
+    async (keys): Promise<number> => {
+      const { blockNumber } = keys.queryKey[1];
+      const block = await provider?.getBlock(blockNumber);
       if (block?.timestamp != null) {
-        const nextTimestamp = block.timestamp;
-        if (isMounted()) setTimestamp(nextTimestamp);
+        return block.timestamp;
       }
+      return 0;
+    },
+    {
+      ...processQueryOptions<number>(options),
     }
-  }, [blockNumber, ethersProvider, isMounted]);
+  );
 
-  useEffect(() => {
-    void callFunc();
-  }, [blockNumber, callFunc]);
+  useEthersUpdater(refetch, blockNumber, options);
 
-  return timestamp;
+  return [data ?? 0, refetch, status];
 };

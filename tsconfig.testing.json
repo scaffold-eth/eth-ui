@@ -3,5 +3,13 @@
   "compilerOptions": {
     "module": "commonjs"
   },
-  "files": ["hardhat.config.ts"]
+  "files": ["hardhat.config.ts"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    },
+    "moduleTypes": {
+      "**/*": "cjs"
+    }
+  }
 }

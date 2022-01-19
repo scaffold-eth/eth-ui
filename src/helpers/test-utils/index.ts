@@ -1,1 +1,1 @@
-export * from './harness/hookTestHarness';
+export * from './wrapper/testWrapper';

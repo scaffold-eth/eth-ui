@@ -1,13 +1,28 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useQuery } from 'react-query';
 
-import { useEthersContext, useBlockNumberContext } from '~~/context';
+import { useBlockNumberContext, useEthersContext } from '~~/context';
+import {
+  ethersOverride,
+  mergeDefaultOverride,
+  mergeDefaultUpdateOptions,
+  processQueryOptions,
+  providerKey,
+  TRequiredKeys,
+} from '~~/functions';
+import { useEthersUpdater } from '~~/hooks/useEthersUpdater';
+import { THookResult, TOverride, TUpdateOptions } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
+
+const queryKey: TRequiredKeys = {
+  namespace: keyNamespace.signer,
+  key: 'useNonce',
+} as const;
 
 /**
  * #### Summary
  * Get the current nonce for the address provided
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - updates triggered by {@link BlockNumberContext}
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *
@@ -16,31 +31,32 @@ import { useEthersContext, useBlockNumberContext } from '~~/context';
  * @param address
  * @returns
  */
-export const useNonce = (address: string): number => {
-  const isMounted = useIsMounted();
-  const { ethersProvider } = useEthersContext();
+export const useNonce = (
+  address: string | undefined,
+  options: TUpdateOptions = mergeDefaultUpdateOptions(),
+  override: TOverride = mergeDefaultOverride()
+): THookResult<number> => {
+  const ethersContext = useEthersContext(override.alternateContextKey);
+  const { provider } = ethersOverride(ethersContext, override);
+
+  const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;
+  const { data, refetch, status } = useQuery(
+    keys,
+    async (keys): Promise<number | undefined> => {
+      const { address } = keys.queryKey[1];
+      if (address) {
+        const nextNonce = await provider?.getTransactionCount(address);
+        return nextNonce ?? 0;
+      }
+      return undefined;
+    },
+    {
+      ...processQueryOptions<number | undefined>(options),
+    }
+  );
+
   const blockNumber = useBlockNumberContext();
+  useEthersUpdater(refetch, blockNumber, options);
 
-  const [nonce, setNonce] = useState<number>(0);
-
-  const callFunc = useCallback(async (): Promise<void> => {
-    let nextNonce: number = 0;
-    try {
-      nextNonce = (await ethersProvider?.getTransactionCount(address)) ?? 0;
-    } catch {
-      // do nothing
-    }
-    if (isMounted()) {
-      setNonce((value) => {
-        if (nextNonce && value !== nextNonce && value < nextNonce) return nextNonce;
-        return value;
-      });
-    }
-  }, [address, ethersProvider, isMounted]);
-
-  useEffect(() => {
-    void callFunc();
-  }, [blockNumber, callFunc]);
-
-  return nonce;
+  return [data ?? 0, refetch, status];
 };
