@@ -104,7 +104,7 @@ describe('useTokenBalance', function () {
       expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
     });
 
-    it('When given option for polling; then passes refetchInterval to useQuery', async () => {
+    it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
       // Given
       // -- turn off checkUpdateOptions to allow for lower refetchInterval time
       sandbox = sinon.createSandbox();
@@ -154,22 +154,18 @@ describe('useTokenBalance', function () {
         refetchInterval: 11_000,
         blockNumberInterval: 5,
       };
+      const harness = await hookTestWrapper((address: string) =>
+        useTokenBalance(basicERC20Contract, address, updateOptions)
+      );
+
       try {
         // When
-        const harness = await hookTestWrapper((address: string) =>
-          useTokenBalance(basicERC20Contract, address, updateOptions)
-        );
-        // -- required to ensure invariant is hit
         await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
       } catch (e: any) {
-        // Then
         expect(e.message).be.equal(
           'You cannot use both refetchInterval (polling) and blockNumberInterval at the same time'
         );
-        return;
       }
-
-      expect.fail(); // Fails if hits this point
     });
 
     it('When given option for refetchInterval < 10000; then throws error', async () => {
@@ -178,12 +174,12 @@ describe('useTokenBalance', function () {
         refetchInterval: 2_000,
         blockNumberInterval: undefined,
       };
+      const harness = await hookTestWrapper((address: string) =>
+        useTokenBalance(basicERC20Contract, address, updateOptions)
+      );
+
       try {
         // When
-        const harness = await hookTestWrapper((address: string) =>
-          useTokenBalance(basicERC20Contract, address, updateOptions)
-        );
-        // -- required to ensure invariant is hit
         await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
       } catch (e: any) {
         // Then
@@ -201,12 +197,12 @@ describe('useTokenBalance', function () {
       const updateOptions = {
         blockNumberInterval: 0,
       };
+      const harness = await hookTestWrapper((address: string) =>
+        useTokenBalance(basicERC20Contract, address, updateOptions)
+      );
+
       try {
         // When
-        const harness = await hookTestWrapper((address: string) =>
-          useTokenBalance(basicERC20Contract, address, updateOptions)
-        );
-        // -- required to ensure invariant is hit
         await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
       } catch (e: any) {
         // Then
