@@ -24,10 +24,11 @@ const queryKey = { namespace: keyNamespace.contracts, key: 'useContractReader' }
  * ##### ✏️ Notes
  * - uses the ethers.Contract object's provider to access the network
  * - formatter is a function that can change the format of the output
- * @param contract
- * @param contractFunc
- * @param args
- * @param options
+ * @param contract Contract reading from
+ * @param contractFunc Contract variable or function to read
+ * @param args Typed tuple argument to contract function or variable
+ * @param funcEventFilter Optional if only want contract to update on event
+ * @param options Options for how often and when to update
  * @returns
  */
 export const useContractReader = <

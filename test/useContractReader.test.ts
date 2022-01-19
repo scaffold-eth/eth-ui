@@ -5,15 +5,19 @@ import * as sinonChai from 'sinon-chai';
 import { YourContract } from 'test-files/__mocks__/generated/contract-types';
 import { setupMockYourContract } from 'test-files/__mocks__/setupMockContracts';
 import sinon from 'ts-sinon';
+import * as hookHelpers from '~~/functions/hookHelpers';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
+import { mineBlock } from '~~/helpers/test-utils/eth';
 import { getHardhatSigner } from '~~/helpers/test-utils/wrapper';
 import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
-import { useContractReaderUntyped } from '~~/hooks';
+import { useContractReader, useContractReaderUntyped } from '~~/hooks';
 import { TContractFunctionInfo } from '~~/models';
 
 use(sinonChai);
+
+const initialPurpose = 'no purpose';
 
 describe('useContractReaderUntyped', function () {
   describe('Given that a YourContract is deployed', () => {
@@ -28,10 +32,8 @@ describe('useContractReaderUntyped', function () {
       [yourContract, yourContractPurposeInfo] = await setupMockYourContract(contractSigner);
     });
 
-    // let testStartBockNumber = 0;
     beforeEach(async () => {
-      // testStartBockNumber = await currentTestBlockNumber();
-      await yourContract?.setPurpose('no purpose');
+      await yourContract?.setPurpose(initialPurpose);
     });
 
     describe('Given the setPurpose is called and set with a new value', () => {
@@ -100,6 +102,204 @@ describe('useContractReaderUntyped', function () {
 
         expect(harness.result.current).to.eql(firstPurpose);
         expect(onChange).be.calledOnce;
+      });
+    });
+  });
+});
+
+describe('useContractReader', function () {
+  describe('Given that a YourContract is deployed', () => {
+    let yourContract: YourContract | undefined;
+    let contractSigner: Signer;
+    let sandbox: sinon.SinonSandbox;
+
+    before(async () => {
+      // setup a contract
+      const harness = await wrapperTestSetupHelper();
+      contractSigner = await getHardhatSigner(harness.mockProvider, 1);
+      [yourContract] = await setupMockYourContract(contractSigner);
+    });
+
+    beforeEach(async () => {
+      // testStartBockNumber = await currentTestBlockNumber();
+      await yourContract?.setPurpose(initialPurpose);
+    });
+
+    afterEach(() => {
+      sandbox?.restore();
+    });
+
+    describe('Given the setPurpose is called and set with a new value', () => {
+      it('When the hook is invoked after setPurpose calls; then it returns the result of the contract call', async () => {
+        const harness = await hookTestWrapper(() => useContractReader(yourContract!, yourContract?.purpose));
+        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+
+        const firstPurpose = 'purpose 1';
+        await yourContract?.setPurpose(firstPurpose);
+        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+        console.log(harness.result.current);
+        expect(harness.result.current[0]).to.eql(firstPurpose);
+
+        const secondPurpose = 'purpose 2';
+        await yourContract?.setPurpose(secondPurpose);
+        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+        expect(harness.result.current[0]).to.eql(secondPurpose);
+      });
+
+      it('When the hook is invoked after multiple setPurpose calls; then it returns the last result of the contract', async () => {
+        const harness = await hookTestWrapper(() => useContractReader(yourContract!, yourContract?.purpose));
+        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+
+        await yourContract?.setPurpose('purpose 1');
+        await yourContract?.setPurpose('purpose 2');
+        await yourContract?.setPurpose('purpose 3');
+        const finalPurpose = 'purpose final';
+        await yourContract?.setPurpose(finalPurpose);
+        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+
+        expect(harness.result.current[0]).to.eql(finalPurpose);
+      });
+
+      it('When given options of block number interval to update; then the hook does not update until that amount of blocks has passed', async () => {
+        // Given
+        const purposeUpdate = 'your purpose';
+        const blockIntervalToUpdate = 7;
+        const updateOptions = { blockNumberInterval: blockIntervalToUpdate };
+        const harness = await hookTestWrapper(() =>
+          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+        );
+
+        await yourContract?.setPurpose(purposeUpdate);
+
+        // -- mine blocks up to block when update should occur
+        let currentBlockNumber = await harness.mockProvider.getBlockNumber();
+        while (currentBlockNumber % blockIntervalToUpdate !== 0) {
+          await mineBlock(harness.mockProvider);
+          currentBlockNumber = await harness.mockProvider.getBlockNumber();
+          await harness.waitForNextUpdate(defaultBlockWaitOptions);
+
+          // -- ensures no update before correct block
+          expect(harness.result.current[0]).be.equal(initialPurpose);
+        }
+
+        // -- mine final block
+        await mineBlock(harness.mockProvider);
+
+        // When
+        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+
+        // Then
+        expect(harness.result.current[0]).be.equal(purposeUpdate);
+      });
+
+      it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
+        // Given
+        // -- turn off checkUpdateOptions to allow for lower refetchInterval time
+        sandbox = sinon.createSandbox();
+        sandbox.stub(hookHelpers, 'checkUpdateOptions').returns();
+        const purposeUpdate = 'higher purpose';
+
+        const updateOptions = {
+          refetchInterval: 2_000, // Note this is below 10_000 limit just for testing
+          blockNumberInterval: undefined,
+        };
+        const harness = await hookTestWrapper(() =>
+          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+        );
+
+        await yourContract?.setPurpose(purposeUpdate);
+
+        // -- ensure mining block doesn't trigger update
+        await mineBlock(harness.mockProvider);
+
+        // -- ensure doesn't update before refetchInterval time
+        try {
+          await harness.waitForValueToChange(() => harness.result.current[0], {
+            timeout: updateOptions.refetchInterval - 100,
+            interval: 200,
+          });
+          expect.fail();
+        } catch (e: any) {
+          expect(e.message).contain('Timed out');
+          expect(harness.result.current[0]).be.equal(initialPurpose);
+        }
+
+        // When
+        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+
+        // Then
+        expect(harness.result.current[0]).be.equal(purposeUpdate);
+      });
+    });
+
+    describe('Given update options that are not allowed', () => {
+      it('When given option for refetchInterval and blockNumberInterval; then throws error', async () => {
+        // Given
+        const updateOptions = {
+          refetchInterval: 11_000,
+          blockNumberInterval: 5,
+        };
+        const harness = await hookTestWrapper(() =>
+          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+        );
+
+        try {
+          // When
+          await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        } catch (e: any) {
+          // Then
+          expect(e.message).be.equal(
+            'You cannot use both refetchInterval (polling) and blockNumberInterval at the same time'
+          );
+          return;
+        }
+
+        expect.fail(); // Fail if hit this point
+      });
+
+      it('When given option for refetchInterval < 10000; then throws error', async () => {
+        // Given
+        const updateOptions = {
+          refetchInterval: 2_000,
+          blockNumberInterval: undefined,
+        };
+        const harness = await hookTestWrapper(() =>
+          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+        );
+
+        try {
+          // When
+          await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+        } catch (e: any) {
+          // Then
+          expect(e.message).be.equal(
+            'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
+          );
+          return;
+        }
+
+        expect.fail(); // Fails if hits this point
+      });
+
+      it('When given option for blockNumberInterval <= 0; then throws error', async () => {
+        // Given
+        const updateOptions = {
+          blockNumberInterval: 0,
+        };
+        const harness = await hookTestWrapper(() =>
+          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+        );
+
+        try {
+          // When
+          await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+        } catch (e: any) {
+          // Then
+          expect(e.message).be.equal('Invalid blockNumberInterval, must be greater than 0');
+          return;
+        }
+
+        expect.fail(); // Fails if hits this point
       });
     });
   });

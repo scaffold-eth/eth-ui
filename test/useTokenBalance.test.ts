@@ -130,7 +130,7 @@ describe('useTokenBalance', function () {
       // -- ensure doesn't update before refetchInterval time
       try {
         await harness.waitForValueToChange(() => harness.result.current[0], {
-          timeout: updateOptions.refetchInterval,
+          timeout: updateOptions.refetchInterval - 100,
           interval: 200,
         });
         expect.fail();
@@ -162,10 +162,14 @@ describe('useTokenBalance', function () {
         // When
         await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
       } catch (e: any) {
+        // Then
         expect(e.message).be.equal(
           'You cannot use both refetchInterval (polling) and blockNumberInterval at the same time'
         );
+        return;
       }
+
+      expect.fail(); // Fail if hit this point
     });
 
     it('When given option for refetchInterval < 10000; then throws error', async () => {
