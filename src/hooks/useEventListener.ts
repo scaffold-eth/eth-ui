@@ -1,18 +1,18 @@
-import { Contract, EventFilter, Event } from 'ethers';
+import { EventFilter, BaseContract } from 'ethers';
 import { Result } from 'ethers/lib/utils';
-import { useState, useEffect, useCallback } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useEffect } from 'react';
+import { useQuery } from 'react-query';
 
-import { TypedEvent } from '~~/models';
+import { contractKey, mergeDefaultUpdateOptions, processQueryOptions, TRequiredKeys } from '~~/functions';
+import { const_blockNumberIntervalMedium, THookResult, TUpdateOptions, TypedEvent } from '~~/models';
+import { keyNamespace } from '~~/models/constants';
 
-const getEventKey = (m: Event | TypedEvent<Result>): string => {
-  return `${m.transactionHash}_${m.logIndex}`;
-};
+const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useEventListener' } as const;
 /**
  * #### Summary
  * Tracks the events of associated with a contract
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - updates triggered through ethers event listener
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *
@@ -23,51 +23,57 @@ const getEventKey = (m: Event | TypedEvent<Result>): string => {
  * @param startBlock
  * @returns
  */
-export const useEventListener = (
-  contract: Contract | undefined,
-  eventName: string | EventFilter,
-  startBlock: number
-): TypedEvent<Result>[] => {
-  const isMounted = useIsMounted();
-
-  const [eventMap, setEventMap] = useState<TypedEvent<Result>[]>([]);
-
-  const queryEvents = useCallback(
-    (_listenerArgs: Event[]) => {
-      void (async (): Promise<void> => {
-        const result = await contract?.queryFilter(eventName as EventFilter, startBlock);
-        if (isMounted() && result) {
-          setEventMap((value) => {
-            if (JSON.stringify(value.map(getEventKey)) !== JSON.stringify(result.map(getEventKey))) {
-              return result as TypedEvent<Result>[];
-            } else {
-              return value;
-            }
-          });
-        }
-      })();
+export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
+  contract: BaseContract | undefined,
+  eventFilter: string | EventFilter | undefined,
+  startBlock: number,
+  toBlock: number | undefined = undefined,
+  options: TUpdateOptions = mergeDefaultUpdateOptions({ ...const_blockNumberIntervalMedium })
+): THookResult<GTypedEvent[]> => {
+  const keys = [
+    {
+      ...queryKey,
+      ...contractKey(contract),
     },
-    [contract, eventName, isMounted, startBlock]
+    {
+      eventFilter,
+      startBlock,
+      toBlock,
+    },
+  ] as const;
+  const { data, refetch, status } = useQuery(
+    keys,
+    async (keys): Promise<GTypedEvent[]> => {
+      {
+        const { eventFilter: eventFilter_, startBlock: startBlock_, toBlock: toBlock_ } = keys.queryKey[1];
+        const result = await contract?.queryFilter(eventFilter_ as EventFilter, startBlock_, toBlock_);
+        return (result as GTypedEvent[]) ?? [];
+      }
+    },
+    {
+      ...processQueryOptions<GTypedEvent[]>(options),
+    }
   );
 
-  // // get the events on initial load of hooks, without waiting for the next event
+  // update the result when ethers calls the event listner
   useEffect(() => {
-    if (contract?.queryFilter != null && setEventMap && (eventMap == null || eventMap?.length === 0) && queryEvents) {
-      queryEvents([]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contract?.queryFilter]);
-
-  useEffect(() => {
-    try {
-      contract?.on(eventName, queryEvents);
-      return (): void => {
-        contract?.off(eventName, queryEvents);
+    if (eventFilter != null) {
+      const listener = (): void => {
+        void refetch();
       };
-    } catch (e) {
-      console.log(e);
+      try {
+        contract?.on(eventFilter, listener);
+        return (): void => {
+          contract?.off(eventFilter, listener);
+        };
+      } catch (e) {
+        console.log(e);
+      }
     }
-  }, [queryEvents, contract, eventName]);
+  }, [contract, eventFilter, refetch]);
 
-  return eventMap;
+  // const blockNumber = useBlockNumberContext();
+  // useEthersUpdater(refetch, blockNumber, options);
+
+  return [data ?? [], refetch, status];
 };

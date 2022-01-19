@@ -1,7 +1,10 @@
-import { utils } from 'ethers';
-import { useState, useEffect } from 'react';
+import { utils, constants } from 'ethers';
+import { useQuery } from 'react-query';
 
-import { TEthersProvider } from '~~/models';
+import { providerKey, TRequiredKeys } from '~~/functions';
+import { keyNamespace, TEthersProvider, THookResult } from '~~/models';
+
+const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useResolveEnsName' } as const;
 
 /**
  * @internal
@@ -16,11 +19,9 @@ const lookupAddress = async (provider: TEthersProvider, address: string): Promis
       // Accuracy of reverse resolution is not enforced.
       // We then manually ensure that the reported ens name resolves to address
       const reportedName = await provider.lookupAddress(address);
-
-      const resolvedAddress = await provider.resolveName(reportedName);
-
-      if (address && utils.getAddress(address) === utils.getAddress(resolvedAddress)) {
-        return reportedName;
+      const resolvedAddress = await provider.resolveName(reportedName ?? constants.AddressZero);
+      if (address && utils.getAddress(address) === utils.getAddress(resolvedAddress ?? '')) {
+        return reportedName ?? '';
       } else {
         return utils.getAddress(address);
       }
@@ -41,30 +42,36 @@ const lookupAddress = async (provider: TEthersProvider, address: string): Promis
  * @param address
  * @returns
  */
-export const useResolveEnsName = (mainnetProvider: TEthersProvider | undefined, address: string): string => {
-  const [ensName, setEnsName] = useState(address);
+export const useResolveEnsName = (
+  mainnetProvider: TEthersProvider | undefined,
+  address: string
+): THookResult<string | undefined> => {
+  const keys = [{ ...queryKey, ...providerKey(mainnetProvider) }, { address }] as const;
+  const { data, refetch, status } = useQuery(keys, async (keys): Promise<string | undefined> => {
+    const { address } = keys.queryKey[1];
 
-  useEffect(() => {
-    const storedData: any = window.localStorage.getItem('ensCache_' + address);
+    const storedData: any = window.localStorage.getItem('ethhooks_ensCache_' + address);
     const cache = JSON.parse(storedData ?? '{}') as Record<string, any>;
-
-    if (cache && cache?.name && cache?.timestamp > Date.now()) {
-      setEnsName(cache?.name);
+    if (cache && cache?.name && cache?.timestamp > Date.now() && typeof cache?.name === 'string') {
+      return cache?.name;
     } else if (mainnetProvider) {
-      void lookupAddress(mainnetProvider, address).then((name) => {
-        if (name) {
-          setEnsName(name);
+      const ensName = await lookupAddress(mainnetProvider, address);
+      if (ensName) {
+        try {
           window.localStorage.setItem(
             'ensCache_' + address,
             JSON.stringify({
               timestamp: Date.now() + 360000,
-              name,
+              name: ensName,
             })
           );
+        } catch {
+          /* do nothing */
         }
-      });
+        return ensName;
+      }
     }
-  }, [address, mainnetProvider]);
+  });
 
-  return ensName;
+  return [data, refetch, status];
 };

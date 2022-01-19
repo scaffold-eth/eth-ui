@@ -46,7 +46,7 @@ const loadBurnerKeyFromStorage = (): string | null => {
  * #### Summary
  * Return type of useBurnerSigner:
  *
- * #### Notes
+ * ##### ✏️ Notes
  * - provides signer
  * - methods of interacting with burner signer
  * - methods to save and loadd signer from local storage

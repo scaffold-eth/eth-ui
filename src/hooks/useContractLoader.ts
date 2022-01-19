@@ -2,20 +2,65 @@ import { BaseContract } from 'ethers';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useEthersContext } from '~~/context';
+import { parseProviderOrSigner, providerKey } from '~~/functions';
 import {
-  TContractLoaderConfig,
-  TDeployedContractsJson,
+  TDeployedHardhatContractsJson as THardhatDeployedContractsJson,
+  TBasicContractData,
   TEthersProviderOrSigner,
-  TExternalContracts,
-  THardhatContractJson,
 } from '~~/models';
 
+/**
+ * #### Summary
+ * A type for external contracts
+ * - {chainId: {contracts}}, contains an record of contracts
+ * - Used by {@link useContractLoader}
+ *
+ * @category Models
+ */
+type TExternalContracts = {
+  [chainId: number]: {
+    name?: string;
+    chainId?: string;
+    contracts?: {
+      [contractName: string]: {
+        address: string;
+        abi?: any[];
+      };
+    };
+  };
+};
+
+/**
+ * #### Summary
+ * Configuration for useContractLoader
+ *
+ * @category Models
+ */
+export type TContractLoaderConfig = {
+  /**
+   * your local hardhat network name
+   */
+  hardhatNetworkName?: string;
+  /**
+   * the address:contractName key value pair
+   */
+  customAddresses?: Record<string, string>;
+  /**
+   * Hardhat deployed contracts
+   * untyped
+   */
+  deployedContractsJson?: THardhatDeployedContractsJson;
+  /**
+   * External contracts (such as DAI)
+   */
+  externalContracts?: TExternalContracts;
+};
+
 export const parseContractsInJson = (
-  contractList: TDeployedContractsJson,
+  contractList: THardhatDeployedContractsJson,
   chainId: number
-): Record<string, THardhatContractJson> => {
-  let combinedContracts: Record<string, THardhatContractJson> = {};
+): Record<string, TBasicContractData> => {
+  let combinedContracts: Record<string, TBasicContractData> = {};
 
   // combine partitioned contracts based on all the available and chain id.
   if (contractList?.[chainId] != null) {
@@ -36,10 +81,12 @@ export const parseContractsInJson = (
 };
 /**
  * #### Summary
- *  Loads your contracts returns them and gives options to read values from contracts
- * or write transactions into them
+ * Loads your contracts and returns them. ✋🏽 @deprecated
+ * Gives options to read values from contracts or write transactions into them.
  *
- * #### Notes
+ * ##### ✏️ Notes
+ * - ✋🏽 For easy app wide contract access use {@link AppContractContex} created by {@link contractsContextFactory}.  See {@link contractsContextFactory} for more details.
+ *
  * A optional providerOrSigner is needed to initalize the contract class
  * - if none is given, the context providerOrSigner is used if the chainId is the same.
  * - A signer is required for write contracts
@@ -57,28 +104,28 @@ export const parseContractsInJson = (
  */
 export const useContractLoader = (
   config: TContractLoaderConfig = {},
-  providerOrSigner?: TEthersProviderOrSigner,
-  configChainId?: number
+  providerOrSigner: TEthersProviderOrSigner | undefined
 ): Record<string, BaseContract> => {
   const isMounted = useIsMounted();
-  const { ethersProvider, chainId: contextChainId } = useEthersContext();
-  const chainId = configChainId ?? contextChainId;
 
   const [contracts, setContracts] = useState<Record<string, BaseContract>>({});
+
   const configDep: string = useMemo(
-    () => `${JSON.stringify(config ?? {})}, ${JSON.stringify({ chainId: chainId })}`,
-    [chainId, config]
+    () => `${JSON.stringify(config ?? {})}, ${providerKey(providerOrSigner).provider}`,
+    [config, providerOrSigner]
   );
 
   const callFunc = useCallback(
-    (): void => {
-      if (ethersProvider && chainId && chainId > 0) {
+    async (): Promise<void> => {
+      const adaptor = await parseProviderOrSigner(providerOrSigner);
+      const chainId = adaptor?.chainId;
+      if (providerOrSigner != null && chainId && chainId > 0) {
         try {
-          const contractList: TDeployedContractsJson = { ...(config.deployedContractsJson ?? {}) };
+          const contractList: THardhatDeployedContractsJson = { ...(config.deployedContractsJson ?? {}) };
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
-          let combinedContracts: Record<string, THardhatContractJson> = parseContractsInJson(contractList, chainId);
+          let combinedContracts: Record<string, TBasicContractData> = parseContractsInJson(contractList, chainId);
 
           // load external contracts if its the right chain
           if (externalContractList?.[chainId] != null) {
@@ -92,9 +139,10 @@ export const useContractLoader = (
                   ? config.customAddresses[contractName]
                   : combinedContracts[contractName].address;
 
-              // use providerOrSigner, or ethersContext provider or undefined if appropriate
-              const provider = providerOrSigner ?? (chainId === contextChainId ? ethersProvider : undefined);
-              accumulator[contractName] = new BaseContract(address, combinedContracts[contractName].abi, provider);
+              const abi = combinedContracts[contractName].abi;
+              if (abi) {
+                accumulator[contractName] = new BaseContract(address, abi, providerOrSigner);
+              }
               return accumulator;
             },
             {}
@@ -119,12 +167,12 @@ export const useContractLoader = (
     },
     // disable as configDep is used for dep instead of config
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ethersProvider, configDep, providerOrSigner]
+    [configDep]
   );
 
   useEffect(() => {
     void callFunc();
-  }, [callFunc, chainId]);
+  }, [callFunc]);
 
   return contracts;
 };

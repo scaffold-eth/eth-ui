@@ -6,7 +6,7 @@ name: Node.js CI
 on:
   workflow_dispatch:
   push:
-    branches: [next, release]
+    branches: [release, next]
   pull_request:
     types: [opened, reopened, ready_for_review, synchronize]
 
@@ -36,7 +36,7 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --immutable
-      - run: yarn run es-build
+      - run: yarn run build
 
       - run: yarn test:hardhat
       - name: Publish Unit Test Results
