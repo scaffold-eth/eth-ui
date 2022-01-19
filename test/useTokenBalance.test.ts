@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { Signer } from 'ethers';
 import sinon from 'ts-sinon';
+import { shouldFailWithMessage } from '~~/functions/hookHelpers';
 
 import { useTokenBalance } from '~~/hooks/erc';
 import { getHardhatSigner, hookTestWrapper, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper';
@@ -158,18 +159,10 @@ describe('useTokenBalance', function () {
         useTokenBalance(basicERC20Contract, address, updateOptions)
       );
 
-      try {
-        // When
-        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-      } catch (e: any) {
-        // Then
-        expect(e.message).be.equal(
-          'You cannot use both refetchInterval (polling) and blockNumberInterval at the same time'
-        );
-        return;
-      }
-
-      expect.fail(); // Fail if hit this point
+      await shouldFailWithMessage(
+        async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+        'You cannot use both refetchInterval (polling) and blockNumberInterval at the same time'
+      );
     });
 
     it('When given option for refetchInterval < 10000; then throws error', async () => {
@@ -182,18 +175,10 @@ describe('useTokenBalance', function () {
         useTokenBalance(basicERC20Contract, address, updateOptions)
       );
 
-      try {
-        // When
-        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-      } catch (e: any) {
-        // Then
-        expect(e.message).be.equal(
-          'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
-        );
-        return;
-      }
-
-      expect.fail(); // Fails if hits this point
+      await shouldFailWithMessage(
+        async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+        'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
+      );
     });
 
     it('When given option for blockNumberInterval <= 0; then throws error', async () => {
@@ -205,16 +190,10 @@ describe('useTokenBalance', function () {
         useTokenBalance(basicERC20Contract, address, updateOptions)
       );
 
-      try {
-        // When
-        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-      } catch (e: any) {
-        // Then
-        expect(e.message).be.equal('Invalid blockNumberInterval, must be greater than 0');
-        return;
-      }
-
-      expect.fail(); // Fails if hits this point
+      await shouldFailWithMessage(
+        async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+        'Invalid blockNumberInterval, must be greater than 0'
+      );
     });
   });
 });

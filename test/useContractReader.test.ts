@@ -5,6 +5,7 @@ import * as sinonChai from 'sinon-chai';
 import { YourContract } from 'test-files/__mocks__/generated/contract-types';
 import { setupMockYourContract } from 'test-files/__mocks__/setupMockContracts';
 import sinon from 'ts-sinon';
+import { shouldFailWithMessage } from '~~/functions/hookHelpers';
 import * as hookHelpers from '~~/functions/hookHelpers';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
@@ -234,7 +235,6 @@ describe('useContractReader', function () {
 
     describe('Given update options that are not allowed', () => {
       it('When given option for refetchInterval and blockNumberInterval; then throws error', async () => {
-        // Given
         const updateOptions = {
           refetchInterval: 11_000,
           blockNumberInterval: 5,
@@ -243,22 +243,13 @@ describe('useContractReader', function () {
           useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
         );
 
-        try {
-          // When
-          await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
-        } catch (e: any) {
-          // Then
-          expect(e.message).be.equal(
-            'You cannot use both refetchInterval (polling) and blockNumberInterval at the same time'
-          );
-          return;
-        }
-
-        expect.fail(); // Fail if hit this point
+        await shouldFailWithMessage(
+          async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+          'You cannot use both refetchInterval (polling) and blockNumberInterval at the same time'
+        );
       });
 
       it('When given option for refetchInterval < 10000; then throws error', async () => {
-        // Given
         const updateOptions = {
           refetchInterval: 2_000,
           blockNumberInterval: undefined,
@@ -267,22 +258,13 @@ describe('useContractReader', function () {
           useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
         );
 
-        try {
-          // When
-          await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-        } catch (e: any) {
-          // Then
-          expect(e.message).be.equal(
-            'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
-          );
-          return;
-        }
-
-        expect.fail(); // Fails if hits this point
+        await shouldFailWithMessage(
+          async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+          'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
+        );
       });
 
       it('When given option for blockNumberInterval <= 0; then throws error', async () => {
-        // Given
         const updateOptions = {
           blockNumberInterval: 0,
         };
@@ -290,16 +272,10 @@ describe('useContractReader', function () {
           useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
         );
 
-        try {
-          // When
-          await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-        } catch (e: any) {
-          // Then
-          expect(e.message).be.equal('Invalid blockNumberInterval, must be greater than 0');
-          return;
-        }
-
-        expect.fail(); // Fails if hits this point
+        await shouldFailWithMessage(
+          async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+          'Invalid blockNumberInterval, must be greater than 0'
+        );
       });
     });
   });
