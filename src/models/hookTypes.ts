@@ -24,7 +24,7 @@ export const const_blockNumberIntervalLong: DeepPartial<TUpdateOptions> = { bloc
 
 export type TQueryOptions<GResult> = Omit<
   QueryObserverOptions<GResult, any>,
-  'refetchInterval' | 'onError' | 'onSuccess' | 'notifyOnChangeProps' | 'notifyOnChangePropsExclusions' | 'select'
+  'refetchInterval' | 'notifyOnChangeProps' | 'notifyOnChangePropsExclusions' | 'select'
 >;
 
 /**

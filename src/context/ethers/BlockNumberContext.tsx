@@ -1,11 +1,11 @@
-import { createContext, FC, useContext, useEffect, useReducer } from 'react';
+import { FC, useContext, useEffect, useReducer } from 'react';
 import { useIsMounted } from 'usehooks-ts';
+
+import { BlockNumberReactContext } from './BlockNumberReactContext';
 
 import { useEthersContext } from '~~/context';
 import { ethersOverride } from '~~/functions';
 import { defaultOverride, TOverride } from '~~/models';
-
-const Context = createContext<number | undefined>(undefined);
 
 /** *
  * @internal
@@ -62,7 +62,7 @@ const reducer = (state: State = {}, payload: Payload): State => {
  * @returns current block number
  */
 export const useBlockNumberContext = (): number => {
-  const blockNumber = useContext(Context);
+  const blockNumber = useContext(BlockNumberReactContext);
   // if (blockNumber == null) {
   //   console.log('blockNumber context is null');
   // }
@@ -118,5 +118,5 @@ export const BlockNumberContext: FC<IProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId, provider, isMounted]);
 
-  return <Context.Provider value={blockNumber}>{props.children} </Context.Provider>;
+  return <BlockNumberReactContext.Provider value={blockNumber}>{props.children} </BlockNumberReactContext.Provider>;
 };
