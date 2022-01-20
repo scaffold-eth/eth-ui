@@ -119,6 +119,11 @@ describe('useContractReader', function () {
       const harness = await wrapperTestSetupHelper();
       contractSigner = await getHardhatSigner(harness.mockProvider, 1);
       [yourContract] = await setupMockYourContract(contractSigner);
+      // TODO(sean): Remove once solved 'When given options of block number interval' test
+      // Adding these and running 'When given options of block number interval' in only reliably fail the test.
+      // await mineBlock(harness.mockProvider);
+      // await mineBlock(harness.mockProvider);
+      // await mineBlock(harness.mockProvider);
     });
 
     beforeEach(async () => {
@@ -160,16 +165,17 @@ describe('useContractReader', function () {
         expect(harness.result.current[0]).to.eql(finalPurpose);
       });
 
-      it('When given options of block number interval to update; then the hook does not update until that amount of blocks has passed', async () => {
+      it.only('When given options of block number interval to update; then the hook does not update until that amount of blocks has passed', async () => {
         // Given
-        const purposeUpdate = 'your purpose';
-        const blockIntervalToUpdate = 7;
+        const finalPurpose = 'purpose 1';
+        const blockIntervalToUpdate = 5;
         const updateOptions = { blockNumberInterval: blockIntervalToUpdate };
         const harness = await hookTestWrapper(() =>
           useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
         );
-
-        await yourContract?.setPurpose(purposeUpdate);
+        // Turn off automining on contract call so can control ourself
+        // await harness.mockProvider.send('evm_setAutomine', [false]); // TODO: Remove if not required
+        await yourContract?.setPurpose(finalPurpose);
 
         // -- mine blocks up to block when update should occur
         let currentBlockNumber = await harness.mockProvider.getBlockNumber();
@@ -189,7 +195,7 @@ describe('useContractReader', function () {
         await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
 
         // Then
-        expect(harness.result.current[0]).be.equal(purposeUpdate);
+        expect(harness.result.current[0]).be.equal(finalPurpose);
       });
 
       it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
