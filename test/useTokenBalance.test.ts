@@ -1,13 +1,12 @@
 import { expect } from 'chai';
 import { Signer } from 'ethers';
 import sinon from 'ts-sinon';
-import { shouldFailWithMessage } from '~~/functions/hookHelpers';
 
 import { useTokenBalance } from '~~/hooks/erc';
 import { getHardhatSigner, hookTestWrapper, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper';
 import { BasicERC20Contract } from '../test-files/__mocks__/generated/contract-types';
 import { setupMockBasicERC20Contract } from '../test-files/__mocks__/setupMockContracts';
-import { expectValidWallets } from '~~/helpers/test-utils/functions';
+import { expectValidWallets, shouldFailWithMessage } from '~~/helpers/test-utils/functions';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
 import * as hookHelpers from '~~/functions/hookHelpers';

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { merge } from 'merge-anything';
 import { invariant } from 'ts-invariant';
 
@@ -96,14 +95,4 @@ export const processQueryOptions = <GResult>(
     queryOptions.refetchInterval = options.refetchInterval;
   }
   return queryOptions;
-};
-
-export const shouldFailWithMessage = async (failingFunction: () => Promise<any>, errorMessage: string) => {
-  try {
-    await failingFunction();
-  } catch (e: any) {
-    expect(e.message).be.equal(errorMessage);
-    return;
-  }
-  expect.fail(); // Fail test if it doesn't fail
 };

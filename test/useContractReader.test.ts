@@ -5,12 +5,12 @@ import * as sinonChai from 'sinon-chai';
 import { YourContract } from 'test-files/__mocks__/generated/contract-types';
 import { setupMockYourContract } from 'test-files/__mocks__/setupMockContracts';
 import sinon from 'ts-sinon';
-import { shouldFailWithMessage } from '~~/functions/hookHelpers';
 import * as hookHelpers from '~~/functions/hookHelpers';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
+import { shouldFailWithMessage } from '~~/helpers/test-utils/functions';
 import { getHardhatSigner } from '~~/helpers/test-utils/wrapper';
 import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useContractReader, useContractReaderUntyped } from '~~/hooks';
@@ -138,7 +138,6 @@ describe('useContractReader', function () {
         const firstPurpose = 'purpose 1';
         await yourContract?.setPurpose(firstPurpose);
         await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-        console.log(harness.result.current);
         expect(harness.result.current[0]).to.eql(firstPurpose);
 
         const secondPurpose = 'purpose 2';
