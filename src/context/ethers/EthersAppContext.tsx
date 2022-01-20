@@ -92,13 +92,23 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
 
 /**
  * #### Summary
- * Props for context that allow you specify alternate web3ReactRoot [See docs](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs#createweb3reactroot).  You must provide both an alternate key and its root.
+ * Props for context
+ *
+ * ##### Notes
+ * - allow you specify alternate web3ReactRoot [See docs](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs#createweb3reactroot).  You must provide both an alternate key and its root.
+ * - allows you to use your own QueryClientProvider
  */
 export type TEthersAppContextProps = {
+  /**
+   * Props for context that allow you specify alternate web3ReactRoot [See docs](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs#createweb3reactroot).  You must provide both an alternate key and its root.
+   */
   secondaryWeb3ReactRoot?: {
     contextKey: string;
     web3ReactRoot: JSX.Element;
   };
+  /**
+   * disables the local queryClientRoot and QueryClientProvider for react-query and allows you to use your own
+   */
   disableQueryClientRoot?: boolean;
 };
 
@@ -138,7 +148,7 @@ export const getEthersAppProviderLibrary = (
  *
  * @category EthersContext
  *
- * @param props
+ * @param props {@link TEthersAppContextProps}
  * @returns
  */
 export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
