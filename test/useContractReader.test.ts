@@ -5,14 +5,15 @@ import * as sinonChai from 'sinon-chai';
 import { YourContract } from 'test-files/__mocks__/generated/contract-types';
 import { setupMockYourContract } from 'test-files/__mocks__/setupMockContracts';
 import sinon from 'ts-sinon';
-import * as hookHelpers from '~~/functions/hookHelpers';
 
+import * as hookHelpers from '~~/functions/hookHelpers';
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
-import { mineBlock } from '~~/helpers/test-utils/eth';
+import { mineBlock, mineBlockUntil } from '~~/helpers/test-utils/eth';
 import { shouldFailWithMessage } from '~~/helpers/test-utils/functions';
+import { mochaWaitFor } from '~~/helpers/test-utils/functions/mochaHelpers';
 import { getHardhatSigner } from '~~/helpers/test-utils/wrapper';
-import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
+import { currentTestBlockNumber, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useContractReader, useContractReaderUntyped } from '~~/hooks';
 import { TContractFunctionInfo } from '~~/models';
 
@@ -56,35 +57,35 @@ describe('useContractReaderUntyped', function () {
       });
 
       it('When the hook is invoked after multiple setPurpose calls; then it returns the last result of the contract', async () => {
-        const harness = await hookTestWrapper(() =>
+        const wrapper = await hookTestWrapper(() =>
           useContractReaderUntyped<string>(yourContract!, yourContractPurposeInfo)
         );
-        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        await wrapper.waitForValueToChange(() => wrapper.result.current, defaultBlockWaitOptions);
 
         await yourContract?.setPurpose('purpose 1');
         await yourContract?.setPurpose('purpose 2');
         await yourContract?.setPurpose('purpose 3');
         const finalPurpose = 'purpose final';
         await yourContract?.setPurpose(finalPurpose);
-        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        await wrapper.waitForValueToChange(() => wrapper.result.current, defaultBlockWaitOptions);
 
-        expect(harness.result.current).to.eql(finalPurpose);
+        expect(wrapper.result.current).to.eql(finalPurpose);
       });
 
       it('When the hook is invoked after setPurpose calls with a formatter; then it returns the formatted value', async () => {
         const formatter = sinon.stub();
         formatter.returnsArg(0);
-        const harness = await hookTestWrapper(() =>
+        const wrapper = await hookTestWrapper(() =>
           useContractReaderUntyped<string>(yourContract!, yourContractPurposeInfo, formatter)
         );
-        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        await wrapper.waitForValueToChange(() => wrapper.result.current, defaultBlockWaitOptions);
 
         const firstPurpose = 'purpose 1';
         await yourContract?.setPurpose(firstPurpose);
         formatter.resetHistory();
-        await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions);
+        await wrapper.waitForValueToChange(() => wrapper.result.current, defaultBlockWaitOptions);
 
-        expect(harness.result.current).to.eql(firstPurpose);
+        expect(wrapper.result.current).to.eql(firstPurpose);
         expect(formatter).to.be.calledOnce;
         expect(formatter).to.be.calledOnceWith(firstPurpose);
       });
@@ -116,8 +117,8 @@ describe('useContractReader', function () {
 
     before(async () => {
       // setup a contract
-      const harness = await wrapperTestSetupHelper();
-      contractSigner = await getHardhatSigner(harness.mockProvider, 1);
+      const wrapper = await wrapperTestSetupHelper();
+      contractSigner = await getHardhatSigner(wrapper.mockProvider, 1);
       [yourContract] = await setupMockYourContract(contractSigner);
       // TODO(sean): Remove once solved 'When given options of block number interval' test
       // Adding these and running 'When given options of block number interval' in only reliably fail the test.
@@ -126,8 +127,10 @@ describe('useContractReader', function () {
       // await mineBlock(harness.mockProvider);
     });
 
+    let testStartBockNumber = 0;
+
     beforeEach(async () => {
-      // testStartBockNumber = await currentTestBlockNumber();
+      testStartBockNumber = await currentTestBlockNumber();
       await yourContract?.setPurpose(initialPurpose);
     });
 
@@ -137,65 +140,65 @@ describe('useContractReader', function () {
 
     describe('Given the setPurpose is called and set with a new value', () => {
       it('When the hook is invoked after setPurpose calls; then it returns the result of the contract call', async () => {
-        const harness = await hookTestWrapper(() => useContractReader(yourContract!, yourContract?.purpose));
-        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+        const wrapper = await hookTestWrapper(() => useContractReader(yourContract, yourContract?.purpose));
+        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
 
         const firstPurpose = 'purpose 1';
         await yourContract?.setPurpose(firstPurpose);
-        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-        expect(harness.result.current[0]).to.eql(firstPurpose);
+        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+        expect(wrapper.result.current[0]).to.eql(firstPurpose);
 
         const secondPurpose = 'purpose 2';
         await yourContract?.setPurpose(secondPurpose);
-        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-        expect(harness.result.current[0]).to.eql(secondPurpose);
+        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+        expect(wrapper.result.current[0]).to.eql(secondPurpose);
       });
 
       it('When the hook is invoked after multiple setPurpose calls; then it returns the last result of the contract', async () => {
-        const harness = await hookTestWrapper(() => useContractReader(yourContract!, yourContract?.purpose));
-        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+        const wrapper = await hookTestWrapper(() => useContractReader(yourContract, yourContract?.purpose));
+        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
 
         await yourContract?.setPurpose('purpose 1');
         await yourContract?.setPurpose('purpose 2');
         await yourContract?.setPurpose('purpose 3');
         const finalPurpose = 'purpose final';
         await yourContract?.setPurpose(finalPurpose);
-        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
 
-        expect(harness.result.current[0]).to.eql(finalPurpose);
+        expect(wrapper.result.current[0]).to.eql(finalPurpose);
       });
 
       it.only('When given options of block number interval to update; then the hook does not update until that amount of blocks has passed', async () => {
         // Given
         const finalPurpose = 'purpose 1';
         const blockIntervalToUpdate = 5;
+
         const updateOptions = { blockNumberInterval: blockIntervalToUpdate };
-        const harness = await hookTestWrapper(() =>
-          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+        const wrapper = await hookTestWrapper(() =>
+          useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
-        // Turn off automining on contract call so can control ourself
-        // await harness.mockProvider.send('evm_setAutomine', [false]); // TODO: Remove if not required
+
         await yourContract?.setPurpose(finalPurpose);
+        await mochaWaitFor(
+          async () => (await yourContract?.purpose()) === finalPurpose,
+          defaultBlockWaitOptions.timeout
+        );
 
         // -- mine blocks up to block when update should occur
-        let currentBlockNumber = await harness.mockProvider.getBlockNumber();
-        while (currentBlockNumber % blockIntervalToUpdate !== 0) {
-          await mineBlock(harness.mockProvider);
-          currentBlockNumber = await harness.mockProvider.getBlockNumber();
-          await harness.waitForNextUpdate(defaultBlockWaitOptions);
+        const [success, updateBlockNumber] = await mineBlockUntil(
+          wrapper.mockProvider,
+          blockIntervalToUpdate + 5,
+          async (currentBlockNumber): Promise<boolean> => {
+            wrapper.mockProvider.blockNumber;
+            if (currentBlockNumber === blockIntervalToUpdate + testStartBockNumber) {
+              await wrapper.waitForNextUpdate(defaultBlockWaitOptions);
+            }
+            return wrapper.result.current[0] === finalPurpose;
+          }
+        );
 
-          // -- ensures no update before correct block
-          expect(harness.result.current[0]).be.equal(initialPurpose);
-        }
-
-        // -- mine final block
-        await mineBlock(harness.mockProvider);
-
-        // When
-        await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-
-        // Then
-        expect(harness.result.current[0]).be.equal(finalPurpose);
+        expect(success).to.be.true;
+        expect(updateBlockNumber).to.be.equal(testStartBockNumber + blockIntervalToUpdate);
       });
 
       it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
@@ -210,7 +213,7 @@ describe('useContractReader', function () {
           blockNumberInterval: undefined,
         };
         const harness = await hookTestWrapper(() =>
-          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+          useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
 
         await yourContract?.setPurpose(purposeUpdate);
@@ -245,7 +248,7 @@ describe('useContractReader', function () {
           blockNumberInterval: 5,
         };
         const harness = await hookTestWrapper(() =>
-          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+          useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
 
         await shouldFailWithMessage(
@@ -259,12 +262,12 @@ describe('useContractReader', function () {
           refetchInterval: 2_000,
           blockNumberInterval: undefined,
         };
-        const harness = await hookTestWrapper(() =>
-          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+        const wrapper = await hookTestWrapper(() =>
+          useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
 
         await shouldFailWithMessage(
-          async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+          async () => await wrapper.waitForValueToChange(() => wrapper.result.current, defaultBlockWaitOptions),
           'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
         );
       });
@@ -274,7 +277,7 @@ describe('useContractReader', function () {
           blockNumberInterval: 0,
         };
         const harness = await hookTestWrapper(() =>
-          useContractReader(yourContract!, yourContract?.purpose, [], undefined, updateOptions)
+          useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
 
         await shouldFailWithMessage(

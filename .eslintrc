@@ -148,7 +148,8 @@
     "no-shadow": "off",
     "no-void": ["error", { "allowAsStatement": true }],
     "mocha/no-mocha-arrows": "off",
-    "mocha/no-hooks-for-single-case": "off"
+    "mocha/no-hooks-for-single-case": "off",
+    "mocha/max-top-level-suites": ["warn", { "limit": 3 }]
   },
   "settings": {
     "react": {
