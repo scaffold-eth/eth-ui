@@ -20,10 +20,10 @@ export const mineBlockUntil = async (
 ): Promise<[success: boolean, currentBlockNumber: number]> => {
   let currentBlockNumber = await mockProvider.getBlockNumber();
   const initialBlockNumber = currentBlockNumber;
-  while (!(await untilCondition(currentBlockNumber)) && maxNumberOfBlocks > currentBlockNumber - initialBlockNumber) {
-    console.log('update', currentBlockNumber, initialBlockNumber, maxNumberOfBlocks);
+  while (!(await untilCondition(currentBlockNumber)) && maxNumberOfBlocks >= currentBlockNumber - initialBlockNumber) {
     await mineBlock(mockProvider);
     currentBlockNumber = await mockProvider.getBlockNumber();
+    console.log('update', currentBlockNumber, initialBlockNumber, maxNumberOfBlocks);
   }
 
   console.log('after', await mockProvider.getBlockNumber());

@@ -170,7 +170,7 @@ describe('useContractReader', function () {
 
       it.only('When given options of block number interval to update; then the hook does not update until that amount of blocks has passed', async () => {
         // Given
-        const finalPurpose = 'purpose 1';
+        const finalPurpose = 'final purpose';
         const blockIntervalToUpdate = 5;
 
         const updateOptions = { blockNumberInterval: blockIntervalToUpdate };
@@ -179,15 +179,18 @@ describe('useContractReader', function () {
         );
 
         await yourContract?.setPurpose(finalPurpose);
+        // check if the hardhat has final vlaue
         await mochaWaitFor(
           async () => (await yourContract?.purpose()) === finalPurpose,
           defaultBlockWaitOptions.timeout
         );
 
+        console.log(await yourContract?.purpose());
+
         // -- mine blocks up to block when update should occur
         const [success, updateBlockNumber] = await mineBlockUntil(
           wrapper.mockProvider,
-          blockIntervalToUpdate + 5,
+          blockIntervalToUpdate,
           async (currentBlockNumber): Promise<boolean> => {
             wrapper.mockProvider.blockNumber;
             if (currentBlockNumber === blockIntervalToUpdate + testStartBockNumber) {
@@ -198,7 +201,7 @@ describe('useContractReader', function () {
         );
 
         expect(success).to.be.true;
-        expect(updateBlockNumber).to.be.equal(testStartBockNumber + blockIntervalToUpdate);
+        expect(updateBlockNumber).to.be.equal(testStartBockNumber + 1 + blockIntervalToUpdate);
       });
 
       it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
