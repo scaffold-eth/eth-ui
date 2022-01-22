@@ -120,15 +120,9 @@ describe('useContractReader', function () {
       const wrapper = await wrapperTestSetupHelper();
       contractSigner = await getHardhatSigner(wrapper.mockProvider, 1);
       [yourContract] = await setupMockYourContract(contractSigner);
-      // TODO(sean): Remove once solved 'When given options of block number interval' test
-      // Adding these and running 'When given options of block number interval' in only reliably fail the test.
-      // await mineBlock(harness.mockProvider);
-      // await mineBlock(harness.mockProvider);
-      // await mineBlock(harness.mockProvider);
     });
 
     let testStartBockNumber = 0;
-
     beforeEach(async () => {
       testStartBockNumber = await currentTestBlockNumber();
       await yourContract?.setPurpose(initialPurpose);
@@ -168,9 +162,8 @@ describe('useContractReader', function () {
         expect(wrapper.result.current[0]).to.eql(finalPurpose);
       });
 
-      it.only('When given options of block number interval to update; then the hook does not update until that amount of blocks has passed', async () => {
+      it('When given options of block number interval to update; then the hook only updates once an interval over multiple intervals', async () => {
         // Given
-        const finalPurpose = 'final purpose';
         const blockIntervalToUpdate = 5;
 
         const updateOptions = { blockNumberInterval: blockIntervalToUpdate };
@@ -178,30 +171,70 @@ describe('useContractReader', function () {
           useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
 
-        await yourContract?.setPurpose(finalPurpose);
-        // check if the hardhat has final vlaue
-        await mochaWaitFor(
-          async () => (await yourContract?.purpose()) === finalPurpose,
-          defaultBlockWaitOptions.timeout
-        );
+        /** ****************
+         * setup interval 1
+         */
 
-        console.log(await yourContract?.purpose());
+        // -- mine blocks up to block until a sepcific block interval remainder
+        await mineBlockUntil(wrapper.mockProvider, blockIntervalToUpdate, (currentBlockNumber): boolean => {
+          return currentBlockNumber % blockIntervalToUpdate === 2;
+        });
+        // -- set your contract for interval 1
+        const interval1Purpose = 'interval 1 purpose';
+        await yourContract?.setPurpose(interval1Purpose);
+        await mochaWaitFor(async () => {
+          return (await yourContract?.purpose()) === interval1Purpose;
+        }, defaultBlockWaitOptions.timeout);
 
+        // check interval 1
+        const interval1Start = wrapper.mockProvider.blockNumber;
         // -- mine blocks up to block when update should occur
-        const [success, updateBlockNumber] = await mineBlockUntil(
+        const [interval1Success, interval1UpdateBlockNumber] = await mineBlockUntil(
           wrapper.mockProvider,
           blockIntervalToUpdate,
           async (currentBlockNumber): Promise<boolean> => {
-            wrapper.mockProvider.blockNumber;
-            if (currentBlockNumber === blockIntervalToUpdate + testStartBockNumber) {
+            if (currentBlockNumber === blockIntervalToUpdate + interval1Start) {
               await wrapper.waitForNextUpdate(defaultBlockWaitOptions);
             }
-            return wrapper.result.current[0] === finalPurpose;
+            return wrapper.result.current[0] === interval1Purpose;
           }
         );
 
-        expect(success).to.be.true;
-        expect(updateBlockNumber).to.be.equal(testStartBockNumber + 1 + blockIntervalToUpdate);
+        // then
+        expect(interval1Success, 'interval 1 purpose not found').to.be.true;
+        expect(interval1UpdateBlockNumber).to.be.greaterThan(interval1Start + blockIntervalToUpdate);
+
+        /** ****************
+         * setup interval 2
+         */
+
+        // -- mine blocks up to block until a sepcific block interval remainder
+        await mineBlockUntil(wrapper.mockProvider, blockIntervalToUpdate, (currentBlockNumber): boolean => {
+          return currentBlockNumber % blockIntervalToUpdate === 2;
+        });
+        // -- set your contract for interval 2
+        const interval2Purpose = 'interval 2 purpose';
+        await yourContract?.setPurpose(interval2Purpose);
+        await mochaWaitFor(async () => {
+          return (await yourContract?.purpose()) === interval2Purpose;
+        }, defaultBlockWaitOptions.timeout);
+
+        // check interval 1
+        const interval2Start = wrapper.mockProvider.blockNumber;
+        // -- mine blocks up to block when update should occur
+        const [interval2Success, interval2UpdateBlockNumber] = await mineBlockUntil(
+          wrapper.mockProvider,
+          blockIntervalToUpdate,
+          async (currentBlockNumber): Promise<boolean> => {
+            if (currentBlockNumber === blockIntervalToUpdate + interval2Start) {
+              await wrapper.waitForNextUpdate(defaultBlockWaitOptions);
+            }
+            return wrapper.result.current[0] === interval2Purpose;
+          }
+        );
+
+        expect(interval2Success, 'interval 2 purpose not found').to.be.true;
+        expect(interval2UpdateBlockNumber).to.be.greaterThan(interval2Start + blockIntervalToUpdate);
       });
 
       it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
