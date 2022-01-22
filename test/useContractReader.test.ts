@@ -161,8 +161,8 @@ describe('useContractReader', function () {
         expect(wrapper.result.current[0]).to.eql(finalPurpose);
       });
 
-      it('When given options of block number interval to update; then the hook only updates once an interval over multiple intervals', async () => {
-        // Given
+      it('When given options of block number interval to update; then the hook only updates "once an interval" over multiple intervals', async () => {
+        // ::Given::
         const blockIntervalToUpdate = 5;
         const totalBlocksToTraverse = 21;
 
@@ -171,8 +171,9 @@ describe('useContractReader', function () {
           useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
 
+        // ::When:::
         let periodStart = await wrapper.mockProvider.getBlockNumber();
-        // -- mine blocks up to block when update should occur
+        // mine blocks up to block when update should occur
         await mineBlockUntil(wrapper.mockProvider, totalBlocksToTraverse, async (currentBlockNumber): Promise<void> => {
           const intervalPurpose = `purpose ${currentBlockNumber}`;
 
@@ -186,21 +187,19 @@ describe('useContractReader', function () {
           await yourContract?.setPurpose(intervalPurpose);
         });
 
-        console.log(wrapper.result.all);
         const uniqueHookResults = [
           ...new Set(wrapper.result.all.map((m) => (m as THookResult<string | undefined>)[0])),
         ];
 
-        console.log(uniqueHookResults);
-
+        // ::Then::
         // 4 results (20/5) and 1 initial state
         const expectedUpdatedCount = Math.floor(totalBlocksToTraverse / blockIntervalToUpdate) + 1;
         expect(uniqueHookResults).to.have.lengthOf(expectedUpdatedCount);
       });
 
       it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
-        // Given
-        // -- turn off checkUpdateOptions to allow for lower refetchInterval time
+        // ::Given::
+        // turn off checkUpdateOptions to allow for lower refetchInterval time
         sandbox = sinon.createSandbox();
         sandbox.stub(hookHelpers, 'checkUpdateOptions').returns();
         const purposeUpdate = 'higher purpose';
@@ -215,10 +214,10 @@ describe('useContractReader', function () {
 
         await yourContract?.setPurpose(purposeUpdate);
 
-        // -- ensure mining block doesn't trigger update
+        // ensure mining block doesn't trigger update
         await mineBlock(harness.mockProvider);
 
-        // -- ensure doesn't update before refetchInterval time
+        // ensure doesn't update before refetchInterval time
         try {
           await harness.waitForValueToChange(() => harness.result.current[0], {
             timeout: updateOptions.refetchInterval - 100,
@@ -230,10 +229,10 @@ describe('useContractReader', function () {
           expect(harness.result.current[0]).be.equal(initialPurpose);
         }
 
-        // When
+        // ::When::
         await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
 
-        // Then
+        // ::Then::
         expect(harness.result.current[0]).be.equal(purposeUpdate);
       });
     });

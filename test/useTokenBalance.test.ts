@@ -28,22 +28,22 @@ describe('useTokenBalance', function () {
     });
 
     it(`When the hook is called; then returns address's balance of given ERC20 token`, async () => {
-      // Given
+      // ::Given::
       const harness = await hookTestWrapper((address: string) => useTokenBalance(basicERC20Contract, address));
       const [wallet] = harness.mockProvider.getWallets();
       expectValidWallets(wallet);
 
-      // When
+      // ::When::
       harness.rerender(wallet.address);
       await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
 
-      // Then
+      // ::Then::
       const [result] = harness.result.current;
       expect(result).be.equal(0);
     });
 
     it('When wallet balances changes; then the hook returns the new balance', async () => {
-      // Given
+      // ::Given::
       const amountOfTokensTransferringToWallet = 200;
       const harness = await hookTestWrapper((address: string) => useTokenBalance(basicERC20Contract, address));
       const [wallet, walletOfERC20TokenSigner] = harness.mockProvider.getWallets();
@@ -53,17 +53,17 @@ describe('useTokenBalance', function () {
       });
       const walletsBalanceAfterTransfer = await basicERC20Contract.balanceOf(wallet.address);
 
-      // When
+      // ::When::
       harness.rerender(wallet.address);
       await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
 
-      // Then
+      // ::Then::
       const [result] = harness.result.current;
       expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
     });
 
     it('When given options of block number interval to update; then the hook does not update until that amount of blocks has passed', async () => {
-      // Given
+      // ::Given::
       const initialAmountOfTokensInWallet = 0;
       const amountOfTokensTransferringToWallet = 150;
       const blockIntervalToUpdate = 7;
@@ -72,7 +72,7 @@ describe('useTokenBalance', function () {
       );
       const [wallet, walletOfERC20TokenSigner] = harness.mockProvider.getWallets();
       expectValidWallets(wallet, walletOfERC20TokenSigner);
-      // -- start with 0 from useTokenBalance
+      // start with 0 from useTokenBalance
       harness.rerender(wallet.address);
       await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
       expect(harness.result.current[0]).be.equal(initialAmountOfTokensInWallet); // Just ensures test is set up correctly
@@ -80,7 +80,7 @@ describe('useTokenBalance', function () {
         from: walletOfERC20TokenSigner.address,
       });
       const walletsBalanceAfterTransfer = await basicERC20Contract.balanceOf(wallet.address);
-      // -- mine blocks up to block when update should occur
+      // mine blocks up to block when update should occur
       let currentBlockNumber = await harness.mockProvider.getBlockNumber();
       while (currentBlockNumber % blockIntervalToUpdate !== 0) {
         await mineBlock(harness.mockProvider);
@@ -88,25 +88,25 @@ describe('useTokenBalance', function () {
         harness.rerender(wallet.address);
         await harness.waitForNextUpdate(defaultBlockWaitOptions);
 
-        // -- ensures no update before correct block
+        // ensures no update before correct block
         expect(harness.result.current[0]).be.equal(initialAmountOfTokensInWallet);
       }
 
-      // -- mine final block
+      // mine final block
       await mineBlock(harness.mockProvider);
 
-      // When
+      // ::When::
       harness.rerender(wallet.address);
       await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
 
-      // Then
+      // ::Then::
       const [result] = harness.result.current;
       expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
     });
 
     it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
-      // Given
-      // -- turn off checkUpdateOptions to allow for lower refetchInterval time
+      // ::Given::
+      // turn off checkUpdateOptions to allow for lower refetchInterval time
       sandbox = sinon.createSandbox();
       sandbox.stub(hookHelpers, 'checkUpdateOptions').returns();
 
@@ -125,9 +125,9 @@ describe('useTokenBalance', function () {
         from: walletOfERC20TokenSigner.address,
       });
       const walletsBalanceAfterTransfer = await basicERC20Contract.balanceOf(wallet.address);
-      // -- ensure mining block doesn't trigger update
+      // ensure mining block doesn't trigger update
       await mineBlock(harness.mockProvider);
-      // -- ensure doesn't update before refetchInterval time
+      // ensure doesn't update before refetchInterval time
       try {
         await harness.waitForValueToChange(() => harness.result.current[0], {
           timeout: updateOptions.refetchInterval - 100,
@@ -139,17 +139,17 @@ describe('useTokenBalance', function () {
         expect(harness.result.current[0]).be.equal(initialAmountOfTokensInWallet);
       }
 
-      // When
+      // ::When::
       harness.rerender(wallet.address);
       await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
 
-      // Then
+      // ::Then::
       const [result] = harness.result.current;
       expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
     });
 
     it('When given option for refetchInterval and blockNumberInterval; then throws error', async () => {
-      // Given
+      // ::Given::
       const updateOptions = {
         refetchInterval: 11_000,
         blockNumberInterval: 5,
@@ -165,7 +165,7 @@ describe('useTokenBalance', function () {
     });
 
     it('When given option for refetchInterval < 10000; then throws error', async () => {
-      // Given
+      // ::Given::
       const updateOptions = {
         refetchInterval: 2_000,
         blockNumberInterval: undefined,
@@ -181,7 +181,7 @@ describe('useTokenBalance', function () {
     });
 
     it('When given option for blockNumberInterval <= 0; then throws error', async () => {
-      // Given
+      // ::Given::
       const updateOptions = {
         blockNumberInterval: 0,
       };
