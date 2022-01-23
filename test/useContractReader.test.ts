@@ -171,7 +171,7 @@ describe('useContractReader', function () {
           useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
 
-        // ::When:::
+        // ::When::
         let periodStart = await wrapper.mockProvider.getBlockNumber();
         // mine blocks up to block when update should occur
         await mineBlockUntil(wrapper.mockProvider, totalBlocksToTraverse, async (currentBlockNumber): Promise<void> => {
