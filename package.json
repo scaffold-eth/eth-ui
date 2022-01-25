@@ -38,6 +38,8 @@
     "docs": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/api-typedocs/readme.md ./docs/api-typedocs/api-overview.md",
     "deprecate": "npm deprecate",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*.(ts|tsx) ./test/**/*.(ts|tsx)",
+    "format": "yarn prettier -w ./src ./test ./test-files",
+    "format:check": "yarn prettier -c ./src ./test ./test-files",
     "test": "yarn test:hardhat",
     "test:hardhat": "yarn hh:run test  --network hardhat",
     "test:mocha": "yarn hh:env yarn mocha --config .mocharc.js",
