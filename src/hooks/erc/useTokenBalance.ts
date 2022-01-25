@@ -18,10 +18,9 @@ type ERC20 = {
 /**
  * #### Summary
  * Get the balance of an ERC20 token in an address
- * - uses the ethers.Contract object's provider to access the network
  *
  * ##### ✏️ Notes
- * - uses useOnRepetition
+ * - uses the ethers.Contract object's provider to access the network
  *
  * @category Hooks
  *

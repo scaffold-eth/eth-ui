@@ -64,7 +64,7 @@ const reducer = (state: State = {}, payload: Payload): State => {
 export const useBlockNumberContext = (): number => {
   const blockNumber = useContext(BlockNumberReactContext);
   // if (blockNumber == null) {
-  //   console.log('blockNumber context is null');
+  //  console.log('blockNumber context is null');
   // }
   // invariant(blockNumber != null, 'useBlockNumberContext needs to be used under BlockNumberContext');
   return blockNumber ?? 0;
