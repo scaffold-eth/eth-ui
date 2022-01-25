@@ -170,9 +170,10 @@ describe('useContractReader', function () {
         const wrapper = await hookTestWrapper(() =>
           useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
+        await wrapper.mockProvider.send("evm_setAutomine", [false]);
+        let periodStart = await wrapper.mockProvider.getBlockNumber();
 
         // ::When::
-        let periodStart = await wrapper.mockProvider.getBlockNumber();
         // mine blocks up to block when update should occur
         await mineBlockUntil(wrapper.mockProvider, totalBlocksToTraverse, async (currentBlockNumber): Promise<void> => {
           const intervalPurpose = `purpose ${currentBlockNumber}`;
@@ -195,6 +196,9 @@ describe('useContractReader', function () {
         // 4 results (20/5) and 1 initial state
         const expectedUpdatedCount = Math.floor(totalBlocksToTraverse / blockIntervalToUpdate) + 1;
         expect(uniqueHookResults).to.have.lengthOf(expectedUpdatedCount);
+
+        // Clean up
+        await wrapper.mockProvider.send("evm_setAutomine", [true]);
       });
 
       it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
