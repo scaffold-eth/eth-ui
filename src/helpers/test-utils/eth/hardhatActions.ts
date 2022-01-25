@@ -5,6 +5,10 @@ export const mineBlock = async (mockProvider: MockProvider): Promise<void> => {
   await mockProvider.send('evm_mine', []);
 };
 
+export const setAutoMine = async (mockProvider: MockProvider, enabled: boolean): Promise<void> => {
+  await mockProvider.send('evm_setAutomine', [enabled]);
+};
+
 /**
  * #### Summary
  * mine block until the a condition is met or a maximumNumberOfBlocks is reached

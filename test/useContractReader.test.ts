@@ -9,10 +9,10 @@ import sinon from 'ts-sinon';
 import * as hookHelpers from '~~/functions/hookHelpers';
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
-import { mineBlock, mineBlockUntil } from '~~/helpers/test-utils/eth';
+import { mineBlock, mineBlockUntil, setAutoMine } from '~~/helpers/test-utils/eth';
 import { shouldFailWithMessage } from '~~/helpers/test-utils/functions';
 import { getHardhatSigner } from '~~/helpers/test-utils/wrapper';
-import { currentTestBlockNumber, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
+import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useContractReader, useContractReaderUntyped } from '~~/hooks';
 import { TContractFunctionInfo, THookResult } from '~~/models';
 
@@ -123,11 +123,14 @@ describe('useContractReader', function () {
 
     let testStartBockNumber = 0;
     beforeEach(async () => {
-      testStartBockNumber = await currentTestBlockNumber();
+      const wrapper = await wrapperTestSetupHelper();
+      testStartBockNumber = await wrapper.mockProvider.getBlockNumber();
       await yourContract?.setPurpose(initialPurpose);
     });
 
-    afterEach(() => {
+    afterEach(async () => {
+      const wrapper = await wrapperTestSetupHelper();
+      await setAutoMine(wrapper.mockProvider, true);
       sandbox?.restore();
     });
 
@@ -165,40 +168,34 @@ describe('useContractReader', function () {
         // ::Given::
         const blockIntervalToUpdate = 5;
         const totalBlocksToTraverse = 21;
-
         const updateOptions = { blockNumberInterval: blockIntervalToUpdate };
         const wrapper = await hookTestWrapper(() =>
           useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
-        await wrapper.mockProvider.send("evm_setAutomine", [false]);
+        // set automine to false in this test.  automine is set to true in the afterEach
+        await setAutoMine(wrapper.mockProvider, false);
         let periodStart = await wrapper.mockProvider.getBlockNumber();
 
         // ::When::
         // mine blocks up to block when update should occur
         await mineBlockUntil(wrapper.mockProvider, totalBlocksToTraverse, async (currentBlockNumber): Promise<void> => {
           const intervalPurpose = `purpose ${currentBlockNumber}`;
-
           // if the interval has passed check if the hook has been updated
           if (currentBlockNumber >= blockIntervalToUpdate + periodStart + 2) {
             await wrapper.waitForNextUpdate(defaultBlockWaitOptions);
             periodStart = await wrapper.mockProvider.getBlockNumber();
           }
-
           // set purpose every loop
           await yourContract?.setPurpose(intervalPurpose);
         });
 
+        // ::Then::
         const uniqueHookResults = [
           ...new Set(wrapper.result.all.map((m) => (m as THookResult<string | undefined>)[0])),
         ];
-
-        // ::Then::
         // 4 results (20/5) and 1 initial state
         const expectedUpdatedCount = Math.floor(totalBlocksToTraverse / blockIntervalToUpdate) + 1;
         expect(uniqueHookResults).to.have.lengthOf(expectedUpdatedCount);
-
-        // Clean up
-        await wrapper.mockProvider.send("evm_setAutomine", [true]);
       });
 
       it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
@@ -207,7 +204,6 @@ describe('useContractReader', function () {
         sandbox = sinon.createSandbox();
         sandbox.stub(hookHelpers, 'checkUpdateOptions').returns();
         const purposeUpdate = 'higher purpose';
-
         const updateOptions = {
           refetchInterval: 2_000, // Note this is below 10_000 limit just for testing
           blockNumberInterval: undefined,
@@ -215,23 +211,19 @@ describe('useContractReader', function () {
         const harness = await hookTestWrapper(() =>
           useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
         );
-
         await yourContract?.setPurpose(purposeUpdate);
-
         // ensure mining block doesn't trigger update
         await mineBlock(harness.mockProvider);
-
         // ensure doesn't update before refetchInterval time
-        try {
-          await harness.waitForValueToChange(() => harness.result.current[0], {
-            timeout: updateOptions.refetchInterval - 100,
-            interval: 200,
-          });
-          expect.fail();
-        } catch (e: any) {
-          expect(e.message).contain('Timed out');
-          expect(harness.result.current[0]).be.equal(initialPurpose);
-        }
+        await shouldFailWithMessage(
+          () =>
+            harness.waitForValueToChange(() => harness.result.current[0], {
+              timeout: updateOptions.refetchInterval - 100,
+              interval: 200,
+            }),
+          'Timed out'
+        );
+        expect(harness.result.current[0]).be.equal(initialPurpose);
 
         // ::When::
         await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
