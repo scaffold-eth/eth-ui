@@ -42,7 +42,7 @@ export type TContractLoaderConfig = {
    */
   hardhatNetworkName?: string;
   /**
-   * the address:contractName key value pair
+   * the contractName:address key value pair
    */
   customAddresses?: Record<string, string>;
   /**
