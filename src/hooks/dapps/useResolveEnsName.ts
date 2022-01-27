@@ -50,7 +50,7 @@ export const useResolveEnsName = (
   const { data, refetch, status } = useQuery(keys, async (keys): Promise<string | undefined> => {
     const { address } = keys.queryKey[1];
 
-    const storedData: any = window.localStorage.getItem('ethhooks_ensCache_' + address);
+    const storedData: string = window.localStorage.getItem('ethhooks_ensCache_' + address) as string;
     const cache = JSON.parse(storedData ?? '{}') as Record<string, any>;
     if (cache && cache?.name && cache?.timestamp > Date.now() && typeof cache?.name === 'string') {
       return cache?.name;

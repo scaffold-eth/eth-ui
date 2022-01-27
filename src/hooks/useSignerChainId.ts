@@ -26,7 +26,7 @@ export const useSignerChainId = (
 
   const { data, refetch, status } = useQuery(
     keys,
-    async (keys): Promise<TAsyncResult> => {
+    async (_keys): Promise<TAsyncResult> => {
       // const { signer } = keys.queryKey[1];
       const chainId = await signer?.getChainId();
       return chainId;

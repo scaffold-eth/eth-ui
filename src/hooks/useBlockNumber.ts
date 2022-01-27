@@ -34,7 +34,7 @@ export const useBlockNumber = (
 
   const { data, refetch, status } = useQuery(
     keys,
-    async (keys): Promise<TAsyncResult> => {
+    async (_keys): Promise<TAsyncResult> => {
       if (provider) {
         const nextBlockNumber = await provider?.getBlockNumber();
         return nextBlockNumber;

@@ -12,13 +12,13 @@ describe('useUserAddress', function () {
 
     wrapper.rerender(wallet);
     await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-    const [result1, updateResult1] = wrapper.result.current;
+    const [result1] = wrapper.result.current;
     expect(wallet.address).be.equal(result1);
     expect(result1).to.be.properAddress;
 
     wrapper.rerender(secondWallet);
     await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-    const [result2, updateResult2] = wrapper.result.current;
+    const [result2] = wrapper.result.current;
     expect(secondWallet.address).be.equal(result2);
     expect(result2).to.be.properAddress;
   });

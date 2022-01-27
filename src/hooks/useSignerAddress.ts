@@ -23,7 +23,7 @@ export const useSignerAddress = (
   const keys = [{ ...queryKey, ...providerKey(signer) }] as const;
   const { data, refetch, status } = useQuery(
     keys,
-    async (keys): Promise<string | undefined> => {
+    async (_keys): Promise<string | undefined> => {
       if (signer) {
         const result = await signer.getAddress();
         return result;

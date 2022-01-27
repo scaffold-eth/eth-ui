@@ -16,7 +16,7 @@ describe('useBalance', function () {
 
     await harness.waitForNextUpdate(defaultBlockWaitOptions);
     const balance = await wallet.getBalance();
-    const [result, updateResult] = harness.result.current;
+    const [result] = harness.result.current;
     expect(result).be.equal(balance);
   });
 
@@ -40,7 +40,7 @@ describe('useBalance', function () {
 
     await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
     const newBalance = await wallet.getBalance();
-    const [result, updateResult] = harness.result.current;
+    const [result] = harness.result.current;
     expect(result).to.equal(newBalance);
     expect(result).not.to.equal(oldBalance);
   });
