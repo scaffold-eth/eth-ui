@@ -2,14 +2,15 @@ import { expect } from 'chai';
 import { Signer } from 'ethers';
 import sinon from 'ts-sinon';
 
-import { useTokenBalance } from '~~/hooks/erc';
-import { getHardhatSigner, hookTestWrapper, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper';
 import { BasicERC20Contract } from '../test-files/__mocks__/generated/contract-types';
 import { setupMockBasicERC20Contract } from '../test-files/__mocks__/setupMockContracts';
-import { expectValidWallets, shouldFailWithMessage } from '~~/helpers/test-utils/functions';
+
+import * as hookHelpers from '~~/functions/hookHelpers';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
-import * as hookHelpers from '~~/functions/hookHelpers';
+import { expectValidWallets, shouldFailWithMessage } from '~~/helpers/test-utils/functions';
+import { getHardhatSigner, hookTestWrapper, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper';
+import { useTokenBalance } from '~~/hooks/erc';
 
 describe('useTokenBalance', function () {
   describe('Given ERC20 address is deployed', function () {

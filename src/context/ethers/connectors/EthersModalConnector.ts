@@ -119,6 +119,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     if (this.isEthersProvider()) {
       this._ethersProvider = this._providerBase as TEthersProvider;
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       this._ethersProvider = new Web3Provider(this._providerBase, this._config.immutableProvider ? 'any' : undefined);
     }
   }

@@ -22,7 +22,7 @@ describe('useTimestamp', function () {
     await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
 
     const timestamp1 = await expectTimestamp(harness);
-    const [result1, updateResult1] = harness.result.current;
+    const [result1] = harness.result.current;
     expect(result1).be.equal(timestamp1);
 
     // mine another block
@@ -30,7 +30,7 @@ describe('useTimestamp', function () {
 
     await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
     const timestamp2 = await expectTimestamp(harness);
-    const [result2, updateResult2] = harness.result.current;
+    const [result2] = harness.result.current;
     expect(result2).be.equal(timestamp2);
   });
 });
