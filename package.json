@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.0.19",
+  "version": "4.0.21",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -8,6 +8,7 @@
   "module": "index.js",
   "type": "module",
   "types": "index.d.ts",
+  "private": false,
   "engines": {
     "node": ">=12",
     "npm": ">=6"
@@ -45,11 +46,7 @@
     "test:mocha": "yarn hh:env yarn mocha --config .mocharc.js",
     "hh:run": "yarn hh:env yarn hardhat",
     "hh:chain": "yarn hh:run node",
-    "hh:env": "cross-env TS_NODE_PROJECT=tsconfig.testing.json TS_NODE_TRANSPILE_ONLY=1",
-    "postinstall": "husky install",
-    "prepublishOnly": "cd .. && pinst --disable",
-    "postpublish": "cd .. && pinst --enable",
-    "prepare": "cd .. && husky install"
+    "hh:env": "cross-env TS_NODE_PROJECT=tsconfig.testing.json TS_NODE_TRANSPILE_ONLY=1"
   },
   "dependencies": {
     "@ethersproject/address": "^5.5.0",
