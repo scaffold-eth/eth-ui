@@ -47,9 +47,9 @@
     "hh:chain": "yarn hh:run node",
     "hh:env": "cross-env TS_NODE_PROJECT=tsconfig.testing.json TS_NODE_TRANSPILE_ONLY=1",
     "postinstall": "husky install",
-    "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable",
-    "prepare": "husky install"
+    "prepublishOnly": "cd .. && pinst --disable",
+    "postpublish": "cd .. && pinst --enable",
+    "prepare": "cd .. && husky install"
   },
   "dependencies": {
     "@ethersproject/address": "^5.5.0",

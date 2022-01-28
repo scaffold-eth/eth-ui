@@ -1,4 +1,4 @@
-import { Web3Provider } from '@ethersproject/providers';
+import { ExternalProvider, JsonRpcFetchFunc, Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import { cloneElement, FC, useCallback } from 'react';
@@ -110,27 +110,37 @@ export type TEthersAppContextProps = {
    * disables the local queryClientRoot and QueryClientProvider for react-query and allows you to use your own
    */
   disableQueryClientRoot?: boolean;
+  /**
+   * if you want to pass in your own provider.
+   * Make sure it is compatable with ethers.js, see {@link TGetEthersAppProviderLibrary} for details
+   */
+  customGetEthersAppProviderLibrary?: TGetEthersAppProviderLibrary;
 };
+
+export type TGetEthersAppProviderLibrary = (
+  provider: TEthersProvider | ExternalProvider | JsonRpcFetchFunc | any,
+  connector?: AbstractConnector
+) => TEthersProvider;
 
 /**
  * Convert the provider obtained from web3Modal into a ethers.web3provider
  *
  * @internal
  *
- * @param provider
+ * @param provider Should be either {@link TEthersProvider} or a {@link ExternalProvider} or {@link JsonRpcFetchFunc},
  * @param _connector
  * @returns
  */
-export const getEthersAppProviderLibrary = (
-  provider: any,
-  connector: AbstractConnector | undefined
+export const getEthersAppProviderLibrary: TGetEthersAppProviderLibrary = (
+  provider: TEthersProvider | ExternalProvider | JsonRpcFetchFunc | any,
+  connector?: AbstractConnector
 ): TEthersProvider => {
   if (provider == null) {
     throw new NoEthereumProviderFoundError();
   }
 
   let anyNetwork: string | undefined = undefined;
-  if (connector instanceof EthersModalConnector) {
+  if (connector && connector instanceof EthersModalConnector) {
     anyNetwork = connector.config.immutableProvider ? 'any' : undefined;
   }
 
@@ -171,7 +181,7 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
 
     const alternateProvider = cloneElement(
       props.secondaryWeb3ReactRoot.web3ReactRoot,
-      { getLibrary: getEthersAppProviderLibrary },
+      { getLibrary: props.customGetEthersAppProviderLibrary ?? getEthersAppProviderLibrary },
       <BlockNumberContext override={options}>{props.children}</BlockNumberContext>
     );
 
@@ -179,7 +189,7 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
   }
 
   const element = (
-    <Web3ReactProvider getLibrary={getEthersAppProviderLibrary}>
+    <Web3ReactProvider getLibrary={props.customGetEthersAppProviderLibrary ?? getEthersAppProviderLibrary}>
       <BlockNumberContext>{props.children}</BlockNumberContext>
     </Web3ReactProvider>
   );
