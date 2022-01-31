@@ -174,7 +174,7 @@ Ethers context will automatically give you a way to integrate web3Modal into you
 
 ### 1. Create your web3Config
 
-The first create a web3Config. Check out their github repo for a detailed explanation: [web3 modal](https://github.com/Web3Modal/web3modal#using-with-ethersjs). You could also see the example in scaffold-eth-typescript, [scaffold-eth-typescript web3ModalConfig.ts](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/config/web3ModalConfig.ts#L8
+The first create a web3Config. Check out their github repo for a detailed explanation: [web3 modal](https://github.com/Web3Modal/web3modal#using-with-ethersjs). You could also see the example in scaffold-eth-typescript, [scaffold-eth-typescript web3ModalConfig.ts](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/config/web3ModalConfig.ts#L8)
 
 ### 2. Create a function that returns a `TEthersModalConnector`
 
