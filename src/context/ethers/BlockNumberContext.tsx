@@ -50,7 +50,7 @@ const reducer = (state: State = {}, payload: Payload): State => {
  *
  * ##### ❔Use
  * Make sure to wrap your main app with the {@link EthersAppContext}.
- * - See [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/0225179a2a8bb7b3a255d6eff4802b47d72809dd/packages/vite-app-ts/src/components/routes/App.tsx#L38)
+ * - See [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/components/routes/App.tsx#L38)
  *
  *
  * ##### ✏️ Notes

@@ -1,4 +1,4 @@
-[eth-hooks - v4.0.14](../README.md) / [TestUtils](../modules/TestUtils.md) / MockConnector
+[eth-hooks - v4.0.25](../README.md) / [TestUtils](../modules/TestUtils.md) / MockConnector
 
 # Class: MockConnector
 
@@ -1110,7 +1110,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L33)
+[src/helpers/test-utils/wrapper/MockConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L33)
 
 ___
 
@@ -1128,7 +1128,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L39)
+[src/helpers/test-utils/wrapper/MockConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L39)
 
 ___
 
@@ -1146,7 +1146,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:43](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L43)
+[src/helpers/test-utils/wrapper/MockConnector.ts:43](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L43)
 
 ___
 
@@ -1170,7 +1170,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L46)
+[src/helpers/test-utils/wrapper/MockConnector.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L46)
 
 ___
 
@@ -1188,7 +1188,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:49](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L49)
+[src/helpers/test-utils/wrapper/MockConnector.ts:49](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L49)
 
 ___
 
@@ -1212,7 +1212,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:53](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L53)
+[src/helpers/test-utils/wrapper/MockConnector.ts:53](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L53)
 
 ___
 
@@ -1230,7 +1230,7 @@ AbstractConnector.activate
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:61](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L61)
+[src/helpers/test-utils/wrapper/MockConnector.ts:61](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L61)
 
 ___
 
@@ -1248,7 +1248,7 @@ AbstractConnector.getProvider
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L69)
+[src/helpers/test-utils/wrapper/MockConnector.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L69)
 
 ___
 
@@ -1266,7 +1266,7 @@ AbstractConnector.getChainId
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:73](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L73)
+[src/helpers/test-utils/wrapper/MockConnector.ts:73](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L73)
 
 ___
 
@@ -1284,7 +1284,7 @@ AbstractConnector.getAccount
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:77](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L77)
+[src/helpers/test-utils/wrapper/MockConnector.ts:77](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L77)
 
 ___
 
@@ -1304,7 +1304,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:82](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L82)
+[src/helpers/test-utils/wrapper/MockConnector.ts:82](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L82)
 
 ___
 
@@ -1322,7 +1322,7 @@ AbstractConnector.deactivate
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L87)
+[src/helpers/test-utils/wrapper/MockConnector.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L87)
 
 ## Properties
 
@@ -1412,7 +1412,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L14)
+[src/helpers/test-utils/wrapper/MockConnector.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L14)
 
 ___
 
@@ -1422,7 +1422,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L15)
+[src/helpers/test-utils/wrapper/MockConnector.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L15)
 
 ___
 
@@ -1432,7 +1432,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L17)
+[src/helpers/test-utils/wrapper/MockConnector.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L17)
 
 ___
 
@@ -1442,7 +1442,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L18)
+[src/helpers/test-utils/wrapper/MockConnector.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L18)
 
 ___
 
@@ -1452,7 +1452,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L20)
+[src/helpers/test-utils/wrapper/MockConnector.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L20)
 
 ___
 
@@ -1462,7 +1462,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L21)
+[src/helpers/test-utils/wrapper/MockConnector.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L21)
 
 ___
 
@@ -1472,7 +1472,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L22)
+[src/helpers/test-utils/wrapper/MockConnector.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L22)
 
 ___
 
@@ -1482,7 +1482,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L23)
+[src/helpers/test-utils/wrapper/MockConnector.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L23)
 
 ___
 
@@ -1492,7 +1492,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:24](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L24)
+[src/helpers/test-utils/wrapper/MockConnector.ts:24](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L24)
 
 ## Constructors
 
@@ -1512,4 +1512,4 @@ AbstractConnector.constructor
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/MockConnector.ts#L26)
+[src/helpers/test-utils/wrapper/MockConnector.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/75acc7e/src/helpers/test-utils/wrapper/MockConnector.ts#L26)
