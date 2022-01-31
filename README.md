@@ -168,6 +168,16 @@ You can pass a provider into EthersAppContext directly if you don't want to use 
 
 In the above example `customFunction` should be a function that returns a TEthersProvider:
 
+```ts
+// a simple example
+export type TGetEthersAppProviderLibrary = () => TEthersProvider;
+
+// a function that transforms a provider into a TEthersProvider
+export type TGetEthersAppProviderLibrary = (
+  provider: TEthersProvider | ExternalProvider | JsonRpcFetchFunc | any
+) => TEthersProvider;
+```
+
 ## Using ethersAppContext with web3Modal
 
 Ethers context will automatically give you a way to integrate web3Modal into your app.
