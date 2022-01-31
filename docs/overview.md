@@ -168,13 +168,23 @@ You can pass a provider into EthersAppContext directly if you don't want to use 
 
 In the above example `customFunction` should be a function that returns a TEthersProvider:
 
+```ts
+// a simple example
+export type TGetEthersAppProviderLibrary = () => TEthersProvider;
+
+// a function that transforms a provider into a TEthersProvider
+export type TGetEthersAppProviderLibrary = (
+  provider: TEthersProvider | ExternalProvider | JsonRpcFetchFunc | any
+) => TEthersProvider;
+```
+
 ## Using ethersAppContext with web3Modal
 
 Ethers context will automatically give you a way to integrate web3Modal into your app.
 
 ### 1. Create your web3Config
 
-The first create a web3Config. Check out their github repo for a detailed explanation: [web3 modal](https://github.com/Web3Modal/web3modal#using-with-ethersjs). You could also see the example in scaffold-eth-typescript, [scaffold-eth-typescript web3ModalConfig.ts](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/config/web3ModalConfig.ts#L8
+The first create a web3Config. Check out their github repo for a detailed explanation: [web3 modal](https://github.com/Web3Modal/web3modal#using-with-ethersjs). You could also see the example in scaffold-eth-typescript, [scaffold-eth-typescript web3ModalConfig.ts](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/config/web3ModalConfig.ts#L8)
 
 ### 2. Create a function that returns a `TEthersModalConnector`
 
