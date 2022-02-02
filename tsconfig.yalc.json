@@ -16,16 +16,5 @@
       "~~/*": ["./src/*"]
     }
   },
-  "files": [],
-  "include": ["./src/**/*"],
-  "exclude": [
-    "docs/**/*",
-    "**/typedoc/**",
-    "test/**/*",
-    "node_modules",
-    "**/node_modules",
-    "**/node_modules/**",
-    "../../node_modules/**/*",
-    "./.yalc/**/*"
-  ]
+  "files": []
 }
