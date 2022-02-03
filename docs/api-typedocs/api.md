@@ -1,6 +1,6 @@
-eth-hooks - v4.0.14
+eth-hooks - v4.0.27
 
-# eth-hooks - v4.0.14
+# eth-hooks - v4.0.27
 
 ## Table of contents
 

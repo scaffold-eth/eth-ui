@@ -78,7 +78,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   }
 
   /**
-   * @param web3modalOptions see [web3modal docs](https://github.com/Web3Modal/web3modal#provider-options) for details.  You can also check the [scaffold-eth-typescript web3config](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/main/packages/vite-app-ts/src/config/web3ModalConfig.ts) for an example.
+   * @param web3modalOptions see [web3modal docs](https://github.com/Web3Modal/web3modal#provider-options) for details.  You can also check the [scaffold-eth-typescript web3config](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/config/web3ModalConfig.ts) for an example.
    * @param config Configuration for EthersModalConnector
    * @param id allows you to connect directly to a specific provider.  [See docs](https://github.com/Web3Modal/web3modal#connect-to-specific-provider)
    * @param debug turn on debug logging
