@@ -37,7 +37,7 @@ describe('useEventListener', function () {
       await yourContract?.setPurpose(firstPurpose);
 
       await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-      const [result, updateResult] = wrapper.result.current;
+      const [result] = wrapper.result.current;
       const index = result.length - 1;
       console.log(result[0].args);
 
@@ -66,7 +66,7 @@ describe('useEventListener', function () {
         );
 
         await wrapper.waitFor(() => wrapper.result.current[0].length !== 0, defaultBlockWaitOptions);
-        const [result, updateResult] = wrapper.result.current;
+        const [result] = wrapper.result.current;
         // check if there is the right amount of events
         expect(result.length).to.equal(4);
         // check the order
@@ -89,7 +89,7 @@ describe('useEventListener', function () {
         await yourContract!.setPurpose('purpose 4');
 
         await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-        const [result, updateResult] = wrapper.result.current;
+        const [result] = wrapper.result.current;
 
         // check if there is the right amount of events
         expect(result.length).to.equal(4);

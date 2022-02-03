@@ -20,7 +20,7 @@ export interface IStaticJsonRpcProviderConnectorOptions extends IAbstractConnect
  *
  * ##### ✏️ Notes
  * See scaffold-eth-typescript for an example that uses it to connect to a localhost burner wallet.
- * - [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/0225179a2a8bb7b3a255d6eff4802b47d72809dd/packages/vite-app-ts/src/config/web3ModalConfig.ts#L86)
+ * - [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/config/web3ModalConfig.ts#L86)
  *
  * @category EthersContext
  *

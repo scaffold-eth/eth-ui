@@ -1,11 +1,11 @@
-import { createContext, FC, useContext, useEffect, useReducer } from 'react';
+import { FC, useContext, useEffect, useReducer } from 'react';
 import { useIsMounted } from 'usehooks-ts';
+
+import { BlockNumberReactContext } from './BlockNumberReactContext';
 
 import { useEthersContext } from '~~/context';
 import { ethersOverride } from '~~/functions';
 import { defaultOverride, TOverride } from '~~/models';
-
-const Context = createContext<number | undefined>(undefined);
 
 /** *
  * @internal
@@ -50,7 +50,7 @@ const reducer = (state: State = {}, payload: Payload): State => {
  *
  * ##### ❔Use
  * Make sure to wrap your main app with the {@link EthersAppContext}.
- * - See [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/0225179a2a8bb7b3a255d6eff4802b47d72809dd/packages/vite-app-ts/src/components/routes/App.tsx#L38)
+ * - See [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/components/routes/App.tsx#L38)
  *
  *
  * ##### ✏️ Notes
@@ -62,9 +62,9 @@ const reducer = (state: State = {}, payload: Payload): State => {
  * @returns current block number
  */
 export const useBlockNumberContext = (): number => {
-  const blockNumber = useContext(Context);
+  const blockNumber = useContext(BlockNumberReactContext);
   // if (blockNumber == null) {
-  //   console.log('blockNumber context is null');
+  //  console.log('blockNumber context is null');
   // }
   // invariant(blockNumber != null, 'useBlockNumberContext needs to be used under BlockNumberContext');
   return blockNumber ?? 0;
@@ -118,5 +118,5 @@ export const BlockNumberContext: FC<IProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId, provider, isMounted]);
 
-  return <Context.Provider value={blockNumber}>{props.children} </Context.Provider>;
+  return <BlockNumberReactContext.Provider value={blockNumber}>{props.children} </BlockNumberReactContext.Provider>;
 };

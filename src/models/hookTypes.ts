@@ -24,7 +24,7 @@ export const const_blockNumberIntervalLong: DeepPartial<TUpdateOptions> = { bloc
 
 export type TQueryOptions<GResult> = Omit<
   QueryObserverOptions<GResult, any>,
-  'refetchInterval' | 'onError' | 'onSuccess' | 'notifyOnChangeProps' | 'notifyOnChangePropsExclusions' | 'select'
+  'refetchInterval' | 'notifyOnChangeProps' | 'notifyOnChangePropsExclusions' | 'select'
 >;
 
 /**
@@ -104,4 +104,11 @@ export const defaultUpdateOptions = <GResult = any>(): TUpdateOptions<GResult> =
   };
 };
 
+/**
+ * #### Summary
+ * This type describes the tuple that is returned by most hooks
+ * 1. result: the result of the hook
+ * 2. update: a callback will refresh the results of hook manually
+ * 3. status: the status of the query.  From react-query: 'idle' | 'loading' | 'error' | 'success'. You can use this for UX purposes, see {@link QueryStatus}.
+ */
 export type THookResult<T> = [result: T, update: () => void, status: QueryStatus];

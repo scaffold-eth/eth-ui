@@ -26,13 +26,13 @@ describe('useBlockNumber', function () {
     await mineBlock(harness.mockProvider);
     await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
     expect(await harness.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 1);
-    const [result1, updateResult1] = harness.result.current;
+    const [result1] = harness.result.current;
     expect(result1).equal(testStartBockNumber + 1);
 
     // mine another block
     await mineBlock(harness.mockProvider);
     await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-    const [result2, updateResult2] = harness.result.current;
+    const [result2] = harness.result.current;
     expect(result2).equal(testStartBockNumber + 2);
     expect(await harness.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 2);
   });
@@ -43,7 +43,7 @@ describe('useBlockNumber', function () {
     const blockNumber = await harness.mockProvider.getBlockNumber();
     await harness.waitFor(() => harness.result.current[0] === blockNumber, defaultBlockWaitOptions);
 
-    const [result, updateResult] = harness.result.current;
+    const [result] = harness.result.current;
     expect(result).to.equal(testStartBockNumber);
   });
 });

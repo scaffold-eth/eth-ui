@@ -1,4 +1,4 @@
-[eth-hooks - v4.0.14](../README.md) / TestUtils
+[eth-hooks - v4.0.27](../README.md) / TestUtils
 
 # Module: TestUtils
 
@@ -16,9 +16,12 @@ Utilities to write tests with ethers, waffle and react hooks
 ### Functions
 
 - [mineBlock](TestUtils.md#mineblock)
+- [setAutoMine](TestUtils.md#setautomine)
+- [mineBlockUntil](TestUtils.md#mineblockuntil)
 - [fromGwei](TestUtils.md#fromgwei)
 - [fromEther](TestUtils.md#fromether)
 - [expectValidWallets](TestUtils.md#expectvalidwallets)
+- [shouldFailWithMessage](TestUtils.md#shouldfailwithmessage)
 - [getMockProvider](TestUtils.md#getmockprovider)
 - [wrapperTestSetupHelper](TestUtils.md#wrappertestsetuphelper)
 - [currentTestBlockNumber](TestUtils.md#currenttestblocknumber)
@@ -44,7 +47,7 @@ Utilities to write tests with ethers, waffle and react hooks
 
 #### Defined in
 
-[src/helpers/test-utils/constants/testConstants.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/constants/testConstants.ts#L3)
+[src/helpers/test-utils/constants/testConstants.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/constants/testConstants.ts#L1)
 
 ___
 
@@ -54,17 +57,26 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/constants/testConstants.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/constants/testConstants.ts#L5)
+[src/helpers/test-utils/constants/testConstants.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/constants/testConstants.ts#L3)
 
 ___
 
 ### defaultBlockWaitOptions
 
-• **defaultBlockWaitOptions**: `WaitOptions`
+• **defaultBlockWaitOptions**: `Object`
+
+This is a const based on WaitOptions from react testing lib
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `timeout` | `number` |
+| `interval` | `number` |
 
 #### Defined in
 
-[src/helpers/test-utils/constants/testConstants.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/constants/testConstants.ts#L7)
+[src/helpers/test-utils/constants/testConstants.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/constants/testConstants.ts#L9)
 
 ___
 
@@ -80,7 +92,7 @@ This is a wrapper for tests
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/TestAppWrapper.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/TestAppWrapper.tsx#L37)
+[src/helpers/test-utils/wrapper/TestAppWrapper.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/TestAppWrapper.tsx#L37)
 
 ## Functions
 
@@ -100,7 +112,53 @@ This is a wrapper for tests
 
 #### Defined in
 
-[src/helpers/test-utils/eth/hardhatActions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/eth/hardhatActions.ts#L3)
+[src/helpers/test-utils/eth/hardhatActions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/eth/hardhatActions.ts#L3)
+
+___
+
+### setAutoMine
+
+▸ `Const` **setAutoMine**(`mockProvider`, `enabled`): `Promise`<`void`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mockProvider` | `MockProvider` |
+| `enabled` | `boolean` |
+
+#### Returns
+
+`Promise`<`void`\>
+
+#### Defined in
+
+[src/helpers/test-utils/eth/hardhatActions.ts:8](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/eth/hardhatActions.ts#L8)
+
+___
+
+### mineBlockUntil
+
+▸ `Const` **mineBlockUntil**(`mockProvider`, `maxNumberOfBlocks`, `untilCondition`): `Promise`<[success: boolean, currentBlockNumber: number]\>
+
+#### Summary
+mine block until the a condition is met or a maximumNumberOfBlocks is reached
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `mockProvider` | `MockProvider` |
+| `maxNumberOfBlocks` | `number` |
+| `untilCondition` | (`currentBlockNumber`: `number`) => `Promise`<`boolean`\> \| (`currentBlockNumber`: `number`) => `boolean` \| (`currentBlockNumber`: `number`) => `Promise`<`void`\> |
+
+#### Returns
+
+`Promise`<[success: boolean, currentBlockNumber: number]\>
+
+#### Defined in
+
+[src/helpers/test-utils/eth/hardhatActions.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/eth/hardhatActions.ts#L20)
 
 ___
 
@@ -120,7 +178,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/functions/conversions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/functions/conversions.ts#L3)
+[src/helpers/test-utils/functions/conversions.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/functions/conversions.ts#L3)
 
 ___
 
@@ -140,7 +198,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/functions/conversions.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/functions/conversions.ts#L7)
+[src/helpers/test-utils/functions/conversions.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/functions/conversions.ts#L7)
 
 ___
 
@@ -160,7 +218,31 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/functions/expect.ts:4](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/functions/expect.ts#L4)
+[src/helpers/test-utils/functions/expect.ts:4](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/functions/expect.ts#L4)
+
+___
+
+### shouldFailWithMessage
+
+▸ `Const` **shouldFailWithMessage**(`failingFunction`, `errorMessage`): `Promise`<`void`\>
+
+Wrapped around a function to ensure that it fails with the correct message
+and doesn't pass successfully
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `failingFunction` | () => `Promise`<`any`\> | Function expect to fail |
+| `errorMessage` | `string` | Error message expect to fail with |
+
+#### Returns
+
+`Promise`<`void`\>
+
+#### Defined in
+
+[src/helpers/test-utils/functions/shouldFailWithMessage.ts:10](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/functions/shouldFailWithMessage.ts#L10)
 
 ___
 
@@ -174,7 +256,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/getMockProvider.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/getMockProvider.ts#L6)
+[src/helpers/test-utils/wrapper/getMockProvider.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/getMockProvider.ts#L6)
 
 ___
 
@@ -188,7 +270,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/hardhatTestHelpers.ts:4](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/hardhatTestHelpers.ts#L4)
+[src/helpers/test-utils/wrapper/hardhatTestHelpers.ts:4](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/hardhatTestHelpers.ts#L4)
 
 ___
 
@@ -202,7 +284,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/hardhatTestHelpers.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/hardhatTestHelpers.ts#L12)
+[src/helpers/test-utils/wrapper/hardhatTestHelpers.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/hardhatTestHelpers.ts#L12)
 
 ___
 
@@ -234,7 +316,7 @@ Created a test hook with a Web3Wrapper
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/testWrapper.tsx:28](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/testWrapper.tsx#L28)
+[src/helpers/test-utils/wrapper/testWrapper.tsx:28](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/testWrapper.tsx#L28)
 
 ___
 
@@ -254,7 +336,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/wrapperHelpers.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L6)
+[src/helpers/test-utils/wrapper/wrapperHelpers.ts:6](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L6)
 
 ___
 
@@ -274,7 +356,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/wrapperHelpers.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L15)
+[src/helpers/test-utils/wrapper/wrapperHelpers.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L15)
 
 ___
 
@@ -295,7 +377,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/wrapperHelpers.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L26)
+[src/helpers/test-utils/wrapper/wrapperHelpers.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L26)
 
 ___
 
@@ -316,7 +398,7 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/wrapperHelpers.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L36)
+[src/helpers/test-utils/wrapper/wrapperHelpers.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/wrapperHelpers.ts#L36)
 
 ## Type aliases
 
@@ -332,4 +414,4 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/testWrapper.tsx:14](https://github.com/scaffold-eth/eth-hooks/blob/9f227f7/src/helpers/test-utils/wrapper/testWrapper.tsx#L14)
+[src/helpers/test-utils/wrapper/testWrapper.tsx:14](https://github.com/scaffold-eth/eth-hooks/blob/3bb312e/src/helpers/test-utils/wrapper/testWrapper.tsx#L14)

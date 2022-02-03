@@ -24,7 +24,7 @@ export const useAreSignerEqual = (
   const keys = [{ ...queryKey }, { singer1Key: providerKey(signer1), signer2Key: providerKey(signer2) }] as const;
   const { data, refetch, status } = useQuery(
     keys,
-    async (keys): Promise<boolean | undefined> => {
+    async (_keys): Promise<boolean | undefined> => {
       if (signerHasNetwork(signer1)) {
         const chainId1 = await signer1?.getChainId();
         const chainId2 = await signer2?.getChainId();

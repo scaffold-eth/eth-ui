@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { expect, use } from 'chai';
 import * as sinonChai from 'sinon-chai';
 
