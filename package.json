@@ -172,7 +172,7 @@
       "yarn lint --fix",
       "yarn format"
     ],
-    "**/*.{json,sol}": [
+    "**/*.{json}": [
       "yarn format"
     ]
   }
