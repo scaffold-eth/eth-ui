@@ -48,5 +48,6 @@ jobs:
         uses: wearerequired/lint-action@v1
         with:
           eslint: true
+          eslint_dir: ./src
           eslint_args: --config ./.eslintrc --ignore-path ./.eslintignore --quiet
           eslint_extensions: ts,tsx
