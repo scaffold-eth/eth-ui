@@ -41,7 +41,6 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --immutable
-      - run: yarn run build
 
       # Install your linters here
 
@@ -49,5 +48,4 @@ jobs:
         uses: wearerequired/lint-action@v1
         with:
           eslint: true
-          eslint_args: --config ./.eslintrc --ignore-path ./.eslintignore
-          eslint_dir: ./src/**/*.(ts|tsx) ./test/**/*.(ts|tsx)
+          eslint_args: --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*.(ts|tsx) ./test/**/*.(ts|tsx)
