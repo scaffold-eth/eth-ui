@@ -49,4 +49,4 @@ jobs:
         with:
           eslint: true
           eslint_args: --config ./.eslintrc --ignore-path ./.eslintignore
-          eslint_extensions: ts, tsx
+          eslint_extensions: ts,tsx
