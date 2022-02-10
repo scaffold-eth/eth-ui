@@ -38,6 +38,7 @@
     "publish:latest": "yarn build && yarn package && cd lib && npm publish --tag latest",
     "docs": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/api-typedocs/readme.md ./docs/api-typedocs/api.md && shx cp -R README.md ./docs/overview.md",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*.(ts|tsx) ./test/**/*.(ts|tsx)",
+    "lint:report": "yarn lint --output-file eslint_report.json --format json",
     "format": "yarn prettier -w ./src ./test ./test-files",
     "format:check": "yarn prettier -c ./src ./test ./test-files",
     "test": "yarn test:hardhat",
