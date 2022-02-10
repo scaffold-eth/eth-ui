@@ -2,7 +2,7 @@ import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer, utils } from 'ethers';
-import Core, { ICoreOptions, ThemeColors } from 'web3modal';
+import { default as Core, ICoreOptions, ThemeColors } from 'web3modal';
 
 import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 
