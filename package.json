@@ -8,7 +8,6 @@
   "module": "index.js",
   "type": "module",
   "types": "index.d.ts",
-  "private": false,
   "engines": {
     "node": ">=12",
     "npm": ">=6"
