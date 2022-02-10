@@ -1,4 +1,4 @@
-# 🖇 Eth-Hooks Overview
+# 🖇 Eth-Hooks
 
 Commonly used Ethereum hooks.
 
