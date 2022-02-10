@@ -19,9 +19,9 @@ import { TContractFunctionInfo, TOverride } from '~~/models';
  * @template OutputT return type
  * @param contract ethers.Contract class
  * @param contractFunctionInfo
- * @param formatter <OutputT> a function that can format the output
+ * @param formatter OutputT a function that can format the output
  * @param onChange callback with result as a parameter
- * @returns <OutputT>
+ * @returns OutputT
  */
 export const useContractReaderUntyped = <GOutput>(
   contract: BaseContract,
