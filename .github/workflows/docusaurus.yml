@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [next]
-  pull_request:
-    branches: [next]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -30,7 +28,7 @@ jobs:
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
         with:
-          target_branch: docs
+          target_branch: docusaurus
           build_dir: docs/build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
