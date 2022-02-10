@@ -44,7 +44,7 @@ jobs:
         if: always()
         with:
           files: testresult.xml
-          comment_mode: create new
+          comment_mode: update last
           hide_comments: all but latest
           compare_to_earlier_commit: true
           check_run_annotations: all tests, skipped tests
