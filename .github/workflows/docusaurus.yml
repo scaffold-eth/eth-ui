@@ -29,6 +29,6 @@ jobs:
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: docusaurus
-          build_dir: docs/build
+          build_dir: docusaurus/build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
