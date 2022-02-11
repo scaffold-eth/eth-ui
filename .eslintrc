@@ -16,7 +16,8 @@
       "build",
       ".yarn",
       "build-utils",
-      "docs"
+      "docs",
+      "docusaurus"
     ]
   },
   "env": {

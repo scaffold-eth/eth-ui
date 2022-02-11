@@ -42,6 +42,7 @@
     "./.yalc/**/*",
     "**/*.md",
     "docs/**/*",
+    "docusaurus/**/*",
     "website/**/*π"
   ]
 }

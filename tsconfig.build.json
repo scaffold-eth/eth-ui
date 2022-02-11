@@ -29,6 +29,6 @@
     "**/node_modules/**",
     "../../node_modules/**/*",
     "./.yalc/**/*",
-    "docs/**/*"
+    "docusaurus/**/*"
   ]
 }
