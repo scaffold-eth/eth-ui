@@ -8,7 +8,6 @@
   "module": "index.js",
   "type": "module",
   "types": "index.d.ts",
-  "private": false,
   "engines": {
     "node": ">=12",
     "npm": ">=6"
@@ -36,7 +35,7 @@
     "publish:yalc": "yarn build && yarn package && cd lib && yalc publish --no-script --push",
     "publish:next": "yarn build && yarn package && cd lib && npm publish --tag next",
     "publish:latest": "yarn build && yarn package && cd lib && npm publish --tag latest",
-    "docs": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/api-typedocs/readme.md ./docs/api-typedocs/api.md && shx cp -R README.md ./docs/overview.md",
+    "docs:api": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docs/docs/api/readme.md ./docs/docs/api/api.md && shx cp -R README.md ./docs/docs/overview.md",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*.(ts|tsx) ./test/**/*.(ts|tsx)",
     "lint:report": "eslint --config ./.eslintrc --ignore-path ./.eslintignore --output-file eslint_report.json --format json ./src/**/*.(ts|tsx)",
     "format": "yarn prettier -w ./src ./test ./test-files",

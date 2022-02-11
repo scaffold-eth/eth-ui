@@ -2,3 +2,5 @@
 lib/
 node_modules/
 **/*.md
+docs/**/*
+website/**/*

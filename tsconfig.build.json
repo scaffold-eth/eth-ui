@@ -28,6 +28,7 @@
     "**/node_modules",
     "**/node_modules/**",
     "../../node_modules/**/*",
-    "./.yalc/**/*"
+    "./.yalc/**/*",
+    "docs/**/*"
   ]
 }
