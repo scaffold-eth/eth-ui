@@ -32,9 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - run: yarn install --immutable
-      - run: yarn run build
-
       - name: Generate api documentation
         run: |
           yarn install --immutable
