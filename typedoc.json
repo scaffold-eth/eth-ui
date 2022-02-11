@@ -18,5 +18,20 @@
   "sort": ["source-order"],
   "excludePrivate": true,
   "excludeInternal": true,
-  "exclude": ["hardhat.config.ts", "test/**/*", "test-files/**/*", "**/*.test.ts", "**/*.test.tsx)"]
+  "exclude": [
+    "hardhat.config.ts",
+    "test/**/*",
+    "test-files/**/*",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/generated/**/*"
+  ],
+  "external": [
+    "hardhat.config.ts",
+    "test/**/*",
+    "test-files/**/*",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/generated/**/*"
+  ]
 }
