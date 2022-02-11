@@ -39,6 +39,7 @@ jobs:
         run: |
           yarn install --immutable
           yarn run build
+          yarn docs:api
 
       - name: Build Docusaurus website
         run: |
