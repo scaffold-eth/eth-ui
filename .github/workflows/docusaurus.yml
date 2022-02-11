@@ -21,12 +21,31 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-      # Install and build Docusaurus website
+
+      - name: 'cache'
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.yarn
+            ~/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - run: yarn install --immutable
+      - run: yarn run build
+
+      - name: Generate api documentation
+        run: |
+          yarn install --immutable
+          yarn run build
+
       - name: Build Docusaurus website
         run: |
           cd docusaurus
           npm install 
           npm run build
+
       - name: Deploy to GitHub Pages
         if: success() && contains('refs/heads/next', github.ref)
         uses: crazy-max/ghaction-github-pages@v2
