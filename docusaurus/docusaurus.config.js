@@ -110,7 +110,7 @@ const config = {
   title: 'eth-hooks',
   tagline: 'Commonly used Ethereum hooks to supercharge your web3 dev!',
   url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/eth-hooks',
+  baseUrl: 'eth-hooks/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
