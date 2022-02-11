@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches: [next]
+  pull_request:
+    branches: [next]
+    types: [opened, reopened, ready_for_review, synchronize]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -25,7 +28,7 @@ jobs:
           npm install 
           npm run build
       - name: Deploy to GitHub Pages
-        if: success()
+        if: success() && contains('refs/heads/next', github.ref)
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: docusaurus
