@@ -35,7 +35,7 @@
     "publish:yalc": "yarn build && yarn package && cd lib && yalc publish --no-script --push",
     "publish:next": "yarn build && yarn package && cd lib && npm publish --tag next",
     "publish:latest": "yarn build && yarn package && cd lib && npm publish --tag latest",
-    "docs:api": "yarn typedoc --listInvalidSymbolLinks && shx mv ./docusaurus/docs/api/readme.md ./docusaurus/docs/api/api.md && shx cp -R README.md ./docusaurus/docs/overview.md",
+    "docs:api": "yarn typedoc --options typedoc.json --listInvalidSymbolLinks && shx mv ./docusaurus/docs/api/readme.md ./docusaurus/docs/api/api.md && shx cp -R README.md ./docusaurus/docs/overview.md",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*.(ts|tsx) ./test/**/*.(ts|tsx)",
     "lint:report": "eslint --config ./.eslintrc --ignore-path ./.eslintignore --output-file eslint_report.json --format json ./src/**/*.(ts|tsx)",
     "format": "yarn prettier -w ./src ./test ./test-files",
