@@ -18,6 +18,8 @@
   "sort": ["source-order"],
   "excludePrivate": true,
   "excludeInternal": true,
+  "listInvalidSymbolLinks": true,
+  "logLevel": "Verbose",
   "exclude": [
     "hardhat.config.ts",
     "test/**/*",

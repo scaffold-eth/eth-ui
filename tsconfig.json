@@ -43,6 +43,7 @@
     "**/*.md",
     "docs/**/*",
     "docusaurus/**/*",
-    "website/**/*π"
+    "website/**/*",
+    "**/*.json"
   ]
 }
