@@ -12,3 +12,4 @@ testresult.xml
 test-files/__mocks__/generated
 .idea
 .DS_store
+eslint_report.json
