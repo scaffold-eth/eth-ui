@@ -1,4 +1,4 @@
-# 🖇 Eth-Hooks Overview
+# 🖇 Eth-hooks Overview
 
 Commonly used Ethereum hooks to supercharge your web3 dev!
 

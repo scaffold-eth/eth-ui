@@ -1,4 +1,4 @@
-# 🖇 Eth-Hooks
+# 🖇 Eth-hooks
 
 Commonly used Ethereum hooks.
 
@@ -10,8 +10,8 @@ Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
 # Overview
 
-[Eth-Hooks Overview](./overview.md)
+[Eth-hooks Overview](./overview.md)
 
-# Eth-Hooks API
+# Eth-hooks API
 
-[Eth-Hooks API](./api/api.md)
+[Eth-hooks API](./api/api.md)
