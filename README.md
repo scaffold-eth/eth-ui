@@ -8,6 +8,8 @@ Used by ⚙ [eth-components](https://github.com/scaffold-eth/eth-components)
 
 Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
+Check out the docs 📚 [eth-hooks docs](https://scaffold-eth.github.io/eth-hooks/)
+
 ## Author
 
 [@shravansunder](https://github.com/ShravanSunder)
