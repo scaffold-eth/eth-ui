@@ -1,14 +1,25 @@
-[eth-hooks - v4.0.29](../README.md) / [TestUtils](../modules/TestUtils.md) / MockConnector
+[eth-hooks - v4.0.29](../README.md) / [EthersContext](../modules/EthersContext.md) / EthersModalConnector
 
-# Class: MockConnector
+# Class: EthersModalConnector
 
-[TestUtils](../modules/TestUtils.md).MockConnector
+[EthersContext](../modules/EthersContext.md).EthersModalConnector
+
+#### Summary
+This is a connector for [web3-react](https://github.com/NoahZinsmeister/web3-react) that allows it to interface with [web3Modal](https://github.com/Web3Modal/web3modal).
+The provider selected by user via web3modal is interfaced to the web3-react context.
+
+##### ✨ Features
+- This connector used with [useEthersContext](../modules/EthersContext.md#useetherscontext) allows the app and all the hooks to effortlessly access the current network, provider, signer, address information [IEthersContext](../interfaces/Models.IEthersContext.md)
+- The connector centralizes and takes care of management of the web3 interaction and provides a consistent exprience for your app.
+
+##### ✏️ Notes
+- inherits from web3-react class AbstractConnector
 
 ## Hierarchy
 
 - `AbstractConnector`
 
-  ↳ **`MockConnector`**
+  ↳ **`EthersModalConnector`**
 
 ## Implements
 
@@ -18,61 +29,67 @@
 
 ### Methods
 
-- [once](TestUtils.MockConnector.md#once)
-- [on](TestUtils.MockConnector.md#on)
-- [listenerCount](TestUtils.MockConnector.md#listenercount)
-- [getEventListeners](TestUtils.MockConnector.md#geteventlisteners)
-- [addListener](TestUtils.MockConnector.md#addlistener)
-- [on](TestUtils.MockConnector.md#on)
-- [once](TestUtils.MockConnector.md#once)
-- [removeListener](TestUtils.MockConnector.md#removelistener)
-- [off](TestUtils.MockConnector.md#off)
-- [removeAllListeners](TestUtils.MockConnector.md#removealllisteners)
-- [setMaxListeners](TestUtils.MockConnector.md#setmaxlisteners)
-- [getMaxListeners](TestUtils.MockConnector.md#getmaxlisteners)
-- [listeners](TestUtils.MockConnector.md#listeners)
-- [rawListeners](TestUtils.MockConnector.md#rawlisteners)
-- [emit](TestUtils.MockConnector.md#emit)
-- [listenerCount](TestUtils.MockConnector.md#listenercount)
-- [prependListener](TestUtils.MockConnector.md#prependlistener)
-- [prependOnceListener](TestUtils.MockConnector.md#prependoncelistener)
-- [eventNames](TestUtils.MockConnector.md#eventnames)
-- [emitUpdate](TestUtils.MockConnector.md#emitupdate)
-- [emitError](TestUtils.MockConnector.md#emiterror)
-- [emitDeactivate](TestUtils.MockConnector.md#emitdeactivate)
-- [replaceWithSpies](TestUtils.MockConnector.md#replacewithspies)
-- [hasCachedProvider](TestUtils.MockConnector.md#hascachedprovider)
-- [getSigner](TestUtils.MockConnector.md#getsigner)
-- [setModalTheme](TestUtils.MockConnector.md#setmodaltheme)
-- [resetModal](TestUtils.MockConnector.md#resetmodal)
-- [changeSigner](TestUtils.MockConnector.md#changesigner)
-- [activate](TestUtils.MockConnector.md#activate)
-- [getProvider](TestUtils.MockConnector.md#getprovider)
-- [getChainId](TestUtils.MockConnector.md#getchainid)
-- [getAccount](TestUtils.MockConnector.md#getaccount)
-- [setMockAccount](TestUtils.MockConnector.md#setmockaccount)
-- [deactivate](TestUtils.MockConnector.md#deactivate)
+- [once](EthersContext.EthersModalConnector.md#once)
+- [on](EthersContext.EthersModalConnector.md#on)
+- [listenerCount](EthersContext.EthersModalConnector.md#listenercount)
+- [getEventListeners](EthersContext.EthersModalConnector.md#geteventlisteners)
+- [addListener](EthersContext.EthersModalConnector.md#addlistener)
+- [on](EthersContext.EthersModalConnector.md#on)
+- [once](EthersContext.EthersModalConnector.md#once)
+- [removeListener](EthersContext.EthersModalConnector.md#removelistener)
+- [off](EthersContext.EthersModalConnector.md#off)
+- [removeAllListeners](EthersContext.EthersModalConnector.md#removealllisteners)
+- [setMaxListeners](EthersContext.EthersModalConnector.md#setmaxlisteners)
+- [getMaxListeners](EthersContext.EthersModalConnector.md#getmaxlisteners)
+- [listeners](EthersContext.EthersModalConnector.md#listeners)
+- [rawListeners](EthersContext.EthersModalConnector.md#rawlisteners)
+- [emit](EthersContext.EthersModalConnector.md#emit)
+- [listenerCount](EthersContext.EthersModalConnector.md#listenercount)
+- [prependListener](EthersContext.EthersModalConnector.md#prependlistener)
+- [prependOnceListener](EthersContext.EthersModalConnector.md#prependoncelistener)
+- [eventNames](EthersContext.EthersModalConnector.md#eventnames)
+- [emitUpdate](EthersContext.EthersModalConnector.md#emitupdate)
+- [emitError](EthersContext.EthersModalConnector.md#emiterror)
+- [emitDeactivate](EthersContext.EthersModalConnector.md#emitdeactivate)
+- [hasCachedProvider](EthersContext.EthersModalConnector.md#hascachedprovider)
+- [log](EthersContext.EthersModalConnector.md#log)
+- [loadCore](EthersContext.EthersModalConnector.md#loadcore)
+- [activate](EthersContext.EthersModalConnector.md#activate)
+- [deactivate](EthersContext.EthersModalConnector.md#deactivate)
+- [getProvider](EthersContext.EthersModalConnector.md#getprovider)
+- [getChainId](EthersContext.EthersModalConnector.md#getchainid)
+- [getAccount](EthersContext.EthersModalConnector.md#getaccount)
+- [getSigner](EthersContext.EthersModalConnector.md#getsigner)
+- [getSignerFromAccount](EthersContext.EthersModalConnector.md#getsignerfromaccount)
+- [changeSigner](EthersContext.EthersModalConnector.md#changesigner)
+- [validState](EthersContext.EthersModalConnector.md#validstate)
+- [resetModal](EthersContext.EthersModalConnector.md#resetmodal)
+- [setModalTheme](EthersContext.EthersModalConnector.md#setmodaltheme)
 
 ### Properties
 
-- [errorMonitor](TestUtils.MockConnector.md#errormonitor)
-- [captureRejectionSymbol](TestUtils.MockConnector.md#capturerejectionsymbol)
-- [captureRejections](TestUtils.MockConnector.md#capturerejections)
-- [defaultMaxListeners](TestUtils.MockConnector.md#defaultmaxlisteners)
-- [supportedChainIds](TestUtils.MockConnector.md#supportedchainids)
-- [provider](TestUtils.MockConnector.md#provider)
-- [mockChainId](TestUtils.MockConnector.md#mockchainid)
-- [mockSigner](TestUtils.MockConnector.md#mocksigner)
-- [mockAccount](TestUtils.MockConnector.md#mockaccount)
-- [spyResetModal](TestUtils.MockConnector.md#spyresetmodal)
-- [spySetModalTheme](TestUtils.MockConnector.md#spysetmodaltheme)
-- [spyChangeSigner](TestUtils.MockConnector.md#spychangesigner)
-- [spyActivate](TestUtils.MockConnector.md#spyactivate)
-- [spyDeactivate](TestUtils.MockConnector.md#spydeactivate)
+- [errorMonitor](EthersContext.EthersModalConnector.md#errormonitor)
+- [captureRejectionSymbol](EthersContext.EthersModalConnector.md#capturerejectionsymbol)
+- [captureRejections](EthersContext.EthersModalConnector.md#capturerejections)
+- [defaultMaxListeners](EthersContext.EthersModalConnector.md#defaultmaxlisteners)
+- [supportedChainIds](EthersContext.EthersModalConnector.md#supportedchainids)
+- [\_options](EthersContext.EthersModalConnector.md#_options)
+- [\_providerBase](EthersContext.EthersModalConnector.md#_providerbase)
+- [\_ethersProvider](EthersContext.EthersModalConnector.md#_ethersprovider)
+- [\_web3Modal](EthersContext.EthersModalConnector.md#_web3modal)
+- [\_id](EthersContext.EthersModalConnector.md#_id)
+- [\_debug](EthersContext.EthersModalConnector.md#_debug)
+- [\_config](EthersContext.EthersModalConnector.md#_config)
+- [\_signer](EthersContext.EthersModalConnector.md#_signer)
+- [\_theme](EthersContext.EthersModalConnector.md#_theme)
 
 ### Constructors
 
-- [constructor](TestUtils.MockConnector.md#constructor)
+- [constructor](EthersContext.EthersModalConnector.md#constructor)
+
+### Accessors
+
+- [config](EthersContext.EthersModalConnector.md#config)
 
 ## Methods
 
@@ -384,7 +401,7 @@ ___
 
 ### addListener
 
-▸ **addListener**(`eventName`, `listener`): [`MockConnector`](TestUtils.MockConnector.md)
+▸ **addListener**(`eventName`, `listener`): [`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 Alias for `emitter.on(eventName, listener)`.
 
@@ -399,7 +416,7 @@ Alias for `emitter.on(eventName, listener)`.
 
 #### Returns
 
-[`MockConnector`](TestUtils.MockConnector.md)
+[`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 #### Inherited from
 
@@ -413,7 +430,7 @@ ___
 
 ### on
 
-▸ **on**(`eventName`, `listener`): [`MockConnector`](TestUtils.MockConnector.md)
+▸ **on**(`eventName`, `listener`): [`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 Adds the `listener` function to the end of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -452,7 +469,7 @@ myEE.emit('foo');
 
 #### Returns
 
-[`MockConnector`](TestUtils.MockConnector.md)
+[`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 #### Inherited from
 
@@ -466,7 +483,7 @@ ___
 
 ### once
 
-▸ **once**(`eventName`, `listener`): [`MockConnector`](TestUtils.MockConnector.md)
+▸ **once**(`eventName`, `listener`): [`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 Adds a **one-time**`listener` function for the event named `eventName`. The
 next time `eventName` is triggered, this listener is removed and then invoked.
@@ -503,7 +520,7 @@ myEE.emit('foo');
 
 #### Returns
 
-[`MockConnector`](TestUtils.MockConnector.md)
+[`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 #### Inherited from
 
@@ -517,7 +534,7 @@ ___
 
 ### removeListener
 
-▸ **removeListener**(`eventName`, `listener`): [`MockConnector`](TestUtils.MockConnector.md)
+▸ **removeListener**(`eventName`, `listener`): [`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 Removes the specified `listener` from the listener array for the event named`eventName`.
 
@@ -607,7 +624,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`MockConnector`](TestUtils.MockConnector.md)
+[`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 #### Inherited from
 
@@ -621,7 +638,7 @@ ___
 
 ### off
 
-▸ **off**(`eventName`, `listener`): [`MockConnector`](TestUtils.MockConnector.md)
+▸ **off**(`eventName`, `listener`): [`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 Alias for `emitter.removeListener()`.
 
@@ -636,7 +653,7 @@ Alias for `emitter.removeListener()`.
 
 #### Returns
 
-[`MockConnector`](TestUtils.MockConnector.md)
+[`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 #### Inherited from
 
@@ -650,7 +667,7 @@ ___
 
 ### removeAllListeners
 
-▸ **removeAllListeners**(`event?`): [`MockConnector`](TestUtils.MockConnector.md)
+▸ **removeAllListeners**(`event?`): [`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 Removes all listeners, or those of the specified `eventName`.
 
@@ -670,7 +687,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`MockConnector`](TestUtils.MockConnector.md)
+[`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 #### Inherited from
 
@@ -684,7 +701,7 @@ ___
 
 ### setMaxListeners
 
-▸ **setMaxListeners**(`n`): [`MockConnector`](TestUtils.MockConnector.md)
+▸ **setMaxListeners**(`n`): [`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 By default `EventEmitter`s will print a warning if more than `10` listeners are
 added for a particular event. This is a useful default that helps finding
@@ -703,7 +720,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`MockConnector`](TestUtils.MockConnector.md)
+[`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 #### Inherited from
 
@@ -720,7 +737,7 @@ ___
 ▸ **getMaxListeners**(): `number`
 
 Returns the current max listener value for the `EventEmitter` which is either
-set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](TestUtils.MockConnector.md#defaultmaxlisteners).
+set by `emitter.setMaxListeners(n)` or defaults to [defaultMaxListeners](EthersContext.EthersModalConnector.md#defaultmaxlisteners).
 
 **`since`** v1.0.0
 
@@ -922,7 +939,7 @@ ___
 
 ### prependListener
 
-▸ **prependListener**(`eventName`, `listener`): [`MockConnector`](TestUtils.MockConnector.md)
+▸ **prependListener**(`eventName`, `listener`): [`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 Adds the `listener` function to the _beginning_ of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -948,7 +965,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`MockConnector`](TestUtils.MockConnector.md)
+[`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 #### Inherited from
 
@@ -962,7 +979,7 @@ ___
 
 ### prependOnceListener
 
-▸ **prependOnceListener**(`eventName`, `listener`): [`MockConnector`](TestUtils.MockConnector.md)
+▸ **prependOnceListener**(`eventName`, `listener`): [`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
 listener is removed, and then invoked.
@@ -986,7 +1003,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 #### Returns
 
-[`MockConnector`](TestUtils.MockConnector.md)
+[`EthersModalConnector`](EthersContext.EthersModalConnector.md)
 
 #### Inherited from
 
@@ -1100,20 +1117,6 @@ node_modules/@web3-react/core/node_modules/@web3-react/abstract-connector/dist/i
 
 ___
 
-### replaceWithSpies
-
-▸ **replaceWithSpies**(): `void`
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/helpers/test-utils/wrapper/MockConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L33)
-
-___
-
 ### hasCachedProvider
 
 ▸ **hasCachedProvider**(): `boolean`
@@ -1128,7 +1131,147 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L39)
+[src/context/ethers/connectors/EthersModalConnector.ts:76](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L76)
+
+___
+
+### log
+
+▸ `Protected` **log**(...`args`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `...args` | `any`[] |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:106](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L106)
+
+___
+
+### loadCore
+
+▸ **loadCore**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:155](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L155)
+
+___
+
+### activate
+
+▸ **activate**(): `Promise`<`ConnectorUpdate`<`string` \| `number`\>\>
+
+#### Summary
+Inherits from AbstractConnector.  This activates web3Modal and opens the modal.
+
+##### ✏️ Notes
+Once the user selects a provider
+- this will activate the provider and attach the appropriate event listeners.
+- get the account and signer
+- gets the ethers compatable provider
+
+##### ⚠️ Errors
+- [UserClosedModalError](EthersContext.UserClosedModalError.md)
+- [CouldNotActivateError](EthersContext.CouldNotActivateError.md)
+
+#### Returns
+
+`Promise`<`ConnectorUpdate`<`string` \| `number`\>\>
+
+#### Overrides
+
+AbstractConnector.activate
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:176](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L176)
+
+___
+
+### deactivate
+
+▸ **deactivate**(): `void`
+
+#### Summary
+Safely deactivates the current provider and removes all event listeners
+
+#### Returns
+
+`void`
+
+#### Overrides
+
+AbstractConnector.deactivate
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:234](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L234)
+
+___
+
+### getProvider
+
+▸ **getProvider**(): `Promise`<`undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)\>
+
+#### Returns
+
+`Promise`<`undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)\>
+
+#### Overrides
+
+AbstractConnector.getProvider
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:254](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L254)
+
+___
+
+### getChainId
+
+▸ **getChainId**(): `Promise`<`string` \| `number`\>
+
+#### Returns
+
+`Promise`<`string` \| `number`\>
+
+#### Overrides
+
+AbstractConnector.getChainId
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:258](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L258)
+
+___
+
+### getAccount
+
+▸ **getAccount**(): `Promise`<``null`` \| `string`\>
+
+#### Returns
+
+`Promise`<``null`` \| `string`\>
+
+#### Overrides
+
+AbstractConnector.getAccount
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:268](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L268)
 
 ___
 
@@ -1146,61 +1289,36 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:43](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L43)
+[src/context/ethers/connectors/EthersModalConnector.ts:280](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L280)
 
 ___
 
-### setModalTheme
+### getSignerFromAccount
 
-▸ **setModalTheme**(`_theme`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `_theme` | ``"light"`` \| ``"dark"`` \| `ThemeColors` |
+▸ **getSignerFromAccount**(): `Promise`<`void`\>
 
 #### Returns
 
-`void`
-
-#### Implementation of
-
-[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[setModalTheme](../interfaces/EthersContext.ICommonModalConnector.md#setmodaltheme)
+`Promise`<`void`\>
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L46)
-
-___
-
-### resetModal
-
-▸ **resetModal**(): `void`
-
-#### Returns
-
-`void`
-
-#### Implementation of
-
-[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[resetModal](../interfaces/EthersContext.ICommonModalConnector.md#resetmodal)
-
-#### Defined in
-
-[src/helpers/test-utils/wrapper/MockConnector.ts:49](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L49)
+[src/context/ethers/connectors/EthersModalConnector.ts:284](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L284)
 
 ___
 
 ### changeSigner
 
-▸ **changeSigner**(`_signer`): `Promise`<`void`\>
+▸ **changeSigner**(`signer`): `Promise`<`void`\>
+
+#### Summary
+Change the current signer and account used by the connector
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `_signer` | `Signer` |
+| `signer` | `Signer` |
 
 #### Returns
 
@@ -1212,117 +1330,69 @@ ___
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:53](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L53)
+[src/context/ethers/connectors/EthersModalConnector.ts:295](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L295)
 
 ___
 
-### activate
+### validState
 
-▸ **activate**(): `Promise`<`ConnectorUpdate`<`string` \| `number`\>\>
+▸ `Protected` **validState**(): `boolean`
 
 #### Returns
 
-`Promise`<`ConnectorUpdate`<`string` \| `number`\>\>
-
-#### Overrides
-
-AbstractConnector.activate
+`boolean`
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:61](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L61)
+[src/context/ethers/connectors/EthersModalConnector.ts:306](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L306)
 
 ___
 
-### getProvider
+### resetModal
 
-▸ **getProvider**(): `Promise`<[`TEthersProvider`](../modules/Models.md#tethersprovider) \| `MockProvider`\>
+▸ **resetModal**(): `void`
 
-#### Returns
-
-`Promise`<[`TEthersProvider`](../modules/Models.md#tethersprovider) \| `MockProvider`\>
-
-#### Overrides
-
-AbstractConnector.getProvider
-
-#### Defined in
-
-[src/helpers/test-utils/wrapper/MockConnector.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L69)
-
-___
-
-### getChainId
-
-▸ **getChainId**(): `Promise`<`number`\>
-
-#### Returns
-
-`Promise`<`number`\>
-
-#### Overrides
-
-AbstractConnector.getChainId
-
-#### Defined in
-
-[src/helpers/test-utils/wrapper/MockConnector.ts:73](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L73)
-
-___
-
-### getAccount
-
-▸ **getAccount**(): `Promise`<`string`\>
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Overrides
-
-AbstractConnector.getAccount
-
-#### Defined in
-
-[src/helpers/test-utils/wrapper/MockConnector.ts:77](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L77)
-
-___
-
-### setMockAccount
-
-▸ **setMockAccount**(`hardhatAccountIndex`): `Promise`<`string`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `hardhatAccountIndex` | `number` |
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Defined in
-
-[src/helpers/test-utils/wrapper/MockConnector.ts:82](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L82)
-
-___
-
-### deactivate
-
-▸ **deactivate**(): `void`
+#### Summary
+Resets the web3Modal and clears the cache
 
 #### Returns
 
 `void`
 
-#### Overrides
+#### Implementation of
 
-AbstractConnector.deactivate
+[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[resetModal](../interfaces/EthersContext.ICommonModalConnector.md#resetmodal)
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L87)
+[src/context/ethers/connectors/EthersModalConnector.ts:314](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L314)
+
+___
+
+### setModalTheme
+
+▸ **setModalTheme**(`theme`): `void`
+
+#### Summary
+Sets the web3modal theme: light | dark | ThemeColors
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `theme` | `TWeb3ModalTheme` \| `ThemeColors` |
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[setModalTheme](../interfaces/EthersContext.ICommonModalConnector.md#setmodaltheme)
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:329](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L329)
 
 ## Properties
 
@@ -1406,105 +1476,108 @@ node_modules/@web3-react/core/node_modules/@web3-react/abstract-connector/dist/i
 
 ___
 
-### provider
+### \_options
 
-• `Protected` **provider**: `MockProvider`
+• `Protected` **\_options**: `Partial`<`ICoreOptions`\>
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L14)
+[src/context/ethers/connectors/EthersModalConnector.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L62)
 
 ___
 
-### mockChainId
+### \_providerBase
 
-• `Protected` **mockChainId**: `number`
+• `Protected` `Optional` **\_providerBase**: `any`
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L15)
+[src/context/ethers/connectors/EthersModalConnector.ts:63](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L63)
 
 ___
 
-### mockSigner
+### \_ethersProvider
 
-• `Protected` **mockSigner**: `undefined` \| `Signer`
+• `Protected` `Optional` **\_ethersProvider**: [`TEthersProvider`](../modules/Models.md#tethersprovider)
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L17)
+[src/context/ethers/connectors/EthersModalConnector.ts:64](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L64)
 
 ___
 
-### mockAccount
+### \_web3Modal
 
-• `Protected` **mockAccount**: `undefined` \| `string`
+• `Protected` `Optional` **\_web3Modal**: `Core`
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L18)
+[src/context/ethers/connectors/EthersModalConnector.ts:65](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L65)
 
 ___
 
-### spyResetModal
+### \_id
 
-• **spyResetModal**: `SinonStub`<[], `void`\>
+• `Protected` **\_id**: `undefined` \| `string`
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L20)
+[src/context/ethers/connectors/EthersModalConnector.ts:66](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L66)
 
 ___
 
-### spySetModalTheme
+### \_debug
 
-• **spySetModalTheme**: `SinonStub`<[\_theme: "light" \| "dark" \| ThemeColors], `void`\>
+• `Protected` **\_debug**: `boolean` = `false`
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L21)
+[src/context/ethers/connectors/EthersModalConnector.ts:67](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L67)
 
 ___
 
-### spyChangeSigner
+### \_config
 
-• **spyChangeSigner**: `SinonStub`<[\_signer: Signer], `Promise`<`void`\>\>
+• `Protected` **\_config**: `Readonly`<`TEthersModalConfig`\>
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L22)
+[src/context/ethers/connectors/EthersModalConnector.ts:68](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L68)
 
 ___
 
-### spyActivate
+### \_signer
 
-• **spyActivate**: `SinonStub`<`any`[], `any`\>
+• `Protected` **\_signer**: `undefined` \| `Signer`
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L23)
+[src/context/ethers/connectors/EthersModalConnector.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L69)
 
 ___
 
-### spyDeactivate
+### \_theme
 
-• **spyDeactivate**: `SinonStub`<`any`[], `any`\>
+• `Protected` **\_theme**: `TWeb3ModalTheme` \| `ThemeColors`
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:24](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L24)
+[src/context/ethers/connectors/EthersModalConnector.ts:70](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L70)
 
 ## Constructors
 
 ### constructor
 
-• **new MockConnector**(`provider`)
+• **new EthersModalConnector**(`web3modalOptions`, `config?`, `id?`, `debug?`)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `provider` | `MockProvider` |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `web3modalOptions` | `Partial`<`ICoreOptions`\> | `undefined` | see [web3modal docs](https://github.com/Web3Modal/web3modal#provider-options) for details.  You can also check the [scaffold-eth-typescript web3config](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/config/web3ModalConfig.ts) for an example. |
+| `config` | `TEthersModalConfig` | `undefined` | Configuration for EthersModalConnector |
+| `id?` | `string` | `undefined` | allows you to connect directly to a specific provider.  [See docs](https://github.com/Web3Modal/web3modal#connect-to-specific-provider) |
+| `debug` | `boolean` | `false` | turn on debug logging |
 
 #### Overrides
 
@@ -1512,4 +1585,18 @@ AbstractConnector.constructor
 
 #### Defined in
 
-[src/helpers/test-utils/wrapper/MockConnector.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/helpers/test-utils/wrapper/MockConnector.ts#L26)
+[src/context/ethers/connectors/EthersModalConnector.ts:86](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L86)
+
+## Accessors
+
+### config
+
+• `get` **config**(): `Readonly`<`TEthersModalConfig`\>
+
+#### Returns
+
+`Readonly`<`TEthersModalConfig`\>
+
+#### Defined in
+
+[src/context/ethers/connectors/EthersModalConnector.ts:72](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/EthersModalConnector.ts#L72)

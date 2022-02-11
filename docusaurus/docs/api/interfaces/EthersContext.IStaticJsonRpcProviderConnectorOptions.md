@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L12)
+[src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L12)
 
 ___
 
@@ -58,4 +58,4 @@ ___
 
 #### Defined in
 
-[src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L13)
+[src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L13)

@@ -47,7 +47,7 @@ const themeConfig = {
         items: [
           {
             label: 'main',
-            to: '/main/overview',
+            to: '/docs/overview',
           },
         ],
       },

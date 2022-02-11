@@ -13,7 +13,7 @@
     "./src/helpers/typedoc/test-utils.docs.ts"
   ],
   "entryPointStrategy": "expand",
-  "out": "./docs/docs/api",
+  "out": "./docusaurus/docs/api",
   "includeVersion": true,
   "sort": ["source-order"],
   "excludePrivate": true,

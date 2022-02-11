@@ -1,32 +1,32 @@
-[eth-hooks - v4.0.29](../README.md) / [EthersContext](../modules/EthersContext.md) / NoEthereumProviderFoundError
+[eth-hooks - v4.0.29](../README.md) / [EthersContext](../modules/EthersContext.md) / UserClosedModalError
 
-# Class: NoEthereumProviderFoundError
+# Class: UserClosedModalError
 
-[EthersContext](../modules/EthersContext.md).NoEthereumProviderFoundError
+[EthersContext](../modules/EthersContext.md).UserClosedModalError
 
 ## Hierarchy
 
 - `Error`
 
-  ↳ **`NoEthereumProviderFoundError`**
+  ↳ **`UserClosedModalError`**
 
 ## Table of contents
 
 ### Methods
 
-- [captureStackTrace](EthersContext.NoEthereumProviderFoundError.md#capturestacktrace)
+- [captureStackTrace](EthersContext.UserClosedModalError.md#capturestacktrace)
 
 ### Properties
 
-- [prepareStackTrace](EthersContext.NoEthereumProviderFoundError.md#preparestacktrace)
-- [stackTraceLimit](EthersContext.NoEthereumProviderFoundError.md#stacktracelimit)
-- [name](EthersContext.NoEthereumProviderFoundError.md#name)
-- [message](EthersContext.NoEthereumProviderFoundError.md#message)
-- [stack](EthersContext.NoEthereumProviderFoundError.md#stack)
+- [prepareStackTrace](EthersContext.UserClosedModalError.md#preparestacktrace)
+- [stackTraceLimit](EthersContext.UserClosedModalError.md#stacktracelimit)
+- [name](EthersContext.UserClosedModalError.md#name)
+- [message](EthersContext.UserClosedModalError.md#message)
+- [stack](EthersContext.UserClosedModalError.md#stack)
 
 ### Constructors
 
-- [constructor](EthersContext.NoEthereumProviderFoundError.md#constructor)
+- [constructor](EthersContext.UserClosedModalError.md#constructor)
 
 ## Methods
 
@@ -148,7 +148,7 @@ node_modules/typescript/lib/lib.es5.d.ts:1024
 
 ### constructor
 
-• **new NoEthereumProviderFoundError**()
+• **new UserClosedModalError**()
 
 #### Overrides
 
@@ -156,4 +156,4 @@ Error.constructor
 
 #### Defined in
 
-[src/context/ethers/connectors/connectorErrors.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/context/ethers/connectors/connectorErrors.ts#L27)
+[src/context/ethers/connectors/connectorErrors.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/connectorErrors.ts#L5)

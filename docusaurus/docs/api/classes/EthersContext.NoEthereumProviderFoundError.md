@@ -1,32 +1,32 @@
-[eth-hooks - v4.0.29](../README.md) / [EthersContext](../modules/EthersContext.md) / CouldNotActivateError
+[eth-hooks - v4.0.29](../README.md) / [EthersContext](../modules/EthersContext.md) / NoEthereumProviderFoundError
 
-# Class: CouldNotActivateError
+# Class: NoEthereumProviderFoundError
 
-[EthersContext](../modules/EthersContext.md).CouldNotActivateError
+[EthersContext](../modules/EthersContext.md).NoEthereumProviderFoundError
 
 ## Hierarchy
 
 - `Error`
 
-  ↳ **`CouldNotActivateError`**
+  ↳ **`NoEthereumProviderFoundError`**
 
 ## Table of contents
 
 ### Methods
 
-- [captureStackTrace](EthersContext.CouldNotActivateError.md#capturestacktrace)
+- [captureStackTrace](EthersContext.NoEthereumProviderFoundError.md#capturestacktrace)
 
 ### Properties
 
-- [prepareStackTrace](EthersContext.CouldNotActivateError.md#preparestacktrace)
-- [stackTraceLimit](EthersContext.CouldNotActivateError.md#stacktracelimit)
-- [name](EthersContext.CouldNotActivateError.md#name)
-- [message](EthersContext.CouldNotActivateError.md#message)
-- [stack](EthersContext.CouldNotActivateError.md#stack)
+- [prepareStackTrace](EthersContext.NoEthereumProviderFoundError.md#preparestacktrace)
+- [stackTraceLimit](EthersContext.NoEthereumProviderFoundError.md#stacktracelimit)
+- [name](EthersContext.NoEthereumProviderFoundError.md#name)
+- [message](EthersContext.NoEthereumProviderFoundError.md#message)
+- [stack](EthersContext.NoEthereumProviderFoundError.md#stack)
 
 ### Constructors
 
-- [constructor](EthersContext.CouldNotActivateError.md#constructor)
+- [constructor](EthersContext.NoEthereumProviderFoundError.md#constructor)
 
 ## Methods
 
@@ -148,13 +148,7 @@ node_modules/typescript/lib/lib.es5.d.ts:1024
 
 ### constructor
 
-• **new CouldNotActivateError**(`error`)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `error` | `unknown` |
+• **new NoEthereumProviderFoundError**()
 
 #### Overrides
 
@@ -162,4 +156,4 @@ Error.constructor
 
 #### Defined in
 
-[src/context/ethers/connectors/connectorErrors.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/887c353/src/context/ethers/connectors/connectorErrors.ts#L16)
+[src/context/ethers/connectors/connectorErrors.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/3a85402/src/context/ethers/connectors/connectorErrors.ts#L27)
