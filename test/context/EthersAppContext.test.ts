@@ -1,7 +1,7 @@
 import { expect, use } from 'chai';
 import * as sinonChai from 'sinon-chai';
 
-import { useEthersContext } from '~~/context';
+import { EthersModalConnector, useEthersContext } from '~~/context';
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { const_DefaultTestChainId, defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { getHardhatAccount, MockConnector } from '~~/helpers/test-utils/wrapper';
@@ -110,6 +110,30 @@ describe('EthersAppContext', function () {
 
         expect((firstContext.connector as MockConnector).spySetModalTheme).to.be.calledOnce;
         expect((firstContext.connector as MockConnector).spySetModalTheme).to.be.calledWith('dark');
+      });
+
+      it('When accountsChanged event emitted; then the signer should be updated', async () => {
+        const { mockProvider, result, rerender } = await hookTestWrapper(() => TestHook());
+        const context = result.current;
+        const signer = context.signer;
+
+        const initialAddress = await signer?.getAddress();
+        const newAddress = await mockProvider.getSigner(1).getAddress();
+
+        expect(initialAddress).to.not.equal(newAddress);
+
+        await context.activate(new EthersModalConnector({}, undefined, undefined, false, mockProvider));
+
+        const delay = (ms: number) => {
+          return new Promise((resolve) => setTimeout(resolve, ms));
+        };
+
+        mockProvider.emit('accountsChanged', [newAddress]);
+        await delay(10); // events are applied asynchronously, so we must delay
+        rerender(undefined);
+
+        const updatedAddress = await result.current.signer?.getAddress();
+        expect(updatedAddress).to.equal(newAddress);
       });
     });
   });

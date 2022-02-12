@@ -68,6 +68,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   protected _config: Readonly<TEthersModalConfig>;
   protected _signer: Signer | undefined;
   protected _theme: TWeb3ModalTheme | ThemeColors;
+  protected _providerOverride: TEthersProvider | undefined;
 
   get config(): Readonly<TEthersModalConfig> {
     return this._config;
@@ -87,7 +88,8 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     web3modalOptions: Partial<ICoreOptions>,
     config: TEthersModalConfig = { reloadOnNetworkChange: false, immutableProvider: false },
     id?: string,
-    debug: boolean = false
+    debug: boolean = false,
+    providerOverride: TEthersProvider | undefined = undefined
   ) {
     super();
 
@@ -96,6 +98,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     this._debug = debug;
     this._config = config;
     this._theme = (web3modalOptions.theme as TWeb3ModalTheme | ThemeColors) ?? 'light';
+    this._providerOverride = providerOverride;
 
     this.handleChainChanged = this.handleChainChanged.bind(this);
     this.handleAccountsChanged = this.handleAccountsChanged.bind(this);
@@ -138,7 +141,9 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     if (accounts.length === 0) {
       this.emitDeactivate?.();
     } else {
-      this.emitUpdate?.({ account: accounts[0] });
+      const newAccount = accounts[0];
+      void this.setSignerFromAccount(newAccount);
+      this.emitUpdate?.({ account: newAccount });
     }
   }
 
@@ -185,7 +190,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
         if (this._id) {
           this._providerBase = await this._web3Modal.connectTo(this._id);
         } else {
-          this._providerBase = await this._web3Modal.connect();
+          this._providerBase = this._providerOverride || (await this._web3Modal.connect());
         }
         /* eslint-enable */
 
