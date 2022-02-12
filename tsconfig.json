@@ -40,6 +40,10 @@
     "../../node_modules/**/*",
     ".husky",
     "./.yalc/**/*",
-    "**/*.md"
+    "**/*.md",
+    "docs/**/*",
+    "docusaurus/**/*",
+    "website/**/*",
+    "**/*.json"
   ]
 }

@@ -1,0 +1,54 @@
+name: deploy-docusaurus
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [next]
+  pull_request:
+    branches: [next]
+    types: [opened, reopened, ready_for_review, synchronize]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Check out repo
+        uses: actions/checkout@v2
+      # Node is required for npm
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: 'cache'
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.yarn
+            ~/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - run: yarn install --immutable
+      - name: Generate api documentation
+        run: |
+          yarn hh:compile
+          yarn docs:api
+
+      - name: Build Docusaurus website
+        run: |
+          cd docusaurus
+          npm install 
+          npm run build
+
+      - name: Deploy to GitHub Pages
+        if: success() && contains('refs/heads/next', github.ref)
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: docusaurus
+          build_dir: docusaurus/build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

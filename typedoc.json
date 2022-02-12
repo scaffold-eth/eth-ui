@@ -13,10 +13,27 @@
     "./src/helpers/typedoc/test-utils.docs.ts"
   ],
   "entryPointStrategy": "expand",
-  "out": "./docs/api-typedocs",
+  "out": "./docusaurus/docs/api",
   "includeVersion": true,
   "sort": ["source-order"],
   "excludePrivate": true,
   "excludeInternal": true,
-  "exclude": ["hardhat.config.ts", "test/**/*", "test-files/**/*", "**/*.test.ts", "**/*.test.tsx)"]
+  "listInvalidSymbolLinks": true,
+  "logLevel": "Verbose",
+  "exclude": [
+    "hardhat.config.ts",
+    "test/**/*",
+    "test-files/**/*",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/generated/**/*"
+  ],
+  "externalPattern": [
+    "hardhat.config.ts",
+    "test/**/*",
+    "test-files/**/*",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/generated/**/*"
+  ]
 }

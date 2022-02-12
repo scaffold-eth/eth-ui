@@ -1,4 +1,8 @@
 # folders
 lib/
-node_modules/
+node_modules/**/*
 **/*.md
+docs/**/*
+website/**/*
+docusaurus/**/*
+build/**/*
