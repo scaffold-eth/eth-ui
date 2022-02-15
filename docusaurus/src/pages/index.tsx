@@ -5,6 +5,8 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from '../components/HomepageFeatures';
+import HomepageTable from '../components/HomepageEcosystemItems';
+import HomepageEcosystemItems from '../components/HomepageEcosystemItems';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -15,7 +17,7 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link className="button button--secondary button--lg" to="/docs/guides/intro">
-            eth-hooks Guide - 5min ⏱️
+            Quick Start Guide - 5min ⏱️
           </Link>
         </div>
       </div>
@@ -26,10 +28,14 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout title={`${siteConfig.title}`} description="Commonly used Ethereum hooks to supercharge your web3 dev!">
+    <Layout 
+      title={`${siteConfig.title}`} 
+      description="React hooks for easy web3 development"
+    >
       <HomepageHeader />
       <main>
         <HomepageFeatures />
+        <HomepageEcosystemItems />
       </main>
     </Layout>
   );

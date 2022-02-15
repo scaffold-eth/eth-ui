@@ -9,3 +9,19 @@
   height: 200px;
   width: 200px;
 }
+
+.title {
+  text-align: center;
+  color: black;
+  padding-top: 20px;
+}
+
+.subtitle {
+  text-align: center;
+  color: black;
+  padding-bottom: 10px;
+}
+
+.background {
+  background-color: #26c2a0;
+}

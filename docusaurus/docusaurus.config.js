@@ -108,7 +108,7 @@ const classicOptions = {
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'eth-hooks',
-  tagline: 'Commonly used Ethereum hooks to supercharge your web3 dev!',
+  tagline: 'React hooks to supercharge your Web3 frontend development',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/eth-hooks/',
   onBrokenLinks: 'throw',
