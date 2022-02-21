@@ -35,11 +35,14 @@ type TWeb3ModalTheme = 'light' | 'dark';
  * An interface implemented by {@link EthersModalConnector} in addition to AbstractConnector
  */
 export interface ICommonModalConnector {
-  getSigner(): Signer | undefined;
   setModalTheme(theme: TWeb3ModalTheme | ThemeColors): void;
   resetModal(): void;
-  changeSigner(signer: Signer): Promise<void>;
+
   hasCachedProvider(): boolean;
+  loadCore: () => void;
+
+  getSigner: () => Signer | undefined;
+  changeSigner(signer: Signer): Promise<void>;
 }
 
 export type TEthersModalConnector = ICommonModalConnector & AbstractConnector;
