@@ -723,7 +723,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/providers@npm:5.5.3, @ethersproject/providers@npm:^5.4.4, @ethersproject/providers@npm:^5.5.2":
+"@ethersproject/providers@npm:5.5.3, @ethersproject/providers@npm:^5.4.4, @ethersproject/providers@npm:^5.5.3":
   version: 5.5.3
   resolution: "@ethersproject/providers@npm:5.5.3"
   dependencies:
@@ -6292,7 +6292,7 @@ __metadata:
     "@ethersproject/bytes": ^5.5.0
     "@ethersproject/contracts": ^5.5.0
     "@ethersproject/networks": ^5.5.2
-    "@ethersproject/providers": ^5.5.2
+    "@ethersproject/providers": ^5.5.3
     "@ethersproject/signing-key": ^5.5.0
     "@ethersproject/solidity": ^5.5.0
     "@ethersproject/units": ^5.5.0
@@ -6344,8 +6344,8 @@ __metadata:
     ethereum-waffle: ^3.4.0
     ethers: ^5.5.3
     global-jsdom: ^8.4.0
-    hardhat: ^2.8.3
-    hardhat-deploy: ^0.9.28
+    hardhat: ^2.8.4
+    hardhat-deploy: ^0.9.29
     hardhat-deploy-ethers: ^0.3.0-beta.10
     hardhat-gas-reporter: ^1.0.8
     husky: ^7.0.4
@@ -8019,7 +8019,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hardhat-deploy@npm:^0.9.28":
+"hardhat-deploy@npm:^0.9.29":
   version: 0.9.29
   resolution: "hardhat-deploy@npm:0.9.29"
   dependencies:
@@ -8065,7 +8065,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hardhat@npm:^2.8.3":
+"hardhat@npm:^2.8.4":
   version: 2.8.4
   resolution: "hardhat@npm:2.8.4"
   dependencies:
