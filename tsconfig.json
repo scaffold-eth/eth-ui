@@ -16,7 +16,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "isolatedModules": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
