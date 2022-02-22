@@ -13,7 +13,9 @@ const queryKey = { namespace: keyNamespace.signer, key: 'useAreSignerEqual' } as
  *
  * @category Hooks
  *
- * @param signer1
+ * @param signer1 Object for first signer to compare
+ * @param signer2 Object for second signer to compare
+ * @param options Options for how often and when to update
  * @returns
  */
 export const useAreSignerEqual = (
