@@ -1,0 +1,70 @@
+---
+sidebar_position: 3
+---
+
+# Deep dive
+
+:::tip
+
+Check out the [video presentation](https://www.youtube.com/watch?v=STxAdE8wQwY) of Eth-hooks V4 advanced features!
+
+:::
+
+## Design principles
+
+- Allows flexibility in how often a hook receives updates from the network. You can choose your update method, for example, polling or every block number.
+- Easily use context
+  - **ethersAppContext**
+  - **contractAppContext** (new in V4): Access your contract easily anywhere in your app.
+- Compatibility with different ways to pass in ethers provider
+- Reducing RPC calls with easy caching. Uses React Query under the hood to cache any RPC calls. This lets you use Eth-hooks anywhere in the app and you don't have to worry about optimization. You will automatically get data from the cached layer without extra network calls.
+- Typed contracts that make it easier to understand the contract interface, reducing mistakes.
+
+### Providers
+
+- EthersAppContext: The context in Eth-hooks uses ethers under-the-hood. Wrap your main app in context and that allows you to use context anywhere in your app (the provider, signer, account).
+  - App wide providers with context
+  - Override
+    - Alternate context for web3-react
+    - Pass in provider if you need
+
+:::tip
+Get an example of _providers_ in Scaffold-eth-typescript [App.tsx](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/App.tsx)
+:::
+
+### Cache
+
+Built with React-Query and EthersContext. Get a cache when you wrap your app in context.
+
+- All hook results are cached by EthersContext
+  - Prevents repeated calls to the network because the hooks hit the cache first.
+  - No need to pass variables. If you use a hook anywhere in the app it will automatically hit the cache.
+  - When the network or signer changes the cache is automatically invalidated so you don't get the wrong values.
+
+### Data updates
+
+- There are several different options for updating hook data. Simply pass in your preferred update method.
+  - **Default** is the hook updates every block
+  - You can set it to update every n/blocks
+  - Polling can be used (minimum time is 10 seconds to prevent spamming the network)
+  - Refresh on window focus or on mount
+  - Set stale time for data. Default is 30 seconds
+
+### Hook return
+
+The signature of the hook is returned.
+
+- This is similar to useState. You get a tuple of [result, update]
+  - Gives you the result or...
+  - You can manually update the hook
+
+### Contract context
+
+You can call any contract with a simple hook.
+
+- Automatically get external contracts that are verified
+  - Automatically typed by context
+- Hardhat contracts
+  - Automatically typed by context
+- Load unverified contracts from an ABI
+  - BaseContract
