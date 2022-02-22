@@ -33,7 +33,7 @@ A web3modal CustomProvider Options
 
 #### Defined in
 
-[context/ethers/connectors/StaticJsonRpcProviderConnector.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L12)
+[context/ethers/connectors/StaticJsonRpcProviderConnector.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L12)
 
 ___
 
@@ -43,4 +43,4 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/StaticJsonRpcProviderConnector.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L13)
+[context/ethers/connectors/StaticJsonRpcProviderConnector.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L13)

@@ -41,7 +41,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersContext.Ethe
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L38)
+[context/ethers/connectors/EthersModalConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L38)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L39)
+[context/ethers/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L39)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L41)
+[context/ethers/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L41)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L42)
+[context/ethers/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L42)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L44)
+[context/ethers/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L44)
 
 ___
 
@@ -117,4 +117,4 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L45)
+[context/ethers/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L45)

@@ -47,7 +47,7 @@ Web3ReactContextInterface.connector
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L30)
+[models/ethersAppContextTypes.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L30)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L31)
+[models/ethersAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L31)
 
 ___
 
@@ -71,7 +71,7 @@ Web3ReactContextInterface.active
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L32)
+[models/ethersAppContextTypes.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L32)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L33)
+[models/ethersAppContextTypes.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L33)
 
 ___
 
@@ -95,7 +95,7 @@ Web3ReactContextInterface.account
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L34)
+[models/ethersAppContextTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L34)
 
 ___
 
@@ -109,7 +109,7 @@ Web3ReactContextInterface.chainId
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L35)
+[models/ethersAppContextTypes.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L35)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L36)
+[models/ethersAppContextTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L36)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L39)
+[models/ethersAppContextTypes.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L39)
 
 ## Methods
 
@@ -149,7 +149,7 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L37)
+[models/ethersAppContextTypes.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L37)
 
 ___
 
@@ -163,4 +163,4 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L38)
+[models/ethersAppContextTypes.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L38)
