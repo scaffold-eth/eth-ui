@@ -1,4 +1,4 @@
-[eth-hooks - v4.0.29](../README.md) / EthersContext
+[eth-hooks - v4.0.44](../README.md) / EthersContext
 
 # Module: EthersContext
 
@@ -55,7 +55,7 @@ A context for your react app with [useEthersContext](EthersContext.md#useethersc
 
 ### useBlockNumberContext
 
-▸ `Const` **useBlockNumberContext**(): `number`
+▸ **useBlockNumberContext**(): `number`
 
 #### Summary
 A hook that gets you the current blocknumber via react context
@@ -77,13 +77,13 @@ current block number
 
 #### Defined in
 
-[src/context/ethers/BlockNumberContext.tsx:64](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/BlockNumberContext.tsx#L64)
+[context/ethers/BlockNumberContext.tsx:64](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/BlockNumberContext.tsx#L64)
 
 ___
 
 ### useEthersContext
 
-▸ `Const` **useEthersContext**(`contextKey?`): [`IEthersContext`](../interfaces/Models.IEthersContext.md)
+▸ **useEthersContext**(`contextKey?`): [`IEthersContext`](../interfaces/Models.IEthersContext.md)
 
 #### Summary
 This Hook provides you with access to the current Ethers Provider Context.
@@ -111,13 +111,13 @@ Gives you access to consistent interface to get the current provider information
 
 #### Defined in
 
-[src/context/ethers/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/EthersAppContext.tsx#L37)
+[context/ethers/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/EthersAppContext.tsx#L37)
 
 ___
 
 ### ConnectToStaticJsonRpcProvider
 
-▸ `Const` **ConnectToStaticJsonRpcProvider**(`_package`, `opts`): `Promise`<`undefined` \| `StaticJsonRpcProvider`\>
+▸ **ConnectToStaticJsonRpcProvider**(`_package`, `opts`): `Promise`<`undefined` \| `StaticJsonRpcProvider`\>
 
 #### Summary
 A connector that can be used by apps to connect to a StaticJsonRpcProvider
@@ -140,7 +140,7 @@ See scaffold-eth-typescript for an example that uses it to connect to a localhos
 
 #### Defined in
 
-[src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L31)
+[context/ethers/connectors/StaticJsonRpcProviderConnector.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L31)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 ### createConnectorForHardhatContract
 
-▸ `Const` **createConnectorForHardhatContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedHardhatContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: (`address`: `string`, `signerOrProvider`: `Signer` \| `Provider`) => `GContract` ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+▸ **createConnectorForHardhatContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedHardhatContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: (`address`: `string`, `signerOrProvider`: `Signer` \| `Provider`) => `GContract` ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
 
 #### Type parameters
 
@@ -171,13 +171,13 @@ ___
 
 #### Defined in
 
-[src/context/app-contracts/contractConnectors.ts:57](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/app-contracts/contractConnectors.ts#L57)
+[context/app-contracts/contractConnectors.ts:57](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/app-contracts/contractConnectors.ts#L57)
 
 ___
 
 ### createConnectorForExternalContract
 
-▸ `Const` **createConnectorForExternalContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: (`address`: `string`, `signerOrProvider`: `Signer` \| `Provider`) => `GContract` ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+▸ **createConnectorForExternalContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: (`address`: `string`, `signerOrProvider`: `Signer` \| `Provider`) => `GContract` ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
 
 #### Type parameters
 
@@ -200,13 +200,13 @@ ___
 
 #### Defined in
 
-[src/context/app-contracts/contractConnectors.ts:81](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/app-contracts/contractConnectors.ts#L81)
+[context/app-contracts/contractConnectors.ts:81](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/app-contracts/contractConnectors.ts#L81)
 
 ___
 
 ### createConnectorForExternalAbi
 
-▸ `Const` **createConnectorForExternalAbi**<`GContractNames`\>(`contractName`, `config`, `abi`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: (`address`: `string`, `signerOrProvider`: `Signer` \| `Provider`) => `GContract` ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+▸ **createConnectorForExternalAbi**<`GContractNames`\>(`contractName`, `config`, `abi`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: (`address`: `string`, `signerOrProvider`: `Signer` \| `Provider`) => `GContract` ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
 
 #### Type parameters
 
@@ -228,13 +228,13 @@ ___
 
 #### Defined in
 
-[src/context/app-contracts/contractConnectors.ts:105](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/app-contracts/contractConnectors.ts#L105)
+[context/app-contracts/contractConnectors.ts:105](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/app-contracts/contractConnectors.ts#L105)
 
 ___
 
 ### contractsContextFactory
 
-▸ `Const` **contractsContextFactory**<`GContractNames`, `GAppConnectorList`, `GContractsTypes`\>(`loadAppContractConnectors`): `Object`
+▸ **contractsContextFactory**<`GContractNames`, `GAppConnectorList`, `GContractsTypes`\>(`loadAppContractConnectors`): `Object`
 
 #### Type parameters
 
@@ -264,7 +264,7 @@ ___
 
 #### Defined in
 
-[src/context/app-contracts/contractsContextFactory.tsx:96](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/app-contracts/contractsContextFactory.tsx#L96)
+[context/app-contracts/contractsContextFactory.tsx:96](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/app-contracts/contractsContextFactory.tsx#L96)
 
 ## Type aliases
 
@@ -282,7 +282,7 @@ Props for the ContractContext generated by the contractContextFactory
 
 #### Defined in
 
-[src/context/app-contracts/contractsContextFactory.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/app-contracts/contractsContextFactory.tsx#L37)
+[context/app-contracts/contractsContextFactory.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/app-contracts/contractsContextFactory.tsx#L37)
 
 ___
 
@@ -309,7 +309,7 @@ ___
 
 #### Defined in
 
-[src/context/app-contracts/contractsContextFactory.tsx:76](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/app-contracts/contractsContextFactory.tsx#L76)
+[context/app-contracts/contractsContextFactory.tsx:76](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/app-contracts/contractsContextFactory.tsx#L76)
 
 ___
 
@@ -328,7 +328,7 @@ Props for context
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `secondaryWeb3ReactRoot?` | `Object` | Props for context that allow you specify alternate web3ReactRoot [See docs](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs#createweb3reactroot).  You must provide both an alternate key and its root. |
+| `secondaryWeb3ReactRoot?` | { `contextKey`: `string` ; `web3ReactRoot`: `JSX.Element`  } | Props for context that allow you specify alternate web3ReactRoot [See docs](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs#createweb3reactroot).  You must provide both an alternate key and its root. |
 | `secondaryWeb3ReactRoot.contextKey` | `string` | - |
 | `secondaryWeb3ReactRoot.web3ReactRoot` | `JSX.Element` | - |
 | `disableQueryClientRoot?` | `boolean` | disables the local queryClientRoot and QueryClientProvider for react-query and allows you to use your own |
@@ -336,7 +336,7 @@ Props for context
 
 #### Defined in
 
-[src/context/ethers/EthersAppContext.tsx:101](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/EthersAppContext.tsx#L101)
+[context/ethers/EthersAppContext.tsx:101](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/EthersAppContext.tsx#L101)
 
 ___
 
@@ -361,7 +361,7 @@ ___
 
 #### Defined in
 
-[src/context/ethers/EthersAppContext.tsx:120](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/EthersAppContext.tsx#L120)
+[context/ethers/EthersAppContext.tsx:120](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/EthersAppContext.tsx#L120)
 
 ___
 
@@ -371,13 +371,13 @@ ___
 
 #### Defined in
 
-[src/context/ethers/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/connectors/EthersModalConnector.ts#L45)
+[context/ethers/connectors/EthersModalConnector.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L48)
 
 ## EthersContext Variables
 
 ### BlockNumberContext
 
-• **BlockNumberContext**: `FC`<`IProps`\>
+• `Const` **BlockNumberContext**: `FC`<`IBlockNumberContextProps`\>
 
 #### Summary
 A context that works with [useBlockNumberContext](EthersContext.md#useblocknumbercontext) to give access to the current provider's block number in any place in your app
@@ -388,13 +388,13 @@ A context that works with [useBlockNumberContext](EthersContext.md#useblocknumbe
 
 #### Defined in
 
-[src/context/ethers/BlockNumberContext.tsx:86](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/BlockNumberContext.tsx#L86)
+[context/ethers/BlockNumberContext.tsx:90](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/BlockNumberContext.tsx#L90)
 
 ___
 
 ### EthersAppContext
 
-• **EthersAppContext**: `FC`<[`TEthersAppContextProps`](EthersContext.md#tethersappcontextprops)\>
+• `Const` **EthersAppContext**: `FC`<[`TEthersAppContextProps`](EthersContext.md#tethersappcontextprops)\>
 
 #### Summary
 Ethers App Context for your react app to be used with [useEthersContext](EthersContext.md#useetherscontext).
@@ -406,7 +406,7 @@ This is a wrapper around Web3ReactProvider that provides additional functionalit
 
 #### Defined in
 
-[src/context/ethers/EthersAppContext.tsx:164](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/EthersAppContext.tsx#L164)
+[context/ethers/EthersAppContext.tsx:164](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/EthersAppContext.tsx#L164)
 
 ___
 
@@ -414,8 +414,8 @@ ___
 
 ### contextQueryClient
 
-• **contextQueryClient**: `QueryClient`
+• `Const` **contextQueryClient**: `QueryClient`
 
 #### Defined in
 
-[src/context/ethers/queryClient.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/queryClient.ts#L3)
+[context/ethers/queryClient.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/queryClient.ts#L3)

@@ -1,4 +1,4 @@
-[eth-hooks - v4.0.29](../README.md) / [EthersContext](../modules/EthersContext.md) / ICommonModalConnector
+[eth-hooks - v4.0.44](../README.md) / [EthersContext](../modules/EthersContext.md) / ICommonModalConnector
 
 # Interface: ICommonModalConnector
 
@@ -16,27 +16,14 @@ An interface implemented by [EthersModalConnector](../classes/EthersContext.Ethe
 
 ### Methods
 
-- [getSigner](EthersContext.ICommonModalConnector.md#getsigner)
 - [setModalTheme](EthersContext.ICommonModalConnector.md#setmodaltheme)
 - [resetModal](EthersContext.ICommonModalConnector.md#resetmodal)
-- [changeSigner](EthersContext.ICommonModalConnector.md#changesigner)
 - [hasCachedProvider](EthersContext.ICommonModalConnector.md#hascachedprovider)
+- [loadWeb3Modal](EthersContext.ICommonModalConnector.md#loadweb3modal)
+- [getSigner](EthersContext.ICommonModalConnector.md#getsigner)
+- [changeSigner](EthersContext.ICommonModalConnector.md#changesigner)
 
 ## Methods
-
-### getSigner
-
-▸ **getSigner**(): `undefined` \| `Signer`
-
-#### Returns
-
-`undefined` \| `Signer`
-
-#### Defined in
-
-[src/context/ethers/connectors/EthersModalConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/connectors/EthersModalConnector.ts#L38)
-
-___
 
 ### setModalTheme
 
@@ -54,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/context/ethers/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/connectors/EthersModalConnector.ts#L39)
+[context/ethers/connectors/EthersModalConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L38)
 
 ___
 
@@ -68,7 +55,49 @@ ___
 
 #### Defined in
 
-[src/context/ethers/connectors/EthersModalConnector.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/connectors/EthersModalConnector.ts#L40)
+[context/ethers/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L39)
+
+___
+
+### hasCachedProvider
+
+▸ **hasCachedProvider**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[context/ethers/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L41)
+
+___
+
+### loadWeb3Modal
+
+▸ **loadWeb3Modal**(): `void`
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[context/ethers/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L42)
+
+___
+
+### getSigner
+
+▸ **getSigner**(): `undefined` \| `Signer`
+
+#### Returns
+
+`undefined` \| `Signer`
+
+#### Defined in
+
+[context/ethers/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L44)
 
 ___
 
@@ -88,18 +117,4 @@ ___
 
 #### Defined in
 
-[src/context/ethers/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/connectors/EthersModalConnector.ts#L41)
-
-___
-
-### hasCachedProvider
-
-▸ **hasCachedProvider**(): `boolean`
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-[src/context/ethers/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/context/ethers/connectors/EthersModalConnector.ts#L42)
+[context/ethers/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/context/ethers/connectors/EthersModalConnector.ts#L45)

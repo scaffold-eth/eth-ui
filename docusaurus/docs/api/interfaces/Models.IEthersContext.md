@@ -1,4 +1,4 @@
-[eth-hooks - v4.0.29](../README.md) / [Models](../modules/Models.md) / IEthersContext
+[eth-hooks - v4.0.44](../README.md) / [Models](../modules/Models.md) / IEthersContext
 
 # Interface: IEthersContext
 
@@ -19,18 +19,8 @@ The return type of [EthersModalConnector](../classes/EthersContext.EthersModalCo
 
 ## Table of contents
 
-### Methods
-
-- [activate](Models.IEthersContext.md#activate)
-- [setError](Models.IEthersContext.md#seterror)
-- [deactivate](Models.IEthersContext.md#deactivate)
-- [openModal](Models.IEthersContext.md#openmodal)
-- [disconnectModal](Models.IEthersContext.md#disconnectmodal)
-
 ### Properties
 
-- [library](Models.IEthersContext.md#library)
-- [error](Models.IEthersContext.md#error)
 - [connector](Models.IEthersContext.md#connector)
 - [provider](Models.IEthersContext.md#provider)
 - [active](Models.IEthersContext.md#active)
@@ -40,75 +30,108 @@ The return type of [EthersModalConnector](../classes/EthersContext.EthersModalCo
 - [changeSigner](Models.IEthersContext.md#changesigner)
 - [setModalTheme](Models.IEthersContext.md#setmodaltheme)
 
+### Methods
+
+- [openModal](Models.IEthersContext.md#openmodal)
+- [disconnectModal](Models.IEthersContext.md#disconnectmodal)
+
+## Properties
+
+### connector
+
+• **connector**: `undefined` \| [`TEthersModalConnector`](../modules/EthersContext.md#tethersmodalconnector)
+
+#### Overrides
+
+Web3ReactContextInterface.connector
+
+#### Defined in
+
+[models/ethersAppContextTypes.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L30)
+
+___
+
+### provider
+
+• **provider**: `undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)
+
+#### Defined in
+
+[models/ethersAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L31)
+
+___
+
+### active
+
+• **active**: `boolean`
+
+#### Overrides
+
+Web3ReactContextInterface.active
+
+#### Defined in
+
+[models/ethersAppContextTypes.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L32)
+
+___
+
+### signer
+
+• **signer**: `undefined` \| [`TEthersSigner`](../modules/Models.md#tetherssigner)
+
+#### Defined in
+
+[models/ethersAppContextTypes.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L33)
+
+___
+
+### account
+
+• **account**: `undefined` \| `string`
+
+#### Overrides
+
+Web3ReactContextInterface.account
+
+#### Defined in
+
+[models/ethersAppContextTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L34)
+
+___
+
+### chainId
+
+• **chainId**: `undefined` \| `number`
+
+#### Overrides
+
+Web3ReactContextInterface.chainId
+
+#### Defined in
+
+[models/ethersAppContextTypes.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L35)
+
+___
+
+### changeSigner
+
+• **changeSigner**: `undefined` \| (`signer`: `Signer`) => `Promise`<`void`\>
+
+#### Defined in
+
+[models/ethersAppContextTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L36)
+
+___
+
+### setModalTheme
+
+• **setModalTheme**: `undefined` \| (`theme`: ``"light"`` \| ``"dark"``) => `void`
+
+#### Defined in
+
+[models/ethersAppContextTypes.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L39)
+
 ## Methods
-
-### activate
-
-▸ **activate**(`connector`, `onError?`, `throwErrors?`): `Promise`<`void`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `connector` | `AbstractConnector` |
-| `onError?` | (`error`: `Error`) => `void` |
-| `throwErrors?` | `boolean` |
-
-#### Returns
-
-`Promise`<`void`\>
-
-#### Inherited from
-
-Web3ReactContextInterface.activate
-
-#### Defined in
-
-node_modules/@web3-react/core/dist/types.d.ts:3
-
-___
-
-### setError
-
-▸ **setError**(`error`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `error` | `Error` |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Web3ReactContextInterface.setError
-
-#### Defined in
-
-node_modules/@web3-react/core/dist/types.d.ts:4
-
-___
-
-### deactivate
-
-▸ **deactivate**(): `void`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-Web3ReactContextInterface.deactivate
-
-#### Defined in
-
-node_modules/@web3-react/core/dist/types.d.ts:5
-
-___
 
 ### openModal
 
@@ -126,7 +149,7 @@ ___
 
 #### Defined in
 
-[src/models/ethersAppContextTypes.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L37)
+[models/ethersAppContextTypes.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L37)
 
 ___
 
@@ -140,128 +163,4 @@ ___
 
 #### Defined in
 
-[src/models/ethersAppContextTypes.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L38)
-
-## Properties
-
-### library
-
-• `Optional` **library**: [`TEthersProvider`](../modules/Models.md#tethersprovider)
-
-#### Inherited from
-
-Web3ReactContextInterface.library
-
-#### Defined in
-
-node_modules/@web3-react/core/dist/types.d.ts:16
-
-___
-
-### error
-
-• `Optional` **error**: `Error`
-
-#### Inherited from
-
-Web3ReactContextInterface.error
-
-#### Defined in
-
-node_modules/@web3-react/core/dist/types.d.ts:20
-
-___
-
-### connector
-
-• **connector**: `undefined` \| [`TEthersModalConnector`](../modules/EthersContext.md#tethersmodalconnector)
-
-#### Overrides
-
-Web3ReactContextInterface.connector
-
-#### Defined in
-
-[src/models/ethersAppContextTypes.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L30)
-
-___
-
-### provider
-
-• **provider**: `undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)
-
-#### Defined in
-
-[src/models/ethersAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L31)
-
-___
-
-### active
-
-• **active**: `boolean`
-
-#### Overrides
-
-Web3ReactContextInterface.active
-
-#### Defined in
-
-[src/models/ethersAppContextTypes.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L32)
-
-___
-
-### signer
-
-• **signer**: `undefined` \| [`TEthersSigner`](../modules/Models.md#tetherssigner)
-
-#### Defined in
-
-[src/models/ethersAppContextTypes.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L33)
-
-___
-
-### account
-
-• **account**: `undefined` \| `string`
-
-#### Overrides
-
-Web3ReactContextInterface.account
-
-#### Defined in
-
-[src/models/ethersAppContextTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L34)
-
-___
-
-### chainId
-
-• **chainId**: `undefined` \| `number`
-
-#### Overrides
-
-Web3ReactContextInterface.chainId
-
-#### Defined in
-
-[src/models/ethersAppContextTypes.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L35)
-
-___
-
-### changeSigner
-
-• **changeSigner**: `undefined` \| (`signer`: `Signer`) => `Promise`<`void`\>
-
-#### Defined in
-
-[src/models/ethersAppContextTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L36)
-
-___
-
-### setModalTheme
-
-• **setModalTheme**: `undefined` \| (`theme`: ``"light"`` \| ``"dark"``) => `void`
-
-#### Defined in
-
-[src/models/ethersAppContextTypes.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/929066d/src/models/ethersAppContextTypes.ts#L39)
+[models/ethersAppContextTypes.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/f2e005f/src/models/ethersAppContextTypes.ts#L38)
