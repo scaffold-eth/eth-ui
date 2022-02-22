@@ -25,10 +25,10 @@
     "docs/**/*",
     "**/typedoc/**",
     "test/**/*",
+    "test-files/**/*",
     "node_modules",
     "**/node_modules",
     "**/node_modules/**",
-    "../../node_modules/**/*",
     "./.yalc/**/*",
     "docusaurus/**/*"
   ]

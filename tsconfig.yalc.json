@@ -1,20 +1,11 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "lib",
+    "emitDeclarationOnly": false,
     "declarationMap": false,
     "sourceMap": false,
     "inlineSources": false,
-    "inlineSourceMap": false,
-    "plugins": [
-      { "transform": "typescript-transform-paths" },
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ],
-    "paths": {
-      "~~": ["./src"],
-      "~~/*": ["./src/*"]
-    }
+    "inlineSourceMap": false
   },
   "files": []
 }
