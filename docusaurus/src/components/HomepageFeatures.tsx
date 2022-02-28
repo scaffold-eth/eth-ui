@@ -1,12 +1,12 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import React from 'react';
+import React, { FC } from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 
-type FeatureItem = {
+interface FeatureItem {
   title: string;
   image: string;
-  description: JSX.Element;
+  description: object;
 };
 
 const FeatureList: FeatureItem[] = [
@@ -45,7 +45,7 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({ title, image, description }: FeatureItem) {
+const Feature = ({ title, image, description }: FeatureItem) => {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
@@ -59,7 +59,7 @@ function Feature({ title, image, description }: FeatureItem) {
   );
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export const HomepageFeatures: FC = () => {
   return (
     <section className={styles.features}>
       <div className="container">

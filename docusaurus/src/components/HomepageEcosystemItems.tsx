@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 
 
-type EcosystemItem ={
+interface EcosystemItem {
   title: string;
-  description: JSX.Element;
+  description: object;
   url: string;
   btnText: string
 };
@@ -44,7 +44,7 @@ const EcosystemList: EcosystemItem[] = [
   },
 ];
 
-function Ecosystem({ title, description, url, btnText}: EcosystemItem) {
+const Ecosystem = ({ title, description, url, btnText}: EcosystemItem) => {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center padding-horiz--md">
@@ -71,7 +71,7 @@ function Ecosystem({ title, description, url, btnText}: EcosystemItem) {
   );
 }
 
-export default function HomepageEcosystemItems(): JSX.Element {
+export const HomepageEcosystemItems: FC = () => {
   return (
     <div className={styles.background}>
     <section className={styles.features}>

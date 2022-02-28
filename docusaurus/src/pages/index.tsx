@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
-import HomepageFeatures from '../components/HomepageFeatures';
-import HomepageTable from '../components/HomepageEcosystemItems';
-import HomepageEcosystemItems from '../components/HomepageEcosystemItems';
+import { HomepageFeatures } from '../components/HomepageFeatures';
+import { HomepageEcosystemItems } from '../components/HomepageEcosystemItems';
 
-function HomepageHeader() {
+const HomepageHeader = () => {
   const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
@@ -25,7 +24,7 @@ function HomepageHeader() {
   );
 }
 
-export default function Home(): JSX.Element {
+const Home: FC = () => {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout 
@@ -40,3 +39,4 @@ export default function Home(): JSX.Element {
     </Layout>
   );
 }
+export default Home;
