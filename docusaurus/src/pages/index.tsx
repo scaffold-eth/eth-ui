@@ -22,15 +22,12 @@ const HomepageHeader = () => {
       </div>
     </header>
   );
-}
+};
 
 const Home: FC = () => {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout 
-      title={`${siteConfig.title}`} 
-      description="React hooks for easy web3 development"
-    >
+    <Layout title={`${siteConfig.title}`} description="React hooks for easy web3 development">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
@@ -38,5 +35,5 @@ const Home: FC = () => {
       </main>
     </Layout>
   );
-}
+};
 export default Home;

@@ -3,43 +3,48 @@ import React, { FC } from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 
-interface FeatureItem {
+type FeatureItem = {
   title: string;
   image: string;
-  description: object;
+  description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Fast & Easy React Hooks',
-    image: '/img/undraw_docusaurus_mountain.svg',
+    title: 'Fast & Easy Web3 React Hooks',
+    image: '/home/features1.png',
     description: (
       <>
-        Speed up your frontend development with pre-built hooks for use with context,
-        allowing easy use throughout your application.
+        Speed up your frontend development with pre-built hooks for use with <code>EthersAppContext</code>, allowing
+        easy use throughout your application. Additionally, works out of the box with{' '}
+        <a href="https://github.com/scaffold-eth/scaffold-eth-typescript" target="_blank">
+          scaffold-eth-typescript
+        </a>{' '}
+        template!
       </>
     ),
   },
   {
     title: 'Optimized Web3 Development',
-    image: '/img/undraw_docusaurus_tree.svg',
+    image: '/home/features2.png',
     description: (
       <>
-        A dedicated cache to reduce RPC calls. Several different network update options.
-        Typed contracts to increase clarity.
-        These are just a few of the benefits you get with eth-hooks.
-
+        Dedicated caching reduces RPC calls. Use a variety of web3 network update options. Typed contracts increase the
+        clarity of the contract interface. These are just a few of the benefits you get with eth-hooks.
       </>
     ),
   },
   {
     title: 'Seemless Smart Contract Interaction',
-    image: '/img/undraw_docusaurus_react.svg',
+    image: '/home/features3.png',
     description: (
       <>
-        We use the <a href="https://docs.ethers.io/v5/" target="_blank">ethers.js</a> library under-the-hood.
-        This gives you reliable read and write controls to smart contracts and
-        even lets you pass different ethers providers.
+        Use the <code>ContractAppContext</code> and{' '}
+        <a href="https://docs.ethers.io/v5/" target="_blank">
+          ethers.js
+        </a>{' '}
+        to have typed access to your smart contracts. This gives you reliable read and write controls to smart contracts
+        and even lets you pass different ethers providers.
       </>
     ),
   },
@@ -57,7 +62,7 @@ const Feature = ({ title, image, description }: FeatureItem) => {
       </div>
     </div>
   );
-}
+};
 
 export const HomepageFeatures: FC = () => {
   return (
@@ -66,9 +71,9 @@ export const HomepageFeatures: FC = () => {
         <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
-          ))} 
+          ))}
         </div>
       </div>
     </section>
   );
-}
+};

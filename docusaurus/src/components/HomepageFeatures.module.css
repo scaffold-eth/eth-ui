@@ -12,16 +12,22 @@
 
 .title {
   text-align: center;
-  color: black;
+  color: white;
   padding-top: 20px;
 }
 
 .subtitle {
   text-align: center;
-  color: black;
+  color: white;
+  font-size: 1.2rem;
   padding-bottom: 10px;
 }
 
 .background {
-  background-color: #26c2a0;
+  background-color: #25c7d2;
+}
+
+.card {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
