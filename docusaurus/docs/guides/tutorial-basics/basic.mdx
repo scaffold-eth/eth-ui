@@ -1,1 +1,262 @@
-# Basic Tutorial
+# Basic Tutorials
+
+## Tutorial 1
+
+This tutorial will show you how to set up a basic React component that uses `eth-hooks`. We'll be using create-react-app with typescript.
+
+:::tip
+
+If you prefer a visual walk-through, check out the [video guide](https://www.youtube.com/watch?v=VsPraG4KhXY) this tutorial is based on.
+
+:::
+
+### Setup
+
+#### Install create-react-app with typescript
+
+Enter the folder that you want your application to be stored in. Then in the terminal run the command:
+
+```bash
+yarn create react-app eth-hooks-tutorial --template typescript
+```
+
+After installation is complete, enter the new folder:
+
+```bash
+cd eth-hooks-tutorial
+```
+
+#### Update to yarn 3
+
+Before we install `eth-hooks` and `ethers` packages, we'll upgrade the `yarn` package manager.
+We recommend using `yarn` 3 because it's faster than using `npm`.
+
+##### yarn update step 1
+
+To update run this command in your project folder:
+
+```bash
+yarn set version berry
+```
+
+This tells `yarn` to use the latest version (in this case, version `berry`).
+
+##### yarn update step 2
+
+In your project folder (here, our project folder is `eth-hooks-tutorial`) find the `.yarnrc.yml` file.
+In this file, add the following line of code:
+
+```typescript
+nodeLinker: node - modules;
+```
+
+This tells `yarn` to use the `node-modules` folder to store all packages.
+
+##### yarn update step 3
+
+Finally, install the new `yarn` version:
+
+```bash
+yarn install
+```
+
+#### Add packages
+
+Now let's install the packages. We can install providers, `ethers`, and `eth-hooks` all in one line of code.
+In your project folder, run:
+
+```bash
+yarn add ethers '@ethersproject/providers' eth-hooks
+```
+
+#### Add context to your project
+
+We need to import `EthersAppContext` in our main app so we can access the Ethereum network and `eth-hooks` anywhere in our application.
+In your `index.tsx` file:
+
+```typescript
+import { EthersAppContext } from 'eth-hooks/context';
+```
+
+Then wrap your `App` component, like so:
+
+```typescript
+React.DOM.render(
+  <React.StrictMode>
+    <EthersAppContext>
+      <App />
+    </EthersAppContext>
+  </React.StrictMode>,
+  document.getElemenetById('root')
+);
+```
+
+That's it. Now you can use context throughout your app.
+
+### Build your component
+
+Let's replace the create-react-app startup page. We will build a new component and show it on `localhost:3000`.
+
+Add a `component` folder in your `src`.
+
+Let's create a new file called `Main.tsx` inside your `component` folder.
+
+Next, we'll create a functional component:
+
+```typescript
+import React, { FC } from 'react';
+
+export const Main: FC = () => {};
+```
+
+#### Setup an RPC
+
+To read and write to the Ethereum network, you'll need a [remote procedure call or RPC](https://ethereum.org/en/developers/docs/apis/json-rpc/).
+For our purposes in this tutorial, we'll use the RPC provided by [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth).
+
+Next, let's create a `config` folder inside our `src` folder.
+
+Then let's create a new file called `appConfig.ts` inside the `config` folder.
+
+Now we need to set up a static connection to the Ethereum network. In your `appConfig.ts`:
+
+```typescript
+import { StaticJsonRpcProvider } from '@ethersproject/providers';
+```
+
+Here's how we'll setup the static provider from the [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) RPC.
+
+```typescript
+export const mainnetScaffoldEthProvider = new StaticJsonRpcProvider('https://rpc.scaffoldeth.io:48544');
+```
+
+We can use this variable throughout our application.
+
+#### Your first React component with eth-hooks
+
+Now, let's go back into our `Main.tsx` file and import the RPC:
+
+```typescript
+import { mainnetScaffoldEthProvider } from '../config/appConfig';
+```
+
+_What should we do next?_
+
+Let's do something simple, but also useful.
+
+Let's get the balance from a given Ethereum address and show it on our frontend (if you build Dapps, you'll be doing this all the time!)
+
+We're going to need to import our first `eth-hook`:
+
+```typescript
+import { useEthersAdaptorFromProviderOrSigners } from 'eth-hooks';
+```
+
+We'll add the following to our `Main` component:
+
+```typescript
+const [adaptor] = useEthersAdaptorFromProviderOrSigners(mainnetScaffoldEthProvider);
+```
+
+`adaptor` is a utility function that wraps the signer, adaptor, chainId, and a few other things we need.
+
+Now, let's add the `useBalance` hook.
+
+```typescript
+import { useBalance, mainnetScaffoldEthProvider } from '../config/appConfig';
+```
+
+And create a variable:
+
+```typescript
+const [balance] = useBalance;
+```
+
+We can also add an update option, allowing us to update the `useBalance` hook when we need:
+
+```typescript
+import { defualtUpdateOptions } from 'eth-hooks/models';
+```
+
+Let's update our `balance` function with a few extras.
+
+```typescript
+const [balance] = useBalance('0xb5dFcB9EABD2D4CB96Ae86d3Fc290a70461b4e42', defualtUpdateOptions(), {
+  adaptorEnabled: true,
+  adaptor,
+});
+```
+
+Here, we pass in an Ethereum address that we want to read the balance from. Then we use the `defaultUpdateOptions` to keep our balance up-to-date.
+For this example, we are not using the adaptor that is included with `EthersAppContext`. Instead, we are passing in our own mainnet adaptor.
+
+**We will cover using `EthersAppContext` later.**
+
+Now let's convert the balance to ether:
+
+```typescript
+const result = ethers.utils.formatEther(balance);
+```
+
+Then we'll display this balance in our app, like this:
+
+```typescript
+  return
+  <div>
+    The ether balance of account: 0xb5dFcB9EABD2D4CB96Ae86d3Fc290a70461b4e42 is {result.toString()}
+  </div>
+};
+```
+
+Check out the `Main.tsx` component in its final form:
+
+```typescript
+import React, { FC } from 'react';
+import { useBalance, mainnetScaffoldEthProvider } from '../config/appConfig';
+import { useEthersAdaptorFromProviderOrSigners } from 'eth-hooks';
+import { defualtUpdateOptions } from 'eth-hooks/models';
+
+export const Main: FC = () => {
+  const [adaptor] = useEthersAdaptorFromProviderOrSigners(mainnetScaffoldEthProvider);
+
+  const [balance] = useBalance('0xb5dFcB9EABD2D4CB96Ae86d3Fc290a70461b4e42', defualtUpdateOptions(), {
+    adaptorEnabled: true,
+    adaptor,
+  });
+
+  const result = ethers.utils.formatEther(balance);
+
+  return (
+  <div>
+    <p>"The ether balance of account: " 0xb5dFcB9EABD2D4CB96Ae86d3Fc290a70461b4e42 "is " {result.toString()}<p>
+  </div>;
+  )
+};
+```
+
+### Render your component
+
+Now, let's go back into our `App.tsx` file and import `Main.tsx`:
+
+```typescript
+import { Main } from './components/Main';
+```
+
+And render the component:
+
+```typescript
+function App() {
+  return (
+    <div>
+      <header>
+        <Main />
+      </header>
+    </div>
+  );
+}
+export default App;
+```
+
+Now checkout your startup page at `localhost:3000`.
+
+Cool! You made it 🙌
