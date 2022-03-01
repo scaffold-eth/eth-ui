@@ -1,5 +1,5 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import React from 'react';
+import React, { FC } from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 
@@ -17,7 +17,10 @@ const FeatureList: FeatureItem[] = [
       <>
         Speed up your frontend development with pre-built hooks for use with <code>EthersAppContext</code>, allowing
         easy use throughout your application. Additionally, works out of the box with{' '}
-        <code>scaffold-eth-typescript</code> template!
+        <a href="https://github.com/scaffold-eth/scaffold-eth-typescript" target="_blank">
+          scaffold-eth-typescript
+        </a>{' '}
+        template!
       </>
     ),
   },
@@ -36,15 +39,18 @@ const FeatureList: FeatureItem[] = [
     image: '/home/features3.png',
     description: (
       <>
-        Use the <code>ContractAppContext</code> and <code>ethers.js</code> to have typed access to your smart contracts.
-        This gives you reliable read and write controls to smart contracts and even lets you pass different ethers
-        providers.
+        Use the <code>ContractAppContext</code> and{' '}
+        <a href="https://docs.ethers.io/v5/" target="_blank">
+          ethers.js
+        </a>{' '}
+        to have typed access to your smart contracts. This gives you reliable read and write controls to smart contracts
+        and even lets you pass different ethers providers.
       </>
     ),
   },
 ];
 
-function Feature({ title, image, description }: FeatureItem) {
+const Feature = ({ title, image, description }: FeatureItem) => {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
@@ -56,9 +62,9 @@ function Feature({ title, image, description }: FeatureItem) {
       </div>
     </div>
   );
-}
+};
 
-export default function HomepageFeatures(): JSX.Element {
+export const HomepageFeatures: FC = () => {
   return (
     <section className={styles.features}>
       <div className="container">
@@ -70,4 +76,4 @@ export default function HomepageFeatures(): JSX.Element {
       </div>
     </section>
   );
-}
+};
