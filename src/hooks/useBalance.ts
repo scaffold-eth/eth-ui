@@ -19,6 +19,11 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.signer, key: 'useBalan
 
 const zero = BigNumber.from(0);
 
+/**
+ * @internal
+ * #### Summary
+ * A conditional type for useBalance result based on input parameters.  It is either a BigNumber or a Record<string, BigNumber> depending on the input addres being a string or string[]
+ */
 type TUseBalanceResult<GAddress extends string | string[]> = GAddress extends string[]
   ? Record<string, BigNumber>
   : BigNumber;
