@@ -141,6 +141,8 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     if (accounts.length === 0) {
       this.emitDeactivate?.();
     } else {
+      const newAccount = accounts[0];
+      void this.setSignerFromAccount(newAccount);
       this.emitUpdate?.({ account: accounts[0] });
     }
   }
