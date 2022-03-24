@@ -14,3 +14,4 @@ export * from './useNonce';
 export * from './useSignerAddress';
 export * from './useSignerChainId';
 export * from './useTimestamp';
+export * from './useNetwork';
