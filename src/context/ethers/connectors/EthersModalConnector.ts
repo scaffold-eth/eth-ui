@@ -2,7 +2,7 @@ import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer, utils } from 'ethers';
-import { default as Core, ICoreOptions, ThemeColors } from 'web3modal';
+import { default as Web3Modal, ICoreOptions, ThemeColors } from 'web3modal';
 
 import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 
@@ -35,11 +35,14 @@ type TWeb3ModalTheme = 'light' | 'dark';
  * An interface implemented by {@link EthersModalConnector} in addition to AbstractConnector
  */
 export interface ICommonModalConnector {
-  getSigner(): Signer | undefined;
   setModalTheme(theme: TWeb3ModalTheme | ThemeColors): void;
   resetModal(): void;
-  changeSigner(signer: Signer): Promise<void>;
+
   hasCachedProvider(): boolean;
+  loadWeb3Modal: () => void;
+
+  getSigner: () => Signer | undefined;
+  changeSigner(signer: Signer): Promise<void>;
 }
 
 export type TEthersModalConnector = ICommonModalConnector & AbstractConnector;
@@ -62,7 +65,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   protected _options: Partial<ICoreOptions>;
   protected _providerBase?: any;
   protected _ethersProvider?: TEthersProvider;
-  protected _web3Modal?: Core;
+  protected _web3Modal?: Web3Modal;
   protected _id: string | undefined;
   protected _debug: boolean = false;
   protected _config: Readonly<TEthersModalConfig>;
@@ -138,6 +141,8 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     if (accounts.length === 0) {
       this.emitDeactivate?.();
     } else {
+      const newAccount = accounts[0];
+      void this.setSignerFromAccount(newAccount);
       this.emitUpdate?.({ account: accounts[0] });
     }
   }
@@ -152,9 +157,9 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     this.deactivate();
   }
 
-  public loadCore(): void {
+  public loadWeb3Modal(): void {
     if (!this._web3Modal) {
-      this._web3Modal = new Core({ ...this._options, theme: this._theme });
+      this._web3Modal = new Web3Modal({ ...this._options, theme: this._theme });
     }
   }
 
@@ -175,7 +180,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
    */
   public async activate(): Promise<ConnectorUpdate> {
     try {
-      this.loadCore();
+      this.loadWeb3Modal();
 
       if (this._web3Modal) {
         if (this._options.cacheProvider === false) this.resetModal();
@@ -212,7 +217,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
       /* eslint-enable */
     } catch (error) {
       this.resetModal();
-      if ((error as string)?.includes(const_web3DialogClosedByUser)) {
+      if (typeof error === 'string' && error?.includes(const_web3DialogClosedByUser)) {
         console.log(error);
         this.deactivate();
         throw new UserClosedModalError();

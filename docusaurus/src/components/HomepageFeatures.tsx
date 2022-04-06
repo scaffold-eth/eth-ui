@@ -1,5 +1,5 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import React from 'react';
+import React, { FC } from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 
@@ -11,38 +11,46 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    image: '/img/undraw_docusaurus_mountain.svg',
+    title: 'Fast & Easy Web3 React Hooks',
+    image: '/home/features1.png',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and used to get your website up and running
-        quickly.
+        Speed up your frontend development with pre-built hooks for use with <code>EthersAppContext</code>, allowing
+        easy use throughout your application. Additionally, works out of the box with{' '}
+        <a href="https://github.com/scaffold-eth/scaffold-eth-typescript" target="_blank">
+          scaffold-eth-typescript
+        </a>{' '}
+        template!
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    image: '/img/undraw_docusaurus_tree.svg',
+    title: 'Optimized Web3 Development',
+    image: '/home/features2.png',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your docs into the{' '}
-        <code>docs</code> directory.
+        Dedicated caching reduces RPC calls. Use a variety of web3 network update options. Typed contracts increase the
+        clarity of the contract interface. These are just a few of the benefits you get with eth-hooks.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    image: '/img/undraw_docusaurus_react.svg',
+    title: 'Seemless Smart Contract Interaction',
+    image: '/home/features3.png',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can be extended while reusing the same
-        header and footer.
+        Use the <code>ContractAppContext</code> and{' '}
+        <a href="https://docs.ethers.io/v5/" target="_blank">
+          ethers.js
+        </a>{' '}
+        to have typed access to your smart contracts. This gives you reliable read and write controls to smart contracts
+        and even lets you pass different ethers providers.
       </>
     ),
   },
 ];
 
-function Feature({ title, image, description }: FeatureItem) {
+const Feature = ({ title, image, description }: FeatureItem) => {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
@@ -54,9 +62,9 @@ function Feature({ title, image, description }: FeatureItem) {
       </div>
     </div>
   );
-}
+};
 
-export default function HomepageFeatures(): JSX.Element {
+export const HomepageFeatures: FC = () => {
   return (
     <section className={styles.features}>
       <div className="container">
@@ -68,4 +76,4 @@ export default function HomepageFeatures(): JSX.Element {
       </div>
     </section>
   );
-}
+};

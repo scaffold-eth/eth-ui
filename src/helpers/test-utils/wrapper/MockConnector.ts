@@ -30,6 +30,11 @@ export class MockConnector extends AbstractConnector implements ICommonModalConn
     this.replaceWithSpies();
   }
 
+  public loadWeb3Modal(): void {
+    /* noop */
+    // may need to implement this in the future
+  }
+
   public replaceWithSpies(): void {
     this.resetModal = this.spyResetModal;
     this.setModalTheme = this.spySetModalTheme;
