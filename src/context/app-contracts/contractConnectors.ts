@@ -1,7 +1,7 @@
 import { BaseContract, ethers } from 'ethers';
 import { merge } from 'merge-anything';
 
-import { TConnectorConnectorBase, TContractConnector } from '~~/models';
+import { TContractConnectorBase, TContractConnector, TContractConnectFunc } from '~~/models';
 import {
   THardhatContractDataRecord,
   TExternalContractsAddressMap,
@@ -56,7 +56,7 @@ const extractExternalContracts = (configJson: TExternalContractsAddressMap): TEx
 
 export const createConnectorForHardhatContract = <GContractNames extends string, GBaseContract extends BaseContract>(
   contractName: GContractNames,
-  typechainFactory: TConnectorConnectorBase<GBaseContract>,
+  typechainFactory: TContractConnectorBase<GBaseContract>,
   deployedHardhatContractJson: TDeployedHardhatContractsJson
 ): TContractConnector<GContractNames, GBaseContract> => {
   const info = extractHardhatContracts(deployedHardhatContractJson)[contractName];
@@ -80,7 +80,7 @@ export const createConnectorForHardhatContract = <GContractNames extends string,
 
 export const createConnectorForExternalContract = <GContractNames extends string, GBaseContract extends BaseContract>(
   contractName: GContractNames,
-  typechainFactory: TConnectorConnectorBase<GBaseContract>,
+  typechainFactory: TContractConnectorBase<GBaseContract>,
   deployedContractJson: TExternalContractsAddressMap
 ): TContractConnector<GContractNames, GBaseContract> => {
   const info = extractExternalContracts(deployedContractJson)[contractName];
@@ -102,17 +102,30 @@ export const createConnectorForExternalContract = <GContractNames extends string
   };
 };
 
-export const createConnectorForExternalAbi = <GContractNames extends string>(
+export const createConnectorForExternalAbi = <
+  GContractNames extends string,
+  GBaseContract extends BaseContract = BaseContract
+>(
   contractName: GContractNames,
   config: TBasicContractDataConfig,
-  abi: Record<string, any>[]
-): TContractConnector<GContractNames, BaseContract> => {
-  return {
-    contractName,
-    connect: (address: string, signerOrProvider: ethers.Signer | ethers.providers.Provider): BaseContract => {
-      return new BaseContract(address, abi, signerOrProvider);
-    },
-    abi: abi,
-    config: { ...config },
-  };
+  abi: Record<string, any>[],
+  connectFunc: TContractConnectFunc<GBaseContract> | undefined = undefined
+): TContractConnector<GContractNames, GBaseContract> => {
+  if (connectFunc) {
+    return {
+      contractName,
+      connect: connectFunc,
+      abi: abi,
+      config: { ...config },
+    };
+  } else {
+    return {
+      contractName,
+      connect: (address: string, signerOrProvider: ethers.Signer | ethers.providers.Provider): GBaseContract => {
+        return new BaseContract(address, abi, signerOrProvider) as GBaseContract;
+      },
+      abi: abi,
+      config: { ...config },
+    };
+  }
 };
