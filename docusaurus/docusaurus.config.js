@@ -32,7 +32,7 @@ const themeConfig = {
         label: 'API',
       },
       {
-        href: 'https://github.com/facebook/docusaurus',
+        href: 'https://github.com/scaffold-eth/eth-hooks',
         label: 'GitHub',
         position: 'right',
       },
@@ -42,11 +42,19 @@ const themeConfig = {
     style: 'dark',
     links: [
       {
-        title: 'Docs',
+        title: 'Learn',
         items: [
           {
-            label: 'main',
+            label: 'Main overview',
             to: '/docs/overview',
+          },
+          {
+            label: 'Quick start',
+            to: '/docs/guides/intro',
+          },
+          {
+            label: 'API',
+            to: '/docs/api/',
           },
         ],
       },
@@ -54,12 +62,12 @@ const themeConfig = {
         title: 'Community',
         items: [
           {
-            label: 'Discord',
-            href: 'https://discordapp.com/invite/docusaurus',
+            label: 'Twitter',
+            href: 'https://twitter.com/buidlguidl',
           },
           {
-            label: 'Twitter',
-            href: 'https://twitter.com/docusaurus',
+            label: 'GitHub',
+            href: 'https://github.com/scaffold-eth/eth-hooks',
           },
         ],
       },
@@ -67,13 +75,22 @@ const themeConfig = {
         title: 'More',
         items: [
           {
-            label: 'GitHub',
-            href: 'https://github.com/facebook/docusaurus',
+            label: 'Scaffold-eth',
+            href: 'https://github.com/scaffold-eth/scaffold-eth',
           },
+          {
+            label: 'Scaffold-eth-typescript',
+            href: 'https://github.com/scaffold-eth/scaffold-eth-typescript',
+          },
+          {
+            label: 'BuidlGuild',
+            href: 'https://buidlguidl.com/',
+          },
+          
         ],
       },
     ],
-    copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+    copyright: `Copyright © ${new Date().getFullYear()} eth-hooks.`,
   },
   prism: {
     // @ts-ignore
