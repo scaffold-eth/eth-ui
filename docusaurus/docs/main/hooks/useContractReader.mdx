@@ -20,3 +20,5 @@ Use with the `useSignerAddress` hook to read your DAI balance from the blockchai
 const [myAddress] = useSignerAddress(ethersContext.signer);
 const myMainnetDAIBalance = useContractReader(mainnetDai, mainnetDai?.balanceOf, [myAddress ?? '']);
 ```
+
+[Go here for this hooks full API documentation](../../api/modules/Hooks#usecontractreader).
