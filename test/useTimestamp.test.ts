@@ -6,6 +6,8 @@ import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
 import { useTimestamp } from '~~/hooks';
 
+import 'test/helpers/chai-imports';
+
 const expectTimestamp = async (
   harness: TTestHookResult<() => [timestamp: number, update: () => void, status: QueryStatus]>
 ): Promise<number> => {

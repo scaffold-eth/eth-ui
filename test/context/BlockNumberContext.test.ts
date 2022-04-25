@@ -1,12 +1,12 @@
-import { expect, use } from 'chai';
-import * as sinonChai from 'sinon-chai';
+import { expect } from 'chai';
 
 import { useBlockNumberContext } from '~~/context';
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
 
-use(sinonChai);
+import 'test/helpers/chai-imports';
+
 describe('BlockNumberContext', function () {
   describe('Give that context is initalized', function () {
     let initialBlockNumber = 0;

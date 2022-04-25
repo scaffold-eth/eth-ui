@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
-    "esModuleInterop": false
+    "esModuleInterop": true
   },
   "files": ["hardhat.config.ts"],
   "ts-node": {
