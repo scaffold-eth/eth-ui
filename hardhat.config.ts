@@ -7,7 +7,7 @@ import '@nomiclabs/hardhat-ethers';
 import 'hardhat-deploy';
 import { HardhatUserConfig } from 'hardhat/types';
 
-import { mochaRootHook_disableReact18Warnings } from './src/helpers/test-utils/wrapper/mochaRootHook';
+import { mochaRootHook_disableReact18Warnings } from './src/helpers/test-utils/wrapper';
 
 /**
  * this is used for hook tests
