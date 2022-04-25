@@ -75,6 +75,7 @@ export const useBlockNumberContext = (): number => {
  * props include {@link TOverride}
  */
 interface IBlockNumberContextProps {
+  children?: React.ReactNode;
   override?: TOverride;
 }
 

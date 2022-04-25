@@ -7,6 +7,8 @@ import '@nomiclabs/hardhat-ethers';
 import 'hardhat-deploy';
 import { HardhatUserConfig } from 'hardhat/types';
 
+import { mochaRootHook_disableReact18Warnings } from './src/helpers/test-utils/wrapper/mochaRootHook';
+
 /**
  * this is used for hook tests
  */
@@ -32,6 +34,7 @@ const config: HardhatUserConfig = {
       mochaFile: 'testresult.xml',
       toConsole: true,
     },
+    rootHooks: mochaRootHook_disableReact18Warnings,
   },
   paths: {
     cache: './test-files/__mocks__/generated/cache',
