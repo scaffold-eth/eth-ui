@@ -71,7 +71,7 @@
     "ethers": "^5.6.4",
     "lodash.isequal": "^4.5.0",
     "merge-anything": "^5.0.2",
-    "react-query": "^3.34.16",
+    "react-query": "^3.38.0",
     "ts-invariant": "^0.9.4",
     "use-debounce": "^7.0.1",
     "usehooks-ts": "^2.5.1",
