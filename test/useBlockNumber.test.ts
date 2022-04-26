@@ -1,13 +1,13 @@
+import 'test/helpers/chai-imports';
 import { expect } from 'chai';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
+import { waitForExpect } from '~~/helpers/test-utils/functions/mochaHelpers';
 import { currentTestBlockNumber, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useBlockNumber } from '~~/hooks';
 import { TEthersProvider } from '~~/models';
-
-import 'test/helpers/chai-imports';
 
 describe('useBlockNumber', function () {
   let provider: TEthersProvider;
@@ -33,10 +33,11 @@ describe('useBlockNumber', function () {
 
     // mine another block
     await mineBlock(wrapper.mockProvider);
-    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-    const [result2] = wrapper.result.current;
-    expect(result2).equal(testStartBockNumber + 2);
-    expect(await wrapper.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 2);
+    await waitForExpect(async () => {
+      const [result2] = wrapper.result.current;
+      expect(result2).equal(testStartBockNumber + 2);
+      expect(await wrapper.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 2);
+    }, defaultBlockWaitOptions);
   });
 
   it('When the hook called without a new block arriving, useBlockNumber gets the current blockNumber', async () => {
