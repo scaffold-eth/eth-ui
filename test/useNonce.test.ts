@@ -9,12 +9,12 @@ import 'test/helpers/chai-imports';
 
 describe('useNonce', function () {
   it('When an wallet performs an action; then it increments the nonce of the address', async () => {
-    const harness = await hookTestWrapper((address: string) => useNonce(address ?? ''));
-    const [wallet, secondWallet] = harness.mockProvider.getWallets();
-    harness.rerender(wallet.address);
+    const wrapper = await hookTestWrapper((address: string) => useNonce(address ?? ''));
+    const [wallet, secondWallet] = wrapper.mockProvider.getWallets();
+    wrapper.rerender(wallet.address);
 
-    await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-    const [oldNonce] = harness.result.current;
+    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+    const [oldNonce] = wrapper.result.current;
     expect(oldNonce).be.greaterThanOrEqual(0);
 
     expectValidWallets(wallet, secondWallet);
@@ -24,8 +24,8 @@ describe('useNonce', function () {
       value: fromEther(0.1),
     });
 
-    await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-    const [newNonce] = harness.result.current;
+    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+    const [newNonce] = wrapper.result.current;
     expect(newNonce).be.equal(oldNonce + 1);
   });
 });

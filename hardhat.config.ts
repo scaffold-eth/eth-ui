@@ -1,13 +1,7 @@
-import 'tsconfig-paths/register';
-import 'global-jsdom/register';
+import './test/helpers/hardhat-imports';
 
-import '@typechain/hardhat';
-import '@nomiclabs/hardhat-waffle';
-import '@nomiclabs/hardhat-ethers';
-import 'hardhat-deploy';
 import { HardhatUserConfig } from 'hardhat/types';
-
-import { mochaRootHook_disableReact18Warnings } from './src/helpers/test-utils/wrapper';
+import { mochaRootHook_disableReact18Warnings } from 'test/helpers/mochaRootHooks';
 
 /**
  * this is used for hook tests
