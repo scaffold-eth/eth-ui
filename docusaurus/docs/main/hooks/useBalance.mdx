@@ -1,0 +1,50 @@
+# useBalance
+
+Get account balance information from the Ethereum blockchain.
+
+## How to import
+
+```typescript
+import { useBalance } from 'eth-hooks';
+```
+
+## How to use
+
+To get started:
+
+```typescript
+const [yourLocalBalance] = useBalance(ethersContext.account);
+```
+
+To get your balance on different changes, just plug in a different provider:
+
+```typescript
+const [mainnetAdaptor] = useEthersAdaptorFromProviderOrSigners(exampleMainnetProvider);
+const [yourMainnetBalance, yUpdate, yStatus] = useBalance(ethersContext.account, mergeDefaultUpdateOptions(), {
+  adaptorEnabled: true,
+  adaptor: mainnetAdaptor,
+});
+```
+
+You can change the update schedule to every 10 blocks, the default is every 1 block:
+
+```typescript
+const [secondbalance] = useBalance(ethersContext.account, { blockNumberInterval: 10 });
+```
+
+Or change the update schedule to every polling, min is 10000ms:
+
+```typescript
+const [thirdbalance] = useBalance(ethersContext.account, { refetchInterval: 100000, blockNumberInterval: undefined });
+```
+
+You can also use advanced react-query update options, like so:
+
+```typescript
+const [fourthbalance] = useBalance(ethersContext.account, {
+  blockNumberInterval: 1,
+  query: { refetchOnWindowFocus: true },
+});
+```
+
+[Go here for this hooks full API documentation](../../api/modules/Hooks#usebalance).

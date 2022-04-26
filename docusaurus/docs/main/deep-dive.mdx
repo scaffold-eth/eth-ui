@@ -2,17 +2,19 @@
 sidebar_position: 3
 ---
 
-# Deep dive
+# 🤿 Design Deep Dive
+
+Learn about how Eth-hooks was built and why.
 
 :::tip
 
-Check out the [video presentation](https://www.youtube.com/watch?v=STxAdE8wQwY) of Eth-hooks V4 advanced features!
+If you prefer videos, check out Shravan's [video presentation](https://www.youtube.com/watch?v=STxAdE8wQwY) on Eth-hooks V4 advanced features!
 
 :::
 
 ## Design principles
 
-- Allows flexibility in how often a hook receives updates from the network. You can choose your update method, for example, polling or every block number.
+- Allow flexibility in how often a hook receives updates from the network. You can choose your update method, for example, polling or every block number.
 - Easily use context
   - **ethersAppContext**
   - **contractAppContext** (new in V4): Access your contract easily anywhere in your app.
@@ -43,12 +45,13 @@ Built with React-Query and EthersContext. Get a cache when you wrap your app in 
 
 ### Data updates
 
-- There are several different options for updating hook data. Simply pass in your preferred update method.
-  - **Default** is the hook updates every block
-  - You can set it to update every n/blocks
-  - Polling can be used (minimum time is 10 seconds to prevent spamming the network)
-  - Refresh on window focus or on mount
-  - Set stale time for data. Default is 30 seconds
+There are several different options for updating hook data. Simply pass in your preferred method.
+
+- **Default** is the hook updates every block
+- You can set it to update every n/blocks
+- Polling can be used (minimum time is 10 seconds to prevent spamming the network)
+- Refresh on window focus or on mount
+- Set stale time for data. Default is 30 seconds
 
 ### Hook return
 

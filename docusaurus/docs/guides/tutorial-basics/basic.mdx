@@ -1,8 +1,8 @@
-# Basic Tutorials
+# How to show an Ethereum balance on your frontend
 
-## Tutorial 1
+This tutorial will show you how to set up a React component that uses `eth-hooks`. We'll be using create-react-app with typescript.
 
-This tutorial will show you how to set up a basic React component that uses `eth-hooks`. We'll be using create-react-app with typescript.
+After setup, we'll get an account balance on the Ethereum blockchain and show it on our frontend (_pretty cool stuff!_)
 
 :::tip
 
@@ -10,11 +10,11 @@ If you prefer a visual walk-through, check out the [video guide](https://www.you
 
 :::
 
-### Setup
+### 🚩 Setup
 
 #### Install create-react-app with typescript
 
-Enter the folder that you want your application to be stored in. Then in the terminal run the command:
+Enter the folder where you want your application to be stored. Then in the terminal run the command:
 
 ```bash
 yarn create-react-app eth-hooks-tutorial --template typescript
@@ -93,7 +93,7 @@ React.DOM.render(
 
 That's it. Now you can use context throughout your app.
 
-### Build your component
+### 🚩 Build your component
 
 Let's replace the create-react-app startup page. We will build a new component and show it on `localhost:3000`.
 
@@ -124,7 +124,7 @@ Now we need to set up a static connection to the Ethereum network. In your `appC
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 ```
 
-Here's how we'll setup the static provider from the [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) RPC.
+Here's how we'll set up the static provider from the [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) RPC.
 
 ```typescript
 export const mainnetScaffoldEthProvider = new StaticJsonRpcProvider('https://rpc.scaffoldeth.io:48544');
@@ -140,11 +140,11 @@ Now, let's go back into our `Main.tsx` file and import the RPC:
 import { mainnetScaffoldEthProvider } from '../config/appConfig';
 ```
 
-_What should we do next?_
+### 🚩 Get an Ethereum balance
 
 Let's do something simple, but also useful.
 
-Let's get the balance from a given Ethereum address and show it on our frontend (if you build Dapps, you'll be doing this all the time!)
+**Let's get the balance from a given Ethereum address and show it on our frontend (if you build Dapps, you'll be doing this all the time!)**
 
 We're going to need to import our first `eth-hook`:
 
@@ -234,7 +234,7 @@ export const Main: FC = () => {
 };
 ```
 
-### Render your component
+### 🚩 Render your component
 
 Now, let's go back into our `App.tsx` file and import `Main.tsx`:
 
@@ -257,6 +257,6 @@ function App() {
 export default App;
 ```
 
-Now checkout your startup page at `localhost:3000`.
+Now checkout your frontend at `localhost:3000`.
 
-Cool! You made it 🙌
+Awesome work! You made it 🙌

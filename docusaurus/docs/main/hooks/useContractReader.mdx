@@ -1,0 +1,24 @@
+# useContractReader
+
+Call external functions.
+
+## How to import
+
+```typescript
+import { useContractReader } from 'eth-hooks';
+```
+
+## How to use
+
+```typescript
+const myMainnetDAIBalance = useContractReader(mainnetDai, mainnetDai?.balanceOf, [myAddress ?? '']);
+```
+
+Use with the `useSignerAddress` hook to read your DAI balance from the blockchain:
+
+```typescript
+const [myAddress] = useSignerAddress(ethersContext.signer);
+const myMainnetDAIBalance = useContractReader(mainnetDai, mainnetDai?.balanceOf, [myAddress ?? '']);
+```
+
+[Go here for this hooks full API documentation](../../api/modules/Hooks#usecontractreader).
