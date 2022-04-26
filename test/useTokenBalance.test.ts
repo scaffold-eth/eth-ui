@@ -9,6 +9,7 @@ import * as hookHelpers from '~~/functions/hookHelpers';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
 import { expectValidWallets, shouldFailWithMessage } from '~~/helpers/test-utils/functions';
+import { waitForExpect } from '~~/helpers/test-utils/functions/mochaHelpers';
 import { getTestSigners, hookTestWrapper, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper';
 import { useTokenBalance } from '~~/hooks/erc';
 
@@ -100,11 +101,11 @@ describe('useTokenBalance', function () {
 
       // ::When::
       wrapper.rerender(wallet.address);
-      await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-
       // ::Then::
-      const [result] = wrapper.result.current;
-      expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
+      await waitForExpect(() => {
+        const [result] = wrapper.result.current;
+        expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
+      }, defaultBlockWaitOptions);
     });
 
     it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
