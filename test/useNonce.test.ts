@@ -1,11 +1,11 @@
+import 'test/helpers/chai-imports';
 import { expect } from 'chai';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { expectValidWallets, fromEther } from '~~/helpers/test-utils/functions';
+import { waitForExpect } from '~~/helpers/test-utils/functions/mochaHelpers';
 import { useNonce } from '~~/hooks';
-
-import 'test/helpers/chai-imports';
 
 describe('useNonce', function () {
   it('When an wallet performs an action; then it increments the nonce of the address', async () => {
@@ -13,9 +13,11 @@ describe('useNonce', function () {
     const [wallet, secondWallet] = wrapper.mockProvider.getWallets();
     wrapper.rerender(wallet.address);
 
-    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-    const [oldNonce] = wrapper.result.current;
-    expect(oldNonce).be.greaterThanOrEqual(0);
+    let [oldNonce] = wrapper.result.current;
+    await waitForExpect(() => {
+      [oldNonce] = wrapper.result.current;
+      expect(oldNonce).be.greaterThanOrEqual(0);
+    }, defaultBlockWaitOptions);
 
     expectValidWallets(wallet, secondWallet);
     await wallet.sendTransaction({
@@ -24,8 +26,9 @@ describe('useNonce', function () {
       value: fromEther(0.1),
     });
 
-    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-    const [newNonce] = wrapper.result.current;
-    expect(newNonce).be.equal(oldNonce + 1);
+    await waitForExpect(() => {
+      const [newNonce] = wrapper.result.current;
+      expect(newNonce).be.equal(oldNonce + 1);
+    }, defaultBlockWaitOptions);
   });
 });

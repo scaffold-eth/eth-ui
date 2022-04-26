@@ -11,6 +11,7 @@ import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock, mineBlockUntil, setAutoMine } from '~~/helpers/test-utils/eth';
 import { shouldFailWithMessage } from '~~/helpers/test-utils/functions';
+import { waitForExpect } from '~~/helpers/test-utils/functions/mochaHelpers';
 import { getTestSigners } from '~~/helpers/test-utils/wrapper';
 import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useContractReader } from '~~/hooks';
@@ -46,31 +47,24 @@ describe('useContractReader', function () {
     describe('Given the setPurpose is called and set with a new value', () => {
       it('When the hook is invoked after setPurpose calls; then it returns the result of the contract call', async () => {
         const wrapper = await hookTestWrapper(() => useContractReader(yourContract, yourContract?.purpose));
-        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
 
         const firstPurpose = 'purpose 1';
         await yourContract?.setPurpose(firstPurpose);
-        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-        expect(wrapper.result.current[0]).to.eql(firstPurpose);
+        await waitForExpect(() => expect(wrapper.result.current[0]).to.eql(firstPurpose), defaultBlockWaitOptions);
 
         const secondPurpose = 'purpose 2';
         await yourContract?.setPurpose(secondPurpose);
-        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-        expect(wrapper.result.current[0]).to.eql(secondPurpose);
+        await waitForExpect(() => expect(wrapper.result.current[0]).to.eql(secondPurpose), defaultBlockWaitOptions);
       });
 
       it('When the hook is invoked after multiple setPurpose calls; then it returns the last result of the contract', async () => {
         const wrapper = await hookTestWrapper(() => useContractReader(yourContract, yourContract?.purpose));
-        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
 
         await yourContract?.setPurpose('purpose 1');
         await yourContract?.setPurpose('purpose 2');
-        await yourContract?.setPurpose('purpose 3');
         const finalPurpose = 'purpose final';
         await yourContract?.setPurpose(finalPurpose);
-        await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-
-        expect(wrapper.result.current[0]).to.eql(finalPurpose);
+        await waitForExpect(() => expect(wrapper.result.current[0]).to.eql(finalPurpose), defaultBlockWaitOptions);
       });
 
       it('When given options of block number interval to update; then the hook only updates "once an interval" over multiple intervals', async () => {

@@ -1,12 +1,12 @@
+import 'test/helpers/chai-imports';
 import { expect } from 'chai';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants/testConstants';
 import { expectValidWallets } from '~~/helpers/test-utils/functions';
 import { fromEther } from '~~/helpers/test-utils/functions/conversions';
+import { waitForExpect } from '~~/helpers/test-utils/functions/mochaHelpers';
 import { useBalance } from '~~/hooks';
-
-import 'test/helpers/chai-imports';
 
 describe('useBalance', function () {
   it('When the hook is called; then it returns the initial balance', async () => {
@@ -40,10 +40,11 @@ describe('useBalance', function () {
 
     // ).to.changeEtherBalances([wallet], [fromEther(-1)]);
 
-    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
-    const newBalance = await wallet.getBalance();
-    const [result] = wrapper.result.current;
-    expect(result).to.equal(newBalance);
-    expect(result).not.to.equal(oldBalance);
+    await waitForExpect(async () => {
+      const newBalance = await wallet.getBalance();
+      const [result] = wrapper.result.current;
+      expect(result).to.equal(newBalance);
+      expect(result).not.to.equal(oldBalance);
+    }, defaultBlockWaitOptions);
   });
 });
