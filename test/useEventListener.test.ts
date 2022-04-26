@@ -10,6 +10,7 @@ import { getHardhatSigner } from '~~/helpers/test-utils/wrapper';
 import { currentTestBlockNumber, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useEventListener } from '~~/hooks';
 
+import 'test/helpers/chai-imports';
 describe('useEventListener', function () {
   describe('Given that a YourContract is deployed', () => {
     let yourContract: YourContract | undefined;

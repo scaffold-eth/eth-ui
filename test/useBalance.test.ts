@@ -6,6 +6,8 @@ import { expectValidWallets } from '~~/helpers/test-utils/functions';
 import { fromEther } from '~~/helpers/test-utils/functions/conversions';
 import { useBalance } from '~~/hooks';
 
+import 'test/helpers/chai-imports';
+
 describe('useBalance', function () {
   it('When the hook is called; then it returns the initial balance', async () => {
     const harness = await hookTestWrapper((address: string | undefined) => useBalance(address ?? ''));

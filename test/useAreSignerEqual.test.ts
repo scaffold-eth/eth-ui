@@ -5,6 +5,8 @@ import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { getHardhatSigner, hookTestWrapper } from '~~/helpers/test-utils/wrapper';
 import { TEthersSigner } from '~~/models';
 
+import 'test/helpers/chai-imports';
+
 type InputType = {
   signer1: TEthersSigner | undefined;
   signer2: TEthersSigner | undefined;

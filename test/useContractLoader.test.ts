@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { expect, use } from 'chai';
+import { expect } from 'chai';
 import { BaseContract, Signer } from 'ethers';
-import * as sinonChai from 'sinon-chai';
 import {
   mockExternalContractsForUseContractLoader as mockExternalContractsForLoader,
   mockHardhatBasicJson,
@@ -15,7 +14,7 @@ import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTes
 import { TContractLoaderConfig, useContractLoader } from '~~/hooks';
 import { TContractFunctionInfo } from '~~/models';
 
-use(sinonChai);
+import 'test/helpers/chai-imports';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const initalizeHook = async (config: TContractLoaderConfig) => {

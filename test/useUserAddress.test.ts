@@ -5,6 +5,7 @@ import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { useSignerAddress } from '~~/hooks';
 
+import 'test/helpers/chai-imports';
 describe('useUserAddress', function () {
   it('When an signer is provider; the hook returns the correct address', async () => {
     const wrapper = await hookTestWrapper((signer: Signer) => useSignerAddress(signer));

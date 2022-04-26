@@ -12,6 +12,8 @@ import { expectValidWallets, shouldFailWithMessage } from '~~/helpers/test-utils
 import { getHardhatSigner, hookTestWrapper, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper';
 import { useTokenBalance } from '~~/hooks/erc';
 
+import 'test/helpers/chai-imports';
+
 describe('useTokenBalance', function () {
   describe('Given ERC20 address is deployed', function () {
     let contractSigner: Signer;
