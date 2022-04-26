@@ -1,5 +1,4 @@
-import { expect, use } from 'chai';
-import * as sinonChai from 'sinon-chai';
+import { expect } from 'chai';
 
 import { useEthersContext } from '~~/context';
 import { hookTestWrapper } from '~~/helpers/test-utils';
@@ -7,7 +6,7 @@ import { const_DefaultTestChainId, defaultBlockWaitOptions } from '~~/helpers/te
 import { getHardhatAccount, MockConnector } from '~~/helpers/test-utils/wrapper';
 import { IEthersContext } from '~~/models';
 
-use(sinonChai);
+import 'test/helpers/chai-imports';
 
 const TestHook = (): IEthersContext => {
   return useEthersContext();

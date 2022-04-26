@@ -5,6 +5,8 @@ import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { expectValidWallets, fromEther } from '~~/helpers/test-utils/functions';
 import { useNonce } from '~~/hooks';
 
+import 'test/helpers/chai-imports';
+
 describe('useNonce', function () {
   it('When an wallet performs an action; then it increments the nonce of the address', async () => {
     const harness = await hookTestWrapper((address: string) => useNonce(address ?? ''));

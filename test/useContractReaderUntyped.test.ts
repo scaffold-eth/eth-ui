@@ -1,6 +1,5 @@
-import { expect, use } from 'chai';
+import { expect } from 'chai';
 import { Signer } from 'ethers';
-import * as sinonChai from 'sinon-chai';
 import { YourContract } from 'test-files/__mocks__/generated/contract-types';
 import { setupMockYourContract } from 'test-files/__mocks__/setupMockContracts';
 import sinon from 'ts-sinon';
@@ -12,7 +11,7 @@ import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTes
 import { useContractReaderUntyped } from '~~/hooks';
 import { TContractFunctionInfo } from '~~/models';
 
-use(sinonChai);
+import 'test/helpers/chai-imports';
 
 const initialPurpose = 'no purpose';
 

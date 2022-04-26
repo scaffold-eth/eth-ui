@@ -7,6 +7,8 @@ import { currentTestBlockNumber, wrapperTestSetupHelper } from '~~/helpers/test-
 import { useBlockNumber } from '~~/hooks';
 import { TEthersProvider } from '~~/models';
 
+import 'test/helpers/chai-imports';
+
 describe('useBlockNumber', function () {
   let provider: TEthersProvider;
   before(async () => {
