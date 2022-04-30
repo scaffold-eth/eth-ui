@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.2.5",
+  "version": "4.2.6",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
