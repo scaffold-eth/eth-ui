@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.2.2",
+  "version": "4.2.5",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
@@ -77,9 +77,9 @@
     "web3modal": "^1.9.7"
   },
   "peerDependencies": {
-    "@uniswap/sdk": "^3.0.3",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+    "@uniswap/sdk": "^3",
+    "react": ">=17",
+    "react-dom": ">=17"
   },
   "devDependencies": {
     "@atixlabs/hardhat-time-n-mine": "^0.0.5",

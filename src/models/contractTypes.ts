@@ -49,17 +49,15 @@ export type TExternalContractDataRecord = {
  */
 export type TDeployedHardhatContractsJson = {
   [chainId: string]: {
-    [networkName: string]: {
-      name: string;
-      chainId: string;
-      contracts: {
-        [contractName: string]: {
-          address: string;
-          abi?: any[];
-        };
+    name: string;
+    chainId: string;
+    contracts: {
+      [contractName: string]: {
+        address: string;
+        abi?: any[];
       };
     };
-  };
+  }[];
 };
 
 /**

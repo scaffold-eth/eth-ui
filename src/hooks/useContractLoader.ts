@@ -63,17 +63,13 @@ export const parseContractsInJson = (
   let combinedContracts: Record<string, TBasicContractData> = {};
 
   // combine partitioned contracts based on all the available and chain id.
-  if (contractList?.[chainId] != null) {
-    for (const network in contractList[chainId]) {
-      if (Object.prototype.hasOwnProperty.call(contractList[chainId], network)) {
-        const chainContracts = contractList?.[chainId]?.[network]?.contracts;
-        if (chainContracts != null) {
-          combinedContracts = {
-            ...combinedContracts,
-            ...chainContracts,
-          };
-        }
-      }
+  if (contractList?.[chainId]?.[0] != null) {
+    const chainContracts = contractList?.[chainId]?.[0]?.contracts;
+    if (chainContracts != null) {
+      combinedContracts = {
+        ...combinedContracts,
+        ...chainContracts,
+      };
     }
   }
 
