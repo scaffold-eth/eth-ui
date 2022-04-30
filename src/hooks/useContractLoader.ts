@@ -56,7 +56,7 @@ export type TContractLoaderConfig = {
   externalContracts?: TExternalContracts;
 };
 
-export const parseContractsInJson = (
+export const parseContractsInDeployedHardhatContractsJson = (
   contractList: THardhatDeployedContractsJson,
   chainId: number
 ): Record<string, TBasicContractData> => {
@@ -121,7 +121,10 @@ export const useContractLoader = (
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
-          let combinedContracts: Record<string, TBasicContractData> = parseContractsInJson(contractList, chainId);
+          let combinedContracts: Record<string, TBasicContractData> = parseContractsInDeployedHardhatContractsJson(
+            contractList,
+            chainId
+          );
 
           // load external contracts if its the right chain
           if (externalContractList?.[chainId] != null) {
