@@ -44,11 +44,11 @@ const themeConfig = {
           },
           {
             label: 'Quick start',
-            to: '/docs/guides/intro',
+            to: '/docs/main/guides/intro',
           },
           {
             label: 'API',
-            to: '/docs/api/',
+            to: '/docs/api/API Documentation',
           },
         ],
       },
