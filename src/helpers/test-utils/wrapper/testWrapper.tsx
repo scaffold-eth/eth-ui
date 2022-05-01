@@ -32,9 +32,11 @@ export const hookTestWrapper = async <TCallbackToHook extends (input: any) => an
     return mockConnector;
   };
 
-  const wrapper: FC<Parameters<TCallbackToHook>> = (props) => (
-    <TestAppWrapper createMockConnector={createMockConnector}>{props.children}</TestAppWrapper>
-  );
+  const wrapper: FC<
+    Parameters<TCallbackToHook> & {
+      children?: React.ReactNode;
+    }
+  > = (props) => <TestAppWrapper createMockConnector={createMockConnector}>{props.children}</TestAppWrapper>;
 
   const result = renderHook(callbackToHook, { wrapper });
   await waitForActivation(() => isActive(mockConnector));

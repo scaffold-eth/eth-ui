@@ -9,7 +9,8 @@ import * as hookHelpers from '~~/functions/hookHelpers';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
 import { expectValidWallets, shouldFailWithMessage } from '~~/helpers/test-utils/functions';
-import { getHardhatSigner, hookTestWrapper, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper';
+import { waitForExpect } from '~~/helpers/test-utils/functions/mochaHelpers';
+import { getTestSigners, hookTestWrapper, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper';
 import { useTokenBalance } from '~~/hooks/erc';
 
 import 'test/helpers/chai-imports';
@@ -21,8 +22,8 @@ describe('useTokenBalance', function () {
     let sandbox: sinon.SinonSandbox;
 
     beforeEach(async () => {
-      const harness = await wrapperTestSetupHelper();
-      contractSigner = await getHardhatSigner(harness.mockProvider, 1);
+      const wrapper = await wrapperTestSetupHelper();
+      contractSigner = (await getTestSigners(wrapper.mockProvider)).user1;
       basicERC20Contract = await setupMockBasicERC20Contract(contractSigner);
     });
 
@@ -32,24 +33,24 @@ describe('useTokenBalance', function () {
 
     it(`When the hook is called; then returns address's balance of given ERC20 token`, async () => {
       // ::Given::
-      const harness = await hookTestWrapper((address: string) => useTokenBalance(basicERC20Contract, address));
-      const [wallet] = harness.mockProvider.getWallets();
+      const wrapper = await hookTestWrapper((address: string) => useTokenBalance(basicERC20Contract, address));
+      const [wallet] = wrapper.mockProvider.getWallets();
       expectValidWallets(wallet);
 
       // ::When::
-      harness.rerender(wallet.address);
-      await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+      wrapper.rerender(wallet.address);
+      await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
 
       // ::Then::
-      const [result] = harness.result.current;
+      const [result] = wrapper.result.current;
       expect(result).be.equal(0);
     });
 
     it('When wallet balances changes; then the hook returns the new balance', async () => {
       // ::Given::
       const amountOfTokensTransferringToWallet = 200;
-      const harness = await hookTestWrapper((address: string) => useTokenBalance(basicERC20Contract, address));
-      const [wallet, walletOfERC20TokenSigner] = harness.mockProvider.getWallets();
+      const wrapper = await hookTestWrapper((address: string) => useTokenBalance(basicERC20Contract, address));
+      const [wallet, walletOfERC20TokenSigner] = wrapper.mockProvider.getWallets();
       expectValidWallets(wallet, walletOfERC20TokenSigner);
       await basicERC20Contract.transfer(wallet.address, amountOfTokensTransferringToWallet, {
         from: walletOfERC20TokenSigner.address,
@@ -57,11 +58,11 @@ describe('useTokenBalance', function () {
       const walletsBalanceAfterTransfer = await basicERC20Contract.balanceOf(wallet.address);
 
       // ::When::
-      harness.rerender(wallet.address);
-      await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+      wrapper.rerender(wallet.address);
+      await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
 
       // ::Then::
-      const [result] = harness.result.current;
+      const [result] = wrapper.result.current;
       expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
     });
 
@@ -70,41 +71,41 @@ describe('useTokenBalance', function () {
       const initialAmountOfTokensInWallet = 0;
       const amountOfTokensTransferringToWallet = 150;
       const blockIntervalToUpdate = 7;
-      const harness = await hookTestWrapper((address: string) =>
+      const wrapper = await hookTestWrapper((address: string) =>
         useTokenBalance(basicERC20Contract, address, { blockNumberInterval: blockIntervalToUpdate })
       );
-      const [wallet, walletOfERC20TokenSigner] = harness.mockProvider.getWallets();
+      const [wallet, walletOfERC20TokenSigner] = wrapper.mockProvider.getWallets();
       expectValidWallets(wallet, walletOfERC20TokenSigner);
       // start with 0 from useTokenBalance
-      harness.rerender(wallet.address);
-      await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-      expect(harness.result.current[0]).be.equal(initialAmountOfTokensInWallet); // Just ensures test is set up correctly
+      wrapper.rerender(wallet.address);
+      await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+      expect(wrapper.result.current[0]).be.equal(initialAmountOfTokensInWallet); // Just ensures test is set up correctly
       await basicERC20Contract.transfer(wallet.address, amountOfTokensTransferringToWallet, {
         from: walletOfERC20TokenSigner.address,
       });
       const walletsBalanceAfterTransfer = await basicERC20Contract.balanceOf(wallet.address);
       // mine blocks up to block when update should occur
-      let currentBlockNumber = await harness.mockProvider.getBlockNumber();
+      let currentBlockNumber = await wrapper.mockProvider.getBlockNumber();
       while (currentBlockNumber % blockIntervalToUpdate !== 0) {
-        await mineBlock(harness.mockProvider);
-        currentBlockNumber = await harness.mockProvider.getBlockNumber();
-        harness.rerender(wallet.address);
-        await harness.waitForNextUpdate(defaultBlockWaitOptions);
+        await mineBlock(wrapper.mockProvider);
+        currentBlockNumber = await wrapper.mockProvider.getBlockNumber();
+        wrapper.rerender(wallet.address);
+        await wrapper.waitForNextUpdate(defaultBlockWaitOptions);
 
         // ensures no update before correct block
-        expect(harness.result.current[0]).be.equal(initialAmountOfTokensInWallet);
+        expect(wrapper.result.current[0]).be.equal(initialAmountOfTokensInWallet);
       }
 
       // mine final block
-      await mineBlock(harness.mockProvider);
+      await mineBlock(wrapper.mockProvider);
 
       // ::When::
-      harness.rerender(wallet.address);
-      await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-
+      wrapper.rerender(wallet.address);
       // ::Then::
-      const [result] = harness.result.current;
-      expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
+      await waitForExpect(() => {
+        const [result] = wrapper.result.current;
+        expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
+      }, defaultBlockWaitOptions);
     });
 
     it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
@@ -119,35 +120,35 @@ describe('useTokenBalance', function () {
         refetchInterval: 2_000, // Note this is below 10_000 limit just for testing
         blockNumberInterval: undefined,
       };
-      const harness = await hookTestWrapper((address: string) =>
+      const wrapper = await hookTestWrapper((address: string) =>
         useTokenBalance(basicERC20Contract, address, updateOptions)
       );
-      const [wallet, walletOfERC20TokenSigner] = harness.mockProvider.getWallets();
+      const [wallet, walletOfERC20TokenSigner] = wrapper.mockProvider.getWallets();
       expectValidWallets(wallet, walletOfERC20TokenSigner);
       await basicERC20Contract.transfer(wallet.address, amountOfTokensTransferringToWallet, {
         from: walletOfERC20TokenSigner.address,
       });
       const walletsBalanceAfterTransfer = await basicERC20Contract.balanceOf(wallet.address);
       // ensure mining block doesn't trigger update
-      await mineBlock(harness.mockProvider);
+      await mineBlock(wrapper.mockProvider);
       // ensure doesn't update before refetchInterval time
       try {
-        await harness.waitForValueToChange(() => harness.result.current[0], {
+        await wrapper.waitForValueToChange(() => wrapper.result.current[0], {
           timeout: updateOptions.refetchInterval - 100,
           interval: 200,
         });
         expect.fail();
       } catch (e: any) {
         expect(e.message).contain('Timed out');
-        expect(harness.result.current[0]).be.equal(initialAmountOfTokensInWallet);
+        expect(wrapper.result.current[0]).be.equal(initialAmountOfTokensInWallet);
       }
 
       // ::When::
-      harness.rerender(wallet.address);
-      await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+      wrapper.rerender(wallet.address);
+      await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
 
       // ::Then::
-      const [result] = harness.result.current;
+      const [result] = wrapper.result.current;
       expect(result).be.equal(walletsBalanceAfterTransfer).be.equal(amountOfTokensTransferringToWallet);
     });
 
@@ -157,12 +158,12 @@ describe('useTokenBalance', function () {
         refetchInterval: 11_000,
         blockNumberInterval: 5,
       };
-      const harness = await hookTestWrapper((address: string) =>
+      const wrapper = await hookTestWrapper((address: string) =>
         useTokenBalance(basicERC20Contract, address, updateOptions)
       );
 
       await shouldFailWithMessage(
-        async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+        async () => await wrapper.waitForValueToChange(() => wrapper.result.current, defaultBlockWaitOptions),
         'You cannot use both refetchInterval (polling) and blockNumberInterval at the same time'
       );
     });
@@ -173,12 +174,12 @@ describe('useTokenBalance', function () {
         refetchInterval: 2_000,
         blockNumberInterval: undefined,
       };
-      const harness = await hookTestWrapper((address: string) =>
+      const wrapper = await hookTestWrapper((address: string) =>
         useTokenBalance(basicERC20Contract, address, updateOptions)
       );
 
       await shouldFailWithMessage(
-        async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+        async () => await wrapper.waitForValueToChange(() => wrapper.result.current, defaultBlockWaitOptions),
         'Invalid refetchInterval (polling), must be at least 10000ms or undefined (disabled)'
       );
     });
@@ -188,12 +189,12 @@ describe('useTokenBalance', function () {
       const updateOptions = {
         blockNumberInterval: 0,
       };
-      const harness = await hookTestWrapper((address: string) =>
+      const wrapper = await hookTestWrapper((address: string) =>
         useTokenBalance(basicERC20Contract, address, updateOptions)
       );
 
       await shouldFailWithMessage(
-        async () => await harness.waitForValueToChange(() => harness.result.current, defaultBlockWaitOptions),
+        async () => await wrapper.waitForValueToChange(() => wrapper.result.current, defaultBlockWaitOptions),
         'Invalid blockNumberInterval, must be greater than 0'
       );
     });

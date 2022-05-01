@@ -99,6 +99,7 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
  * - allows you to use your own QueryClientProvider
  */
 export type TEthersAppContextProps = {
+  children?: React.ReactNode;
   /**
    * Props for context that allow you specify alternate web3ReactRoot [See docs](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs#createweb3reactroot).  You must provide both an alternate key and its root.
    */

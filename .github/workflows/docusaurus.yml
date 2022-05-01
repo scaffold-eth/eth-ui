@@ -35,7 +35,7 @@ jobs:
       - run: yarn install --immutable
       - name: Generate api documentation
         run: |
-          yarn hh:compile
+          yarn hardhat:compile
           yarn docs:api
 
       - name: Build Docusaurus website

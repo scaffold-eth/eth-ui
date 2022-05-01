@@ -4,6 +4,7 @@ import { EthersAppContext, useEthersContext } from '~~/context';
 import { TCreateEthersModalConnector } from '~~/models/ethersAppContextTypes';
 
 interface IMockProps {
+  children?: React.ReactNode;
   createMockConnector: TCreateEthersModalConnector;
   contractContext?: FC;
 }

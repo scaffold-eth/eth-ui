@@ -9,30 +9,30 @@ import { useTimestamp } from '~~/hooks';
 import 'test/helpers/chai-imports';
 
 const expectTimestamp = async (
-  harness: TTestHookResult<() => [timestamp: number, update: () => void, status: QueryStatus]>
+  wrapper: TTestHookResult<() => [timestamp: number, update: () => void, status: QueryStatus]>
 ): Promise<number> => {
-  const blockNumber = await harness.mockProvider.getBlockNumber();
+  const blockNumber = await wrapper.mockProvider.getBlockNumber();
   expect(blockNumber).to.exist;
-  const timestamp = (await harness.mockProvider.getBlock(blockNumber)).timestamp;
+  const timestamp = (await wrapper.mockProvider.getBlock(blockNumber)).timestamp;
   expect(timestamp).be.greaterThan(0);
   return timestamp;
 };
 
 describe('useTimestamp', function () {
   it('When the hook is called; then it returns the current block timestamp', async () => {
-    const harness = await hookTestWrapper(() => useTimestamp());
-    await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
+    const wrapper = await hookTestWrapper(() => useTimestamp());
+    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
 
-    const timestamp1 = await expectTimestamp(harness);
-    const [result1] = harness.result.current;
+    const timestamp1 = await expectTimestamp(wrapper);
+    const [result1] = wrapper.result.current;
     expect(result1).be.equal(timestamp1);
 
     // mine another block
-    await mineBlock(harness.mockProvider);
+    await mineBlock(wrapper.mockProvider);
 
-    await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-    const timestamp2 = await expectTimestamp(harness);
-    const [result2] = harness.result.current;
+    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+    const timestamp2 = await expectTimestamp(wrapper);
+    const [result2] = wrapper.result.current;
     expect(result2).be.equal(timestamp2);
   });
 });
