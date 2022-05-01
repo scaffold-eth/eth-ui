@@ -1,4 +1,4 @@
-One sentence description
+Get the price of Gas from EtherGasStation ⛽️
 
 ## How to import
 
@@ -9,5 +9,9 @@ import { useGasPrice } from 'eth-hooks';
 ## How to use
 
 To get started:
+
+```typescript
+const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast', getNetworkInfo(ethersContext.chainId));
+```
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#usegasprice).
