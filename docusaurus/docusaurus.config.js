@@ -22,12 +22,6 @@ const themeConfig = {
       {
         type: 'docSidebar',
         position: 'left',
-        sidebarId: 'guides',
-        label: 'Guides',
-      },
-      {
-        type: 'docSidebar',
-        position: 'left',
         sidebarId: 'api',
         label: 'API',
       },
