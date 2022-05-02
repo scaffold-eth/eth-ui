@@ -1,7 +1,7 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { IAbstractConnectorOptions } from 'web3modal';
 
-import { NoStaticJsonRPCProviderFound } from '~~/context/ethers/connectors/connectorErrors';
+import { NoStaticJsonRPCProviderFoundError } from '~~/context/ethers/connectors/connectorErrors';
 
 /**
  * #### Summary
@@ -44,6 +44,6 @@ export const ConnectToStaticJsonRpcProvider = async (
     }
     return provider;
   } catch (e) {
-    throw new NoStaticJsonRPCProviderFound(e);
+    throw new NoStaticJsonRPCProviderFoundError(e);
   }
 };

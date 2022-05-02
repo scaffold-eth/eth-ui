@@ -8,9 +8,13 @@ import { default as Web3Modal, ICoreOptions, ThemeColors } from 'web3modal';
 import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 
 import { isEthersProvider } from '~~/functions/ethersHelpers';
-import { NoEthereumProviderFoundError, NoStaticJsonRPCProviderFound } from '~~/helpers/typedoc/context.docs';
+import {
+  connectorErrorText,
+  NoEthereumProviderFoundError,
+  NoStaticJsonRPCProviderFoundError,
+} from '~~/helpers/typedoc/context.docs';
 import { TEthersProvider } from '~~/models';
-import { const_web3DialogClosedByUser } from '~~/models/constants/common';
+import { const_web3DialogClosedByUser, const_web3DialogUserRejected } from '~~/models/constants/common';
 
 type TEthersModalConfig = {
   /**
@@ -219,18 +223,21 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
       /* eslint-enable */
     } catch (error) {
       this.resetModal();
-      if (typeof error === 'string' && error?.includes(const_web3DialogClosedByUser)) {
+      if (
+        typeof error === 'string' &&
+        (error?.includes(const_web3DialogClosedByUser) || error?.includes(const_web3DialogUserRejected))
+      ) {
         invariant.log(error);
         this.deactivate();
         throw new UserClosedModalError();
-      } else if (error instanceof NoStaticJsonRPCProviderFound) {
-        invariant.error('EthersModalConnector: Could not find a static json-rpc provider.  Is it running?');
+      } else if (error instanceof NoStaticJsonRPCProviderFoundError) {
+        invariant.warn(`EthersModalConnector: ${connectorErrorText.NoStaticJsonRPCProviderFoundError}`);
         throw error;
       } else if (error instanceof NoEthereumProviderFoundError) {
-        invariant.error('EthersModalConnector: No ethereum provider found');
+        invariant.warn(`EthersModalConnector: ${connectorErrorText.NoEthereumProviderFoundError}`);
         throw error;
       } else {
-        invariant.error('EthersModalConnector: Could not activate provider', error, this._providerBase);
+        invariant.warn(`EthersModalConnector: ${connectorErrorText.CouldNotActivateError}`, error, this._providerBase);
         throw new CouldNotActivateError(error);
       }
     }
