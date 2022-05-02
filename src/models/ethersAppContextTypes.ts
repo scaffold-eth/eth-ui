@@ -34,8 +34,11 @@ export interface IEthersContext extends Web3ReactContextInterface<TEthersProvide
   account: string | undefined;
   chainId: number | undefined;
   changeSigner: ((signer: Signer) => Promise<void>) | undefined;
-  openModal: (ethersModalConnector: TEthersModalConnector) => void;
-  disconnectModal: () => void;
+  /**
+   * Open web3 modal for login
+   */
+  openModal: (ethersModalConnector: TEthersModalConnector, onError?: (error: Error) => void) => void;
+  disconnectModal: (onSuccess?: () => void) => void;
   setModalTheme: ((theme: 'light' | 'dark') => void) | undefined;
 }
 

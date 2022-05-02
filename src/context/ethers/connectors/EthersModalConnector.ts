@@ -2,11 +2,13 @@ import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer, utils } from 'ethers';
+import { invariant } from 'ts-invariant';
 import { default as Web3Modal, ICoreOptions, ThemeColors } from 'web3modal';
 
 import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 
 import { isEthersProvider } from '~~/functions/ethersHelpers';
+import { NoEthereumProviderFoundError, NoStaticJsonRPCProviderFound } from '~~/helpers/typedoc/context.docs';
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser } from '~~/models/constants/common';
 
@@ -218,11 +220,17 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     } catch (error) {
       this.resetModal();
       if (typeof error === 'string' && error?.includes(const_web3DialogClosedByUser)) {
-        console.log(error);
+        invariant.log(error);
         this.deactivate();
         throw new UserClosedModalError();
+      } else if (error instanceof NoStaticJsonRPCProviderFound) {
+        invariant.error('EthersModalConnector: Could not find a static json-rpc provider.  Is it running?');
+        throw error;
+      } else if (error instanceof NoEthereumProviderFoundError) {
+        invariant.error('EthersModalConnector: No ethereum provider found');
+        throw error;
       } else {
-        console.error('EthersModalConnector: Could not activate provider', error, this._providerBase);
+        invariant.error('EthersModalConnector: Could not activate provider', error, this._providerBase);
         throw new CouldNotActivateError(error);
       }
     }

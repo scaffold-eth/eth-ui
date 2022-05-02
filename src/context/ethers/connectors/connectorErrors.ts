@@ -30,3 +30,14 @@ export class NoEthereumProviderFoundError extends Error {
     this.message = `EthersModalConnector: No ethereum provider Found.`;
   }
 }
+
+/**
+ * @category EthersContext
+ */
+export class NoStaticJsonRPCProviderFound extends Error {
+  public constructor(error: unknown) {
+    super();
+    this.name = this.constructor.name;
+    this.message = `EthersModalConnector: No StaticJsonRpcProvider found.   ${(error as string) ?? ''}`;
+  }
+}
