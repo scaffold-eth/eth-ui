@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { useEthersContext } from '~~/context';
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { const_DefaultTestChainId, defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
-import { getHardhatAccount, MockConnector } from '~~/helpers/test-utils/wrapper';
+import { getTestSigners, MockConnector } from '~~/helpers/test-utils/wrapper';
 import { IEthersContext } from '~~/models';
 
 import 'test/helpers/chai-imports';
@@ -16,8 +16,8 @@ describe('EthersAppContext', function () {
   describe('useEthersContext', function () {
     describe('Give that ethersContext is initalized', function () {
       it('When context is loaded; then it provides an initalized IEthersContext', async () => {
-        const harness = await hookTestWrapper(() => TestHook());
-        const context = harness.result.current;
+        const wrapper = await hookTestWrapper(() => TestHook());
+        const context = wrapper.result.current;
         // signer and network data
         expect(context.connector).to.exist;
         expect(context.library).to.exist;
@@ -44,55 +44,54 @@ describe('EthersAppContext', function () {
       });
 
       it('When openModal is called; then the old connector is deactivated and new connector is activated', async () => {
-        const harness = await hookTestWrapper(() => TestHook());
-        const firstContext = harness.result.current;
+        const wrapper = await hookTestWrapper(() => TestHook());
+        const firstContext = wrapper.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
         // open the modal
-        firstContext.openModal(new MockConnector(harness.mockProvider));
-        await harness.waitForNextUpdate(defaultBlockWaitOptions);
+        firstContext.openModal(new MockConnector(wrapper.mockProvider));
+        await wrapper.waitForNextUpdate(defaultBlockWaitOptions);
 
         expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.to.be.greaterThanOrEqual(1);
 
-        const secondContext = harness.result.current;
+        const secondContext = wrapper.result.current;
         expect((secondContext.connector as MockConnector).spyActivate).to.be.calledOnce;
         expect(secondContext.active).to.be.true;
       });
 
       it('When activate is called; then the old connector is deactivated and new connector is activated', async () => {
-        const harness = await hookTestWrapper(() => TestHook());
-        const firstContext = harness.result.current;
+        const wrapper = await hookTestWrapper(() => TestHook());
+        const firstContext = wrapper.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
         // open the modal
-        await firstContext.activate(new MockConnector(harness.mockProvider));
+        await firstContext.activate(new MockConnector(wrapper.mockProvider));
 
         expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.to.be.greaterThanOrEqual(1);
 
-        const secondContext = harness.result.current;
+        const secondContext = wrapper.result.current;
         expect((secondContext.connector as MockConnector).spyActivate).to.be.calledOnce;
         expect(secondContext.active).to.be.true;
       });
 
       it('When disconnectModal is called; then the connector is deactivated', async () => {
-        const harness = await hookTestWrapper(() => TestHook());
-        const firstContext = harness.result.current;
+        const wrappper = await hookTestWrapper(() => TestHook());
+        const firstContext = wrappper.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
         // open the modal
         firstContext.disconnectModal();
 
         expect((firstContext.connector as MockConnector).spyDeactivate.getCalls()).length.be.greaterThanOrEqual(1);
-        expect(harness.result.current.active).to.be.false;
+        expect(wrappper.result.current.active).to.be.false;
       });
 
       it('When changeSigner is called; then the connector.changeSigner is called once', async () => {
-        const harness = await hookTestWrapper(() => TestHook());
-        const firstContext = harness.result.current;
+        const wrapper = await hookTestWrapper(() => TestHook());
+        const firstContext = wrapper.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
-        const newAccount = await getHardhatAccount(harness.mockProvider, 2);
-        const newSigner = firstContext.provider!.getSigner(newAccount);
+        const newSigner = (await getTestSigners(wrapper.mockProvider)).user2;
         expect(newSigner).to.exist;
         await firstContext.changeSigner?.(newSigner);
 
@@ -101,8 +100,8 @@ describe('EthersAppContext', function () {
       });
 
       it('When setModalTheme is invoked with `dark`; then the connector.setModalTheme is called once with same value', async () => {
-        const harness = await hookTestWrapper(() => TestHook());
-        const firstContext = harness.result.current;
+        const wrapper = await hookTestWrapper(() => TestHook());
+        const firstContext = wrapper.result.current;
         expect(firstContext.chainId).to.equal(const_DefaultTestChainId);
 
         firstContext.setModalTheme?.('dark');

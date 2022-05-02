@@ -4,6 +4,8 @@ import { useDebounce } from 'use-debounce';
 
 import { TEthersProvider } from '~~/models';
 
+const storageKey = 'scaffold-eth-burner-privateKey';
+
 /**
  * Is the private key valid
  * @internal
@@ -23,12 +25,12 @@ const saveBurnerKeyToStorage = (incomingPK: BytesLike): void => {
   if (isValidPk(incomingPK)) {
     const rawPK = incomingPK;
     window.history.pushState({}, '', '/');
-    const currentPrivateKey = window.localStorage.getItem('metaPrivateKey');
+    const currentPrivateKey = window.localStorage.getItem(storageKey);
     if (currentPrivateKey && currentPrivateKey !== rawPK) {
-      window.localStorage.setItem(`metaPrivateKey_backup${Date.now()}`, currentPrivateKey);
+      window.localStorage.setItem(`${storageKey}_backup${Date.now()}`, currentPrivateKey);
       console.log('🔑 ...Saved Private Key');
     }
-    window.localStorage.setItem('metaPrivateKey', rawPK.toString());
+    window.localStorage.setItem(`${storageKey}`, rawPK.toString());
   }
 };
 
@@ -38,7 +40,7 @@ const saveBurnerKeyToStorage = (incomingPK: BytesLike): void => {
  * @returns
  */
 const loadBurnerKeyFromStorage = (): string | null => {
-  const currentPrivateKey = window.localStorage.getItem('metaPrivateKey');
+  const currentPrivateKey = window.localStorage.getItem(storageKey);
   return currentPrivateKey;
 };
 
@@ -85,7 +87,6 @@ export type TBurnerSigner = {
  * @returns IBurnerSigner
  */
 export const useBurnerSigner = (localProvider: TEthersProvider | undefined): TBurnerSigner => {
-  const key = 'scaffold-eth-burner-privateKey';
   const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
   const walletRef = useRef<Wallet>();
   const creatingBurnerRef = useRef(false);
@@ -95,14 +96,14 @@ export const useBurnerSigner = (localProvider: TEthersProvider | undefined): TBu
   const setValue = (value: string): void => {
     try {
       setPrivateKey(value);
-      window.localStorage.setItem(key, value);
+      window.localStorage.setItem(storageKey, value);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    const storedKey = window.localStorage.getItem(key);
+    const storedKey = window.localStorage.getItem(storageKey);
     if (!storedKey) {
       console.log('generating a new key');
       const newWallet = ethers.Wallet.createRandom();
