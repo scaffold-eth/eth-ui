@@ -44,8 +44,8 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
   }
   const ethersConnector = connector as EthersModalConnector;
 
-  const openWeb3Modal = useCallback(
-    (ethersModalConnector: TEthersModalConnector | undefined) => {
+  const openModal = useCallback<IEthersContext['openModal']>(
+    (ethersModalConnector: TEthersModalConnector | undefined, onError?: (error: Error) => void) => {
       if (context.active) {
         deactivate();
       }
@@ -54,22 +54,27 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
         invariant.error('A valid ethersModalConnector was not provided');
       }
       if (ethersModalConnector != null) {
-        const onError = (error: Error): void => {
+        const onActivateError = (error: Error): void => {
           try {
             connector?.deactivate?.();
             console.warn(error);
+            onError?.(error);
           } catch {}
         };
-        void activate(ethersModalConnector, onError).catch(onError);
+        void activate(ethersModalConnector, onActivateError);
       }
     },
     [context.active, deactivate, activate, connector]
   );
 
-  const disconnectModal = useCallback(() => {
-    ethersConnector.resetModal();
-    deactivate();
-  }, [deactivate, ethersConnector]);
+  const disconnectModal = useCallback<IEthersContext['disconnectModal']>(
+    (onSuccess?: () => void) => {
+      ethersConnector.resetModal();
+      deactivate();
+      onSuccess?.();
+    },
+    [deactivate, ethersConnector]
+  );
 
   const result: IEthersContext = {
     connector: ethersConnector,
@@ -81,8 +86,8 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
     signer: ethersConnector?.getSigner(),
     chainId,
     changeSigner: ethersConnector?.changeSigner.bind(ethersConnector),
-    openModal: openWeb3Modal,
-    disconnectModal: disconnectModal,
+    openModal,
+    disconnectModal,
     setModalTheme: ethersConnector?.setModalTheme.bind(ethersConnector),
     ...context,
   };
@@ -197,7 +202,7 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
 
   if (props.disableQueryClientRoot) {
     return element;
+  } else {
+    return <QueryClientProvider client={ethersAppQueryClient}>{element}</QueryClientProvider>;
   }
-
-  return <QueryClientProvider client={ethersAppQueryClient}>{element}</QueryClientProvider>;
 };

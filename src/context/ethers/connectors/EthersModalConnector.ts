@@ -2,13 +2,19 @@ import { Web3Provider } from '@ethersproject/providers';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer, utils } from 'ethers';
+import { invariant } from 'ts-invariant';
 import { default as Web3Modal, ICoreOptions, ThemeColors } from 'web3modal';
 
 import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 
 import { isEthersProvider } from '~~/functions/ethersHelpers';
+import {
+  connectorErrorText,
+  NoEthereumProviderFoundError,
+  NoStaticJsonRPCProviderFoundError,
+} from '~~/helpers/typedoc/context.docs';
 import { TEthersProvider } from '~~/models';
-import { const_web3DialogClosedByUser } from '~~/models/constants/common';
+import { const_web3DialogClosedByUser, const_web3DialogUserRejected } from '~~/models/constants/common';
 
 type TEthersModalConfig = {
   /**
@@ -217,12 +223,21 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
       /* eslint-enable */
     } catch (error) {
       this.resetModal();
-      if (typeof error === 'string' && error?.includes(const_web3DialogClosedByUser)) {
-        console.log(error);
+      if (
+        typeof error === 'string' &&
+        (error?.includes(const_web3DialogClosedByUser) || error?.includes(const_web3DialogUserRejected))
+      ) {
+        invariant.log(error);
         this.deactivate();
         throw new UserClosedModalError();
+      } else if (error instanceof NoStaticJsonRPCProviderFoundError) {
+        invariant.warn(`EthersModalConnector: ${connectorErrorText.NoStaticJsonRPCProviderFoundError}`);
+        throw error;
+      } else if (error instanceof NoEthereumProviderFoundError) {
+        invariant.warn(`EthersModalConnector: ${connectorErrorText.NoEthereumProviderFoundError}`);
+        throw error;
       } else {
-        console.error('EthersModalConnector: Could not activate provider', error, this._providerBase);
+        invariant.warn(`EthersModalConnector: ${connectorErrorText.CouldNotActivateError}`, error, this._providerBase);
         throw new CouldNotActivateError(error);
       }
     }
