@@ -1,5 +1,4 @@
 import { TokenInfo, TokenList } from '@uniswap/token-lists';
-import axios from 'axios';
 import isEqual from 'lodash.isequal';
 import { useQuery } from 'react-query';
 
@@ -35,14 +34,15 @@ export const useDexTokenList = (
     async (keys): Promise<TokenInfo[]> => {
       const { tokenListUri, chainId } = keys.queryKey[1];
       let tokenInfo: TokenInfo[] = [];
-      const tokenListResp: TokenList = (await axios(tokenListUri)).data as TokenList;
-      if (tokenListResp != null) {
+      const response = await fetch(tokenListUri);
+      const tokenList: TokenList = (await response.json()) as TokenList;
+      if (tokenList != null) {
         if (chainId) {
-          tokenInfo = tokenListResp.tokens.filter((t: TokenInfo) => {
+          tokenInfo = tokenList.tokens.filter((t: TokenInfo) => {
             return t.chainId === chainId;
           });
         } else {
-          tokenInfo = tokenListResp.tokens;
+          tokenInfo = tokenList.tokens;
         }
       }
       return tokenInfo;

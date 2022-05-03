@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { utils } from 'ethers';
 import { useQuery } from 'react-query';
 import { useDebounce } from 'use-debounce';
@@ -69,8 +68,8 @@ export const useGasPrice = (
       } else if (chainId === 1) {
         if (navigator?.onLine) {
           const gweiFactor = 10;
-          const response = await axios.get('https://ethgasstation.info/json/ethgasAPI.json');
-          const result: Record<string, any> = (response.data as Record<string, any>) ?? {};
+          const response = await fetch('https://ethgasstation.info/json/ethgasAPI.json');
+          const result: Record<string, any> = (response.json() as Record<string, any>) ?? {};
           let newGasPrice: number | undefined = result[speed] / gweiFactor;
           if (!newGasPrice) newGasPrice = result['fast'] / gweiFactor;
           return newGasPrice;
