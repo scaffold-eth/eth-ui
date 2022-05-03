@@ -131,7 +131,7 @@ const plugins = [
         '../src/helpers/typedoc/helpers.docs.ts',
         '../src/helpers/typedoc/test-utils.docs.ts',
       ],
-      tsconfig: './tsconfig.json',
+      tsconfig: '../tsconfig.docs.json',
     },
   ],
 ];

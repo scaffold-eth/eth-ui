@@ -1,6 +1,9 @@
-[eth-hooks - v4.0.44](../README.md) / [EthersContext](../modules/EthersContext.md) / IStaticJsonRpcProviderConnectorOptions
-
-# Interface: IStaticJsonRpcProviderConnectorOptions
+---
+id: "EthersContext.IStaticJsonRpcProviderConnectorOptions"
+title: "Interface: IStaticJsonRpcProviderConnectorOptions"
+sidebar_label: "IStaticJsonRpcProviderConnectorOptions"
+custom_edit_url: null
+---
 
 [EthersContext](../modules/EthersContext.md).IStaticJsonRpcProviderConnectorOptions
 
@@ -14,13 +17,6 @@ A web3modal CustomProvider Options
 
   ↳ **`IStaticJsonRpcProviderConnectorOptions`**
 
-## Table of contents
-
-### Properties
-
-- [rpc](EthersContext.IStaticJsonRpcProviderConnectorOptions.md#rpc)
-- [currentChainId](EthersContext.IStaticJsonRpcProviderConnectorOptions.md#currentchainid)
-
 ## Properties
 
 ### rpc
@@ -33,7 +29,7 @@ A web3modal CustomProvider Options
 
 #### Defined in
 
-[context/ethers/connectors/StaticJsonRpcProviderConnector.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L12)
+[context/ethers/connectors/StaticJsonRpcProviderConnector.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L14)
 
 ___
 
@@ -43,4 +39,4 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/StaticJsonRpcProviderConnector.ts:13](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L13)
+[context/ethers/connectors/StaticJsonRpcProviderConnector.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/StaticJsonRpcProviderConnector.ts#L15)

@@ -1,6 +1,9 @@
-[eth-hooks - v4.0.44](../README.md) / [EthersContext](../modules/EthersContext.md) / UserClosedModalError
-
-# Class: UserClosedModalError
+---
+id: "EthersContext.UserClosedModalError"
+title: "Class: UserClosedModalError"
+sidebar_label: "UserClosedModalError"
+custom_edit_url: null
+---
 
 [EthersContext](../modules/EthersContext.md).UserClosedModalError
 
@@ -9,12 +12,6 @@
 - `Error`
 
   ↳ **`UserClosedModalError`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](EthersContext.UserClosedModalError.md#constructor)
 
 ## Constructors
 
@@ -28,4 +25,4 @@ Error.constructor
 
 #### Defined in
 
-[context/ethers/connectors/connectorErrors.ts:5](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/connectorErrors.ts#L5)
+[context/ethers/connectors/connectorErrors.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/connectorErrors.ts#L12)

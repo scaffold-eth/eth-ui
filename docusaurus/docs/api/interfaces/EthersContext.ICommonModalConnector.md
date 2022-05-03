@@ -1,6 +1,9 @@
-[eth-hooks - v4.0.44](../README.md) / [EthersContext](../modules/EthersContext.md) / ICommonModalConnector
-
-# Interface: ICommonModalConnector
+---
+id: "EthersContext.ICommonModalConnector"
+title: "Interface: ICommonModalConnector"
+sidebar_label: "ICommonModalConnector"
+custom_edit_url: null
+---
 
 [EthersContext](../modules/EthersContext.md).ICommonModalConnector
 
@@ -10,18 +13,6 @@ An interface implemented by [EthersModalConnector](../classes/EthersContext.Ethe
 ## Implemented by
 
 - [`EthersModalConnector`](../classes/EthersContext.EthersModalConnector.md)
-- [`MockConnector`](../classes/TestUtils.MockConnector.md)
-
-## Table of contents
-
-### Methods
-
-- [setModalTheme](EthersContext.ICommonModalConnector.md#setmodaltheme)
-- [resetModal](EthersContext.ICommonModalConnector.md#resetmodal)
-- [hasCachedProvider](EthersContext.ICommonModalConnector.md#hascachedprovider)
-- [loadWeb3Modal](EthersContext.ICommonModalConnector.md#loadweb3modal)
-- [getSigner](EthersContext.ICommonModalConnector.md#getsigner)
-- [changeSigner](EthersContext.ICommonModalConnector.md#changesigner)
 
 ## Methods
 
@@ -41,7 +32,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersContext.Ethe
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L38)
+[context/ethers/connectors/EthersModalConnector.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/EthersModalConnector.ts#L40)
 
 ___
 
@@ -55,7 +46,7 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L39)
+[context/ethers/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/EthersModalConnector.ts#L41)
 
 ___
 
@@ -69,7 +60,7 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L41)
+[context/ethers/connectors/EthersModalConnector.ts:43](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/EthersModalConnector.ts#L43)
 
 ___
 
@@ -83,7 +74,7 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L42)
+[context/ethers/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/EthersModalConnector.ts#L44)
 
 ___
 
@@ -97,7 +88,7 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L44)
+[context/ethers/connectors/EthersModalConnector.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/EthersModalConnector.ts#L46)
 
 ___
 
@@ -117,4 +108,4 @@ ___
 
 #### Defined in
 
-[context/ethers/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/EthersModalConnector.ts#L45)
+[context/ethers/connectors/EthersModalConnector.ts:47](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/EthersModalConnector.ts#L47)

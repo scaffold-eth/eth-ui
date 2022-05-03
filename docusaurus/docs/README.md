@@ -14,4 +14,4 @@ Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
 # Eth-hooks API
 
-[Eth-hooks API](./api/README.md)
+[Eth-hooks API](./api/index.md)

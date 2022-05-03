@@ -2,21 +2,18 @@
 
 Commonly used Ethereum hooks to supercharge your web3 dev!
 
-Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) and 🏭 [scaffold-eth-typescript](https://github.com/scaffold-eth/scaffold-eth-typescript)
-
-Used by ⚙ [eth-components](https://github.com/scaffold-eth/eth-components)
+Used by 🏭 [scaffold-eth-typescript](https://github.com/scaffold-eth/scaffold-eth-typescript), 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
+, [eth-components](https://github.com/scaffold-eth/eth-components) and many other web3 projects!
 
 Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
-
-Check out the docs 📚 [eth-hooks docs](https://scaffold-eth.github.io/eth-hooks/)
 
 ## Author
 
 [@shravansunder](https://github.com/ShravanSunder)
 
-## Contributors
+# Documentation
 
-- [@ss6](https://github.com/ssp6)
+## 📚 Check out the documentation at [Eth-hooks-documentation](https://scaffold-eth.github.io/eth-hooks/)
 
 # Features
 
@@ -62,9 +59,6 @@ Contracts
   - useLoadAppContracts
   - useConnectAppContracts
   - useConnectAppContracts
-- legacy (eth-hooks v2+)
-  - useContractLoader
-  - useContractReaderUntyped
 
 ERC
 
@@ -77,7 +71,7 @@ Dapps
 - useResolveEnsAddress
 - useResolveEnsName
 
-Utility
+Utilities
 
 - useBurnerSigner
 

@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.2.14",
+  "version": "4.2.15",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
@@ -163,7 +163,7 @@
     "typescript"
   ],
   "license": "MIT",
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.2.0",
   "volta": {
     "node": "16.13.1"
   },

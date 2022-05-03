@@ -7,12 +7,8 @@ import { default as Web3Modal, ICoreOptions, ThemeColors } from 'web3modal';
 
 import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 
+import { connectorErrorText, NoEthereumProviderFoundError, NoStaticJsonRPCProviderFoundError } from '~~/context/ethers';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
-import {
-  connectorErrorText,
-  NoEthereumProviderFoundError,
-  NoStaticJsonRPCProviderFoundError,
-} from '~~/helpers/typedoc/context.docs';
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser, const_web3DialogUserRejected } from '~~/models/constants/common';
 

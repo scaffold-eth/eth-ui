@@ -1,6 +1,9 @@
-[eth-hooks - v4.0.44](../README.md) / [EthersContext](../modules/EthersContext.md) / CouldNotActivateError
-
-# Class: CouldNotActivateError
+---
+id: "EthersContext.CouldNotActivateError"
+title: "Class: CouldNotActivateError"
+sidebar_label: "CouldNotActivateError"
+custom_edit_url: null
+---
 
 [EthersContext](../modules/EthersContext.md).CouldNotActivateError
 
@@ -9,12 +12,6 @@
 - `Error`
 
   ↳ **`CouldNotActivateError`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](EthersContext.CouldNotActivateError.md#constructor)
 
 ## Constructors
 
@@ -34,4 +31,4 @@ Error.constructor
 
 #### Defined in
 
-[context/ethers/connectors/connectorErrors.ts:16](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/context/ethers/connectors/connectorErrors.ts#L16)
+[context/ethers/connectors/connectorErrors.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/c81c0d1/src/context/ethers/connectors/connectorErrors.ts#L23)
