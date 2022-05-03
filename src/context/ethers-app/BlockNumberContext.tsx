@@ -57,7 +57,7 @@ const reducer = (state: State = {}, payload: Payload): State => {
  * - this extensively used by eth-hooks to trigger hooks when a new block arrives
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *
- * @category EthersContext
+ * @category EthersAppContext
  *
  * @returns current block number
  */
@@ -83,7 +83,7 @@ interface IBlockNumberContextProps {
  * #### Summary
  * A context that works with {@link useBlockNumberContext} to give access to the current provider's block number in any place in your app
  *
- * @category EthersContext
+ * @category EthersAppContext
  *
  * @param props
  * @returns

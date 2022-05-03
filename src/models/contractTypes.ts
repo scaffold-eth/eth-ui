@@ -1,12 +1,20 @@
 /**
  * #### Summary
  * Describes the sctructure of each contract in hardhat_contracts.json
+ *
+ * @category Models
  */
 export type TBasicContractData = {
   address: string;
   abi?: any[];
 };
 
+/**
+ * #### Summary
+ * Describes a basic contract data record, the chainId and address
+ *
+ * @category Models
+ */
 export type TBasicContractDataConfig = {
   [chainId: number]: {
     chainId: number;

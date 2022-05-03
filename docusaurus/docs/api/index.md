@@ -10,8 +10,9 @@ custom_edit_url: null
 
 ## Modules
 
-- [EthersContext](modules/EthersContext.md)
+- [EthersAppContext](modules/EthersAppContext.md)
 - [Helpers](modules/Helpers.md)
 - [Helpers](modules/Helpers.md)
 - [Hooks](modules/Hooks.md)
 - [Models](modules/Models.md)
+- [TestUtils](modules/TestUtils.md)

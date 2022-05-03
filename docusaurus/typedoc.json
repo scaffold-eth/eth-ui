@@ -1,6 +1,6 @@
 {
   "defaultCategory": "Misc",
-  "categoryOrder": ["Hooks", "EthersContext", "Helpers", "Models", "TestUtils", "*"],
+  "categoryOrder": ["Hooks", "EthersAppContext", "ContractAppContext", "Helpers", "Models", "TestUtils", "*"],
   "categorizeByGroup": true,
   "cleanOutputDir": true,
   "readme": "none",
@@ -9,7 +9,8 @@
     "../src/helpers/typedoc/context.docs.ts",
     "../src/helpers/typedoc/models.docs.ts",
     "../src/helpers/typedoc/functions.docs.ts",
-    "../src/helpers/typedoc/helpers.docs.ts"
+    "../src/helpers/typedoc/helpers.docs.ts",
+    "../src/helpers/typedoc/test-utils.docs.ts"
   ],
   "entryPointStrategy": "expand",
   "out": "./docs/api",

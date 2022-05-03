@@ -6,9 +6,9 @@ import { QueryClientProvider } from 'react-query';
 import { invariant } from 'ts-invariant';
 
 import { NoEthereumProviderFoundError } from '~~/context';
-import { BlockNumberContext } from '~~/context/ethers/BlockNumberContext';
-import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers/connectors/EthersModalConnector';
-import { contextQueryClient as ethersAppQueryClient } from '~~/context/ethers/queryClient';
+import { BlockNumberContext } from '~~/context/ethers-app/BlockNumberContext';
+import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers-app/connectors/EthersModalConnector';
+import { contextQueryClient as ethersAppQueryClient } from '~~/context/ethers-app/queryClient';
 import { mergeDefaultOverride } from '~~/functions';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider, TOverride } from '~~/models';
@@ -29,7 +29,7 @@ import { IEthersContext } from '~~/models/ethersAppContextTypes';
  * ##### ✏️ Notes
  * - currently providerKey isnt being used
  *
- * @category EthersContext
+ * @category EthersAppContext
  *
  * @param contextKey
  * @returns
@@ -99,7 +99,7 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
  * #### Summary
  * Props for context
  *
- * ##### Notes
+ * ##### ✏️ Notes
  * - allow you specify alternate web3ReactRoot [See docs](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs#createweb3reactroot).  You must provide both an alternate key and its root.
  * - allows you to use your own QueryClientProvider
  */
@@ -162,7 +162,7 @@ export const getEthersAppProviderLibrary: TGetEthersAppProviderLibrary = (
  * Ethers App Context for your react app to be used with {@link useEthersContext}.
  * This is a wrapper around Web3ReactProvider that provides additional functionality such as a {@link BlockNumberContext} and access to {@link IEthersContext}.  See {@link TEthersAppContextProps} for more information on props for alternate context roots.
  *
- * @category EthersContext
+ * @category EthersAppContext
  *
  * @param props {@link TEthersAppContextProps}
  * @returns

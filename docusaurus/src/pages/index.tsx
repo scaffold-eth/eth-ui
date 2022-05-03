@@ -7,7 +7,7 @@ import styles from './index.module.css';
 import { HomepageFeatures } from '../components/HomepageFeatures';
 import { HomepageEcosystemItems } from '../components/HomepageEcosystemItems';
 
-const HomepageHeader = () => {
+const HomepageHeader: FC = () => {
   const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>

@@ -138,12 +138,12 @@ const plugins = [
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'eth-hooks',
+  title: 'eth-hooks-documentation',
   tagline: 'React hooks to supercharge your Web3 frontend development',
   url: 'https://scaffold-eth.github.io',
   baseUrl: '/eth-hooks/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'error',
   favicon: 'img/favicon.ico',
   organizationName: 'scaffold-eth',
   projectName: 'eth-hooks',

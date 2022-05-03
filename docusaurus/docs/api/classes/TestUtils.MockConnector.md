@@ -1,6 +1,9 @@
-[eth-hooks - v4.0.44](../README.md) / [TestUtils](../modules/TestUtils.md) / MockConnector
-
-# Class: MockConnector
+---
+id: "TestUtils.MockConnector"
+title: "Class: MockConnector"
+sidebar_label: "MockConnector"
+custom_edit_url: null
+---
 
 [TestUtils](../modules/TestUtils.md).MockConnector
 
@@ -12,41 +15,97 @@
 
 ## Implements
 
-- [`ICommonModalConnector`](../interfaces/EthersContext.ICommonModalConnector.md)
+- [`ICommonModalConnector`](../interfaces/EthersAppContext.ICommonModalConnector.md)
 
-## Table of contents
+## Properties
 
-### Constructors
+### provider
 
-- [constructor](TestUtils.MockConnector.md#constructor)
+• `Protected` **provider**: `MockProvider`
 
-### Properties
+#### Defined in
 
-- [provider](TestUtils.MockConnector.md#provider)
-- [mockChainId](TestUtils.MockConnector.md#mockchainid)
-- [mockSigner](TestUtils.MockConnector.md#mocksigner)
-- [mockAccount](TestUtils.MockConnector.md#mockaccount)
-- [spyResetModal](TestUtils.MockConnector.md#spyresetmodal)
-- [spySetModalTheme](TestUtils.MockConnector.md#spysetmodaltheme)
-- [spyChangeSigner](TestUtils.MockConnector.md#spychangesigner)
-- [spyActivate](TestUtils.MockConnector.md#spyactivate)
-- [spyDeactivate](TestUtils.MockConnector.md#spydeactivate)
+[helpers/test-utils/wrapper/MockConnector.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L14)
 
-### Methods
+___
 
-- [loadWeb3Modal](TestUtils.MockConnector.md#loadweb3modal)
-- [replaceWithSpies](TestUtils.MockConnector.md#replacewithspies)
-- [hasCachedProvider](TestUtils.MockConnector.md#hascachedprovider)
-- [getSigner](TestUtils.MockConnector.md#getsigner)
-- [setModalTheme](TestUtils.MockConnector.md#setmodaltheme)
-- [resetModal](TestUtils.MockConnector.md#resetmodal)
-- [changeSigner](TestUtils.MockConnector.md#changesigner)
-- [activate](TestUtils.MockConnector.md#activate)
-- [getProvider](TestUtils.MockConnector.md#getprovider)
-- [getChainId](TestUtils.MockConnector.md#getchainid)
-- [getAccount](TestUtils.MockConnector.md#getaccount)
-- [setMockAccount](TestUtils.MockConnector.md#setmockaccount)
-- [deactivate](TestUtils.MockConnector.md#deactivate)
+### mockChainId
+
+• `Protected` **mockChainId**: `number`
+
+#### Defined in
+
+[helpers/test-utils/wrapper/MockConnector.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L15)
+
+___
+
+### mockSigner
+
+• `Protected` **mockSigner**: `undefined` \| `Signer`
+
+#### Defined in
+
+[helpers/test-utils/wrapper/MockConnector.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L17)
+
+___
+
+### mockAccount
+
+• `Protected` **mockAccount**: `undefined` \| `string`
+
+#### Defined in
+
+[helpers/test-utils/wrapper/MockConnector.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L18)
+
+___
+
+### spyResetModal
+
+• **spyResetModal**: `SinonStub`<[], `void`\>
+
+#### Defined in
+
+[helpers/test-utils/wrapper/MockConnector.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L20)
+
+___
+
+### spySetModalTheme
+
+• **spySetModalTheme**: `SinonStub`<[\_theme: "light" \| "dark" \| ThemeColors], `void`\>
+
+#### Defined in
+
+[helpers/test-utils/wrapper/MockConnector.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L21)
+
+___
+
+### spyChangeSigner
+
+• **spyChangeSigner**: `SinonStub`<[\_signer: Signer], `Promise`<`void`\>\>
+
+#### Defined in
+
+[helpers/test-utils/wrapper/MockConnector.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L22)
+
+___
+
+### spyActivate
+
+• **spyActivate**: `SinonStub`<`any`[], `any`\>
+
+#### Defined in
+
+[helpers/test-utils/wrapper/MockConnector.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L23)
+
+___
+
+### spyDeactivate
+
+• **spyDeactivate**: `SinonStub`<`any`[], `any`\>
+
+#### Defined in
+
+[helpers/test-utils/wrapper/MockConnector.ts:24](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L24)
 
 ## Constructors
 
@@ -66,97 +125,7 @@ AbstractConnector.constructor
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L26)
-
-## Properties
-
-### provider
-
-• `Protected` **provider**: `MockProvider`
-
-#### Defined in
-
-[helpers/test-utils/wrapper/MockConnector.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L14)
-
-___
-
-### mockChainId
-
-• `Protected` **mockChainId**: `number`
-
-#### Defined in
-
-[helpers/test-utils/wrapper/MockConnector.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L15)
-
-___
-
-### mockSigner
-
-• `Protected` **mockSigner**: `undefined` \| `Signer`
-
-#### Defined in
-
-[helpers/test-utils/wrapper/MockConnector.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L17)
-
-___
-
-### mockAccount
-
-• `Protected` **mockAccount**: `undefined` \| `string`
-
-#### Defined in
-
-[helpers/test-utils/wrapper/MockConnector.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L18)
-
-___
-
-### spyResetModal
-
-• **spyResetModal**: `SinonStub`<[], `void`\>
-
-#### Defined in
-
-[helpers/test-utils/wrapper/MockConnector.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L20)
-
-___
-
-### spySetModalTheme
-
-• **spySetModalTheme**: `SinonStub`<[\_theme: "light" \| "dark" \| ThemeColors], `void`\>
-
-#### Defined in
-
-[helpers/test-utils/wrapper/MockConnector.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L21)
-
-___
-
-### spyChangeSigner
-
-• **spyChangeSigner**: `SinonStub`<[\_signer: Signer], `Promise`<`void`\>\>
-
-#### Defined in
-
-[helpers/test-utils/wrapper/MockConnector.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L22)
-
-___
-
-### spyActivate
-
-• **spyActivate**: `SinonStub`<`any`[], `any`\>
-
-#### Defined in
-
-[helpers/test-utils/wrapper/MockConnector.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L23)
-
-___
-
-### spyDeactivate
-
-• **spyDeactivate**: `SinonStub`<`any`[], `any`\>
-
-#### Defined in
-
-[helpers/test-utils/wrapper/MockConnector.ts:24](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L24)
+[helpers/test-utils/wrapper/MockConnector.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L26)
 
 ## Methods
 
@@ -170,11 +139,11 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[loadWeb3Modal](../interfaces/EthersContext.ICommonModalConnector.md#loadweb3modal)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[loadWeb3Modal](../interfaces/EthersAppContext.ICommonModalConnector.md#loadweb3modal)
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L33)
+[helpers/test-utils/wrapper/MockConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L33)
 
 ___
 
@@ -188,7 +157,7 @@ ___
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L38)
+[helpers/test-utils/wrapper/MockConnector.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L38)
 
 ___
 
@@ -202,11 +171,11 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[hasCachedProvider](../interfaces/EthersContext.ICommonModalConnector.md#hascachedprovider)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[hasCachedProvider](../interfaces/EthersAppContext.ICommonModalConnector.md#hascachedprovider)
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L44)
+[helpers/test-utils/wrapper/MockConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L44)
 
 ___
 
@@ -220,11 +189,11 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[getSigner](../interfaces/EthersContext.ICommonModalConnector.md#getsigner)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[getSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#getsigner)
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L48)
+[helpers/test-utils/wrapper/MockConnector.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L48)
 
 ___
 
@@ -244,11 +213,11 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[setModalTheme](../interfaces/EthersContext.ICommonModalConnector.md#setmodaltheme)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[setModalTheme](../interfaces/EthersAppContext.ICommonModalConnector.md#setmodaltheme)
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L51)
+[helpers/test-utils/wrapper/MockConnector.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L51)
 
 ___
 
@@ -262,11 +231,11 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[resetModal](../interfaces/EthersContext.ICommonModalConnector.md#resetmodal)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[resetModal](../interfaces/EthersAppContext.ICommonModalConnector.md#resetmodal)
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:54](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L54)
+[helpers/test-utils/wrapper/MockConnector.ts:54](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L54)
 
 ___
 
@@ -286,11 +255,11 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersContext.ICommonModalConnector.md).[changeSigner](../interfaces/EthersContext.ICommonModalConnector.md#changesigner)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[changeSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#changesigner)
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L58)
+[helpers/test-utils/wrapper/MockConnector.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L58)
 
 ___
 
@@ -308,7 +277,7 @@ AbstractConnector.activate
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:66](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L66)
+[helpers/test-utils/wrapper/MockConnector.ts:66](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L66)
 
 ___
 
@@ -326,7 +295,7 @@ AbstractConnector.getProvider
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:74](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L74)
+[helpers/test-utils/wrapper/MockConnector.ts:74](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L74)
 
 ___
 
@@ -344,7 +313,7 @@ AbstractConnector.getChainId
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:78](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L78)
+[helpers/test-utils/wrapper/MockConnector.ts:78](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L78)
 
 ___
 
@@ -362,7 +331,7 @@ AbstractConnector.getAccount
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:82](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L82)
+[helpers/test-utils/wrapper/MockConnector.ts:82](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L82)
 
 ___
 
@@ -382,7 +351,7 @@ ___
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L87)
+[helpers/test-utils/wrapper/MockConnector.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L87)
 
 ___
 
@@ -400,4 +369,4 @@ AbstractConnector.deactivate
 
 #### Defined in
 
-[helpers/test-utils/wrapper/MockConnector.ts:92](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/helpers/test-utils/wrapper/MockConnector.ts#L92)
+[helpers/test-utils/wrapper/MockConnector.ts:92](https://github.com/scaffold-eth/eth-hooks/blob/a2c4790/src/helpers/test-utils/wrapper/MockConnector.ts#L92)
