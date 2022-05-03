@@ -36,7 +36,7 @@ price in USD
 
 #### Defined in
 
-[hooks/dapps/useDexEthPrice.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/dapps/useDexEthPrice.ts#L27)
+[hooks/dapps/useDexEthPrice.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/dapps/useDexEthPrice.ts#L27)
 
 ___
 
@@ -66,7 +66,7 @@ Gets a tokenlist from uniswap ipfs tokenlist
 
 #### Defined in
 
-[hooks/dapps/useDexTokenList.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/dapps/useDexTokenList.ts#L26)
+[hooks/dapps/useDexTokenList.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/dapps/useDexTokenList.ts#L26)
 
 ___
 
@@ -90,7 +90,7 @@ Gets the address from an ENS name
 
 #### Defined in
 
-[hooks/dapps/useResolveEnsAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/dapps/useResolveEnsAddress.ts#L19)
+[hooks/dapps/useResolveEnsAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/dapps/useResolveEnsAddress.ts#L19)
 
 ___
 
@@ -114,7 +114,7 @@ Gets ENS name for given address
 
 #### Defined in
 
-[hooks/dapps/useResolveEnsName.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/dapps/useResolveEnsName.ts#L45)
+[hooks/dapps/useResolveEnsName.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/dapps/useResolveEnsName.ts#L45)
 
 ___
 
@@ -148,7 +148,7 @@ Get the balance of an ERC20 token in an address
 
 #### Defined in
 
-[hooks/erc/useTokenBalance.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/erc/useTokenBalance.ts#L32)
+[hooks/erc/useTokenBalance.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/erc/useTokenBalance.ts#L32)
 
 ___
 
@@ -173,7 +173,7 @@ Are the signers equal and valid
 
 #### Defined in
 
-[hooks/useAreSignerEqual.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useAreSignerEqual.ts#L21)
+[hooks/useAreSignerEqual.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useAreSignerEqual.ts#L21)
 
 ___
 
@@ -210,7 +210,7 @@ current balance
 
 #### Defined in
 
-[hooks/useBalance.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useBalance.ts#L46)
+[hooks/useBalance.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useBalance.ts#L46)
 
 ___
 
@@ -241,7 +241,7 @@ block number
 
 #### Defined in
 
-[hooks/useBlockNumber.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useBlockNumber.ts#L22)
+[hooks/useBlockNumber.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useBlockNumber.ts#L22)
 
 ___
 
@@ -267,7 +267,7 @@ IBurnerSigner
 
 #### Defined in
 
-[hooks/useBurnerSigner.ts:89](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useBurnerSigner.ts#L89)
+[hooks/useBurnerSigner.ts:89](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useBurnerSigner.ts#L89)
 
 ___
 
@@ -295,7 +295,7 @@ Checks whether a contract exists on the blockchain
 
 #### Defined in
 
-[hooks/useContractExistsAtAddress.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useContractExistsAtAddress.ts#L25)
+[hooks/useContractExistsAtAddress.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useContractExistsAtAddress.ts#L25)
 
 ___
 
@@ -333,7 +333,7 @@ Record of contractName:Contracts
 
 #### Defined in
 
-[hooks/useContractLoader.ts:101](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useContractLoader.ts#L101)
+[hooks/useContractLoader.ts:101](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useContractLoader.ts#L101)
 
 ___
 
@@ -372,7 +372,7 @@ OutputT
 
 #### Defined in
 
-[hooks/useContractReaderUntyped.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useContractReaderUntyped.ts#L26)
+[hooks/useContractReaderUntyped.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useContractReaderUntyped.ts#L26)
 
 ___
 
@@ -396,7 +396,7 @@ Gets the user {@link TEthersUser} for a signer or wallet
 
 #### Defined in
 
-[hooks/useEthersAdaptorFromProviderOrSigners.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useEthersAdaptorFromProviderOrSigners.ts#L31)
+[hooks/useEthersAdaptorFromProviderOrSigners.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useEthersAdaptorFromProviderOrSigners.ts#L31)
 
 ___
 
@@ -433,7 +433,7 @@ Tracks the events of associated with a contract
 
 #### Defined in
 
-[hooks/useEventListener.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useEventListener.ts#L26)
+[hooks/useEventListener.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useEventListener.ts#L26)
 
 ___
 
@@ -470,7 +470,7 @@ gas as gwei
 
 #### Defined in
 
-[hooks/useGasPrice.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useGasPrice.ts#L48)
+[hooks/useGasPrice.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useGasPrice.ts#L48)
 
 ___
 
@@ -499,7 +499,7 @@ Get the current nonce for the address provided
 
 #### Defined in
 
-[hooks/useNonce.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useNonce.ts#L34)
+[hooks/useNonce.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useNonce.ts#L34)
 
 ___
 
@@ -523,7 +523,7 @@ Get the address from the signer
 
 #### Defined in
 
-[hooks/useSignerAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useSignerAddress.ts#L19)
+[hooks/useSignerAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useSignerAddress.ts#L19)
 
 ___
 
@@ -547,7 +547,7 @@ Get the address from the signer
 
 #### Defined in
 
-[hooks/useSignerChainId.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useSignerChainId.ts#L20)
+[hooks/useSignerChainId.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useSignerChainId.ts#L20)
 
 ___
 
@@ -575,7 +575,7 @@ Get the current timestamp from the latest block
 
 #### Defined in
 
-[hooks/useTimestamp.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useTimestamp.ts#L31)
+[hooks/useTimestamp.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useTimestamp.ts#L31)
 
 ___
 
@@ -598,7 +598,7 @@ ___
 
 #### Defined in
 
-[hooks/useContractLoader.ts:59](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useContractLoader.ts#L59)
+[hooks/useContractLoader.ts:59](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useContractLoader.ts#L59)
 
 ___
 
@@ -636,7 +636,7 @@ Enables you to call a contract function with arguments and receive the output.  
 
 #### Defined in
 
-[hooks/useContractReader.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useContractReader.ts#L27)
+[hooks/useContractReader.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useContractReader.ts#L27)
 
 ___
 
@@ -662,7 +662,7 @@ Calls update argument based on update options
 
 #### Defined in
 
-[hooks/useEthersUpdater.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useEthersUpdater.ts#L15)
+[hooks/useEthersUpdater.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useEthersUpdater.ts#L15)
 
 ## Hooks Type aliases
 
@@ -691,7 +691,7 @@ Return type of useBurnerSigner:
 
 #### Defined in
 
-[hooks/useBurnerSigner.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useBurnerSigner.ts#L58)
+[hooks/useBurnerSigner.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useBurnerSigner.ts#L58)
 
 ___
 
@@ -707,7 +707,7 @@ Preset speeds for Eth Gas Station API
 
 #### Defined in
 
-[hooks/useGasPrice.ts:28](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useGasPrice.ts#L28)
+[hooks/useGasPrice.ts:28](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useGasPrice.ts#L28)
 
 ___
 
@@ -731,4 +731,4 @@ Configuration for useContractLoader
 
 #### Defined in
 
-[hooks/useContractLoader.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/fa0b589/src/hooks/useContractLoader.ts#L39)
+[hooks/useContractLoader.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/hooks/useContractLoader.ts#L39)
