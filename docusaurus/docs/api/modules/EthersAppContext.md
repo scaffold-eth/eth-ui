@@ -14,24 +14,6 @@ A context for your react app with [useEthersContext](EthersAppContext.md#useethe
 - [useEthersContext](EthersAppContext.md#useetherscontext)
 - [ConnectToStaticJsonRpcProvider](EthersAppContext.md#connecttostaticjsonrpcprovider)
 
-## ContractAppContext Functions
-
-- [createConnectorForHardhatContract](EthersAppContext.md#createconnectorforhardhatcontract)
-- [createConnectorForExternalContract](EthersAppContext.md#createconnectorforexternalcontract)
-- [createConnectorForExternalAbi](EthersAppContext.md#createconnectorforexternalabi)
-- [contractsContextFactory](EthersAppContext.md#contractscontextfactory)
-
-## ContractAppContext Type aliases
-
-- [TContractsContextProps](EthersAppContext.md#tcontractscontextprops)
-
-## Misc Type aliases
-
-- [TContractsContextActions](EthersAppContext.md#tcontractscontextactions)
-- [TEthersAppContextProps](EthersAppContext.md#tethersappcontextprops)
-- [TGetEthersAppProviderLibrary](EthersAppContext.md#tgetethersappproviderlibrary)
-- [TEthersModalConnector](EthersAppContext.md#tethersmodalconnector)
-
 ## EthersAppContext Variables
 
 - [BlockNumberContext](EthersAppContext.md#blocknumbercontext)
@@ -84,7 +66,7 @@ current block number
 
 #### Defined in
 
-context/ethers-app/BlockNumberContext.tsx:64
+[context/ethers-app/BlockNumberContext.tsx:64](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/BlockNumberContext.tsx#L64)
 
 ___
 
@@ -118,7 +100,7 @@ Gives you access to consistent interface to get the current provider information
 
 #### Defined in
 
-context/ethers-app/EthersAppContext.tsx:37
+[context/ethers-app/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/EthersAppContext.tsx#L37)
 
 ___
 
@@ -147,206 +129,75 @@ See scaffold-eth-typescript for an example that uses it to connect to a localhos
 
 #### Defined in
 
-context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:33
+[context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L33)
 
-___
+## EthersAppContext Variables
 
-## ContractAppContext Functions
+### BlockNumberContext
 
-### createConnectorForHardhatContract
+• `Const` **BlockNumberContext**: `FC`<`IBlockNumberContextProps`\>
 
-▸ **createConnectorForHardhatContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedHardhatContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+#### Summary
+A context that works with [useBlockNumberContext](EthersAppContext.md#useblocknumbercontext) to give access to the current provider's block number in any place in your app
 
-##### Summary
-Creates a connector for any of your hardhat contracts
+**`param`**
 
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `GContractNames` | extends `string` |
-| `GBaseContract` | extends `BaseContract`<`GBaseContract`\> |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `contractName` | `GContractNames` |
-| `typechainFactory` | `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\> |
-| `deployedHardhatContractJson` | [`TDeployedHardhatContractsJson`](Models.md#tdeployedhardhatcontractsjson) |
-
-#### Returns
-
-`Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+**`returns`**
 
 #### Defined in
 
-context/contracts-app/contractConnectors.ts:76
+[context/ethers-app/BlockNumberContext.tsx:91](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/BlockNumberContext.tsx#L91)
 
 ___
 
-### createConnectorForExternalContract
+### EthersAppContext
 
-▸ **createConnectorForExternalContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+• `Const` **EthersAppContext**: `FC`<[`TEthersAppContextProps`](EthersAppContext.md#tethersappcontextprops)\>
 
 #### Summary
-Creates a contract connector for any external contract
+Ethers App Context for your react app to be used with [useEthersContext](EthersAppContext.md#useetherscontext).
+This is a wrapper around Web3ReactProvider that provides additional functionality such as a [BlockNumberContext](EthersAppContext.md#blocknumbercontext) and access to [IEthersContext](../interfaces/Models.IEthersContext.md).  See [TEthersAppContextProps](EthersAppContext.md#tethersappcontextprops) for more information on props for alternate context roots.
 
-##### ✏️ Notes
-- As an example you could use this for an external contract such as DAI
+**`param`** [TEthersAppContextProps](EthersAppContext.md#tethersappcontextprops)
 
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `GContractNames` | extends `string` |
-| `GBaseContract` | extends `BaseContract`<`GBaseContract`\> |
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `contractName` | `GContractNames` |
-| `typechainFactory` | `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\> |
-| `deployedContractJson` | [`TExternalContractsAddressMap`](Models.md#texternalcontractsaddressmap) |
-
-#### Returns
-
-`Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+**`returns`**
 
 #### Defined in
 
-context/contracts-app/contractConnectors.ts:113
+[context/ethers-app/EthersAppContext.tsx:170](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/EthersAppContext.tsx#L170)
 
 ___
 
-### createConnectorForExternalAbi
+## Misc Variables
 
-▸ **createConnectorForExternalAbi**<`GContractNames`, `GBaseContract`\>(`contractName`, `config`, `abi`, `connectFunc?`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+### connectorErrorText
 
-#### Summary
-Create a contract connector from a ABI.
-
-##### ✏️ Notes
-- This can be used for unverified external contracts
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `GContractNames` | extends `string` |
-| `GBaseContract` | extends `BaseContract`<`GBaseContract`\> = `BaseContract` |
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `contractName` | `GContractNames` | `undefined` |
-| `config` | [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig) | `undefined` |
-| `abi` | `Record`<`string`, `any`\>[] | `undefined` |
-| `connectFunc` | `undefined` \| [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> | `undefined` |
-
-#### Returns
-
-`Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
-
-#### Defined in
-
-context/contracts-app/contractConnectors.ts:151
-
-___
-
-### contractsContextFactory
-
-▸ **contractsContextFactory**<`GContractNames`, `GAppConnectorList`, `GContractsTypes`\>(`loadAppContractConnectors`): `Object`
-
-#### Summary
-This is the factory function that creates the ContractContext and returns the hooks you can use to access typed contracts through out your app.
-
-##### ✏️ Notes
-- See [scaffold-eth-typescript contractContext.ts](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/release/packages/vite-app-ts/src/components/contractContext.ts) for an example of how to use this.
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `GContractNames` | extends `string` |
-| `GAppConnectorList` | extends [`TConnectorList`](Models.md#tconnectorlist)<`GContractNames`, [`TBaseContractExtended`](Models.md#tbasecontractextended)<`GContractNames`\>\> |
-| `GContractsTypes` | extends `BaseContract`<`GContractsTypes`\> & { `contractName`: `GContractNames`  } |
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `loadAppContractConnectors` | () => `undefined` \| `GAppConnectorList` | A function that returns a list of app contract connectors. See [this for an example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/release/packages/vite-app-ts/src/config/appContracts.config.ts) |
-
-#### Returns
-
-`Object`
-
-A context for contracts, hook to access contracts, hook to load contracts, hook to connect to contracts in a network
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `ContractsAppContext` | `FC`<`PropsWithChildren`<[`TContractsContextProps`](EthersAppContext.md#tcontractscontextprops)\>\> | #### Summary This is the context for contracts that lets you access your contracts anywhere in your app.  You need to wrap your app in it.  [See this example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/release/packages/vite-app-ts/src/App.tsx) |
-| `useAppContractsActions` | () => `undefined` \| [`TContractsContextActions`](EthersAppContext.md#tcontractscontextactions)<`GContractNames`, `GAppConnectorList`\> | - |
-| `useAppContracts` | <GContractName\>(`contractName`: `GContractName`, `chainId`: `undefined` \| `number`) => `undefined` \| [`TTypedContract`](Models.md#ttypedcontract)<`GContractName`, `GAppConnectorList`\> | #### Summary This hook allows you to get the contracts attached to a particular network.  ##### ✏️ Notes To be used with {@link useConnectAppContracts} which needs to be called in your app to connect to the contracts in a particular network. |
-| `useLoadAppContracts` | () => `void` | #### Summary This hook needs to be called in your app to load all your app contracts |
-| `useConnectAppContracts` | (`adaptor`: `undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor)) => `void` | #### Summary This hook needs to be called in your app to connect your app to a network |
-
-#### Defined in
-
-context/contracts-app/contractsContextFactory.tsx:105
-
-## ContractAppContext Type aliases
-
-### TContractsContextProps
-
-Ƭ **TContractsContextProps**: `Object`
-
-#### Summary
-Props for the ContractContext generated by the contractContextFactory
+• `Const` **connectorErrorText**: `Object`
 
 #### Type declaration
 
 | Name | Type |
 | :------ | :------ |
-| `ethersContextKey?` | `string` |
+| `NoStaticJsonRPCProviderFoundError` | ``"Could not find a static json-rpc provider.  Is it running?"`` |
+| `NoEthereumProviderFoundError` | ``"No web3 provider found"`` |
+| `CouldNotActivateError` | ``"Could not activate the web3 provider"`` |
+| `UserClosedModalError` | ``"Did not log in, the user did not select a web3 provider"`` |
 
 #### Defined in
 
-context/contracts-app/contractsContextFactory.tsx:40
+[context/ethers-app/connectors/connectorErrors.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/connectors/connectorErrors.ts#L1)
 
 ___
 
-## Misc Type aliases
+### contextQueryClient
 
-### TContractsContextActions
-
-Ƭ **TContractsContextActions**<`GContractNames`, `GAppConnectorList`\>: `Object`
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `GContractNames` | extends `string` |
-| `GAppConnectorList` | `GAppConnectorList` |
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `connectToAllContractsAction` | (`appContractConnectorList`: `GAppConnectorList`, `ethersAdaptor`: `undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor)) => `void` |
-| `connectToContractAction` | (`contractName`: `GContractNames`, `ethersAdaptor`: [`TEthersAdaptor`](Models.md#tethersadaptor)) => `void` |
-| `setContractConnectors` | (`appContractConnectorList`: `GAppConnectorList`) => `void` |
-| `addContractConnectors` | (`appContractConnectorList`: `GAppConnectorList`) => `void` |
-| `dispatch` | `Dispatch`<`TActions`<`GContractNames`, `GAppConnectorList`\>\> |
+• `Const` **contextQueryClient**: `QueryClient`
 
 #### Defined in
 
-context/contracts-app/contractsContextFactory.tsx:79
+[context/ethers-app/queryClient.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/queryClient.ts#L3)
 
-___
+## Type aliases
 
 ### TEthersAppContextProps
 
@@ -372,7 +223,7 @@ Props for context
 
 #### Defined in
 
-context/ethers-app/EthersAppContext.tsx:106
+[context/ethers-app/EthersAppContext.tsx:106](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/EthersAppContext.tsx#L106)
 
 ___
 
@@ -397,7 +248,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/EthersAppContext.tsx:126
+[context/ethers-app/EthersAppContext.tsx:126](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/EthersAppContext.tsx#L126)
 
 ___
 
@@ -407,70 +258,4 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:54
-
-## EthersAppContext Variables
-
-### BlockNumberContext
-
-• `Const` **BlockNumberContext**: `FC`<`IBlockNumberContextProps`\>
-
-#### Summary
-A context that works with [useBlockNumberContext](EthersAppContext.md#useblocknumbercontext) to give access to the current provider's block number in any place in your app
-
-**`param`**
-
-**`returns`**
-
-#### Defined in
-
-context/ethers-app/BlockNumberContext.tsx:91
-
-___
-
-### EthersAppContext
-
-• `Const` **EthersAppContext**: `FC`<[`TEthersAppContextProps`](EthersAppContext.md#tethersappcontextprops)\>
-
-#### Summary
-Ethers App Context for your react app to be used with [useEthersContext](EthersAppContext.md#useetherscontext).
-This is a wrapper around Web3ReactProvider that provides additional functionality such as a [BlockNumberContext](EthersAppContext.md#blocknumbercontext) and access to [IEthersContext](../interfaces/Models.IEthersContext.md).  See [TEthersAppContextProps](EthersAppContext.md#tethersappcontextprops) for more information on props for alternate context roots.
-
-**`param`** [TEthersAppContextProps](EthersAppContext.md#tethersappcontextprops)
-
-**`returns`**
-
-#### Defined in
-
-context/ethers-app/EthersAppContext.tsx:170
-
-___
-
-## Misc Variables
-
-### connectorErrorText
-
-• `Const` **connectorErrorText**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `NoStaticJsonRPCProviderFoundError` | ``"Could not find a static json-rpc provider.  Is it running?"`` |
-| `NoEthereumProviderFoundError` | ``"No web3 provider found"`` |
-| `CouldNotActivateError` | ``"Could not activate the web3 provider"`` |
-| `UserClosedModalError` | ``"Did not log in, the user did not select a web3 provider"`` |
-
-#### Defined in
-
-context/ethers-app/connectors/connectorErrors.ts:1
-
-___
-
-### contextQueryClient
-
-• `Const` **contextQueryClient**: `QueryClient`
-
-#### Defined in
-
-context/ethers-app/queryClient.ts:3
+[context/ethers-app/connectors/EthersModalConnector.ts:54](https://github.com/scaffold-eth/eth-hooks/blob/b100ffa/src/context/ethers-app/connectors/EthersModalConnector.ts#L54)

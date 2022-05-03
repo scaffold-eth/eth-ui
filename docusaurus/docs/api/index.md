@@ -10,6 +10,7 @@ custom_edit_url: null
 
 ## Modules
 
+- [ContractAppContext](modules/ContractAppContext.md)
 - [EthersAppContext](modules/EthersAppContext.md)
 - [Helpers](modules/Helpers.md)
 - [Helpers](modules/Helpers.md)
