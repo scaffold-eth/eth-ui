@@ -48,7 +48,7 @@ const themeConfig = {
           },
           {
             label: 'API',
-            to: '/docs/api/api-documentation',
+            to: '/docs/api/',
           },
         ],
       },
