@@ -6,10 +6,11 @@ import { SetPurposeEvent, YourContract } from 'test-files/__mocks__/generated/co
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
-import { getHardhatSigner } from '~~/helpers/test-utils/wrapper';
+import { getTestSigners } from '~~/helpers/test-utils/wrapper';
 import { currentTestBlockNumber, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useEventListener } from '~~/hooks';
 
+import 'test/helpers/chai-imports';
 describe('useEventListener', function () {
   describe('Given that a YourContract is deployed', () => {
     let yourContract: YourContract | undefined;
@@ -18,7 +19,7 @@ describe('useEventListener', function () {
     before(async () => {
       // setup a contract
       const wrapper = await wrapperTestSetupHelper();
-      contractSigner = await getHardhatSigner(wrapper.mockProvider, 1);
+      contractSigner = (await getTestSigners(wrapper.mockProvider)).user1;
       yourContract = (await deployContract(contractSigner, mockYourContractJson)) as YourContract;
       expect(yourContract).to.exist;
     });

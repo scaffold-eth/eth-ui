@@ -1,8 +1,10 @@
+import 'test/helpers/chai-imports';
 import { expect } from 'chai';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
+import { waitForExpect } from '~~/helpers/test-utils/functions/mochaHelpers';
 import { currentTestBlockNumber, wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useBlockNumber } from '~~/hooks';
 import { TEthersProvider } from '~~/models';
@@ -10,8 +12,8 @@ import { TEthersProvider } from '~~/models';
 describe('useBlockNumber', function () {
   let provider: TEthersProvider;
   before(async () => {
-    const harness = await wrapperTestSetupHelper();
-    provider = harness.mockProvider;
+    const wrapper = await wrapperTestSetupHelper();
+    provider = wrapper.mockProvider;
   });
 
   let testStartBockNumber = 0;
@@ -20,30 +22,31 @@ describe('useBlockNumber', function () {
   });
 
   it('When the a new block arrives, useBlockNumberContext updates to the latest value', async () => {
-    const harness = await hookTestWrapper(() => useBlockNumber(provider));
+    const wrapper = await hookTestWrapper(() => useBlockNumber(provider));
 
     // mine a block
-    await mineBlock(harness.mockProvider);
-    await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-    expect(await harness.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 1);
-    const [result1] = harness.result.current;
+    await mineBlock(wrapper.mockProvider);
+    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+    expect(await wrapper.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 1);
+    const [result1] = wrapper.result.current;
     expect(result1).equal(testStartBockNumber + 1);
 
     // mine another block
-    await mineBlock(harness.mockProvider);
-    await harness.waitForValueToChange(() => harness.result.current[0], defaultBlockWaitOptions);
-    const [result2] = harness.result.current;
-    expect(result2).equal(testStartBockNumber + 2);
-    expect(await harness.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 2);
+    await mineBlock(wrapper.mockProvider);
+    await waitForExpect(async () => {
+      const [result2] = wrapper.result.current;
+      expect(result2).equal(testStartBockNumber + 2);
+      expect(await wrapper.mockProvider.getBlockNumber()).to.equal(testStartBockNumber + 2);
+    }, defaultBlockWaitOptions);
   });
 
   it('When the hook called without a new block arriving, useBlockNumber gets the current blockNumber', async () => {
-    const harness = await hookTestWrapper(() => useBlockNumber(provider));
+    const wrapper = await hookTestWrapper(() => useBlockNumber(provider));
 
-    const blockNumber = await harness.mockProvider.getBlockNumber();
-    await harness.waitFor(() => harness.result.current[0] === blockNumber, defaultBlockWaitOptions);
+    const blockNumber = await wrapper.mockProvider.getBlockNumber();
+    await wrapper.waitFor(() => wrapper.result.current[0] === blockNumber, defaultBlockWaitOptions);
 
-    const [result] = harness.result.current;
+    const [result] = wrapper.result.current;
     expect(result).to.equal(testStartBockNumber);
   });
 });

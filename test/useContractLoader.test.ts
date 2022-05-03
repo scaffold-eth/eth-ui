@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import 'test/helpers/chai-imports';
 
-import { expect, use } from 'chai';
+import { expect } from 'chai';
 import { BaseContract, Signer } from 'ethers';
-import * as sinonChai from 'sinon-chai';
 import {
   mockExternalContractsForUseContractLoader as mockExternalContractsForLoader,
   mockHardhatBasicJson,
@@ -10,13 +10,10 @@ import {
 import { YourContract } from 'test-files/__mocks__/generated/contract-types';
 import { setupMockYourContract } from 'test-files/__mocks__/setupMockContracts';
 
-import { getHardhatSigner, hookTestWrapper } from '~~/helpers/test-utils/wrapper';
+import { getTestSigners, hookTestWrapper } from '~~/helpers/test-utils/wrapper';
 import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { TContractLoaderConfig, useContractLoader } from '~~/hooks';
 import { TContractFunctionInfo } from '~~/models';
-
-use(sinonChai);
-
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const initalizeHook = async (config: TContractLoaderConfig) => {
   const wrapper = await hookTestWrapper((input: Parameters<typeof useContractLoader>) => useContractLoader(...input));
@@ -34,7 +31,7 @@ describe('useContractLoader', function () {
     before(async () => {
       // setup a contract
       const wrapper = await wrapperTestSetupHelper();
-      contractSigner = await getHardhatSigner(wrapper.mockProvider, 1);
+      contractSigner = (await getTestSigners(wrapper.mockProvider)).user1;
       [yourContract, _yourContractPurposeInfo] = await setupMockYourContract(contractSigner);
     });
 

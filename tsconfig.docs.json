@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "paths": {
+      "~~": ["./src"],
+      "~~/*": ["./src/*"]
+    }
+  },
+  "files": [],
+  "include": ["./src/**/*"],
+  "exclude": ["docs/**/*", "test/**/*", "node_modules", "**/node_modules/**", "./.yalc/**/*", "docusaurus/**/*"]
+}

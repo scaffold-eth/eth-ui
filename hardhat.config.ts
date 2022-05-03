@@ -1,11 +1,7 @@
-import 'tsconfig-paths/register';
-import 'global-jsdom/register';
+import './test/helpers/hardhat-imports';
 
-import '@typechain/hardhat';
-import '@nomiclabs/hardhat-waffle';
-import '@nomiclabs/hardhat-ethers';
-import 'hardhat-deploy';
 import { HardhatUserConfig } from 'hardhat/types';
+import { mochaRootHook_disableReact18Warnings } from 'test/helpers/mochaRootHooks';
 
 /**
  * this is used for hook tests
@@ -32,6 +28,7 @@ const config: HardhatUserConfig = {
       mochaFile: 'testresult.xml',
       toConsole: true,
     },
+    rootHooks: mochaRootHook_disableReact18Warnings,
   },
   paths: {
     cache: './test-files/__mocks__/generated/cache',

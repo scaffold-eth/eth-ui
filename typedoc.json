@@ -20,20 +20,7 @@
   "excludeInternal": true,
   "listInvalidSymbolLinks": true,
   "logLevel": "Verbose",
-  "exclude": [
-    "hardhat.config.ts",
-    "test/**/*",
-    "test-files/**/*",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/generated/**/*"
-  ],
-  "externalPattern": [
-    "hardhat.config.ts",
-    "test/**/*",
-    "test-files/**/*",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/generated/**/*"
-  ]
+  "excludeExternals": true,
+  "exclude": ["test/**", "test-files/**", "**/*.test.ts", "**/*.test.tsx"],
+  "externalPattern": ["**/node_modules/**", "test/**", "test-files/**"]
 }

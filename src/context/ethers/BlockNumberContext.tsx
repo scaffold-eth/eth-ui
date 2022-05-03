@@ -70,7 +70,12 @@ export const useBlockNumberContext = (): number => {
   return blockNumber ?? 0;
 };
 
-interface IProps {
+/**
+ * #### Summary
+ * props include {@link TOverride}
+ */
+interface IBlockNumberContextProps {
+  children?: React.ReactNode;
   override?: TOverride;
 }
 
@@ -83,7 +88,7 @@ interface IProps {
  * @param props
  * @returns
  */
-export const BlockNumberContext: FC<IProps> = (props) => {
+export const BlockNumberContext: FC<IBlockNumberContextProps> = (props) => {
   const ethersContext = useEthersContext(props.override?.alternateContextKey);
   const { chainId, provider } = ethersOverride(ethersContext, props.override ?? defaultOverride());
 

@@ -56,24 +56,20 @@ export type TContractLoaderConfig = {
   externalContracts?: TExternalContracts;
 };
 
-export const parseContractsInJson = (
+export const parseContractsInDeployedHardhatContractsJson = (
   contractList: THardhatDeployedContractsJson,
   chainId: number
 ): Record<string, TBasicContractData> => {
   let combinedContracts: Record<string, TBasicContractData> = {};
 
   // combine partitioned contracts based on all the available and chain id.
-  if (contractList?.[chainId] != null) {
-    for (const network in contractList[chainId]) {
-      if (Object.prototype.hasOwnProperty.call(contractList[chainId], network)) {
-        const chainContracts = contractList?.[chainId]?.[network]?.contracts;
-        if (chainContracts != null) {
-          combinedContracts = {
-            ...combinedContracts,
-            ...chainContracts,
-          };
-        }
-      }
+  if (contractList?.[chainId]?.[0] != null) {
+    const chainContracts = contractList?.[chainId]?.[0]?.contracts;
+    if (chainContracts != null) {
+      combinedContracts = {
+        ...combinedContracts,
+        ...chainContracts,
+      };
     }
   }
 
@@ -125,7 +121,10 @@ export const useContractLoader = (
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
-          let combinedContracts: Record<string, TBasicContractData> = parseContractsInJson(contractList, chainId);
+          let combinedContracts: Record<string, TBasicContractData> = parseContractsInDeployedHardhatContractsJson(
+            contractList,
+            chainId
+          );
 
           // load external contracts if its the right chain
           if (externalContractList?.[chainId] != null) {
