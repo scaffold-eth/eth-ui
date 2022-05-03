@@ -1,17 +1,17 @@
 # 🖇 Eth-hooks
 
-Commonly used Ethereum hooks.
+Commonly used react hooks to improve Ethereum Dapp development.
 
-Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
+- Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
 
-Used by ⚙ [eth-components](https://github.com/scaffold-eth/eth-components)
+- Used by ⚙ [eth-components](https://github.com/scaffold-eth/eth-components)
 
-Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
+Created by the 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
-# Overview
+## Overview
 
 [Eth-hooks Overview](./overview.md)
 
-# Eth-hooks API
+## API
 
-[Eth-hooks API](./api/index.md)
+[Eth-hooks API](./api/README.md)

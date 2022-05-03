@@ -182,7 +182,7 @@ The first create a web3Config. Check out their github repo for a detailed explan
 
 ### 2. Create a function that returns a `TEthersModalConnector`
 
-This function should have a signature that returns `TEthersModalConnector` which is an interface that is implemented by [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersContext.EthersModalConnector.html)
+This function should have a signature that returns `TEthersModalConnector` which is an interface that is implemented by [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html)
 
 ```ts
 type TCreateEthersModalConnector = (id?: string) => TEthersModalConnector | undefined;
@@ -205,7 +205,7 @@ const createLoginConnector: TCreateEthersModalConnector = useCallback(
 );
 ```
 
-You can find the details for [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersContext.EthersModalConnector.html) in the api docs.
+You can find the details for [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html) in the api docs.
 
 ### 3. Create a login event handler
 

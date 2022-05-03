@@ -22,12 +22,6 @@ const themeConfig = {
       {
         type: 'docSidebar',
         position: 'left',
-        sidebarId: 'guides',
-        label: 'Guides',
-      },
-      {
-        type: 'docSidebar',
-        position: 'left',
         sidebarId: 'api',
         label: 'API',
       },
@@ -50,7 +44,7 @@ const themeConfig = {
           },
           {
             label: 'Quick start',
-            to: '/docs/guides/intro',
+            to: '/docs/main/guides/intro',
           },
           {
             label: 'API',
