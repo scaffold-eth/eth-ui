@@ -1,6 +1,6 @@
 {
-  "name": "eth-hooks",
-  "version": "0.0.0",
+  "name": "eth-hooks-docs",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",

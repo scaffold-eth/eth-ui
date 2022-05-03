@@ -86,7 +86,6 @@ const themeConfig = {
             label: 'BuidlGuild',
             href: 'https://buidlguidl.com/',
           },
-          
         ],
       },
     ],
@@ -117,11 +116,31 @@ const classicOptions = {
   },
 };
 
+/** @type {import('@docusaurus/types').PluginConfig[]} */
+const plugins = [
+  [
+    'docusaurus-plugin-typedoc',
+
+    // Plugin / TypeDoc options
+    {
+      entryPoints: [
+        '../src/helpers/typedoc/hooks.docs.ts',
+        '../src/helpers/typedoc/context.docs.ts',
+        '../src/helpers/typedoc/models.docs.ts',
+        '../src/helpers/typedoc/functions.docs.ts',
+        '../src/helpers/typedoc/helpers.docs.ts',
+        '../src/helpers/typedoc/test-utils.docs.ts',
+      ],
+      tsconfig: './tsconfig.json',
+    },
+  ],
+];
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'eth-hooks',
   tagline: 'React hooks to supercharge your Web3 frontend development',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://scaffold-eth.github.io',
   baseUrl: '/eth-hooks/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -133,6 +152,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (themeConfig),
+  plugins: plugins,
 };
 
 module.exports = config;
