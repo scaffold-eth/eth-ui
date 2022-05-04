@@ -34,7 +34,7 @@ import { IEthersContext } from '~~/models/ethersAppContextTypes';
  * @param contextKey
  * @returns
  */
-export const useEthersContext = (contextKey?: string): IEthersContext => {
+export const useEthersAppContext = (contextKey?: string): IEthersContext => {
   if (contextKey === 'primary') console.warn('Do not explicitly use primary contextKey, pass in undefined instead');
   const { connector, activate, library, account, deactivate, chainId, ...context } =
     useWeb3React<TEthersProvider>(contextKey);
@@ -93,6 +93,18 @@ export const useEthersContext = (contextKey?: string): IEthersContext => {
   };
 
   return result;
+};
+
+/**
+ * @deprecated Please use useEthersAppContext instead, this is a shim for backwards compatibility
+ * #### Summary
+ * This is just a shim around {@link useEthersAppContext} for backwards compatibility.  Will be removed later in a major update.
+ *
+ * @param contextKey
+ * @returns
+ */
+export const useEthersContext: typeof useEthersAppContext = (contextKey?: string): IEthersContext => {
+  return useEthersAppContext(contextKey);
 };
 
 /**
@@ -159,7 +171,7 @@ export const getEthersAppProviderLibrary: TGetEthersAppProviderLibrary = (
 };
 /**
  * #### Summary
- * Ethers App Context for your react app to be used with {@link useEthersContext}.
+ * Ethers App Context for your react app to be used with {@link useEthersAppContext}.
  * This is a wrapper around Web3ReactProvider that provides additional functionality such as a {@link BlockNumberContext} and access to {@link IEthersContext}.  See {@link TEthersAppContextProps} for more information on props for alternate context roots.
  *
  * @category EthersAppContext

@@ -25,6 +25,7 @@ const themeConfig = {
         sidebarId: 'api',
         label: 'API',
       },
+      { to: 'blog', label: 'Blog', position: 'left' },
       {
         href: 'https://github.com/scaffold-eth/eth-hooks',
         label: 'GitHub',
@@ -126,6 +127,7 @@ const plugins = [
         '../src/helpers/typedoc/test-utils.docs.ts',
       ],
       tsconfig: '../tsconfig.docs.json',
+      watch: process.env.TYPEDOC_WATCH,
     },
   ],
 ];

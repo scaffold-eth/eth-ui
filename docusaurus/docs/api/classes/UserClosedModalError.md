@@ -1,11 +1,10 @@
 ---
-id: "EthersAppContext.UserClosedModalError"
+id: "UserClosedModalError"
 title: "Class: UserClosedModalError"
 sidebar_label: "UserClosedModalError"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[EthersAppContext](../modules/EthersAppContext.md).UserClosedModalError
 
 ## Hierarchy
 

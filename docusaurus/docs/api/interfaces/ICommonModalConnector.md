@@ -1,19 +1,18 @@
 ---
-id: "EthersAppContext.ICommonModalConnector"
+id: "ICommonModalConnector"
 title: "Interface: ICommonModalConnector"
 sidebar_label: "ICommonModalConnector"
+sidebar_position: 0
 custom_edit_url: null
 ---
 
-[EthersAppContext](../modules/EthersAppContext.md).ICommonModalConnector
-
 #### Summary
-An interface implemented by [EthersModalConnector](../classes/EthersAppContext.EthersModalConnector.md) in addition to AbstractConnector
+An interface implemented by [EthersModalConnector](../classes/EthersModalConnector.md) in addition to AbstractConnector
 
 ## Implemented by
 
-- [`EthersModalConnector`](../classes/EthersAppContext.EthersModalConnector.md)
-- [`MockConnector`](../classes/TestUtils.MockConnector.md)
+- [`EthersModalConnector`](../classes/EthersModalConnector.md)
+- [`MockConnector`](../classes/MockConnector.md)
 
 ## Methods
 

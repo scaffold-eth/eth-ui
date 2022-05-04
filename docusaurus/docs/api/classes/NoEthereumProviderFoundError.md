@@ -1,11 +1,10 @@
 ---
-id: "EthersAppContext.NoEthereumProviderFoundError"
+id: "NoEthereumProviderFoundError"
 title: "Class: NoEthereumProviderFoundError"
 sidebar_label: "NoEthereumProviderFoundError"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[EthersAppContext](../modules/EthersAppContext.md).NoEthereumProviderFoundError
 
 ## Hierarchy
 

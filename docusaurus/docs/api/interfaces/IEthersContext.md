@@ -1,22 +1,21 @@
 ---
-id: "Models.IEthersContext"
+id: "IEthersContext"
 title: "Interface: IEthersContext"
 sidebar_label: "IEthersContext"
+sidebar_position: 0
 custom_edit_url: null
 ---
 
-[Models](../modules/Models.md).IEthersContext
-
 #### Summary
-The return type of [EthersModalConnector](../classes/EthersAppContext.EthersModalConnector.md)
-- ethers compatable provider [TEthersProvider](../modules/Models.md#tethersprovider-4)
+The return type of [EthersModalConnector](../classes/EthersModalConnector.md)
+- ethers compatable provider [TEthersProvider](../#tethersprovider)
 - a callback to change the current signer
 - the current account, chainId and signer
 - callbacks to open the web3Modal, logout or change theme
 
 ## Hierarchy
 
-- `Web3ReactContextInterface`<[`TEthersProvider`](../modules/Models.md#tethersprovider-4)\>
+- `Web3ReactContextInterface`<[`TEthersProvider`](../#tethersprovider)\>
 
   ↳ **`IEthersContext`**
 
@@ -24,7 +23,7 @@ The return type of [EthersModalConnector](../classes/EthersAppContext.EthersModa
 
 ### connector
 
-• **connector**: `undefined` \| [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector-4)
+• **connector**: `undefined` \| [`TEthersModalConnector`](../#tethersmodalconnector)
 
 #### Overrides
 
@@ -38,7 +37,7 @@ ___
 
 ### provider
 
-• **provider**: `undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider-4)
+• **provider**: `undefined` \| [`TEthersProvider`](../#tethersprovider)
 
 #### Defined in
 
@@ -62,7 +61,7 @@ ___
 
 ### signer
 
-• **signer**: `undefined` \| [`TEthersSigner`](../modules/Models.md#tetherssigner-4)
+• **signer**: `undefined` \| [`TEthersSigner`](../#tetherssigner)
 
 #### Defined in
 
@@ -128,7 +127,7 @@ Open web3 modal for login
 
 | Name | Type |
 | :------ | :------ |
-| `ethersModalConnector` | [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector-4) |
+| `ethersModalConnector` | [`TEthersModalConnector`](../#tethersmodalconnector) |
 | `onError?` | (`error`: `Error`) => `void` |
 
 #### Returns

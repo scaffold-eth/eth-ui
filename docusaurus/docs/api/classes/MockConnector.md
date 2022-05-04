@@ -1,11 +1,10 @@
 ---
-id: "TestUtils.MockConnector"
+id: "MockConnector"
 title: "Class: MockConnector"
 sidebar_label: "MockConnector"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[TestUtils](../modules/TestUtils.md).MockConnector
 
 ## Hierarchy
 
@@ -15,7 +14,7 @@ custom_edit_url: null
 
 ## Implements
 
-- [`ICommonModalConnector`](../interfaces/EthersAppContext.ICommonModalConnector.md)
+- [`ICommonModalConnector`](../interfaces/ICommonModalConnector.md)
 
 ## Properties
 
@@ -139,7 +138,7 @@ AbstractConnector.constructor
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[loadWeb3Modal](../interfaces/EthersAppContext.ICommonModalConnector.md#loadweb3modal-4)
+[ICommonModalConnector](../interfaces/ICommonModalConnector.md).[loadWeb3Modal](../interfaces/ICommonModalConnector.md#loadweb3modal)
 
 #### Defined in
 
@@ -171,7 +170,7 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[hasCachedProvider](../interfaces/EthersAppContext.ICommonModalConnector.md#hascachedprovider-4)
+[ICommonModalConnector](../interfaces/ICommonModalConnector.md).[hasCachedProvider](../interfaces/ICommonModalConnector.md#hascachedprovider)
 
 #### Defined in
 
@@ -189,7 +188,7 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[getSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#getsigner-4)
+[ICommonModalConnector](../interfaces/ICommonModalConnector.md).[getSigner](../interfaces/ICommonModalConnector.md#getsigner)
 
 #### Defined in
 
@@ -213,7 +212,7 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[setModalTheme](../interfaces/EthersAppContext.ICommonModalConnector.md#setmodaltheme-4)
+[ICommonModalConnector](../interfaces/ICommonModalConnector.md).[setModalTheme](../interfaces/ICommonModalConnector.md#setmodaltheme)
 
 #### Defined in
 
@@ -231,7 +230,7 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[resetModal](../interfaces/EthersAppContext.ICommonModalConnector.md#resetmodal-4)
+[ICommonModalConnector](../interfaces/ICommonModalConnector.md).[resetModal](../interfaces/ICommonModalConnector.md#resetmodal)
 
 #### Defined in
 
@@ -255,7 +254,7 @@ ___
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[changeSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#changesigner-4)
+[ICommonModalConnector](../interfaces/ICommonModalConnector.md).[changeSigner](../interfaces/ICommonModalConnector.md#changesigner)
 
 #### Defined in
 
@@ -283,11 +282,11 @@ ___
 
 ### getProvider
 
-▸ **getProvider**(): `Promise`<[`TEthersProvider`](../modules/Models.md#tethersprovider-4) \| `MockProvider`\>
+▸ **getProvider**(): `Promise`<[`TEthersProvider`](../#tethersprovider) \| `MockProvider`\>
 
 #### Returns
 
-`Promise`<[`TEthersProvider`](../modules/Models.md#tethersprovider-4) \| `MockProvider`\>
+`Promise`<[`TEthersProvider`](../#tethersprovider) \| `MockProvider`\>
 
 #### Overrides
 

@@ -6,23 +6,23 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-A context for your react app with [useEthersContext](EthersAppContext.md#useetherscontext) that provides you access to [IEthersContext](../interfaces/Models.IEthersContext.md).  It gives you access to consistent interface to get the current provider [EthersModalConnector](../classes/EthersAppContext.EthersModalConnector.md).  Additionally integration with web3Modal gives you an easy way to guide your user with their web3 journey.
+A context for your react app with {@link useEthersContext} that provides you access to [IEthersContext](../interfaces/Models.IEthersContext.md).  It gives you access to consistent interface to get the current provider [EthersModalConnector](../classes/EthersAppContext.EthersModalConnector.md).  Additionally integration with web3Modal gives you an easy way to guide your user with their web3 journey.
 
 ## EthersAppContext Functions
 
-- [useBlockNumberContext](EthersAppContext.md#useblocknumbercontext)
-- [useEthersContext](EthersAppContext.md#useetherscontext)
-- [ConnectToStaticJsonRpcProvider](EthersAppContext.md#connecttostaticjsonrpcprovider)
+- [useBlockNumberContext](EthersAppContext.md#useblocknumbercontext-4)
+- [useEthersAppContext](EthersAppContext.md#useethersappcontext)
+- [ConnectToStaticJsonRpcProvider](EthersAppContext.md#connecttostaticjsonrpcprovider-4)
 
 ## EthersAppContext Variables
 
-- [BlockNumberContext](EthersAppContext.md#blocknumbercontext)
-- [EthersAppContext](EthersAppContext.md#ethersappcontext)
+- [BlockNumberContext](EthersAppContext.md#blocknumbercontext-4)
+- [EthersAppContext](EthersAppContext.md#ethersappcontext-4)
 
 ## Misc Variables
 
-- [connectorErrorText](EthersAppContext.md#connectorerrortext)
-- [contextQueryClient](EthersAppContext.md#contextqueryclient)
+- [connectorErrorText](EthersAppContext.md#connectorerrortext-4)
+- [contextQueryClient](EthersAppContext.md#contextqueryclient-4)
 
 ## EthersAppContext Interfaces
 
@@ -51,12 +51,12 @@ A hook that gets you the current blocknumber via react context
 - can be shared by your whole app.
 
 ##### ❔Use
-Make sure to wrap your main app with the [EthersAppContext](EthersAppContext.md#ethersappcontext).
+Make sure to wrap your main app with the [EthersAppContext](EthersAppContext.md#ethersappcontext-4).
 - See [scaffold-eth-typescript example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/components/routes/App.tsx#L38)
 
 ##### ✏️ Notes
 - this extensively used by eth-hooks to trigger hooks when a new block arrives
-- uses the current provider {@link ethersProvider} from [useEthersContext](EthersAppContext.md#useetherscontext)
+- uses the current provider {@link ethersProvider} from {@link useEthersContext}
 
 #### Returns
 
@@ -66,13 +66,13 @@ current block number
 
 #### Defined in
 
-[context/ethers-app/BlockNumberContext.tsx:64](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/BlockNumberContext.tsx#L64)
+[context/ethers-app/BlockNumberContext.tsx:64](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/BlockNumberContext.tsx#L64)
 
 ___
 
-### useEthersContext
+### useEthersAppContext
 
-▸ **useEthersContext**(`contextKey?`): [`IEthersContext`](../interfaces/Models.IEthersContext.md)
+▸ **useEthersAppContext**(`contextKey?`): [`IEthersContext`](../interfaces/Models.IEthersContext.md)
 
 #### Summary
 This Hook provides you with access to the current Ethers Provider Context.
@@ -80,7 +80,7 @@ This provider would be the one selected by using [EthersModalConnector](../class
 
 ##### ✨ Features
 Gives you access to consistent interface to get the current provider information [EthersModalConnector](../classes/EthersAppContext.EthersModalConnector.md)
-- ethers compatable provider [TEthersProvider](Models.md#tethersprovider)
+- ethers compatable provider [TEthersProvider](Models.md#tethersprovider-4)
 - a callback to change the current account (signer)
 - the current account, chainId and signer
 - callbacks to open the web3Modal, logout or change theme
@@ -100,7 +100,7 @@ Gives you access to consistent interface to get the current provider information
 
 #### Defined in
 
-[context/ethers-app/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/EthersAppContext.tsx#L37)
+[context/ethers-app/EthersAppContext.tsx:37](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/EthersAppContext.tsx#L37)
 
 ___
 
@@ -129,7 +129,7 @@ See scaffold-eth-typescript for an example that uses it to connect to a localhos
 
 #### Defined in
 
-[context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L33)
+[context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L33)
 
 ## EthersAppContext Variables
 
@@ -138,7 +138,7 @@ See scaffold-eth-typescript for an example that uses it to connect to a localhos
 • `Const` **BlockNumberContext**: `FC`<`IBlockNumberContextProps`\>
 
 #### Summary
-A context that works with [useBlockNumberContext](EthersAppContext.md#useblocknumbercontext) to give access to the current provider's block number in any place in your app
+A context that works with [useBlockNumberContext](EthersAppContext.md#useblocknumbercontext-4) to give access to the current provider's block number in any place in your app
 
 **`param`**
 
@@ -146,25 +146,25 @@ A context that works with [useBlockNumberContext](EthersAppContext.md#useblocknu
 
 #### Defined in
 
-[context/ethers-app/BlockNumberContext.tsx:91](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/BlockNumberContext.tsx#L91)
+[context/ethers-app/BlockNumberContext.tsx:91](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/BlockNumberContext.tsx#L91)
 
 ___
 
 ### EthersAppContext
 
-• `Const` **EthersAppContext**: `FC`<[`TEthersAppContextProps`](EthersAppContext.md#tethersappcontextprops)\>
+• `Const` **EthersAppContext**: `FC`<[`TEthersAppContextProps`](EthersAppContext.md#tethersappcontextprops-4)\>
 
 #### Summary
-Ethers App Context for your react app to be used with [useEthersContext](EthersAppContext.md#useetherscontext).
-This is a wrapper around Web3ReactProvider that provides additional functionality such as a [BlockNumberContext](EthersAppContext.md#blocknumbercontext) and access to [IEthersContext](../interfaces/Models.IEthersContext.md).  See [TEthersAppContextProps](EthersAppContext.md#tethersappcontextprops) for more information on props for alternate context roots.
+Ethers App Context for your react app to be used with [useEthersAppContext](EthersAppContext.md#useethersappcontext).
+This is a wrapper around Web3ReactProvider that provides additional functionality such as a [BlockNumberContext](EthersAppContext.md#blocknumbercontext-4) and access to [IEthersContext](../interfaces/Models.IEthersContext.md).  See [TEthersAppContextProps](EthersAppContext.md#tethersappcontextprops-4) for more information on props for alternate context roots.
 
-**`param`** [TEthersAppContextProps](EthersAppContext.md#tethersappcontextprops)
+**`param`** [TEthersAppContextProps](EthersAppContext.md#tethersappcontextprops-4)
 
 **`returns`**
 
 #### Defined in
 
-[context/ethers-app/EthersAppContext.tsx:170](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/EthersAppContext.tsx#L170)
+[context/ethers-app/EthersAppContext.tsx:170](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/EthersAppContext.tsx#L170)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[context/ethers-app/connectors/connectorErrors.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/connectors/connectorErrors.ts#L1)
+[context/ethers-app/connectors/connectorErrors.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/connectors/connectorErrors.ts#L1)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[context/ethers-app/queryClient.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/queryClient.ts#L3)
+[context/ethers-app/queryClient.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/queryClient.ts#L3)
 
 ## Type aliases
 
@@ -219,36 +219,36 @@ Props for context
 | `secondaryWeb3ReactRoot.contextKey` | `string` | - |
 | `secondaryWeb3ReactRoot.web3ReactRoot` | `JSX.Element` | - |
 | `disableQueryClientRoot?` | `boolean` | disables the local queryClientRoot and QueryClientProvider for react-query and allows you to use your own |
-| `customGetEthersAppProviderLibrary?` | [`TGetEthersAppProviderLibrary`](EthersAppContext.md#tgetethersappproviderlibrary) | if you want to pass in your own provider. Make sure it is compatable with ethers.js, see [TGetEthersAppProviderLibrary](EthersAppContext.md#tgetethersappproviderlibrary) for details |
+| `customGetEthersAppProviderLibrary?` | [`TGetEthersAppProviderLibrary`](EthersAppContext.md#tgetethersappproviderlibrary-4) | if you want to pass in your own provider. Make sure it is compatable with ethers.js, see [TGetEthersAppProviderLibrary](EthersAppContext.md#tgetethersappproviderlibrary-4) for details |
 
 #### Defined in
 
-[context/ethers-app/EthersAppContext.tsx:106](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/EthersAppContext.tsx#L106)
+[context/ethers-app/EthersAppContext.tsx:106](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/EthersAppContext.tsx#L106)
 
 ___
 
 ### TGetEthersAppProviderLibrary
 
-Ƭ **TGetEthersAppProviderLibrary**: (`provider`: [`TEthersProvider`](Models.md#tethersprovider) \| `ExternalProvider` \| `JsonRpcFetchFunc` \| `any`, `connector?`: `AbstractConnector`) => [`TEthersProvider`](Models.md#tethersprovider)
+Ƭ **TGetEthersAppProviderLibrary**: (`provider`: [`TEthersProvider`](Models.md#tethersprovider-4) \| `ExternalProvider` \| `JsonRpcFetchFunc` \| `any`, `connector?`: `AbstractConnector`) => [`TEthersProvider`](Models.md#tethersprovider-4)
 
 #### Type declaration
 
-▸ (`provider`, `connector?`): [`TEthersProvider`](Models.md#tethersprovider)
+▸ (`provider`, `connector?`): [`TEthersProvider`](Models.md#tethersprovider-4)
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `provider` | [`TEthersProvider`](Models.md#tethersprovider) \| `ExternalProvider` \| `JsonRpcFetchFunc` \| `any` |
+| `provider` | [`TEthersProvider`](Models.md#tethersprovider-4) \| `ExternalProvider` \| `JsonRpcFetchFunc` \| `any` |
 | `connector?` | `AbstractConnector` |
 
 ##### Returns
 
-[`TEthersProvider`](Models.md#tethersprovider)
+[`TEthersProvider`](Models.md#tethersprovider-4)
 
 #### Defined in
 
-[context/ethers-app/EthersAppContext.tsx:126](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/EthersAppContext.tsx#L126)
+[context/ethers-app/EthersAppContext.tsx:126](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/EthersAppContext.tsx#L126)
 
 ___
 
@@ -258,4 +258,4 @@ ___
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:54](https://github.com/scaffold-eth/eth-hooks/blob/77f0fe7/src/context/ethers-app/connectors/EthersModalConnector.ts#L54)
+[context/ethers-app/connectors/EthersModalConnector.ts:54](https://github.com/scaffold-eth/eth-hooks/blob/56fcc82/src/context/ethers-app/connectors/EthersModalConnector.ts#L54)

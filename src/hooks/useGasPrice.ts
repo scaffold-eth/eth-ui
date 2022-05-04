@@ -2,7 +2,7 @@ import { utils } from 'ethers';
 import { useQuery } from 'react-query';
 import { useDebounce } from 'use-debounce';
 
-import { useEthersContext, useBlockNumberContext } from '~~/context';
+import { useEthersAppContext, useBlockNumberContext } from '~~/context';
 import {
   ethersOverride,
   mergeDefaultOverride,
@@ -52,7 +52,7 @@ export const useGasPrice = (
   options: TUpdateOptions = mergeDefaultUpdateOptions(),
   override: TOverride = mergeDefaultOverride()
 ): THookResult<number | undefined> => {
-  const ethersContext = useEthersContext(override.alternateContextKey);
+  const ethersContext = useEthersAppContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
   const keys = [

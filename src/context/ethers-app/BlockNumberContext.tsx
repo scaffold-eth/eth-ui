@@ -3,7 +3,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { BlockNumberReactContext } from './BlockNumberReactContext';
 
-import { useEthersContext } from '~~/context';
+import { useEthersAppContext } from '~~/context';
 import { ethersOverride } from '~~/functions';
 import { defaultOverride, TOverride } from '~~/models';
 
@@ -89,7 +89,7 @@ interface IBlockNumberContextProps {
  * @returns
  */
 export const BlockNumberContext: FC<IBlockNumberContextProps> = (props) => {
-  const ethersContext = useEthersContext(props.override?.alternateContextKey);
+  const ethersContext = useEthersAppContext(props.override?.alternateContextKey);
   const { chainId, provider } = ethersOverride(ethersContext, props.override ?? defaultOverride());
 
   const isMounted = useIsMounted();

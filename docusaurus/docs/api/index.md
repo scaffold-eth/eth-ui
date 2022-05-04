@@ -8,10 +8,16 @@ hide_table_of_contents: true
 custom_edit_url: null
 ---
 
-## Modules
+## EthersAppContext Modules
+
+- [EthersAppContext](modules/EthersAppContext.md)
+
+## ContractAppContext Modules
 
 - [ContractAppContext](modules/ContractAppContext.md)
-- [EthersAppContext](modules/EthersAppContext.md)
+
+## Misc Modules
+
 - [Helpers](modules/Helpers.md)
 - [Helpers](modules/Helpers.md)
 - [Hooks](modules/Hooks.md)

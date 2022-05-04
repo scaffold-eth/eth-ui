@@ -1,11 +1,10 @@
 ---
-id: "EthersAppContext.IStaticJsonRpcProviderConnectorOptions"
+id: "IStaticJsonRpcProviderConnectorOptions"
 title: "Interface: IStaticJsonRpcProviderConnectorOptions"
 sidebar_label: "IStaticJsonRpcProviderConnectorOptions"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[EthersAppContext](../modules/EthersAppContext.md).IStaticJsonRpcProviderConnectorOptions
 
 #### Summary
 A web3modal CustomProvider Options

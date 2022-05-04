@@ -13,7 +13,7 @@ import React, {
 import { useQueryClient } from 'react-query';
 import { invariant } from 'ts-invariant';
 
-import { useEthersContext } from '~~/context';
+import { useEthersAppContext } from '~~/context';
 import { invalidateCache, isValidEthersAdaptor } from '~~/functions';
 import {
   TAppContractsContext,
@@ -413,7 +413,7 @@ export const contractsContextFactory = <
     chainId: number | undefined
   ): TTypedContract<GContractName, GAppConnectorList> | undefined => {
     const contractsState = useContractsState();
-    const ethersContext = useEthersContext();
+    const ethersContext = useEthersAppContext();
     const contract = contractsState?.contractsByName?.[contractName]?.[chainId ?? -1]; // -1 is unknown chainId
     const contractConnector = contractsState?.contractConnectors?.[contractName];
     const chainIdRef = useRef(-1);

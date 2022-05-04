@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import { useBlockNumberContext, useEthersContext } from '~~/context';
+import { useBlockNumberContext, useEthersAppContext } from '~~/context';
 import {
   ethersOverride,
   mergeDefaultOverride,
@@ -36,7 +36,7 @@ export const useNonce = (
   options: TUpdateOptions = mergeDefaultUpdateOptions(),
   override: TOverride = mergeDefaultOverride()
 ): THookResult<number> => {
-  const ethersContext = useEthersContext(override.alternateContextKey);
+  const ethersContext = useEthersAppContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
   const keys = [{ ...queryKey, ...providerKey(provider) }, { address }] as const;

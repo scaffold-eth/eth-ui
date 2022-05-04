@@ -1,11 +1,10 @@
 ---
-id: "EthersAppContext.NoStaticJsonRPCProviderFoundError"
+id: "NoStaticJsonRPCProviderFoundError"
 title: "Class: NoStaticJsonRPCProviderFoundError"
 sidebar_label: "NoStaticJsonRPCProviderFoundError"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[EthersAppContext](../modules/EthersAppContext.md).NoStaticJsonRPCProviderFoundError
 
 ## Hierarchy
 

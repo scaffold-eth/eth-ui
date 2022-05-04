@@ -1,11 +1,10 @@
 ---
-id: "EthersAppContext.CouldNotActivateError"
+id: "CouldNotActivateError"
 title: "Class: CouldNotActivateError"
 sidebar_label: "CouldNotActivateError"
+sidebar_position: 0
 custom_edit_url: null
 ---
-
-[EthersAppContext](../modules/EthersAppContext.md).CouldNotActivateError
 
 ## Hierarchy
 
