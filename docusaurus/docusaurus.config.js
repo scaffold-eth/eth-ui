@@ -115,7 +115,6 @@ const classicOptions = {
 const plugins = [
   [
     'docusaurus-plugin-typedoc',
-
     // Plugin / TypeDoc options
     {
       entryPoints: [
@@ -130,6 +129,17 @@ const plugins = [
       watch: process.env.TYPEDOC_WATCH,
     },
   ],
+  async function tailwindPlugin(context, options) {
+    return {
+      name: 'docusaurus-tailwindcss',
+      configurePostCss(postcssOptions) {
+        // Appends TailwindCSS and AutoPrefixer.
+        postcssOptions.plugins.push(require('tailwindcss'));
+        postcssOptions.plugins.push(require('autoprefixer'));
+        return postcssOptions;
+      },
+    };
+  },
 ];
 
 /** @type {import('@docusaurus/types').Config} */

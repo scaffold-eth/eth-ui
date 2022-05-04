@@ -4,6 +4,17 @@
  * work well for content-centric websites.
  */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @layer base {
+  html {
+    font-family: system-ui, '-apple-system', 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'system-ui',
+      'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  }
+} */
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #1c9aa3;

@@ -1,6 +1,6 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import React, { FC } from 'react';
-import clsx from 'clsx';
+
 import styles from './HomepageFeatures.module.css';
 
 type FeatureItem = {
@@ -52,11 +52,11 @@ const FeatureList: FeatureItem[] = [
 
 const Feature = ({ title, image, description }: FeatureItem) => {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
+    <div className="grid justify-items-center grid-cols-1">
+      <div className="">
         <img className={styles.featureSvg} alt={title} src={useBaseUrl(image)} />
       </div>
-      <div className="text--center padding-horiz--md">
+      <div className="grid justify-items-center grid-cols-1">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
@@ -67,12 +67,10 @@ const Feature = ({ title, image, description }: FeatureItem) => {
 export const HomepageFeatures: FC = () => {
   return (
     <section className={styles.features}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
-        </div>
+      <div className="grid md:grid-cols-3 grid-cols-1">
+        {FeatureList.map((props, idx) => (
+          <Feature key={idx} {...props} />
+        ))}
       </div>
     </section>
   );
