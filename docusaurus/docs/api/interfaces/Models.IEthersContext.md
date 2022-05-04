@@ -9,14 +9,14 @@ custom_edit_url: null
 
 #### Summary
 The return type of [EthersModalConnector](../classes/EthersAppContext.EthersModalConnector.md)
-- ethers compatable provider [TEthersProvider](../modules/Models.md#tethersprovider-2)
+- ethers compatable provider [TEthersProvider](../modules/Models.md#tethersprovider)
 - a callback to change the current signer
 - the current account, chainId and signer
 - callbacks to open the web3Modal, logout or change theme
 
 ## Hierarchy
 
-- `Web3ReactContextInterface`<[`TEthersProvider`](../modules/Models.md#tethersprovider-2)\>
+- `Web3ReactContextInterface`<[`TEthersProvider`](../modules/Models.md#tethersprovider)\>
 
   ↳ **`IEthersContext`**
 
@@ -24,7 +24,7 @@ The return type of [EthersModalConnector](../classes/EthersAppContext.EthersModa
 
 ### connector
 
-• **connector**: `undefined` \| [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector-2)
+• **connector**: `undefined` \| [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector)
 
 #### Overrides
 
@@ -32,17 +32,17 @@ Web3ReactContextInterface.connector
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L30)
+[models/ethersAppContextTypes.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L30)
 
 ___
 
 ### provider
 
-• **provider**: `undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider-2)
+• **provider**: `undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L31)
+[models/ethersAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L31)
 
 ___
 
@@ -56,17 +56,17 @@ Web3ReactContextInterface.active
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L32)
+[models/ethersAppContextTypes.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L32)
 
 ___
 
 ### signer
 
-• **signer**: `undefined` \| [`TEthersSigner`](../modules/Models.md#tetherssigner-2)
+• **signer**: `undefined` \| [`TEthersSigner`](../modules/Models.md#tetherssigner)
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L33)
+[models/ethersAppContextTypes.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L33)
 
 ___
 
@@ -80,7 +80,7 @@ Web3ReactContextInterface.account
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L34)
+[models/ethersAppContextTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L34)
 
 ___
 
@@ -94,7 +94,7 @@ Web3ReactContextInterface.chainId
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L35)
+[models/ethersAppContextTypes.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L35)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L36)
+[models/ethersAppContextTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L36)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L42)
+[models/ethersAppContextTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L42)
 
 ## Methods
 
@@ -128,7 +128,7 @@ Open web3 modal for login
 
 | Name | Type |
 | :------ | :------ |
-| `ethersModalConnector` | [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector-2) |
+| `ethersModalConnector` | [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector) |
 | `onError?` | (`error`: `Error`) => `void` |
 
 #### Returns
@@ -137,7 +137,7 @@ Open web3 modal for login
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L40)
+[models/ethersAppContextTypes.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L40)
 
 ___
 
@@ -157,4 +157,4 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/models/ethersAppContextTypes.ts#L41)
+[models/ethersAppContextTypes.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/models/ethersAppContextTypes.ts#L41)

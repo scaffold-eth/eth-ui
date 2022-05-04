@@ -6,15 +6,15 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-A context for your react app with [contractsContextFactory](ContractAppContext.md#contractscontextfactory-2) that provides you access to load, connect and use typed contracts throught your app.
+A context for your react app with [contractsContextFactory](ContractAppContext.md#contractscontextfactory) that provides you access to load, connect and use typed contracts throught your app.
 
 See [the ContractAppContext docs](../../main/context/ContractAppContext) for detailed explanation and examples.
 
-## ContractAppContext Functions
+## ContractAppContext
 
 ### createConnectorForHardhatContract
 
-▸ **createConnectorForHardhatContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedHardhatContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig-2)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc-2)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+▸ **createConnectorForHardhatContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedHardhatContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
 
 ##### Summary
 Creates a connector for any of your hardhat contracts
@@ -31,22 +31,22 @@ Creates a connector for any of your hardhat contracts
 | Name | Type |
 | :------ | :------ |
 | `contractName` | `GContractNames` |
-| `typechainFactory` | `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc-2)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\> |
-| `deployedHardhatContractJson` | [`TDeployedHardhatContractsJson`](Models.md#tdeployedhardhatcontractsjson-2) |
+| `typechainFactory` | `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\> |
+| `deployedHardhatContractJson` | [`TDeployedHardhatContractsJson`](Models.md#tdeployedhardhatcontractsjson) |
 
 #### Returns
 
-`Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig-2)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc-2)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+`Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
 
 #### Defined in
 
-[context/contracts-app/contractConnectors.ts:76](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/context/contracts-app/contractConnectors.ts#L76)
+[context/contracts-app/contractConnectors.ts:76](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/contracts-app/contractConnectors.ts#L76)
 
 ___
 
 ### createConnectorForExternalContract
 
-▸ **createConnectorForExternalContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig-2)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc-2)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+▸ **createConnectorForExternalContract**<`GContractNames`, `GBaseContract`\>(`contractName`, `typechainFactory`, `deployedContractJson`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
 
 #### Summary
 Creates a contract connector for any external contract
@@ -66,22 +66,22 @@ Creates a contract connector for any external contract
 | Name | Type |
 | :------ | :------ |
 | `contractName` | `GContractNames` |
-| `typechainFactory` | `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc-2)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\> |
-| `deployedContractJson` | [`TExternalContractsAddressMap`](Models.md#texternalcontractsaddressmap-2) |
+| `typechainFactory` | `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\> |
+| `deployedContractJson` | [`TExternalContractsAddressMap`](Models.md#texternalcontractsaddressmap) |
 
 #### Returns
 
-`Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig-2)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc-2)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+`Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
 
 #### Defined in
 
-[context/contracts-app/contractConnectors.ts:113](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/context/contracts-app/contractConnectors.ts#L113)
+[context/contracts-app/contractConnectors.ts:113](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/contracts-app/contractConnectors.ts#L113)
 
 ___
 
 ### createConnectorForExternalAbi
 
-▸ **createConnectorForExternalAbi**<`GContractNames`, `GBaseContract`\>(`contractName`, `config`, `abi`, `connectFunc?`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig-2)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc-2)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+▸ **createConnectorForExternalAbi**<`GContractNames`, `GBaseContract`\>(`contractName`, `config`, `abi`, `connectFunc?`): `Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
 
 #### Summary
 Create a contract connector from a ABI.
@@ -101,17 +101,36 @@ Create a contract connector from a ABI.
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `contractName` | `GContractNames` | `undefined` |
-| `config` | [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig-2) | `undefined` |
+| `config` | [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig) | `undefined` |
 | `abi` | `Record`<`string`, `any`\>[] | `undefined` |
-| `connectFunc` | `undefined` \| [`TContractConnectFunc`](Models.md#tcontractconnectfunc-2)<`GBaseContract`\> | `undefined` |
+| `connectFunc` | `undefined` \| [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> | `undefined` |
 
 #### Returns
 
-`Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig-2)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc-2)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
+`Readonly`<{ `contractName`: `GContractNames` ; `config`: [`TBasicContractDataConfig`](Models.md#tbasiccontractdataconfig)  } & `Readonly`<{ `connect`: [`TContractConnectFunc`](Models.md#tcontractconnectfunc)<`GBaseContract`\> ; `abi`: readonly `Record`<`string`, `any`\>[]  }\>\>
 
 #### Defined in
 
-[context/contracts-app/contractConnectors.ts:151](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/context/contracts-app/contractConnectors.ts#L151)
+[context/contracts-app/contractConnectors.ts:151](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/contracts-app/contractConnectors.ts#L151)
+
+___
+
+### TContractsContextProps
+
+Ƭ **TContractsContextProps**: `Object`
+
+#### Summary
+Props for the ContractContext generated by the contractContextFactory
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `ethersContextKey?` | `string` |
+
+#### Defined in
+
+[context/contracts-app/contractsContextFactory.tsx:40](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/contracts-app/contractsContextFactory.tsx#L40)
 
 ___
 
@@ -130,7 +149,7 @@ This is the factory function that creates the ContractContext and returns the ho
 | Name | Type |
 | :------ | :------ |
 | `GContractNames` | extends `string` |
-| `GAppConnectorList` | extends [`TConnectorList`](Models.md#tconnectorlist-2)<`GContractNames`, [`TBaseContractExtended`](Models.md#tbasecontractextended-2)<`GContractNames`\>\> |
+| `GAppConnectorList` | extends [`TConnectorList`](Models.md#tconnectorlist)<`GContractNames`, [`TBaseContractExtended`](Models.md#tbasecontractextended)<`GContractNames`\>\> |
 | `GContractsTypes` | extends `BaseContract`<`GContractsTypes`\> & { `contractName`: `GContractNames`  } |
 
 #### Parameters
@@ -147,38 +166,17 @@ A context for contracts, hook to access contracts, hook to load contracts, hook 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `ContractsAppContext` | `FC`<`PropsWithChildren`<[`TContractsContextProps`](ContractAppContext.md#tcontractscontextprops-2)\>\> | #### Summary This is the context for contracts that lets you access your contracts anywhere in your app.  You need to wrap your app in it.  [See this example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/release/packages/vite-app-ts/src/App.tsx) |
-| `useAppContractsActions` | () => `undefined` \| [`TContractsContextActions`](ContractAppContext.md#tcontractscontextactions-2)<`GContractNames`, `GAppConnectorList`\> | - |
-| `useAppContracts` | <GContractName\>(`contractName`: `GContractName`, `chainId`: `undefined` \| `number`) => `undefined` \| [`TTypedContract`](Models.md#ttypedcontract-2)<`GContractName`, `GAppConnectorList`\> | #### Summary This hook allows you to get the contracts attached to a particular network.  ##### ✏️ Notes To be used with {@link useConnectAppContracts} which needs to be called in your app to connect to the contracts in a particular network. |
+| `ContractsAppContext` | `FC`<`PropsWithChildren`<[`TContractsContextProps`](ContractAppContext.md#tcontractscontextprops)\>\> | #### Summary This is the context for contracts that lets you access your contracts anywhere in your app.  You need to wrap your app in it.  [See this example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/release/packages/vite-app-ts/src/App.tsx) |
+| `useAppContractsActions` | () => `undefined` \| [`TContractsContextActions`](ContractAppContext.md#tcontractscontextactions)<`GContractNames`, `GAppConnectorList`\> | - |
+| `useAppContracts` | <GContractName\>(`contractName`: `GContractName`, `chainId`: `undefined` \| `number`) => `undefined` \| [`TTypedContract`](Models.md#ttypedcontract)<`GContractName`, `GAppConnectorList`\> | #### Summary This hook allows you to get the contracts attached to a particular network.  ##### ✏️ Notes To be used with {@link useConnectAppContracts} which needs to be called in your app to connect to the contracts in a particular network. |
 | `useLoadAppContracts` | () => `void` | #### Summary This hook needs to be called in your app to load all your app contracts |
-| `useConnectAppContracts` | (`adaptor`: `undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor-2)) => `void` | #### Summary This hook needs to be called in your app to connect your app to a network |
+| `useConnectAppContracts` | (`adaptor`: `undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor)) => `void` | #### Summary This hook needs to be called in your app to connect your app to a network |
 
 #### Defined in
 
-[context/contracts-app/contractsContextFactory.tsx:105](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/context/contracts-app/contractsContextFactory.tsx#L105)
+[context/contracts-app/contractsContextFactory.tsx:105](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/contracts-app/contractsContextFactory.tsx#L105)
 
-## ContractAppContext Type aliases
-
-### TContractsContextProps
-
-Ƭ **TContractsContextProps**: `Object`
-
-#### Summary
-Props for the ContractContext generated by the contractContextFactory
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `ethersContextKey?` | `string` |
-
-#### Defined in
-
-[context/contracts-app/contractsContextFactory.tsx:40](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/context/contracts-app/contractsContextFactory.tsx#L40)
-
-___
-
-## Misc Type aliases
+## Misc
 
 ### TContractsContextActions
 
@@ -195,12 +193,12 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `connectToAllContractsAction` | (`appContractConnectorList`: `GAppConnectorList`, `ethersAdaptor`: `undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor-2)) => `void` |
-| `connectToContractAction` | (`contractName`: `GContractNames`, `ethersAdaptor`: [`TEthersAdaptor`](Models.md#tethersadaptor-2)) => `void` |
+| `connectToAllContractsAction` | (`appContractConnectorList`: `GAppConnectorList`, `ethersAdaptor`: `undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor)) => `void` |
+| `connectToContractAction` | (`contractName`: `GContractNames`, `ethersAdaptor`: [`TEthersAdaptor`](Models.md#tethersadaptor)) => `void` |
 | `setContractConnectors` | (`appContractConnectorList`: `GAppConnectorList`) => `void` |
 | `addContractConnectors` | (`appContractConnectorList`: `GAppConnectorList`) => `void` |
 | `dispatch` | `Dispatch`<`TActions`<`GContractNames`, `GAppConnectorList`\>\> |
 
 #### Defined in
 
-[context/contracts-app/contractsContextFactory.tsx:79](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/context/contracts-app/contractsContextFactory.tsx#L79)
+[context/contracts-app/contractsContextFactory.tsx:79](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/contracts-app/contractsContextFactory.tsx#L79)

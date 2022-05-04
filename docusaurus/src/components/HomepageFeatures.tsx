@@ -56,7 +56,8 @@ const Feature = ({ title, image, description }: FeatureItem) => {
       <div className="">
         <img className={styles.featureSvg} alt={title} src={useBaseUrl(image)} />
       </div>
-      <div className="grid justify-items-center grid-cols-1">
+      <div className="p-3"></div>
+      <div className="grid justify-items-center grid-cols-1 p-6">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
@@ -66,7 +67,7 @@ const Feature = ({ title, image, description }: FeatureItem) => {
 
 export const HomepageFeatures: FC = () => {
   return (
-    <section className={styles.features}>
+    <section className="p-5 pt-10 pb-10">
       <div className="grid md:grid-cols-3 grid-cols-1">
         {FeatureList.map((props, idx) => (
           <Feature key={idx} {...props} />

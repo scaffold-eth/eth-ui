@@ -1,8 +1,10 @@
-/** @type {import('typedoc/dist/lib/utils').TypeDocOptions} */
+// @ts-check
+
+/** @type {Partial<import('typedoc/dist/lib/utils').TypeDocOptions>} */
 const options = {
   defaultCategory: 'Misc',
   categoryOrder: ['Hooks', 'EthersAppContext', 'ContractAppContext', 'Models', 'Helpers', 'TestUtils', '*'],
-  categorizeByGroup: true,
+  categorizeByGroup: false,
   cleanOutputDir: true,
   readme: 'none',
   entryPoints: [
@@ -15,7 +17,8 @@ const options = {
     '../src/helpers/typedoc/test-utils.docs.ts',
   ],
   entryPointStrategy: 'expand',
-  out: './docs/api',
+  hideGenerator: true,
+  hideLegend: false,
   includeVersion: true,
   sort: ['source-order'],
   excludePrivate: true,
@@ -26,6 +29,8 @@ const options = {
   exclude: ['**/test/**', '**/test-files/**', '**/*.test.ts', '**/*.test.tsx'],
   externalPattern: ['**/node_modules/**', '**/test/**', '**/test-files/**'],
   plugin: ['typedoc-plugin-mermaid'],
+  tsconfig: '../tsconfig.docs.json',
+  treatWarningsAsErrors: true,
 };
 
 module.exports = options;

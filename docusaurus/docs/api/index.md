@@ -1,23 +1,17 @@
 ---
 id: "index"
 title: "eth-hooks - v4.2.17"
-slug: "/docs/api/"
+slug: "/api/"
 sidebar_label: "Table of contents"
 sidebar_position: 0.5
 hide_table_of_contents: true
 custom_edit_url: null
 ---
 
-## EthersAppContext Modules
-
-- [EthersAppContext](modules/EthersAppContext.md)
-
-## ContractAppContext Modules
+## Modules
 
 - [ContractAppContext](modules/ContractAppContext.md)
-
-## Misc Modules
-
+- [EthersAppContext](modules/EthersAppContext.md)
 - [Helpers](modules/Helpers.md)
 - [Helpers](modules/Helpers.md)
 - [Hooks](modules/Hooks.md)

@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import clsx from 'clsx';
-import styles from './HomepageFeatures.module.css';
+
+import { useBgColor, useHeroTextColor as useTextColor } from '../hooks/themeColorHooks';
 
 interface EcosystemItem {
   title: string;
@@ -39,23 +40,17 @@ const EcosystemList: EcosystemItem[] = [
 
 const Ecosystem = ({ title, description, url, btnText }: EcosystemItem) => {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center padding-horiz--md">
-        <div className="card-demo" style={{ paddingTop: 10 }}>
-          <div className="card">
-            <div className="card__header">
-              <h3>{title}</h3>
-            </div>
-            <div className="card__body">
-              <p>{description}</p>
-            </div>
-            <div className="card__footer">
-              <button className="button button--secondary button--block">
-                <a href={url} className="primary" target="_blank">
-                  {btnText}
-                </a>
-              </button>
-            </div>
+    <div className="grid justify-items-center grid-cols-1">
+      <div className="card shadow-xl m-5">
+        <div className="card-body items-center text-center">
+          <h3 className="card-title items-center text-center">{title}</h3>
+          <p>{description}</p>
+          <div className="card-actions">
+            <button className="button button--secondary button--block">
+              <a href={url} className="primary" target="_blank">
+                {btnText}
+              </a>
+            </button>
           </div>
         </div>
       </div>
@@ -64,19 +59,25 @@ const Ecosystem = ({ title, description, url, btnText }: EcosystemItem) => {
 };
 
 export const HomepageEcosystemItems: FC = () => {
+  const bg = useBgColor();
+  const textColor = useTextColor();
+
   return (
-    <div className={styles.background}>
-      <section className={styles.features}>
-        <div className="container">
-          <h2 className={styles.title}>The Scaffold-eth Ecosystem</h2>
-          <div className={styles.subtitle}>A one-stop shop for all your Web3 development needs</div>
-          <div className="row">
-            {EcosystemList.map((props, idx) => (
-              <Ecosystem key={idx} {...props} />
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
+    <section className="p-5 pt-5 pb-5">
+      <div className={`rounded-md grid grid-cols-1 pt-10 pb-10 m-5 place-content-around ${bg}`}>
+        <h2 className={`text-center text-4xl ${textColor}`}>The Scaffold-eth Ecosystem</h2>
+        <div className="p-2"></div>
+        <div className={`text-center text-xl ${textColor}`}>A one-stop shop for all your Web3 development needs</div>
+      </div>
+      <div className="grid md:grid-cols-3 grid-cols-1 self-center justify-center ">
+        <Ecosystem key={0} {...EcosystemList[0]} />
+        <Ecosystem key={0} {...EcosystemList[1]} />
+        <Ecosystem key={0} {...EcosystemList[2]} />
+      </div>
+      <div className="grid md:grid-cols-3 grid-cols-1 content-center ">
+        <div></div>
+        <Ecosystem key={0} {...EcosystemList[3]} />
+      </div>
+    </section>
   );
 };

@@ -8,7 +8,7 @@ custom_edit_url: null
 
 Pure functions and helpers with useful functionality
 
-## Helpers Functions
+## Helpers
 
 ### lazier
 
@@ -41,4 +41,4 @@ const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
 
 #### Defined in
 
-[helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/b87fb84/src/helpers/lazier.ts#L18)
+[helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/helpers/lazier.ts#L18)

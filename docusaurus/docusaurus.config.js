@@ -1,11 +1,36 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
+const typedocConfig = require('./typedoc');
+
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 const themeConfig = {
+  // algolia: {
+  //   // The application ID provided by Algolia
+  //   appId: 'YOUR_APP_ID',
+
+  //   // Public API key: it is safe to commit it
+  //   apiKey: 'YOUR_SEARCH_API_KEY',
+
+  //   indexName: 'ETH-HOOKS-DOCS',
+
+  //   // Optional: see doc section below
+  //   contextualSearch: true,
+
+  //   // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+  //   externalUrlRegex: 'https://scaffold-eth.github.io/',
+
+  //   // Optional: Algolia search parameters
+  //   searchParameters: {},
+
+  //   // Optional: path for search page that enabled by default (`false` to disable it)
+  //   searchPagePath: 'search',
+
+  //   //... other Algolia params
+  // },
   navbar: {
     title: 'eth-hooks',
     logo: {
@@ -115,18 +140,10 @@ const classicOptions = {
 const plugins = [
   [
     'docusaurus-plugin-typedoc',
-    // Plugin / TypeDoc options
     {
-      entryPoints: [
-        '../src/helpers/typedoc/hooks.docs.ts',
-        '../src/helpers/typedoc/context.docs.ts',
-        '../src/helpers/typedoc/models.docs.ts',
-        '../src/helpers/typedoc/functions.docs.ts',
-        '../src/helpers/typedoc/helpers.docs.ts',
-        '../src/helpers/typedoc/test-utils.docs.ts',
-      ],
-      tsconfig: '../tsconfig.docs.json',
+      ...typedocConfig,
       watch: process.env.TYPEDOC_WATCH,
+      hideInPageTOC: true,
     },
   ],
   async function tailwindPlugin(context, options) {
@@ -158,7 +175,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (themeConfig),
-  plugins: plugins,
+  plugins,
 };
 
 module.exports = config;
