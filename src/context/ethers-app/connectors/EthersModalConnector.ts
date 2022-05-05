@@ -7,12 +7,12 @@ import { default as Web3Modal, ICoreOptions, ThemeColors } from 'web3modal';
 
 import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 
-import { isEthersProvider } from '~~/functions/ethersHelpers';
 import {
   connectorErrorText,
   NoEthereumProviderFoundError,
   NoStaticJsonRPCProviderFoundError,
-} from '~~/helpers/typedoc/context.docs';
+} from '~~/context/ethers-app';
+import { isEthersProvider } from '~~/functions/ethersHelpers';
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser, const_web3DialogUserRejected } from '~~/models/constants/common';
 
@@ -22,13 +22,13 @@ type TEthersModalConfig = {
    */
   reloadOnNetworkChange: boolean;
   /**
-   * ### Summary
+   * #### Summary
    * ethers.io recomments an immutable provider, and by default doesn't allow
    * network changes (i.e.) metamask changing chains.
    * - if immutableProvider is true, it will follow the default behaviour
    * - if immutableProvider is false, it will allow network changes
    *
-   * ### Notes
+   * ##### ✏️ Notes
    * see https://github.com/ethers-io/ethers.js/discussions/1480
    */
   immutableProvider: boolean;
@@ -65,7 +65,7 @@ export type TEthersModalConnector = ICommonModalConnector & AbstractConnector;
  * ##### ✏️ Notes
  * - inherits from web3-react class AbstractConnector
  *
- * @category EthersContext
+ * @category EthersAppContext
  */
 export class EthersModalConnector extends AbstractConnector implements ICommonModalConnector {
   protected _options: Partial<ICoreOptions>;

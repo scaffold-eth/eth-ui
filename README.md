@@ -2,21 +2,18 @@
 
 Commonly used Ethereum hooks to supercharge your web3 dev!
 
-Used by 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth) and 🏭 [scaffold-eth-typescript](https://github.com/scaffold-eth/scaffold-eth-typescript)
-
-Used by ⚙ [eth-components](https://github.com/scaffold-eth/eth-components)
+Used by 🏭 [scaffold-eth-typescript](https://github.com/scaffold-eth/scaffold-eth-typescript), 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
+, [eth-components](https://github.com/scaffold-eth/eth-components) and many other web3 projects!
 
 Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
-
-Check out the docs 📚 [eth-hooks docs](https://scaffold-eth.github.io/eth-hooks/)
 
 ## Author
 
 [@shravansunder](https://github.com/ShravanSunder)
 
-## Contributors
+# Documentation
 
-- [@ss6](https://github.com/ssp6)
+## 📚 Check out the documentation at [Eth-hooks-documentation](https://scaffold-eth.github.io/eth-hooks/)
 
 # Features
 
@@ -62,9 +59,6 @@ Contracts
   - useLoadAppContracts
   - useConnectAppContracts
   - useConnectAppContracts
-- legacy (eth-hooks v2+)
-  - useContractLoader
-  - useContractReaderUntyped
 
 ERC
 
@@ -77,7 +71,7 @@ Dapps
 - useResolveEnsAddress
 - useResolveEnsName
 
-Utility
+Utilities
 
 - useBurnerSigner
 
@@ -188,7 +182,7 @@ The first create a web3Config. Check out their github repo for a detailed explan
 
 ### 2. Create a function that returns a `TEthersModalConnector`
 
-This function should have a signature that returns `TEthersModalConnector` which is an interface that is implemented by [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersContext.EthersModalConnector.html)
+This function should have a signature that returns `TEthersModalConnector` which is an interface that is implemented by [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html)
 
 ```ts
 type TCreateEthersModalConnector = (id?: string) => TEthersModalConnector | undefined;
@@ -211,7 +205,7 @@ const createLoginConnector: TCreateEthersModalConnector = useCallback(
 );
 ```
 
-You can find the details for [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersContext.EthersModalConnector.html) in the api docs.
+You can find the details for [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html) in the api docs.
 
 ### 3. Create a login event handler
 

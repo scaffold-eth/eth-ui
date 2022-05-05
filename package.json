@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.2.14",
+  "version": "4.2.17",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
@@ -27,14 +27,12 @@
   "scripts": {
     "watch": "tsc -w --noEmit",
     "clean": "shx rm -rf ./lib",
-    "build:old": "yarn clean && ts-patch i && yarn shx mkdir lib && yarn shx cp -r src lib/src.ts && tsc -p tsconfig.build.json",
     "build": "yarn clean && node esbuild.config.mjs && ts-patch i -s && tsc -p tsconfig.build.json",
     "package": "shx cp -R package.json ./lib && shx cp -R README.md ./lib",
     "publish:pre": "yarn clean && yarn build && yarn package",
     "publish:yalc": "yarn build && yarn package && cd lib && yalc publish --no-script --push",
     "publish:next": "yarn build && yarn package && cd lib && npm publish --tag next",
     "publish:latest": "yarn build && yarn package && cd lib && npm publish --tag latest",
-    "docs:api": "yarn typedoc --tsconfig ./tsconfig.docs.json --options ./typedoc.json && shx cp -R README.md ./docusaurus/docs/overview.md",
     "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*.(ts|tsx) ./test/**/*.(ts|tsx)",
     "lint:report": "eslint --config ./.eslintrc --ignore-path ./.eslintignore --output-file eslint_report.json --format json ./src/**/*.(ts|tsx)",
     "format": "yarn prettier -w ./src ./test ./test-files",
@@ -66,7 +64,6 @@
     "@web3-react/abstract-connector": "^6.0.7",
     "@web3-react/core": "^6.1.9",
     "@web3-react/types": "^6.0.7",
-    "axios": "^0.27.2",
     "ethers": "^5.6.4",
     "lodash.isequal": "^4.5.0",
     "merge-anything": "^5.0.2",
@@ -113,16 +110,16 @@
     "esbuild": "^0.14.38",
     "esbuild-node-externals": "^1.4.1",
     "eslint": "^8.14.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.5",
     "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-markdown": "^2.2.1",
     "eslint-plugin-mocha": "^10.0.4",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
+    "eslint-plugin-tailwindcss": "^3.5.0",
     "eslint-plugin-testing-library": "^5.3.1",
     "eslint-plugin-unused-imports": "^2.0.0",
     "ethereum-waffle": "^3.4.4",
@@ -140,6 +137,7 @@
     "pinst": "^3.0.0",
     "prettier": "^2.6.2",
     "prettier-eslint": "^14.0.2",
+    "prettier-plugin-tailwindcss": "^0.1.10",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "shx": "^0.3.4",
@@ -150,9 +148,6 @@
     "ts-sinon": "^2.0.2",
     "tsconfig-paths": "^3.14.1",
     "typechain": "^7.0.0",
-    "typedoc": "^0.22.15",
-    "typedoc-plugin-markdown": "^3.12.1",
-    "typedoc-plugin-mermaid": "^1.8.0",
     "typescript": "^4.6.4",
     "typescript-transform-paths": "^3.3.1"
   },
@@ -164,16 +159,16 @@
     "typescript"
   ],
   "license": "MIT",
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.2.0",
   "volta": {
     "node": "16.13.1"
   },
   "lint-staged": {
-    "**/*.{ts,tsx,js,jsx}": [
+    "src/**/*.{ts,tsx,js,jsx}": [
       "yarn lint --fix",
       "yarn format"
     ],
-    "**/*.{json}": [
+    "src/**/*.{json}": [
       "yarn format"
     ]
   }

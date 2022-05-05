@@ -36,9 +36,9 @@ Get an example of _providers_ in Scaffold-eth-typescript [App.tsx](https://githu
 
 ### Cache
 
-Built with React-Query and EthersContext. Get a cache when you wrap your app in context.
+Built with React-Query and EthersAppContext. Get a cache when you wrap your app in context.
 
-- All hook results are cached by EthersContext
+- All hook results are cached by EthersAppContext
   - Prevents repeated calls to the network because the hooks hit the cache first.
   - No need to pass variables. If you use a hook anywhere in the app it will automatically hit the cache.
   - When the network or signer changes the cache is automatically invalidated so you don't get the wrong values.

@@ -4,6 +4,8 @@
  * @module TestUtils
  */
 
+// -------------------------------
+
 export * from '../test-utils/constants';
 export * from '../test-utils/eth';
 export * from '../test-utils/functions';

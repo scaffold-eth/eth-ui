@@ -6,7 +6,7 @@ export const connectorErrorText = {
 } as const;
 
 /**
- * @category EthersContext
+ * @category EthersAppContext
  */
 export class UserClosedModalError extends Error {
   public constructor() {
@@ -17,7 +17,7 @@ export class UserClosedModalError extends Error {
 }
 
 /**
- * @category EthersContext
+ * @category EthersAppContext
  */
 export class CouldNotActivateError extends Error {
   public constructor(error: unknown) {
@@ -28,7 +28,7 @@ export class CouldNotActivateError extends Error {
 }
 
 /**
- * @category EthersContext
+ * @category EthersAppContext
  */
 export class NoEthereumProviderFoundError extends Error {
   public constructor() {
@@ -39,7 +39,7 @@ export class NoEthereumProviderFoundError extends Error {
 }
 
 /**
- * @category EthersContext
+ * @category EthersAppContext
  */
 export class NoStaticJsonRPCProviderFoundError extends Error {
   public constructor(error: unknown) {

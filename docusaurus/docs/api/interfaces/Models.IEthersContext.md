@@ -1,11 +1,16 @@
-[eth-hooks - v4.0.44](../README.md) / [Models](../modules/Models.md) / IEthersContext
-
-# Interface: IEthersContext
+---
+id: 'Models.IEthersContext'
+title: 'Interface: IEthersContext'
+sidebar_label: 'IEthersContext'
+custom_edit_url: null
+---
 
 [Models](../modules/Models.md).IEthersContext
 
 #### Summary
-The return type of [EthersModalConnector](../classes/EthersContext.EthersModalConnector.md)
+
+The return type of [EthersModalConnector](../classes/EthersAppContext.EthersModalConnector.md)
+
 - ethers compatable provider [TEthersProvider](../modules/Models.md#tethersprovider)
 - a callback to change the current signer
 - the current account, chainId and signer
@@ -17,29 +22,11 @@ The return type of [EthersModalConnector](../classes/EthersContext.EthersModalCo
 
   ↳ **`IEthersContext`**
 
-## Table of contents
-
-### Properties
-
-- [connector](Models.IEthersContext.md#connector)
-- [provider](Models.IEthersContext.md#provider)
-- [active](Models.IEthersContext.md#active)
-- [signer](Models.IEthersContext.md#signer)
-- [account](Models.IEthersContext.md#account)
-- [chainId](Models.IEthersContext.md#chainid)
-- [changeSigner](Models.IEthersContext.md#changesigner)
-- [setModalTheme](Models.IEthersContext.md#setmodaltheme)
-
-### Methods
-
-- [openModal](Models.IEthersContext.md#openmodal)
-- [disconnectModal](Models.IEthersContext.md#disconnectmodal)
-
 ## Properties
 
 ### connector
 
-• **connector**: `undefined` \| [`TEthersModalConnector`](../modules/EthersContext.md#tethersmodalconnector)
+• **connector**: `undefined` \| [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector)
 
 #### Overrides
 
@@ -47,9 +34,9 @@ Web3ReactContextInterface.connector
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L30)
+[models/ethersAppContextTypes.ts:30](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L30)
 
-___
+---
 
 ### provider
 
@@ -57,9 +44,9 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L31)
+[models/ethersAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L31)
 
-___
+---
 
 ### active
 
@@ -71,9 +58,9 @@ Web3ReactContextInterface.active
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L32)
+[models/ethersAppContextTypes.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L32)
 
-___
+---
 
 ### signer
 
@@ -81,9 +68,9 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L33)
+[models/ethersAppContextTypes.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L33)
 
-___
+---
 
 ### account
 
@@ -95,9 +82,9 @@ Web3ReactContextInterface.account
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L34)
+[models/ethersAppContextTypes.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L34)
 
-___
+---
 
 ### chainId
 
@@ -109,9 +96,9 @@ Web3ReactContextInterface.chainId
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L35)
+[models/ethersAppContextTypes.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L35)
 
-___
+---
 
 ### changeSigner
 
@@ -119,29 +106,32 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L36)
+[models/ethersAppContextTypes.ts:36](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L36)
 
-___
+---
 
 ### setModalTheme
 
-• **setModalTheme**: `undefined` \| (`theme`: ``"light"`` \| ``"dark"``) => `void`
+• **setModalTheme**: `undefined` \| (`theme`: `"light"` \| `"dark"`) => `void`
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L39)
+[models/ethersAppContextTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L42)
 
 ## Methods
 
 ### openModal
 
-▸ **openModal**(`ethersModalConnector`): `void`
+▸ **openModal**(`ethersModalConnector`, `onError?`): `void`
+
+Open web3 modal for login
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `ethersModalConnector` | [`TEthersModalConnector`](../modules/EthersContext.md#tethersmodalconnector) |
+| Name                   | Type                                                                            |
+| :--------------------- | :------------------------------------------------------------------------------ |
+| `ethersModalConnector` | [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector) |
+| `onError?`             | (`error`: `Error`) => `void`                                                    |
 
 #### Returns
 
@@ -149,13 +139,19 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L37)
+[models/ethersAppContextTypes.ts:40](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L40)
 
-___
+---
 
 ### disconnectModal
 
-▸ **disconnectModal**(): `void`
+▸ **disconnectModal**(`onSuccess?`): `void`
+
+#### Parameters
+
+| Name         | Type         |
+| :----------- | :----------- |
+| `onSuccess?` | () => `void` |
 
 #### Returns
 
@@ -163,4 +159,4 @@ ___
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:38](https://github.com/scaffold-eth/eth-hooks/blob/50cc29a/src/models/ethersAppContextTypes.ts#L38)
+[models/ethersAppContextTypes.ts:41](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/models/ethersAppContextTypes.ts#L41)

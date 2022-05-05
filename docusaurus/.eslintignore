@@ -1,0 +1,6 @@
+# folders
+lib/
+node_modules/**/*
+website/**/*
+build/**/*
+**/*.js*

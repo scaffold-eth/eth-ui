@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import { useEthersUpdater } from './useEthersUpdater';
 
-import { useEthersContext, useBlockNumberContext } from '~~/context';
+import { useEthersAppContext, useBlockNumberContext } from '~~/context';
 import {
   asyncForEach,
   ethersOverride,
@@ -48,7 +48,7 @@ export const useBalance = <GAddress extends string | Array<string>>(
   options: TUpdateOptions = mergeDefaultUpdateOptions(),
   override: TOverride = mergeDefaultOverride()
 ): THookResult<TUseBalanceResult<GAddress>> => {
-  const ethersContext = useEthersContext(override.alternateContextKey);
+  const ethersContext = useEthersAppContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
   const keys = [{ ...queryKey, ...providerKey(provider) }, { addresses }] as const;

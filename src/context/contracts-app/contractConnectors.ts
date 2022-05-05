@@ -10,6 +10,15 @@ import {
   TExternalContractDataRecord,
 } from '~~/models/contractTypes';
 
+/**
+ * #### Summary
+ * This function is used to extract the contract data from hardhat deployment json files
+ *
+ * @internal
+ * @category ContractAppContext
+ * @param configJson {@link TDeployedHardhatContractsJson}
+ * @returns
+ */
 const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): THardhatContractDataRecord => {
   const contractData: THardhatContractDataRecord = {};
   for (const chainIdStr in configJson) {
@@ -54,6 +63,16 @@ const extractExternalContracts = (configJson: TExternalContractsAddressMap): TEx
   return contractData;
 };
 
+/**
+ * ##### Summary
+ * Creates a connector for any of your hardhat contracts
+ *
+ * @category ContractAppContext
+ * @param contractName
+ * @param typechainFactory
+ * @param deployedHardhatContractJson
+ * @returns
+ */
 export const createConnectorForHardhatContract = <GContractNames extends string, GBaseContract extends BaseContract>(
   contractName: GContractNames,
   typechainFactory: TContractConnectorBase<GBaseContract>,
@@ -78,6 +97,19 @@ export const createConnectorForHardhatContract = <GContractNames extends string,
   };
 };
 
+/**
+ * #### Summary
+ * Creates a contract connector for any external contract
+ *
+ * ##### ✏️ Notes
+ * - As an example you could use this for an external contract such as DAI
+ *
+ * @category ContractAppContext
+ * @param contractName
+ * @param typechainFactory
+ * @param deployedContractJson
+ * @returns
+ */
 export const createConnectorForExternalContract = <GContractNames extends string, GBaseContract extends BaseContract>(
   contractName: GContractNames,
   typechainFactory: TContractConnectorBase<GBaseContract>,
@@ -102,6 +134,20 @@ export const createConnectorForExternalContract = <GContractNames extends string
   };
 };
 
+/**
+ * #### Summary
+ * Create a contract connector from a ABI.
+ *
+ * ##### ✏️ Notes
+ * - This can be used for unverified external contracts
+ *
+ * @category ContractAppContext
+ * @param contractName
+ * @param config
+ * @param abi
+ * @param connectFunc
+ * @returns
+ */
 export const createConnectorForExternalAbi = <
   GContractNames extends string,
   GBaseContract extends BaseContract = BaseContract

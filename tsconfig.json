@@ -41,7 +41,6 @@
     "./.yalc/**/*",
     "**/*.md",
     "docs/**/*",
-    "docusaurus/**/*",
     "website/**/*",
     "**/*.json"
   ]

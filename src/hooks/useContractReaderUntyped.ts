@@ -2,7 +2,7 @@ import { BaseContract, ContractFunction } from 'ethers';
 import { useState, useCallback, useEffect } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
-import { useBlockNumberContext, useEthersContext } from '~~/context';
+import { useBlockNumberContext, useEthersAppContext } from '~~/context';
 import { mergeDefaultOverride, ethersOverride } from '~~/functions';
 import { TContractFunctionInfo, TOverride } from '~~/models';
 
@@ -33,7 +33,7 @@ export const useContractReaderUntyped = <GOutput>(
   const isMounted = useIsMounted();
   const [value, setValue] = useState<GOutput>();
   const blockNumber = useBlockNumberContext();
-  const ethersContext = useEthersContext(override.alternateContextKey);
+  const ethersContext = useEthersAppContext(override.alternateContextKey);
   const { chainId } = ethersOverride(ethersContext, override);
 
   const callContractFunction = useCallback(async () => {

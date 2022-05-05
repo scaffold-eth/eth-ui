@@ -3,7 +3,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { BlockNumberReactContext } from './BlockNumberReactContext';
 
-import { useEthersContext } from '~~/context';
+import { useEthersAppContext } from '~~/context';
 import { ethersOverride } from '~~/functions';
 import { defaultOverride, TOverride } from '~~/models';
 
@@ -57,7 +57,7 @@ const reducer = (state: State = {}, payload: Payload): State => {
  * - this extensively used by eth-hooks to trigger hooks when a new block arrives
  * - uses the current provider {@link ethersProvider} from {@link useEthersContext}
  *
- * @category EthersContext
+ * @category EthersAppContext
  *
  * @returns current block number
  */
@@ -83,13 +83,13 @@ interface IBlockNumberContextProps {
  * #### Summary
  * A context that works with {@link useBlockNumberContext} to give access to the current provider's block number in any place in your app
  *
- * @category EthersContext
+ * @category EthersAppContext
  *
  * @param props
  * @returns
  */
 export const BlockNumberContext: FC<IBlockNumberContextProps> = (props) => {
-  const ethersContext = useEthersContext(props.override?.alternateContextKey);
+  const ethersContext = useEthersAppContext(props.override?.alternateContextKey);
   const { chainId, provider } = ethersOverride(ethersContext, props.override ?? defaultOverride());
 
   const isMounted = useIsMounted();
