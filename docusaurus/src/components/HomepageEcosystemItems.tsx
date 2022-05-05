@@ -46,7 +46,7 @@ const Ecosystem: FC<EcosystemItem> = ({ title, description, url, btnText }) => {
           <h3 className="card-title items-center text-center">{title}</h3>
           <p>{description}</p>
           <div className="card-actions">
-            <button className="button button--secondary button--block">
+            <button className="btn">
               <a href={url} className="primary" target="_blank" rel="noreferrer">
                 {btnText}
               </a>

@@ -3,34 +3,11 @@
 
 const typedocConfig = require('./typedoc');
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/nightOwlLight');
+const darkCodeTheme = require('prism-react-renderer/themes/nightOwl');
 
 /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 const themeConfig = {
-  // algolia: {
-  //   // The application ID provided by Algolia
-  //   appId: 'YOUR_APP_ID',
-
-  //   // Public API key: it is safe to commit it
-  //   apiKey: 'YOUR_SEARCH_API_KEY',
-
-  //   indexName: 'ETH-HOOKS-DOCS',
-
-  //   // Optional: see doc section below
-  //   contextualSearch: true,
-
-  //   // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
-  //   externalUrlRegex: 'https://scaffold-eth.github.io/',
-
-  //   // Optional: Algolia search parameters
-  //   searchParameters: {},
-
-  //   // Optional: path for search page that enabled by default (`false` to disable it)
-  //   searchPagePath: 'search',
-
-  //   //... other Algolia params
-  // },
   navbar: {
     title: 'eth-hooks',
     logo: {
@@ -110,6 +87,11 @@ const themeConfig = {
       },
     ],
     copyright: `Copyright © ${new Date().getFullYear()} eth-hooks.`,
+  },
+  colorMode: {
+    defaultMode: 'dark',
+    disableSwitch: true,
+    respectPrefersColorScheme: false,
   },
   prism: {
     // @ts-ignore

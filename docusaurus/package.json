@@ -17,9 +17,9 @@
     "format": "prettier -w ./src"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.18",
-    "@docusaurus/preset-classic": "2.0.0-beta.18",
-    "@docusaurus/theme-common": "^2.0.0-beta.18",
+    "@docusaurus/core": "^2.0.0-beta.19",
+    "@docusaurus/preset-classic": "^2.0.0-beta.19",
+    "@docusaurus/theme-common": "^2.0.0-beta.19",
     "@easyops-cn/docusaurus-search-local": "^0.23.2",
     "@mdx-js/react": "^1.6.22",
     "clsx": "^1.1.1",
@@ -28,7 +28,7 @@
     "react-dom": "^17.*"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-beta.18",
+    "@docusaurus/module-type-aliases": "^2.0.0-beta.19",
     "@saucelabs/theme-github-codeblock": "^0.1.1",
     "@tsconfig/docusaurus": "^1.0.5",
     "@types/tailwindcss": "^3.0.10",
