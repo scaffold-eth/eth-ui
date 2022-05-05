@@ -4,7 +4,7 @@
 const typedocConfig = require('./typedoc');
 
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwlLight');
-const darkCodeTheme = require('prism-react-renderer/themes/nightOwl');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 const themeConfig = {

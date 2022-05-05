@@ -6,13 +6,13 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-Commonly used ethereum hooks to turbocharge your development! Works with [useEthersContext](EthersAppContext.md#useetherscontext).
+Commonly used ethereum hooks to turbocharge your development! Works with [useEthersContext](EthersAppContext.md#useetherscontext-4).
 
 ## Hooks
 
 ### useDexEthPrice
 
-▸ **useDexEthPrice**(`mainnetProvider`, `targetNetworkInfo?`, `options?`): [`THookResult`](Models.md#thookresult)<`number`\>
+▸ **useDexEthPrice**(`mainnetProvider`, `targetNetworkInfo?`, `options?`): [`THookResult`](Models.md#thookresult-4)<`number`\>
 
 #### Summary
 
@@ -24,15 +24,15 @@ Get the Exchange price of ETH/USD (extrapolated from WETH/DAI) from uniswap
 
 #### Parameters
 
-| Name                 | Type                                                          |
-| :------------------- | :------------------------------------------------------------ |
-| `mainnetProvider`    | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider) |
-| `targetNetworkInfo?` | [`TNetworkInfo`](Models.md#tnetworkinfo)                      |
-| `options`            | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\>          |
+| Name                 | Type                                                            |
+| :------------------- | :-------------------------------------------------------------- |
+| `mainnetProvider`    | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider-4) |
+| `targetNetworkInfo?` | [`TNetworkInfo`](Models.md#tnetworkinfo-4)                      |
+| `options`            | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\>          |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`number`\>
+[`THookResult`](Models.md#thookresult-4)<`number`\>
 
 price in USD
 
@@ -44,7 +44,7 @@ price in USD
 
 ### useDexTokenList
 
-▸ **useDexTokenList**(`tokenListUri?`, `chainId?`, `options?`): [`THookResult`](Models.md#thookresult)<`TokenInfo`[]\>
+▸ **useDexTokenList**(`tokenListUri?`, `chainId?`, `options?`): [`THookResult`](Models.md#thookresult-4)<`TokenInfo`[]\>
 
 #### Summary
 
@@ -56,15 +56,15 @@ Gets a tokenlist from uniswap ipfs tokenlist
 
 #### Parameters
 
-| Name           | Type                                                 | Default value                                       | Description                                      |
-| :------------- | :--------------------------------------------------- | :-------------------------------------------------- | :----------------------------------------------- |
-| `tokenListUri` | `string`                                             | `'https://gateway.ipfs.io/ipns/tokens.uniswap.org'` |                                                  |
-| `chainId?`     | `number`                                             | `undefined`                                         | optional, you can filter by a particular chainId |
-| `options`      | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | `undefined`                                         | -                                                |
+| Name           | Type                                                   | Default value                                       | Description                                      |
+| :------------- | :----------------------------------------------------- | :-------------------------------------------------- | :----------------------------------------------- |
+| `tokenListUri` | `string`                                               | `'https://gateway.ipfs.io/ipns/tokens.uniswap.org'` |                                                  |
+| `chainId?`     | `number`                                               | `undefined`                                         | optional, you can filter by a particular chainId |
+| `options`      | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\> | `undefined`                                         | -                                                |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`TokenInfo`[]\>
+[`THookResult`](Models.md#thookresult-4)<`TokenInfo`[]\>
 
 (TokenInfo[]) from '@uniswap/token-lists'
 
@@ -76,7 +76,7 @@ Gets a tokenlist from uniswap ipfs tokenlist
 
 ### useResolveEnsAddress
 
-▸ **useResolveEnsAddress**(`mainnetProvider`, `ensName`): [`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
+▸ **useResolveEnsAddress**(`mainnetProvider`, `ensName`): [`THookResult`](Models.md#thookresult-4)<`undefined` \| `string`\>
 
 #### Summary
 
@@ -84,14 +84,14 @@ Gets the address from an ENS name
 
 #### Parameters
 
-| Name              | Type                                                          | Description      |
-| :---------------- | :------------------------------------------------------------ | :--------------- |
-| `mainnetProvider` | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider) | mainnet provider |
-| `ensName`         | `undefined` \| `string`                                       |                  |
+| Name              | Type                                                            | Description      |
+| :---------------- | :-------------------------------------------------------------- | :--------------- |
+| `mainnetProvider` | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider-4) | mainnet provider |
+| `ensName`         | `undefined` \| `string`                                         |                  |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
+[`THookResult`](Models.md#thookresult-4)<`undefined` \| `string`\>
 
 #### Defined in
 
@@ -101,7 +101,7 @@ Gets the address from an ENS name
 
 ### useResolveEnsName
 
-▸ **useResolveEnsName**(`mainnetProvider`, `address`): [`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
+▸ **useResolveEnsName**(`mainnetProvider`, `address`): [`THookResult`](Models.md#thookresult-4)<`undefined` \| `string`\>
 
 #### Summary
 
@@ -109,14 +109,14 @@ Gets ENS name for given address
 
 #### Parameters
 
-| Name              | Type                                                          | Description      |
-| :---------------- | :------------------------------------------------------------ | :--------------- |
-| `mainnetProvider` | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider) | mainnet provider |
-| `address`         | `string`                                                      |                  |
+| Name              | Type                                                            | Description      |
+| :---------------- | :-------------------------------------------------------------- | :--------------- |
+| `mainnetProvider` | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider-4) | mainnet provider |
+| `address`         | `string`                                                        |                  |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
+[`THookResult`](Models.md#thookresult-4)<`undefined` \| `string`\>
 
 #### Defined in
 
@@ -126,7 +126,7 @@ Gets ENS name for given address
 
 ### useTokenBalance
 
-▸ **useTokenBalance**<`GContract`\>(`contract`, `address`, `options?`): [`THookResult`](Models.md#thookresult)<`BigNumber`\>
+▸ **useTokenBalance**<`GContract`\>(`contract`, `address`, `options?`): [`THookResult`](Models.md#thookresult-4)<`BigNumber`\>
 
 #### Summary
 
@@ -144,15 +144,15 @@ Get the balance of an ERC20 token in an address
 
 #### Parameters
 
-| Name       | Type                                                 | Description                              |
-| :--------- | :--------------------------------------------------- | :--------------------------------------- |
-| `contract` | `GContract`                                          | ERC20 token to get the balance of        |
-| `address`  | `string`                                             | Address of wallet that holds the tokens  |
-| `options`  | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | Options for how often and when to update |
+| Name       | Type                                                   | Description                              |
+| :--------- | :----------------------------------------------------- | :--------------------------------------- |
+| `contract` | `GContract`                                            | ERC20 token to get the balance of        |
+| `address`  | `string`                                               | Address of wallet that holds the tokens  |
+| `options`  | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\> | Options for how often and when to update |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`BigNumber`\>
+[`THookResult`](Models.md#thookresult-4)<`BigNumber`\>
 
 #### Defined in
 
@@ -162,7 +162,7 @@ Get the balance of an ERC20 token in an address
 
 ### useAreSignerEqual
 
-▸ **useAreSignerEqual**(`signer1`, `signer2`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `boolean`\>
+▸ **useAreSignerEqual**(`signer1`, `signer2`, `options?`): [`THookResult`](Models.md#thookresult-4)<`undefined` \| `boolean`\>
 
 #### Summary
 
@@ -170,15 +170,15 @@ Are the signers equal and valid
 
 #### Parameters
 
-| Name      | Type                                                      | Description                              |
-| :-------- | :-------------------------------------------------------- | :--------------------------------------- |
-| `signer1` | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner) | Object for first signer to compare       |
-| `signer2` | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner) | Object for second signer to compare      |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\>      | Options for how often and when to update |
+| Name      | Type                                                        | Description                              |
+| :-------- | :---------------------------------------------------------- | :--------------------------------------- |
+| `signer1` | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner-4) | Object for first signer to compare       |
+| `signer2` | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner-4) | Object for second signer to compare      |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\>      | Options for how often and when to update |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`undefined` \| `boolean`\>
+[`THookResult`](Models.md#thookresult-4)<`undefined` \| `boolean`\>
 
 #### Defined in
 
@@ -188,7 +188,7 @@ Are the signers equal and valid
 
 ### useBalance
 
-▸ **useBalance**<`GAddress`\>(`addresses`, `options?`, `override?`): [`THookResult`](Models.md#thookresult)<`TUseBalanceResult`<`GAddress`\>\>
+▸ **useBalance**<`GAddress`\>(`addresses`, `options?`, `override?`): [`THookResult`](Models.md#thookresult-4)<`TUseBalanceResult`<`GAddress`\>\>
 
 #### Summary
 
@@ -196,8 +196,8 @@ Gets your balance in ETH for the given address.
 
 ##### ✏️ Notes
 
-- updates triggered by [BlockNumberContext](EthersAppContext.md#blocknumbercontext)
-- uses the current provider {@link provider} from [useEthersContext](EthersAppContext.md#useetherscontext)
+- updates triggered by [BlockNumberContext](EthersAppContext.md#blocknumbercontext-4)
+- uses the current provider {@link provider} from [useEthersContext](EthersAppContext.md#useetherscontext-4)
 
 #### Type parameters
 
@@ -207,15 +207,15 @@ Gets your balance in ETH for the given address.
 
 #### Parameters
 
-| Name        | Type                                                 | Description                              |
-| :---------- | :--------------------------------------------------- | :--------------------------------------- |
-| `addresses` | `undefined` \| `GAddress`                            | Addresses of wallets to get balance for  |
-| `options`   | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | Options for how often and when to update |
-| `override`  | [`TOverride`](Models.md#toverride)                   | Options to override adapters and context |
+| Name        | Type                                                   | Description                              |
+| :---------- | :----------------------------------------------------- | :--------------------------------------- |
+| `addresses` | `undefined` \| `GAddress`                              | Addresses of wallets to get balance for  |
+| `options`   | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\> | Options for how often and when to update |
+| `override`  | [`TOverride`](Models.md#toverride-4)                   | Options to override adapters and context |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`TUseBalanceResult`<`GAddress`\>\>
+[`THookResult`](Models.md#thookresult-4)<`TUseBalanceResult`<`GAddress`\>\>
 
 current balance
 
@@ -227,7 +227,7 @@ current balance
 
 ### useBlockNumber
 
-▸ **useBlockNumber**(`provider`, `callback?`, `options?`): [`THookResult`](Models.md#thookresult)<`number`\>
+▸ **useBlockNumber**(`provider`, `callback?`, `options?`): [`THookResult`](Models.md#thookresult-4)<`number`\>
 
 #### Summary
 
@@ -235,20 +235,20 @@ Get the current block number of the network. ✋🏽 @deprecated
 
 ##### ✏️ Notes
 
-- ✋🏽 For app wide block number access use [useBlockNumberContext](EthersAppContext.md#useblocknumbercontext) instead. See [BlockNumberContext](EthersAppContext.md#blocknumbercontext) for more details, you get this as part of [EthersAppContext](EthersAppContext.md)
+- ✋🏽 For app wide block number access use [useBlockNumberContext](EthersAppContext.md#useblocknumbercontext-4) instead. See [BlockNumberContext](EthersAppContext.md#blocknumbercontext-4) for more details, you get this as part of [EthersAppContext](EthersAppContext.md)
 - uses the current provided block number
 
 #### Parameters
 
 | Name        | Type                                                                                     |
 | :---------- | :--------------------------------------------------------------------------------------- |
-| `provider`  | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider)                            |
+| `provider`  | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider-4)                          |
 | `callback?` | (`blockNumber?`: `number`) => `void` \| (`blockNumber?`: `number`) => `Promise`<`void`\> |
-| `options`   | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\>                                     |
+| `options`   | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\>                                   |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`number`\>
+[`THookResult`](Models.md#thookresult-4)<`number`\>
 
 block number
 
@@ -291,7 +291,7 @@ Return type of useBurnerSigner:
 
 ### useBurnerSigner
 
-▸ **useBurnerSigner**(`localProvider`): [`TBurnerSigner`](Hooks.md#tburnersigner)
+▸ **useBurnerSigner**(`localProvider`): [`TBurnerSigner`](Hooks.md#tburnersigner-4)
 
 #### Summary
 
@@ -300,13 +300,13 @@ and updating the signer
 
 #### Parameters
 
-| Name            | Type                                                          | Description        |
-| :-------------- | :------------------------------------------------------------ | :----------------- |
-| `localProvider` | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider) | localhost provider |
+| Name            | Type                                                            | Description        |
+| :-------------- | :-------------------------------------------------------------- | :----------------- |
+| `localProvider` | `undefined` \| [`TEthersProvider`](Models.md#tethersprovider-4) | localhost provider |
 
 #### Returns
 
-[`TBurnerSigner`](Hooks.md#tburnersigner)
+[`TBurnerSigner`](Hooks.md#tburnersigner-4)
 
 IBurnerSigner
 
@@ -318,7 +318,7 @@ IBurnerSigner
 
 ### useContractExistsAtAddress
 
-▸ **useContractExistsAtAddress**(`contract`, `options?`): [`THookResult`](Models.md#thookresult)<`boolean`\>
+▸ **useContractExistsAtAddress**(`contract`, `options?`): [`THookResult`](Models.md#thookresult-4)<`boolean`\>
 
 #### Summary
 
@@ -331,14 +331,14 @@ Checks whether a contract exists on the blockchain
 
 #### Parameters
 
-| Name       | Type                                                     | Description               |
-| :--------- | :------------------------------------------------------- | :------------------------ |
-| `contract` | `undefined` \| `BaseContract`                            | ethers.BaseContract class |
-| `options`  | [`TUpdateOptions`](Models.md#tupdateoptions)<`boolean`\> | -                         |
+| Name       | Type                                                       | Description               |
+| :--------- | :--------------------------------------------------------- | :------------------------ |
+| `contract` | `undefined` \| `BaseContract`                              | ethers.BaseContract class |
+| `options`  | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`boolean`\> | -                         |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`boolean`\>
+[`THookResult`](Models.md#thookresult-4)<`boolean`\>
 
 #### Defined in
 
@@ -357,7 +357,7 @@ Gives options to read values from contracts or write transactions into them.
 
 ##### ✏️ Notes
 
-- ✋🏽 For easy app wide contract access use {@link AppContractContex} created by [contractsContextFactory](ContractAppContext.md#contractscontextfactory). See [contractsContextFactory](ContractAppContext.md#contractscontextfactory) for more details.
+- ✋🏽 For easy app wide contract access use {@link AppContractContex} created by [contractsContextFactory](ContractAppContext.md#contractscontextfactory-4). See [contractsContextFactory](ContractAppContext.md#contractscontextfactory-4) for more details.
 
 A optional providerOrSigner is needed to initalize the contract class
 
@@ -370,10 +370,10 @@ A optional providerOrSigner is needed to initalize the contract class
 
 #### Parameters
 
-| Name               | Type                                                                          | Description                                     |
-| :----------------- | :---------------------------------------------------------------------------- | :---------------------------------------------- |
-| `config`           | [`TContractLoaderConfig`](Hooks.md#tcontractloaderconfig)                     |                                                 |
-| `providerOrSigner` | `undefined` \| [`TEthersProviderOrSigner`](Models.md#tethersproviderorsigner) | (optional) used to initalize the contract class |
+| Name               | Type                                                                            | Description                                     |
+| :----------------- | :------------------------------------------------------------------------------ | :---------------------------------------------- |
+| `config`           | [`TContractLoaderConfig`](Hooks.md#tcontractloaderconfig-4)                     |                                                 |
+| `providerOrSigner` | `undefined` \| [`TEthersProviderOrSigner`](Models.md#tethersproviderorsigner-4) | (optional) used to initalize the contract class |
 
 #### Returns
 
@@ -408,13 +408,13 @@ Enables you to call a contract function with arguments and receive the output. Y
 
 #### Parameters
 
-| Name                   | Type                                                       | Description                                   |
-| :--------------------- | :--------------------------------------------------------- | :-------------------------------------------- |
-| `contract`             | `BaseContract`                                             | ethers.Contract class                         |
-| `contractFunctionInfo` | [`TContractFunctionInfo`](Models.md#tcontractfunctioninfo) |                                               |
-| `formatter?`           | (`_value`: `undefined` \| `GOutput`) => `GOutput`          | OutputT a function that can format the output |
-| `onChange?`            | (`_value?`: `GOutput`) => `void`                           | callback with result as a parameter           |
-| `override`             | [`TOverride`](Models.md#toverride)                         | -                                             |
+| Name                   | Type                                                         | Description                                   |
+| :--------------------- | :----------------------------------------------------------- | :-------------------------------------------- |
+| `contract`             | `BaseContract`                                               | ethers.Contract class                         |
+| `contractFunctionInfo` | [`TContractFunctionInfo`](Models.md#tcontractfunctioninfo-4) |                                               |
+| `formatter?`           | (`_value`: `undefined` \| `GOutput`) => `GOutput`            | OutputT a function that can format the output |
+| `onChange?`            | (`_value?`: `GOutput`) => `void`                             | callback with result as a parameter           |
+| `override`             | [`TOverride`](Models.md#toverride-4)                         | -                                             |
 
 #### Returns
 
@@ -430,7 +430,7 @@ OutputT
 
 ### useEthersAdaptorFromProviderOrSigners
 
-▸ **useEthersAdaptorFromProviderOrSigners**(`providerOrSigner`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor)\>
+▸ **useEthersAdaptorFromProviderOrSigners**(`providerOrSigner`, `options?`): [`THookResult`](Models.md#thookresult-4)<`undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor-4)\>
 
 #### Summary
 
@@ -438,14 +438,14 @@ Gets the user {@link TEthersUser} for a signer or wallet
 
 #### Parameters
 
-| Name               | Type                                                                          | Description  |
-| :----------------- | :---------------------------------------------------------------------------- | :----------- |
-| `providerOrSigner` | `undefined` \| [`TEthersProviderOrSigner`](Models.md#tethersproviderorsigner) | input signer |
-| `options`          | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\>                          | -            |
+| Name               | Type                                                                            | Description  |
+| :----------------- | :------------------------------------------------------------------------------ | :----------- |
+| `providerOrSigner` | `undefined` \| [`TEthersProviderOrSigner`](Models.md#tethersproviderorsigner-4) | input signer |
+| `options`          | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\>                          | -            |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor)\>
+[`THookResult`](Models.md#thookresult-4)<`undefined` \| [`TEthersAdaptor`](Models.md#tethersadaptor-4)\>
 
 #### Defined in
 
@@ -455,7 +455,7 @@ Gets the user {@link TEthersUser} for a signer or wallet
 
 ### useEventListener
 
-▸ **useEventListener**<`GTypedEvent`\>(`contract`, `eventFilter`, `startBlock`, `toBlock?`, `options?`): [`THookResult`](Models.md#thookresult)<`GTypedEvent`[]\>
+▸ **useEventListener**<`GTypedEvent`\>(`contract`, `eventFilter`, `startBlock`, `toBlock?`, `options?`): [`THookResult`](Models.md#thookresult-4)<`GTypedEvent`[]\>
 
 #### Summary
 
@@ -464,27 +464,27 @@ Tracks the events of associated with a contract
 ##### ✏️ Notes
 
 - updates triggered through ethers event listener
-- uses the current provider {@link ethersProvider} from [useEthersContext](EthersAppContext.md#useetherscontext)
+- uses the current provider {@link ethersProvider} from [useEthersContext](EthersAppContext.md#useetherscontext-4)
 
 #### Type parameters
 
-| Name          | Type                                                    |
-| :------------ | :------------------------------------------------------ |
-| `GTypedEvent` | extends [`TypedEvent`](Models.md#typedevent)<`Result`\> |
+| Name          | Type                                                      |
+| :------------ | :-------------------------------------------------------- |
+| `GTypedEvent` | extends [`TypedEvent`](Models.md#typedevent-4)<`Result`\> |
 
 #### Parameters
 
-| Name          | Type                                                 | Default value | Description     |
-| :------------ | :--------------------------------------------------- | :------------ | :-------------- |
-| `contract`    | `undefined` \| `BaseContract`                        | `undefined`   | ethers.Contract |
-| `eventFilter` | `undefined` \| `string` \| `EventFilter`             | `undefined`   | -               |
-| `startBlock`  | `number`                                             | `undefined`   |                 |
-| `toBlock`     | `undefined` \| `number`                              | `undefined`   | -               |
-| `options`     | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | `undefined`   | -               |
+| Name          | Type                                                   | Default value | Description     |
+| :------------ | :----------------------------------------------------- | :------------ | :-------------- |
+| `contract`    | `undefined` \| `BaseContract`                          | `undefined`   | ethers.Contract |
+| `eventFilter` | `undefined` \| `string` \| `EventFilter`               | `undefined`   | -               |
+| `startBlock`  | `number`                                               | `undefined`   |                 |
+| `toBlock`     | `undefined` \| `number`                                | `undefined`   | -               |
+| `options`     | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\> | `undefined`   | -               |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`GTypedEvent`[]\>
+[`THookResult`](Models.md#thookresult-4)<`GTypedEvent`[]\>
 
 #### Defined in
 
@@ -511,7 +511,7 @@ Preset speeds for Eth Gas Station API
 
 ### useGasPrice
 
-▸ **useGasPrice**(`chainId`, `speed`, `currentNetworkInfo?`, `options?`, `override?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `number`\>
+▸ **useGasPrice**(`chainId`, `speed`, `currentNetworkInfo?`, `options?`, `override?`): [`THookResult`](Models.md#thookresult-4)<`undefined` \| `number`\>
 
 #### Summary
 
@@ -524,22 +524,22 @@ Gets the gas price for the current network as gwei
 ##### ✏️ Notes
 
 - if the gas price is unknown it returns undefined
-- updates triggered by [BlockNumberContext](EthersAppContext.md#blocknumbercontext)
-- uses the current provider {@link ethersProvider} from [useEthersContext](EthersAppContext.md#useetherscontext)
+- updates triggered by [BlockNumberContext](EthersAppContext.md#blocknumbercontext-4)
+- uses the current provider {@link ethersProvider} from [useEthersContext](EthersAppContext.md#useetherscontext-4)
 
 #### Parameters
 
-| Name                  | Type                                                 | Description                 |
-| :-------------------- | :--------------------------------------------------- | :-------------------------- |
-| `chainId`             | `undefined` \| `number`                              | -                           |
-| `speed`               | [`TGasStationSpeed`](Hooks.md#tgasstationspeed)      |                             |
-| `currentNetworkInfo?` | [`TNetworkInfo`](Models.md#tnetworkinfo)             | uses gasPrice as a fallback |
-| `options`             | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | -                           |
-| `override`            | [`TOverride`](Models.md#toverride)                   | -                           |
+| Name                  | Type                                                   | Description                 |
+| :-------------------- | :----------------------------------------------------- | :-------------------------- |
+| `chainId`             | `undefined` \| `number`                                | -                           |
+| `speed`               | [`TGasStationSpeed`](Hooks.md#tgasstationspeed-4)      |                             |
+| `currentNetworkInfo?` | [`TNetworkInfo`](Models.md#tnetworkinfo-4)             | uses gasPrice as a fallback |
+| `options`             | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\> | -                           |
+| `override`            | [`TOverride`](Models.md#toverride-4)                   | -                           |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`undefined` \| `number`\>
+[`THookResult`](Models.md#thookresult-4)<`undefined` \| `number`\>
 
 gas as gwei
 
@@ -551,7 +551,7 @@ gas as gwei
 
 ### useNonce
 
-▸ **useNonce**(`address`, `options?`, `override?`): [`THookResult`](Models.md#thookresult)<`number`\>
+▸ **useNonce**(`address`, `options?`, `override?`): [`THookResult`](Models.md#thookresult-4)<`number`\>
 
 #### Summary
 
@@ -559,20 +559,20 @@ Get the current nonce for the address provided
 
 ##### ✏️ Notes
 
-- updates triggered by [BlockNumberContext](EthersAppContext.md#blocknumbercontext)
-- uses the current provider {@link ethersProvider} from [useEthersContext](EthersAppContext.md#useetherscontext)
+- updates triggered by [BlockNumberContext](EthersAppContext.md#blocknumbercontext-4)
+- uses the current provider {@link ethersProvider} from [useEthersContext](EthersAppContext.md#useetherscontext-4)
 
 #### Parameters
 
-| Name       | Type                                                 |
-| :--------- | :--------------------------------------------------- |
-| `address`  | `undefined` \| `string`                              |
-| `options`  | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
-| `override` | [`TOverride`](Models.md#toverride)                   |
+| Name       | Type                                                   |
+| :--------- | :----------------------------------------------------- |
+| `address`  | `undefined` \| `string`                                |
+| `options`  | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\> |
+| `override` | [`TOverride`](Models.md#toverride-4)                   |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`number`\>
+[`THookResult`](Models.md#thookresult-4)<`number`\>
 
 #### Defined in
 
@@ -582,7 +582,7 @@ Get the current nonce for the address provided
 
 ### useSignerAddress
 
-▸ **useSignerAddress**(`signer`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
+▸ **useSignerAddress**(`signer`, `options?`): [`THookResult`](Models.md#thookresult-4)<`undefined` \| `string`\>
 
 #### Summary
 
@@ -590,14 +590,14 @@ Get the address from the signer
 
 #### Parameters
 
-| Name      | Type                                                      |
-| :-------- | :-------------------------------------------------------- |
-| `signer`  | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner) |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\>      |
+| Name      | Type                                                        |
+| :-------- | :---------------------------------------------------------- |
+| `signer`  | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner-4) |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\>      |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`undefined` \| `string`\>
+[`THookResult`](Models.md#thookresult-4)<`undefined` \| `string`\>
 
 #### Defined in
 
@@ -607,7 +607,7 @@ Get the address from the signer
 
 ### useSignerChainId
 
-▸ **useSignerChainId**(`signer`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `number`\>
+▸ **useSignerChainId**(`signer`, `options?`): [`THookResult`](Models.md#thookresult-4)<`undefined` \| `number`\>
 
 #### Summary
 
@@ -615,14 +615,14 @@ Get the address from the signer
 
 #### Parameters
 
-| Name      | Type                                                      |
-| :-------- | :-------------------------------------------------------- |
-| `signer`  | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner) |
-| `options` | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\>      |
+| Name      | Type                                                        |
+| :-------- | :---------------------------------------------------------- |
+| `signer`  | `undefined` \| [`TEthersSigner`](Models.md#tetherssigner-4) |
+| `options` | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\>      |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`undefined` \| `number`\>
+[`THookResult`](Models.md#thookresult-4)<`undefined` \| `number`\>
 
 #### Defined in
 
@@ -632,7 +632,7 @@ Get the address from the signer
 
 ### useTimestamp
 
-▸ **useTimestamp**(`options?`, `override?`): [`THookResult`](Models.md#thookresult)<`number`\>
+▸ **useTimestamp**(`options?`, `override?`): [`THookResult`](Models.md#thookresult-4)<`number`\>
 
 #### Summary
 
@@ -640,19 +640,19 @@ Get the current timestamp from the latest block
 
 ##### ✏️ Notes
 
-- updates triggered by [BlockNumberContext](EthersAppContext.md#blocknumbercontext)
-- uses the current provider {@link ethersProvider} from [useEthersContext](EthersAppContext.md#useetherscontext)
+- updates triggered by [BlockNumberContext](EthersAppContext.md#blocknumbercontext-4)
+- uses the current provider {@link ethersProvider} from [useEthersContext](EthersAppContext.md#useetherscontext-4)
 
 #### Parameters
 
-| Name       | Type                                                 |
-| :--------- | :--------------------------------------------------- |
-| `options`  | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> |
-| `override` | [`TOverride`](Models.md#toverride)                   |
+| Name       | Type                                                   |
+| :--------- | :----------------------------------------------------- |
+| `options`  | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\> |
+| `override` | [`TOverride`](Models.md#toverride-4)                   |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`number`\>
+[`THookResult`](Models.md#thookresult-4)<`number`\>
 
 #### Defined in
 
@@ -670,12 +670,12 @@ Configuration for useContractLoader
 
 #### Type declaration
 
-| Name                     | Type                                                                       | Description                             |
-| :----------------------- | :------------------------------------------------------------------------- | :-------------------------------------- |
-| `hardhatNetworkName?`    | `string`                                                                   | your local hardhat network name         |
-| `customAddresses?`       | `Record`<`string`, `string`\>                                              | the contractName:address key value pair |
-| `deployedContractsJson?` | [`TDeployedHardhatContractsJson`](Models.md#tdeployedhardhatcontractsjson) | Hardhat deployed contracts untyped      |
-| `externalContracts?`     | `TExternalContracts`                                                       | External contracts (such as DAI)        |
+| Name                     | Type                                                                         | Description                             |
+| :----------------------- | :--------------------------------------------------------------------------- | :-------------------------------------- |
+| `hardhatNetworkName?`    | `string`                                                                     | your local hardhat network name         |
+| `customAddresses?`       | `Record`<`string`, `string`\>                                                | the contractName:address key value pair |
+| `deployedContractsJson?` | [`TDeployedHardhatContractsJson`](Models.md#tdeployedhardhatcontractsjson-4) | Hardhat deployed contracts untyped      |
+| `externalContracts?`     | `TExternalContracts`                                                         | External contracts (such as DAI)        |
 
 #### Defined in
 
@@ -685,18 +685,18 @@ Configuration for useContractLoader
 
 ### parseContractsInDeployedHardhatContractsJson
 
-▸ **parseContractsInDeployedHardhatContractsJson**(`contractList`, `chainId`): `Record`<`string`, [`TBasicContractData`](Models.md#tbasiccontractdata)\>
+▸ **parseContractsInDeployedHardhatContractsJson**(`contractList`, `chainId`): `Record`<`string`, [`TBasicContractData`](Models.md#tbasiccontractdata-4)\>
 
 #### Parameters
 
-| Name           | Type                                                                       |
-| :------------- | :------------------------------------------------------------------------- |
-| `contractList` | [`TDeployedHardhatContractsJson`](Models.md#tdeployedhardhatcontractsjson) |
-| `chainId`      | `number`                                                                   |
+| Name           | Type                                                                         |
+| :------------- | :--------------------------------------------------------------------------- |
+| `contractList` | [`TDeployedHardhatContractsJson`](Models.md#tdeployedhardhatcontractsjson-4) |
+| `chainId`      | `number`                                                                     |
 
 #### Returns
 
-`Record`<`string`, [`TBasicContractData`](Models.md#tbasiccontractdata)\>
+`Record`<`string`, [`TBasicContractData`](Models.md#tbasiccontractdata-4)\>
 
 #### Defined in
 
@@ -706,7 +706,7 @@ Configuration for useContractLoader
 
 ### useContractReader
 
-▸ **useContractReader**<`GContract`, `GContractFunc`\>(`contract`, `contractFunc`, `args?`, `funcEventFilter?`, `options?`): [`THookResult`](Models.md#thookresult)<`undefined` \| `Awaited`<`ReturnType`<`GContractFunc`\>\>\>
+▸ **useContractReader**<`GContract`, `GContractFunc`\>(`contract`, `contractFunc`, `args?`, `funcEventFilter?`, `options?`): [`THookResult`](Models.md#thookresult-4)<`undefined` \| `Awaited`<`ReturnType`<`GContractFunc`\>\>\>
 
 #### Summary
 
@@ -726,17 +726,17 @@ Enables you to call a contract function with arguments and receive the output. Y
 
 #### Parameters
 
-| Name               | Type                                                 | Description                                           |
-| :----------------- | :--------------------------------------------------- | :---------------------------------------------------- |
-| `contract`         | `undefined` \| `GContract`                           | Contract reading from                                 |
-| `contractFunc`     | `undefined` \| `GContractFunc`                       | Contract variable or function to read                 |
-| `args?`            | `Parameters`<`GContractFunc`\>                       | Typed tuple argument to contract function or variable |
-| `funcEventFilter?` | `EventFilter`                                        | Optional if only want contract to update on event     |
-| `options`          | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | Options for how often and when to update              |
+| Name               | Type                                                   | Description                                           |
+| :----------------- | :----------------------------------------------------- | :---------------------------------------------------- |
+| `contract`         | `undefined` \| `GContract`                             | Contract reading from                                 |
+| `contractFunc`     | `undefined` \| `GContractFunc`                         | Contract variable or function to read                 |
+| `args?`            | `Parameters`<`GContractFunc`\>                         | Typed tuple argument to contract function or variable |
+| `funcEventFilter?` | `EventFilter`                                          | Optional if only want contract to update on event     |
+| `options`          | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\> | Options for how often and when to update              |
 
 #### Returns
 
-[`THookResult`](Models.md#thookresult)<`undefined` \| `Awaited`<`ReturnType`<`GContractFunc`\>\>\>
+[`THookResult`](Models.md#thookresult-4)<`undefined` \| `Awaited`<`ReturnType`<`GContractFunc`\>\>\>
 
 #### Defined in
 
@@ -754,12 +754,12 @@ Calls update argument based on update options
 
 #### Parameters
 
-| Name                     | Type                                                 | Default value | Description                                       |
-| :----------------------- | :--------------------------------------------------- | :------------ | :------------------------------------------------ |
-| `update`                 | () => `void` \| () => `Promise`<`void`\>             | `undefined`   | Function to call when update                      |
-| `blockNumber`            | `undefined` \| `number`                              | `undefined`   | Current block number                              |
-| `options`                | [`TUpdateOptions`](Models.md#tupdateoptions)<`any`\> | `undefined`   | Options for how often and when to update          |
-| `allowBlockNumberUpdate` | `boolean`                                            | `true`        | Boolean of if updating using this hook is allowed |
+| Name                     | Type                                                   | Default value | Description                                       |
+| :----------------------- | :----------------------------------------------------- | :------------ | :------------------------------------------------ |
+| `update`                 | () => `void` \| () => `Promise`<`void`\>               | `undefined`   | Function to call when update                      |
+| `blockNumber`            | `undefined` \| `number`                                | `undefined`   | Current block number                              |
+| `options`                | [`TUpdateOptions`](Models.md#tupdateoptions-4)<`any`\> | `undefined`   | Options for how often and when to update          |
+| `allowBlockNumberUpdate` | `boolean`                                              | `true`        | Boolean of if updating using this hook is allowed |
 
 #### Returns
 
