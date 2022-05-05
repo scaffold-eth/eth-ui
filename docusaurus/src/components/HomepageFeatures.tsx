@@ -17,7 +17,7 @@ const FeatureList: FeatureItem[] = [
       <>
         Speed up your frontend development with pre-built hooks for use with <code>EthersAppContext</code>, allowing
         easy use throughout your application. Additionally, works out of the box with{' '}
-        <a href="https://github.com/scaffold-eth/scaffold-eth-typescript" target="_blank">
+        <a href="https://github.com/scaffold-eth/scaffold-eth-typescript" target="_blank" rel="noreferrer">
           scaffold-eth-typescript
         </a>{' '}
         template!
@@ -40,7 +40,7 @@ const FeatureList: FeatureItem[] = [
     description: (
       <>
         Use the <code>ContractAppContext</code> and{' '}
-        <a href="https://docs.ethers.io/v5/" target="_blank">
+        <a href="https://docs.ethers.io/v5/" target="_blank" rel="noreferrer">
           ethers.js
         </a>{' '}
         to have typed access to your smart contracts. This gives you reliable read and write controls to smart contracts
@@ -50,7 +50,7 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-const Feature = ({ title, image, description }: FeatureItem) => {
+const Feature: FC<FeatureItem> = ({ title, image, description }) => {
   return (
     <div className="grid justify-items-center grid-cols-1">
       <div className="">

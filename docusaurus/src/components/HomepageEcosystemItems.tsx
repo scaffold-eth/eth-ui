@@ -38,7 +38,7 @@ const EcosystemList: EcosystemItem[] = [
   },
 ];
 
-const Ecosystem = ({ title, description, url, btnText }: EcosystemItem) => {
+const Ecosystem: FC<EcosystemItem> = ({ title, description, url, btnText }) => {
   return (
     <div className="grid justify-items-center grid-cols-1">
       <div className="card shadow-xl m-5">
@@ -47,7 +47,7 @@ const Ecosystem = ({ title, description, url, btnText }: EcosystemItem) => {
           <p>{description}</p>
           <div className="card-actions">
             <button className="button button--secondary button--block">
-              <a href={url} className="primary" target="_blank">
+              <a href={url} className="primary" target="_blank" rel="noreferrer">
                 {btnText}
               </a>
             </button>

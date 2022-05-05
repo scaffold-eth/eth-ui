@@ -13,7 +13,7 @@ EthersModalConnectors now throws typed errors that an app could use to show noti
 - Login now has `onError` callback that passes back the typed error
 - Logout now also invoke a callback `onSuccess` incase certain actions needed to be taken on logout
 
-### EthersAppContext tie in
+### How does EthersAppContext tie in?
 
 Both these can be used via by ethersAppContext as the `modal` uses `EthersModalConnector` to invoke web3-modal.
 

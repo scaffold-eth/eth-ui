@@ -1,28 +1,17 @@
 {
   "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
+  "root": true,
   "parserOptions": {
     "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
     "sourceType": "module", // Allows for the use of imports,
     "ecmaFeatures": {
       "jsx": true // Allows for the parsing of JSX
     },
-    "project": "tsconfig.json",
+    "project": "./tsconfig.json",
     "tsconfigRootDir": ".",
-    "projectFolderIgnoreList": [
-      "node_modules/*",
-      "node_modules",
-      "dist",
-      "lib",
-      "build",
-      ".yarn",
-      "build-utils",
-      "docs",
-      "docusaurus"
-    ]
+    "projectFolderIgnoreList": ["node_modules/*", "node_modules", "dist", "lib", "build", ".yarn", "build-utils"]
   },
   "env": {
-    "browser": true,
-    "es6": true,
     "node": true
   },
   "extends": [
@@ -35,9 +24,10 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:tailwind/recommended"
+    "plugin:markdown/recommended",
+    "plugin:tailwindcss/recommended"
   ],
-  "plugins": ["prettier", "react", "react-hooks"],
+  "plugins": ["prettier", "react", "react-hooks", "markdown", "tailwindcss"],
   "rules": {
     "eqeqeq": ["error", "smart"],
     "react/jsx-wrap-multilines": "warn",
@@ -76,11 +66,6 @@
     "@typescript-eslint/no-empty-function": "warn",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",
-    "unused-imports/no-unused-imports-ts": "warn",
-    "unused-imports/no-unused-vars-ts": [
-      "error",
-      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
-    ],
     "@typescript-eslint/no-use-before-define": ["error"],
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-unsafe-assignment": "warn",
@@ -147,17 +132,14 @@
     "eslint linebreak-style": "off",
     "object-curly-newline": "off",
     "no-shadow": "off",
-    "no-void": ["error", { "allowAsStatement": true }],
-    "mocha/no-mocha-arrows": "off",
-    "mocha/no-hooks-for-single-case": "off",
-    "mocha/max-top-level-suites": ["warn", { "limit": 3 }]
+    "no-void": ["error", { "allowAsStatement": true }]
   },
   "overrides": [
     {
-      "files": ["*.test.ts", "*.test.tsx"],
-      "rules": {
-        "@typescript-eslint/no-non-null-assertion": "off"
-      }
+      "parser": "espree",
+      // 2. Enable the Markdown processor for all .md files.
+      "files": ["**/*.md", "**/*.mdx"],
+      "processor": "markdown/markdown"
     }
   ],
   "settings": {

@@ -1,7 +1,6 @@
 # folders
 lib/
 node_modules/**/*
-**/*.md
-docs/**/*
 website/**/*
 build/**/*
+**/*.js*

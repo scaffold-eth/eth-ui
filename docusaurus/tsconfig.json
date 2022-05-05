@@ -12,5 +12,6 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strict": true
-  }
+  },
+  "include": ["src/**/*.tsx"]
 }
