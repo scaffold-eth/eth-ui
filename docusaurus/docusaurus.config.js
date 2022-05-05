@@ -125,6 +125,7 @@ const classicOptions = {
     sidebarPath: require.resolve('./sidebars.js'),
     // Please change this to your repo.
     editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+    remarkPlugins: [require('mdx-mermaid')],
   },
   blog: {
     showReadingTime: true,
@@ -176,6 +177,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     (themeConfig),
   plugins,
+  themes: ['@saucelabs/theme-github-codeblock'],
 };
 
 module.exports = config;

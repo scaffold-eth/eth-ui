@@ -1,13 +1,14 @@
 ---
-id: "EthersAppContext.ICommonModalConnector"
-title: "Interface: ICommonModalConnector"
-sidebar_label: "ICommonModalConnector"
+id: 'EthersAppContext.ICommonModalConnector'
+title: 'Interface: ICommonModalConnector'
+sidebar_label: 'ICommonModalConnector'
 custom_edit_url: null
 ---
 
 [EthersAppContext](../modules/EthersAppContext.md).ICommonModalConnector
 
 #### Summary
+
 An interface implemented by [EthersModalConnector](../classes/EthersAppContext.EthersModalConnector.md) in addition to AbstractConnector
 
 ## Implemented by
@@ -23,8 +24,8 @@ An interface implemented by [EthersModalConnector](../classes/EthersAppContext.E
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type                               |
+| :------ | :--------------------------------- |
 | `theme` | `TWeb3ModalTheme` \| `ThemeColors` |
 
 #### Returns
@@ -33,9 +34,9 @@ An interface implemented by [EthersModalConnector](../classes/EthersAppContext.E
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/ethers-app/connectors/EthersModalConnector.ts#L44)
+[context/ethers-app/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/96e8db1/src/context/ethers-app/connectors/EthersModalConnector.ts#L44)
 
-___
+---
 
 ### resetModal
 
@@ -47,9 +48,9 @@ ___
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/ethers-app/connectors/EthersModalConnector.ts#L45)
+[context/ethers-app/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/96e8db1/src/context/ethers-app/connectors/EthersModalConnector.ts#L45)
 
-___
+---
 
 ### hasCachedProvider
 
@@ -61,9 +62,9 @@ ___
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:47](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/ethers-app/connectors/EthersModalConnector.ts#L47)
+[context/ethers-app/connectors/EthersModalConnector.ts:47](https://github.com/scaffold-eth/eth-hooks/blob/96e8db1/src/context/ethers-app/connectors/EthersModalConnector.ts#L47)
 
-___
+---
 
 ### loadWeb3Modal
 
@@ -75,9 +76,9 @@ ___
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/ethers-app/connectors/EthersModalConnector.ts#L48)
+[context/ethers-app/connectors/EthersModalConnector.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/96e8db1/src/context/ethers-app/connectors/EthersModalConnector.ts#L48)
 
-___
+---
 
 ### getSigner
 
@@ -89,9 +90,9 @@ ___
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/ethers-app/connectors/EthersModalConnector.ts#L50)
+[context/ethers-app/connectors/EthersModalConnector.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/96e8db1/src/context/ethers-app/connectors/EthersModalConnector.ts#L50)
 
-___
+---
 
 ### changeSigner
 
@@ -99,8 +100,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type     |
+| :------- | :------- |
 | `signer` | `Signer` |
 
 #### Returns
@@ -109,4 +110,4 @@ ___
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/ethers-app/connectors/EthersModalConnector.ts#L51)
+[context/ethers-app/connectors/EthersModalConnector.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/96e8db1/src/context/ethers-app/connectors/EthersModalConnector.ts#L51)

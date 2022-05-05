@@ -1,7 +1,7 @@
 ---
-id: "EthersAppContext.UserClosedModalError"
-title: "Class: UserClosedModalError"
-sidebar_label: "UserClosedModalError"
+id: 'EthersAppContext.UserClosedModalError'
+title: 'Class: UserClosedModalError'
+sidebar_label: 'UserClosedModalError'
 custom_edit_url: null
 ---
 
@@ -25,4 +25,4 @@ Error.constructor
 
 #### Defined in
 
-[context/ethers-app/connectors/connectorErrors.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/ethers-app/connectors/connectorErrors.ts#L12)
+[context/ethers-app/connectors/connectorErrors.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/96e8db1/src/context/ethers-app/connectors/connectorErrors.ts#L12)

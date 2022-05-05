@@ -1,7 +1,7 @@
 ---
-id: "EthersAppContext.NoStaticJsonRPCProviderFoundError"
-title: "Class: NoStaticJsonRPCProviderFoundError"
-sidebar_label: "NoStaticJsonRPCProviderFoundError"
+id: 'EthersAppContext.NoStaticJsonRPCProviderFoundError'
+title: 'Class: NoStaticJsonRPCProviderFoundError'
+sidebar_label: 'NoStaticJsonRPCProviderFoundError'
 custom_edit_url: null
 ---
 
@@ -21,8 +21,8 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name    | Type      |
+| :------ | :-------- |
 | `error` | `unknown` |
 
 #### Overrides
@@ -31,4 +31,4 @@ Error.constructor
 
 #### Defined in
 
-[context/ethers-app/connectors/connectorErrors.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/2d400c4/src/context/ethers-app/connectors/connectorErrors.ts#L45)
+[context/ethers-app/connectors/connectorErrors.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/96e8db1/src/context/ethers-app/connectors/connectorErrors.ts#L45)
