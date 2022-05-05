@@ -1,4 +1,5 @@
 //@ts-check
+const prismDark = require('prism-react-renderer/themes/nightOwl');
 
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 const config = {
@@ -10,10 +11,6 @@ const config = {
   },
   theme: {
     extend: {
-      colors: {
-        'theme-light-primary': '#5b86e5',
-        'theme-dark-primary': '#36d1dc',
-      },
       /**
        *  added the default spacing values to max width
        * @param theme
@@ -41,6 +38,23 @@ const config = {
   },
   // @ts-ignore
   plugins: [require('daisyui')],
+  daisyui: {
+    themes: [
+      {
+        darkDocs: {
+          primary: '#36d1dc',
+          secondary: '#5b86e5',
+          accent: '#ffffff',
+          neutral: '#DCE1EB',
+          'base-100': '#090F20',
+          info: '#84a5ec',
+          success: '#36D399',
+          warning: '#FBBD23',
+          error: '#F87272',
+        },
+      },
+    ],
+  },
 };
 
 module.exports = config;

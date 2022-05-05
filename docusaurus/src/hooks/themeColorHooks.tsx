@@ -1,8 +1,8 @@
 import { useColorMode } from '@docusaurus/theme-common';
 
-export const useBgColor = (): string => {
+export const useBgPrimary = (): string => {
   const { colorMode } = useColorMode();
-  return colorMode === 'dark' ? 'bg-theme-dark-primary' : 'bg-theme-light-primary';
+  return colorMode === 'dark' ? 'bg-secondary' : 'bg-primary';
 };
 
 export const useHeroTextColor = (): string => {

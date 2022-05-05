@@ -15,19 +15,11 @@
   }
 } */
 
-/* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary-lightest: #92afee;
-  --ifm-color-primary-lighter: #84a5ec;
-  --ifm-color-primary-light: #779ae9;
-  --ifm-color-primary: #5b86e5;
-  --ifm-color-primary-dark: #3f72e1;
-  --ifm-color-primary-darker: #245ddc;
-  --ifm-color-primary-darkest: #2157cf;
-}
+/////////////////////////
+// see tailwind.config.js for daisy theme as well
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-html[data-theme='dark'] {
+:root {
   --ifm-color-primary-lightest: #7ce1e8;
   --ifm-color-primary-lighter: #59d9e2;
   --ifm-color-primary-light: #4dd6e0;
@@ -35,6 +27,17 @@ html[data-theme='dark'] {
   --ifm-color-primary-dark: #25c7d2;
   --ifm-color-primary-darker: #23bcc6;
   --ifm-color-primary-darkest: #1c9aa3;
+}
+
+/* You can override the default Infima variables here. */
+html[data-theme='light'] {
+  --ifm-color-primary-lightest: #92afee;
+  --ifm-color-primary-lighter: #84a5ec;
+  --ifm-color-primary-light: #779ae9;
+  --ifm-color-primary: #5b86e5;
+  --ifm-color-primary-dark: #3f72e1;
+  --ifm-color-primary-darker: #245ddc;
+  --ifm-color-primary-darkest: #2157cf;
 }
 
 .docusaurus-highlight-code-line {

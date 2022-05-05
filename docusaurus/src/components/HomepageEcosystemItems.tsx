@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import clsx from 'clsx';
 
-import { useBgColor, useHeroTextColor as useTextColor } from '../hooks/themeColorHooks';
+import { useBgPrimary, useHeroTextColor as useTextColor } from '../hooks/themeColorHooks';
 
 interface EcosystemItem {
   title: string;
@@ -59,7 +59,7 @@ const Ecosystem: FC<EcosystemItem> = ({ title, description, url, btnText }) => {
 };
 
 export const HomepageEcosystemItems: FC = () => {
-  const bg = useBgColor();
+  const bg = useBgPrimary();
   const textColor = useTextColor();
 
   return (
