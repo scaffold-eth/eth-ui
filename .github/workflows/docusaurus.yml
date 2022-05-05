@@ -32,6 +32,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
+      - name: Build eth-hooks
+        run: |
+          yarn install
+          yarn hardhat:compile
+
       - name: Build Docusaurus website
         run: |
           cd docusaurus
