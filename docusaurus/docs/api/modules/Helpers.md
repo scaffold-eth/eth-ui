@@ -43,4 +43,4 @@ const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
 
 #### Defined in
 
-[helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/96e8db1/src/helpers/lazier.ts#L18)
+[helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/5d4273f/src/helpers/lazier.ts#L18)
