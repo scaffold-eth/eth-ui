@@ -1,13 +1,15 @@
-## Use ethersAppContext & hooks
+## How to use EthersAppContext & hooks
 
-Here's an example of using the context
+To get access to signer, provider, and account addresses you will need to use EthersAppContext.
+
+Here's an example:
 
 ```typescript
 const ethersContext = useEthersContext();
 // you now have access to signer, provider, account (address), etc...  See IEthersContext for details
 ```
 
-Now use a hook
+You can then use hooks in your app:
 
 ```typescript
 // ---------------------
@@ -18,7 +20,7 @@ const [yourLocalBalance, update, status] = useBalance(ethersContext.account);
 Z;
 ```
 
-Here's how to change an update interval
+Here's how to change an update interval:
 
 ```typescript
 // normally the hooks update every block
@@ -37,7 +39,7 @@ const [yourLocalBalance, update, status] = useBalance(ethersContext.account, {
 });
 ```
 
-An example of overriding the provider from the context
+An example of overriding the provider from the context:
 
 ```typescript
 // get an adaptor from a provider or signer
@@ -50,12 +52,14 @@ const [yourMainnetBalance] = useBalance(ethersContext.account, mergeDefaultUpdat
 ```
 
 :::tip
-Check out Scaffold-eth-typescript [useScaffoldHooksExamples.tsx](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/components/main/hooks/useScaffoldHooksExamples.tsx) for more examples.
+Check out Scaffold-eth-typescript [useScaffoldHooksExamples.tsx](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/components/main/hooks/useScaffoldHooksExamples.tsx) for more examples
 :::
 
-## How to pass a provider directly into `ethersAppContext`
+## How to pass a provider directly into `EthersAppContext`
 
-You can pass a provider into `EthersAppContext` directly if you don't want to use `EthersModalConnect` and `web3Modal`. This would be a way to override the default mechansim if you have your own login UI.
+You can pass a provider into `EthersAppContext` directly if you don't want to use `EthersModalConnect` and `web3Modal`.
+
+This would be a way to override the default mechansim if you have your own login UI:
 
 ```typescript
 <EthersAppContext customGetEthersAppProviderLibrary={customFunction}>
@@ -63,7 +67,7 @@ You can pass a provider into `EthersAppContext` directly if you don't want to us
 </EthersAppContext>
 ```
 
-In the above example `customFunction` should be a function that returns a `TEthersProvider`
+In the above example, `customFunction` should be a function that returns a `TEthersProvider`.
 
 ```typescript
 // a simple example
@@ -75,24 +79,25 @@ export type TGetEthersAppProviderLibrary = (
 ) => TEthersProvider;
 ```
 
-## Using `ethersAppContext` with `web3Modal`
+## Using `EthersAppContext` with `web3Modal`
 
 Ethers context will automatically give you a way to integrate `web3Modal` into your app.
 
-### 1. Create your `web3Config`
+### 🚩 1. Create your `web3Config`
 
-You can check out the `web3Config` github repo for a detailed explanation: [web3 modal](https://github.com/Web3Modal/web3modal#using-with-ethersjs).
-You can also see an example in Scaffold-eth-typescript, [scaffold-eth-typescript web3ModalConfig.ts](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/config/web3ModalConfig.ts#L8).
+You can check out the [web3 modal](https://github.com/Web3Modal/web3modal#using-with-ethersjs) Github repo for a detailed explanation.
 
-### 2. Create a function that returns a `TEthersModalConnector`
+You can also see an example in [scaffold-eth-typescript web3ModalConfig.ts](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/config/web3ModalConfig.ts#L8).
 
-This function should have a signature that returns `TEthersModalConnector`, which is an interface that is implemented by [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html)
+### 🚩 2. Create a function that returns a `TEthersModalConnector`
+
+This function should have a signature that returns `TEthersModalConnector`, which is an interface that is implemented by [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html).
 
 ```typescript
 type TCreateEthersModalConnector = (id?: string) => TEthersModalConnector | undefined;
 ```
 
-For example in Scaffold-eth-typescript [createLoginConnector](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/components/main/hooks/useScaffoldAppProviders.ts#L53)
+For a more complete example, see [scaffold-eth-typescript createLoginConnector](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/next/packages/vite-app-ts/src/components/main/hooks/useScaffoldAppProviders.ts#L53).
 
 ```typescript
 // theme: can be 'light' or 'dark'
@@ -109,11 +114,11 @@ const createLoginConnector: TCreateEthersModalConnector = useCallback(
 );
 ```
 
-You can find the details for [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html) in the api docs.
+You can find the details for [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html) in the API docs.
 
-### 3. Create a login event handler
+### 🚩 3. Create a login event handler
 
-You can then call the function we created above in the the event handler of your login button anywhere in your app.
+You can then call the function we created above in the event handler of your login button anywhere in your app.
 
 ```typescript
   ...
