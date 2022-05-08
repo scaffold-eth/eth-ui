@@ -1,5 +1,8 @@
 Call a contract function with arguments and receive the output.
+
 You can use this to easily keep track of contract outputs in react states.
+
+> Returns undefined or output.
 
 ## How to import
 
@@ -12,7 +15,9 @@ import { useContractReaderUntyped } from 'eth-hooks';
 To get started:
 
 ```typescript
-const readContract = useContractReaderUntyped();
+const readContract = useContractReaderUntyped<GOutput>(contract, contractFunctionInfo, formatter?, onChange?, override?): undefined | GOutput
 ```
+
+## To learn more
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#usecontractreaderuntyped).
