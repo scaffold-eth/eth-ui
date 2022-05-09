@@ -77,6 +77,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   protected _config: Readonly<TEthersModalConfig>;
   protected _signer: Signer | undefined;
   protected _theme: TWeb3ModalTheme | ThemeColors;
+  static isModalOpening: boolean = false;
 
   get config(): Readonly<TEthersModalConfig> {
     return this._config;
@@ -189,8 +190,13 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
       this.loadWeb3Modal();
 
       if (this._web3Modal) {
-        if (this._options.cacheProvider === false) this.resetModal();
+        if (this._options.cacheProvider === false || !this.checkValidCachedProvider()) {
+          this.resetModal();
+        }
+
+        EthersModalConnector.isModalOpening = true;
         console.log('Open provider modal');
+
         await this._web3Modal.updateTheme(this._theme);
         /* eslint-disable @typescript-eslint/no-unsafe-assignment*/
         if (this._id) {
@@ -219,6 +225,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
       }
       this.setSignerFromAccount(account);
 
+      EthersModalConnector.isModalOpening = false;
       return { provider: this._providerBase, account, chainId };
       /* eslint-enable */
     } catch (error) {
@@ -348,5 +355,19 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
    */
   public setModalTheme(theme: TWeb3ModalTheme | ThemeColors): void {
     this._theme = theme;
+  }
+
+  public checkValidCachedProvider(): boolean {
+    if (EthersModalConnector.isModalOpening) {
+      return false;
+    }
+
+    const modal = this._web3Modal;
+    if (modal != null) {
+      if (!modal.getUserOptions().find((f) => f.id === modal.cachedProvider)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
