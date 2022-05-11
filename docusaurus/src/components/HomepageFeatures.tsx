@@ -52,12 +52,12 @@ const FeatureList: FeatureItem[] = [
 
 const Feature: FC<FeatureItem> = ({ title, image, description }) => {
   return (
-    <div className="grid justify-items-center grid-cols-1">
+    <div className="grid grid-cols-1 justify-items-center">
       <div className="">
         <img className={styles.featureSvg} alt={title} src={useBaseUrl(image)} />
       </div>
       <div className="p-3"></div>
-      <div className="grid justify-items-center grid-cols-1 p-6">
+      <div className="grid grid-cols-1 justify-items-center p-6">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
@@ -67,8 +67,8 @@ const Feature: FC<FeatureItem> = ({ title, image, description }) => {
 
 export const HomepageFeatures: FC = () => {
   return (
-    <section className="p-5 pt-10 pb-10">
-      <div className="grid md:grid-cols-3 grid-cols-1">
+    <section className="p-5 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-3">
         {FeatureList.map((props, idx) => (
           <Feature key={idx} {...props} />
         ))}

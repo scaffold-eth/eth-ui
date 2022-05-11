@@ -34,7 +34,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersAppContext.E
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/211463e/src/context/ethers-app/connectors/EthersModalConnector.ts#L44)
+[context/ethers-app/connectors/EthersModalConnector.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L44)
 
 ---
 
@@ -48,7 +48,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersAppContext.E
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/211463e/src/context/ethers-app/connectors/EthersModalConnector.ts#L45)
+[context/ethers-app/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L45)
 
 ---
 
@@ -62,7 +62,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersAppContext.E
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:47](https://github.com/scaffold-eth/eth-hooks/blob/211463e/src/context/ethers-app/connectors/EthersModalConnector.ts#L47)
+[context/ethers-app/connectors/EthersModalConnector.ts:47](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L47)
 
 ---
 
@@ -76,7 +76,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersAppContext.E
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/211463e/src/context/ethers-app/connectors/EthersModalConnector.ts#L48)
+[context/ethers-app/connectors/EthersModalConnector.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L48)
 
 ---
 
@@ -90,7 +90,7 @@ An interface implemented by [EthersModalConnector](../classes/EthersAppContext.E
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/211463e/src/context/ethers-app/connectors/EthersModalConnector.ts#L50)
+[context/ethers-app/connectors/EthersModalConnector.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L50)
 
 ---
 
@@ -110,4 +110,4 @@ An interface implemented by [EthersModalConnector](../classes/EthersAppContext.E
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/211463e/src/context/ethers-app/connectors/EthersModalConnector.ts#L51)
+[context/ethers-app/connectors/EthersModalConnector.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L51)
