@@ -99,6 +99,8 @@ const themeConfig = {
     // @ts-ignore
     darkTheme: darkCodeTheme,
   },
+   metadata: [{name: 'twitter:card', content: 'summary'}],
+  image: '/home/features1.png',
 };
 
 /** @type {import('@docusaurus/preset-classic').Options} */

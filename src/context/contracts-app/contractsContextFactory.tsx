@@ -96,9 +96,12 @@ export type TContractsContextActions<GContractNames extends string, GAppConnecto
  * This is the factory function that creates the ContractContext and returns the hooks you can use to access typed contracts through out your app.
  *
  * ##### ✏️ Notes
- * - See [scaffold-eth-typescript contractContext.ts](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/release/packages/vite-app-ts/src/components/contractContext.ts) for an example of how to use this.
+ * - See [this for an example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/release/packages/vite-app-ts/src/config/appContracts.config.ts) for an example of how to use this.
  *
  * @category ContractAppContext
+ * @template GContractNames A type that represents the names of the contracts you want to access.  Should be `keyof ReturnType<loadAppContractConnectors>`, where `loadAppContractConnectors` is the function that returns the contract connectors config.
+ * @template GAppConnectorList A type are the list of contracts and their connectors.  Should be `ReturnType<loadAppContractConnectors>`, where `loadAppContractConnectors` is the function that returns the contract connectors config.
+ * @template GContractConnector TTypedContract<GContractNames, GAppConnectorList> allows the factory to strictly type contracts for the react hooks.  Should be `TTypedContract<keyof keyof ReturnType<loadAppContractConnectors>, ReturnType<loadAppContractConnectors>>`, where `loadAppContractConnectors` is the function that returns the contract connectors config.
  * @param loadAppContractConnectors A function that returns a list of app contract connectors. See [this for an example](https://github.com/scaffold-eth/scaffold-eth-typescript/blob/release/packages/vite-app-ts/src/config/appContracts.config.ts)
  * @returns A context for contracts, hook to access contracts, hook to load contracts, hook to connect to contracts in a network
  */
