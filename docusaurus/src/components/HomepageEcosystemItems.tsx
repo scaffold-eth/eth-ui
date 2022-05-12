@@ -40,11 +40,11 @@ const EcosystemList: EcosystemItem[] = [
 
 const Ecosystem: FC<EcosystemItem> = ({ title, description, url, btnText }) => {
   return (
-    <div className="grid grid-cols-1 justify-items-center">
-      <div className="m-5 shadow-xl card">
+    <div className="grid grid-cols-1 justify-items-center items-stretch">
+      <div className=" m-5 shadow-xl card">
         <div className="items-center text-center card-body">
           <h3 className="items-center text-center card-title">{title}</h3>
-          <p>{description}</p>
+          <p className="max-w-xs">{description}</p>
           <div className="card-actions">
             <button className="btn">
               <a href={url} target="_blank" rel="noreferrer">
@@ -69,12 +69,12 @@ export const HomepageEcosystemItems: FC = () => {
         <div className="p-2"></div>
         <div className={`text-center text-xl text-black`}>A one-stop shop for all your Web3 development needs</div>
       </div>
-      <div className="grid grid-cols-1 justify-center self-center md:grid-cols-3 ">
+      <div className="grid grid-cols-1 justify-center self-center lg:grid-cols-3 ">
         <Ecosystem key={0} {...EcosystemList[0]} />
         <Ecosystem key={0} {...EcosystemList[1]} />
         <Ecosystem key={0} {...EcosystemList[2]} />
       </div>
-      <div className="grid grid-cols-1 content-center md:grid-cols-3 ">
+      <div className="grid grid-cols-1 content-center lg:grid-cols-3 ">
         <div></div>
         <Ecosystem key={0} {...EcosystemList[3]} />
       </div>

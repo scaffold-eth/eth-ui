@@ -9,7 +9,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 const themeConfig = {
   navbar: {
-    title: 'eth-hooks',
+    title: 'Eth-hooks',
     logo: {
       alt: 'eth-hooks logo',
       src: 'img/logo.svg',
@@ -99,7 +99,7 @@ const themeConfig = {
     // @ts-ignore
     darkTheme: darkCodeTheme,
   },
-   metadata: [{name: 'twitter:card', content: 'summary'}],
+  metadata: [{ name: 'twitter:card', content: 'summary' }],
   image: '/home/features1.png',
 };
 
@@ -146,7 +146,7 @@ const plugins = [
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'eth-hooks-documentation',
+  title: 'Eth-hooks',
   tagline: 'React hooks to supercharge your Web3 frontend development',
   url: 'https://scaffold-eth.github.io',
   baseUrl: '/eth-hooks/',
@@ -154,7 +154,7 @@ const config = {
   onBrokenMarkdownLinks: 'error',
   favicon: 'img/favicon.ico',
   organizationName: 'scaffold-eth',
-  projectName: 'eth-hooks',
+  projectName: 'Eth-hooks',
 
   presets: [['classic', classicOptions]],
   themeConfig:
