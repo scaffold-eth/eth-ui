@@ -139,7 +139,7 @@ AbstractConnector.constructor
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[loadWeb3Modal](../interfaces/EthersAppContext.ICommonModalConnector.md#loadweb3modal)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[loadWeb3Modal](../interfaces/EthersAppContext.ICommonModalConnector.md#loadweb3modal-2)
 
 #### Defined in
 
@@ -171,7 +171,7 @@ AbstractConnector.constructor
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[hasCachedProvider](../interfaces/EthersAppContext.ICommonModalConnector.md#hascachedprovider)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[hasCachedProvider](../interfaces/EthersAppContext.ICommonModalConnector.md#hascachedprovider-2)
 
 #### Defined in
 
@@ -189,7 +189,7 @@ AbstractConnector.constructor
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[getSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#getsigner)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[getSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#getsigner-2)
 
 #### Defined in
 
@@ -213,7 +213,7 @@ AbstractConnector.constructor
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[setModalTheme](../interfaces/EthersAppContext.ICommonModalConnector.md#setmodaltheme)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[setModalTheme](../interfaces/EthersAppContext.ICommonModalConnector.md#setmodaltheme-2)
 
 #### Defined in
 
@@ -231,7 +231,7 @@ AbstractConnector.constructor
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[resetModal](../interfaces/EthersAppContext.ICommonModalConnector.md#resetmodal)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[resetModal](../interfaces/EthersAppContext.ICommonModalConnector.md#resetmodal-2)
 
 #### Defined in
 
@@ -255,7 +255,7 @@ AbstractConnector.constructor
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[changeSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#changesigner)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[changeSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#changesigner-2)
 
 #### Defined in
 
@@ -283,11 +283,11 @@ AbstractConnector.activate
 
 ### getProvider
 
-▸ **getProvider**(): `Promise`<[`TEthersProvider`](../modules/Models.md#tethersprovider) \| `MockProvider`\>
+▸ **getProvider**(): `Promise`<[`TEthersProvider`](../modules/Models.md#tethersprovider-2) \| `MockProvider`\>
 
 #### Returns
 
-`Promise`<[`TEthersProvider`](../modules/Models.md#tethersprovider) \| `MockProvider`\>
+`Promise`<[`TEthersProvider`](../modules/Models.md#tethersprovider-2) \| `MockProvider`\>
 
 #### Overrides
 

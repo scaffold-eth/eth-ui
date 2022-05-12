@@ -14,7 +14,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 ##### ✨ Features
 
-- This connector used with [useEthersContext](../modules/EthersAppContext.md#useetherscontext) allows the app and all the hooks to effortlessly access the current network, provider, signer, address information [IEthersContext](../interfaces/Models.IEthersContext.md)
+- This connector used with [useEthersContext](../modules/EthersAppContext.md#useetherscontext-2) allows the app and all the hooks to effortlessly access the current network, provider, signer, address information [IEthersContext](../interfaces/Models.IEthersContext.md)
 - The connector centralizes and takes care of management of the web3 interaction and provides a consistent exprience for your app.
 
 ##### ✏️ Notes
@@ -55,7 +55,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 ### \_ethersProvider
 
-• `Protected` `Optional` **\_ethersProvider**: [`TEthersProvider`](../modules/Models.md#tethersprovider)
+• `Protected` `Optional` **\_ethersProvider**: [`TEthersProvider`](../modules/Models.md#tethersprovider-2)
 
 #### Defined in
 
@@ -157,7 +157,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[hasCachedProvider](../interfaces/EthersAppContext.ICommonModalConnector.md#hascachedprovider)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[hasCachedProvider](../interfaces/EthersAppContext.ICommonModalConnector.md#hascachedprovider-2)
 
 #### Defined in
 
@@ -195,7 +195,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[loadWeb3Modal](../interfaces/EthersAppContext.ICommonModalConnector.md#loadweb3modal)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[loadWeb3Modal](../interfaces/EthersAppContext.ICommonModalConnector.md#loadweb3modal-2)
 
 #### Defined in
 
@@ -262,11 +262,11 @@ AbstractConnector.deactivate
 
 ### getProvider
 
-▸ **getProvider**(): `Promise`<`undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)\>
+▸ **getProvider**(): `Promise`<`undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider-2)\>
 
 #### Returns
 
-`Promise`<`undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)\>
+`Promise`<`undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider-2)\>
 
 #### Overrides
 
@@ -324,7 +324,7 @@ AbstractConnector.getAccount
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[getSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#getsigner)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[getSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#getsigner-2)
 
 #### Defined in
 
@@ -366,7 +366,7 @@ Change the current signer and account used by the connector
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[changeSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#changesigner)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[changeSigner](../interfaces/EthersAppContext.ICommonModalConnector.md#changesigner-2)
 
 #### Defined in
 
@@ -402,7 +402,7 @@ Resets the web3Modal and clears the cache
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[resetModal](../interfaces/EthersAppContext.ICommonModalConnector.md#resetmodal)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[resetModal](../interfaces/EthersAppContext.ICommonModalConnector.md#resetmodal-2)
 
 #### Defined in
 
@@ -430,7 +430,7 @@ Sets the web3modal theme: light | dark | ThemeColors
 
 #### Implementation of
 
-[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[setModalTheme](../interfaces/EthersAppContext.ICommonModalConnector.md#setmodaltheme)
+[ICommonModalConnector](../interfaces/EthersAppContext.ICommonModalConnector.md).[setModalTheme](../interfaces/EthersAppContext.ICommonModalConnector.md#setmodaltheme-2)
 
 #### Defined in
 

@@ -11,14 +11,14 @@ custom_edit_url: null
 
 The return type of [EthersModalConnector](../classes/EthersAppContext.EthersModalConnector.md)
 
-- ethers compatable provider [TEthersProvider](../modules/Models.md#tethersprovider)
+- ethers compatable provider [TEthersProvider](../modules/Models.md#tethersprovider-2)
 - a callback to change the current signer
 - the current account, chainId and signer
 - callbacks to open the web3Modal, logout or change theme
 
 ## Hierarchy
 
-- `Web3ReactContextInterface`<[`TEthersProvider`](../modules/Models.md#tethersprovider)\>
+- `Web3ReactContextInterface`<[`TEthersProvider`](../modules/Models.md#tethersprovider-2)\>
 
   ↳ **`IEthersContext`**
 
@@ -26,7 +26,7 @@ The return type of [EthersModalConnector](../classes/EthersAppContext.EthersModa
 
 ### connector
 
-• **connector**: `undefined` \| [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector)
+• **connector**: `undefined` \| [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector-2)
 
 #### Overrides
 
@@ -40,7 +40,7 @@ Web3ReactContextInterface.connector
 
 ### provider
 
-• **provider**: `undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider)
+• **provider**: `undefined` \| [`TEthersProvider`](../modules/Models.md#tethersprovider-2)
 
 #### Defined in
 
@@ -64,7 +64,7 @@ Web3ReactContextInterface.active
 
 ### signer
 
-• **signer**: `undefined` \| [`TEthersSigner`](../modules/Models.md#tetherssigner)
+• **signer**: `undefined` \| [`TEthersSigner`](../modules/Models.md#tetherssigner-2)
 
 #### Defined in
 
@@ -128,10 +128,10 @@ Open web3 modal for login
 
 #### Parameters
 
-| Name                   | Type                                                                            |
-| :--------------------- | :------------------------------------------------------------------------------ |
-| `ethersModalConnector` | [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector) |
-| `onError?`             | (`error`: `Error`) => `void`                                                    |
+| Name                   | Type                                                                              |
+| :--------------------- | :-------------------------------------------------------------------------------- |
+| `ethersModalConnector` | [`TEthersModalConnector`](../modules/EthersAppContext.md#tethersmodalconnector-2) |
+| `onError?`             | (`error`: `Error`) => `void`                                                      |
 
 #### Returns
 

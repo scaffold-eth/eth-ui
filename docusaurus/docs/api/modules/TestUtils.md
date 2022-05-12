@@ -236,11 +236,11 @@ and doesn't pass successfully
 
 ### wrapperTestSetupHelper
 
-▸ **wrapperTestSetupHelper**(): `Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<() => `number`\>\>
+▸ **wrapperTestSetupHelper**(): `Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult-2)<() => `number`\>\>
 
 #### Returns
 
-`Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<() => `number`\>\>
+`Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult-2)<() => `number`\>\>
 
 #### Defined in
 
@@ -264,7 +264,7 @@ and doesn't pass successfully
 
 ### hookTestWrapper
 
-▸ **hookTestWrapper**<`TCallbackToHook`\>(`callbackToHook`): `Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<`TCallbackToHook`\>\>
+▸ **hookTestWrapper**<`TCallbackToHook`\>(`callbackToHook`): `Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult-2)<`TCallbackToHook`\>\>
 
 Created a test hook with a Web3Wrapper
 
@@ -284,7 +284,7 @@ Created a test hook with a Web3Wrapper
 
 #### Returns
 
-`Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult)<`TCallbackToHook`\>\>
+`Promise`<[`TTestHookResult`](TestUtils.md#ttesthookresult-2)<`TCallbackToHook`\>\>
 
 (TTestHookResult)
 
@@ -444,7 +444,7 @@ Created a test hook with a Web3Wrapper
 
 ### THardhatAccounts
 
-Ƭ **THardhatAccounts**: `Record`<[`THardhatAccountsNames`](TestUtils.md#thardhataccountsnames), `SignerWithAddress`\>
+Ƭ **THardhatAccounts**: `Record`<[`THardhatAccountsNames`](TestUtils.md#thardhataccountsnames-2), `SignerWithAddress`\>
 
 #### Defined in
 
