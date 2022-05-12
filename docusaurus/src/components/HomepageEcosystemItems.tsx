@@ -64,7 +64,7 @@ export const HomepageEcosystemItems: FC = () => {
 
   return (
     <section className="py-5">
-      <div className={`rounded-md grid grid-cols-1 pt-10 pb-10 m-5 place-content-around bg-primary`}>
+      <div className={`rounded-md grid grid-cols-1 pt-16 pb-16 m-5 place-content-around bg-primary`}>
         <h2 className={`text-center text-4xl text-black`}>The Scaffold-eth Ecosystem</h2>
         <div className="p-2"></div>
         <div className={`text-center text-xl text-black`}>A one-stop shop for all your Web3 development needs</div>
