@@ -1,2 +1,2 @@
-export * from './app-contracts';
-export * from './ethers';
+export * from './contracts-app';
+export * from './ethers-app';

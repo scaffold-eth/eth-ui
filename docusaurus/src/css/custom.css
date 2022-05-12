@@ -4,27 +4,41 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary: #1c9aa3;
-  --ifm-color-primary-dark: #198b93;
-  --ifm-color-primary-darker: #18838b;
-  --ifm-color-primary-darkest: #146c72;
-  --ifm-color-primary-light: #1fa9b3;
-  --ifm-color-primary-lighter: #20b1bb;
-  --ifm-color-primary-lightest: #24c8d4;
-  --ifm-code-font-size: 95%;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @layer base {
+  html {
+    font-family: system-ui, '-apple-system', 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'system-ui',
+      'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  }
+} */
+
+/* ********************************************************************************
+ see tailwind.config.js for daisy theme as well
+ ******************************************************************************** */
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-html[data-theme='dark'] {
+:root {
+  --ifm-color-primary-lightest: #7ce1e8;
+  --ifm-color-primary-lighter: #59d9e2;
+  --ifm-color-primary-light: #4dd6e0;
   --ifm-color-primary: #36d1dc;
   --ifm-color-primary-dark: #25c7d2;
   --ifm-color-primary-darker: #23bcc6;
   --ifm-color-primary-darkest: #1c9aa3;
-  --ifm-color-primary-light: #4dd6e0;
-  --ifm-color-primary-lighter: #59d9e2;
-  --ifm-color-primary-lightest: #7ce1e8;
+}
+
+/* You can override the default Infima variables here. */
+html[data-theme='light'] {
+  --ifm-color-primary-lightest: #92afee;
+  --ifm-color-primary-lighter: #84a5ec;
+  --ifm-color-primary-light: #779ae9;
+  --ifm-color-primary: #5b86e5;
+  --ifm-color-primary-dark: #3f72e1;
+  --ifm-color-primary-darker: #245ddc;
+  --ifm-color-primary-darkest: #2157cf;
 }
 
 .docusaurus-highlight-code-line {

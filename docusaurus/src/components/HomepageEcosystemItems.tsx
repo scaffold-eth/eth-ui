@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import clsx from 'clsx';
-import styles from './HomepageFeatures.module.css';
+import React, { FC } from 'react';
+
+import { useBgPrimary, useHeroTextColor as useTextColor } from '../hooks/themeColorHooks';
 
 interface EcosystemItem {
   title: string;
@@ -37,25 +38,19 @@ const EcosystemList: EcosystemItem[] = [
   },
 ];
 
-const Ecosystem = ({ title, description, url, btnText }: EcosystemItem) => {
+const Ecosystem: FC<EcosystemItem> = ({ title, description, url, btnText }) => {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center padding-horiz--md">
-        <div className="card-demo" style={{ paddingTop: 10 }}>
-          <div className="card">
-            <div className="card__header">
-              <h3>{title}</h3>
-            </div>
-            <div className="card__body">
-              <p>{description}</p>
-            </div>
-            <div className="card__footer">
-              <button className="button button--secondary button--block">
-                <a href={url} className="primary" target="_blank">
-                  {btnText}
-                </a>
-              </button>
-            </div>
+    <div className="grid grid-cols-1 justify-items-center items-stretch">
+      <div className=" m-5 shadow-xl card">
+        <div className="items-center text-center card-body">
+          <h3 className="items-center text-center card-title">{title}</h3>
+          <p className="max-w-xs">{description}</p>
+          <div className="card-actions">
+            <button className="btn">
+              <a href={url} target="_blank" rel="noreferrer">
+                {btnText}
+              </a>
+            </button>
           </div>
         </div>
       </div>
@@ -64,19 +59,25 @@ const Ecosystem = ({ title, description, url, btnText }: EcosystemItem) => {
 };
 
 export const HomepageEcosystemItems: FC = () => {
+  const bg = useBgPrimary();
+  const textColor = useTextColor();
+
   return (
-    <div className={styles.background}>
-      <section className={styles.features}>
-        <div className="container">
-          <h2 className={styles.title}>The Scaffold-eth Ecosystem</h2>
-          <div className={styles.subtitle}>A one-stop shop for all your Web3 development needs</div>
-          <div className="row">
-            {EcosystemList.map((props, idx) => (
-              <Ecosystem key={idx} {...props} />
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
+    <section className="py-5">
+      <div className={`rounded-md grid grid-cols-1 pt-16 pb-16 m-5 place-content-around bg-primary`}>
+        <h2 className={`text-center text-4xl text-black`}>The Scaffold-eth Ecosystem</h2>
+        <div className="p-2"></div>
+        <div className={`text-center text-xl text-black`}>A one-stop shop for all your Web3 development needs</div>
+      </div>
+      <div className="grid grid-cols-1 justify-center self-center lg:grid-cols-3 ">
+        <Ecosystem key={0} {...EcosystemList[0]} />
+        <Ecosystem key={0} {...EcosystemList[1]} />
+        <Ecosystem key={0} {...EcosystemList[2]} />
+      </div>
+      <div className="grid grid-cols-1 content-center lg:grid-cols-3 ">
+        <div></div>
+        <Ecosystem key={0} {...EcosystemList[3]} />
+      </div>
+    </section>
   );
 };

@@ -1,6 +1,6 @@
 import React, { createElement, FC, useEffect } from 'react';
 
-import { EthersAppContext, useEthersContext } from '~~/context';
+import { EthersAppContext, useEthersAppContext } from '~~/context';
 import { TCreateEthersModalConnector } from '~~/models/ethersAppContextTypes';
 
 interface IMockProps {
@@ -10,7 +10,7 @@ interface IMockProps {
 }
 
 const TestConnectorWrapper: FC<IMockProps> = (props) => {
-  const ethersContext = useEthersContext();
+  const ethersContext = useEthersAppContext();
 
   useEffect(() => {
     const connector = props.createMockConnector();

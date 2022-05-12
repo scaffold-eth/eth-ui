@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { useEthersContext } from '~~/context';
+import { useEthersAppContext } from '~~/context';
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { const_DefaultTestChainId, defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { getTestSigners, MockConnector } from '~~/helpers/test-utils/wrapper';
@@ -9,7 +9,7 @@ import { IEthersContext } from '~~/models';
 import 'test/helpers/chai-imports';
 
 const TestHook = (): IEthersContext => {
-  return useEthersContext();
+  return useEthersAppContext();
 };
 
 describe('EthersAppContext', function () {
