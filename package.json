@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "2.3.16",
+  "version": "2.3.17",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Austin Griffith <austin@ethereum.org>",
   "repository": "https://github.com/austintgriffith/eth-hooks.git",
@@ -30,6 +30,7 @@
       "url": "https://github.com/codenamejason"
     }
   ],
+  "type": "module",
   "scripts": {
     "commit": "git-cz",
     "build": "ts-patch i && tsc -p tsconfig.json",
