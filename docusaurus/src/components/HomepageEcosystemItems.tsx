@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import clsx from 'clsx';
+import React, { FC } from 'react';
 
 import { useBgPrimary, useHeroTextColor as useTextColor } from '../hooks/themeColorHooks';
 
@@ -40,11 +40,11 @@ const EcosystemList: EcosystemItem[] = [
 
 const Ecosystem: FC<EcosystemItem> = ({ title, description, url, btnText }) => {
   return (
-    <div className="grid justify-items-center grid-cols-1">
-      <div className="card shadow-xl m-5">
-        <div className="card-body items-center text-center">
-          <h3 className="card-title items-center text-center">{title}</h3>
-          <p>{description}</p>
+    <div className="grid grid-cols-1 justify-items-center items-stretch">
+      <div className=" m-5 shadow-xl card">
+        <div className="items-center text-center card-body">
+          <h3 className="items-center text-center card-title">{title}</h3>
+          <p className="max-w-xs">{description}</p>
           <div className="card-actions">
             <button className="btn">
               <a href={url} target="_blank" rel="noreferrer">
@@ -63,18 +63,18 @@ export const HomepageEcosystemItems: FC = () => {
   const textColor = useTextColor();
 
   return (
-    <section className="p-5 pt-5 pb-5">
-      <div className={`rounded-md grid grid-cols-1 pt-10 pb-10 m-5 place-content-around ${bg}`}>
-        <h2 className={`text-center text-4xl ${textColor}`}>The Scaffold-eth Ecosystem</h2>
+    <section className="py-5">
+      <div className={`rounded-md grid grid-cols-1 pt-16 pb-16 m-5 place-content-around bg-primary`}>
+        <h2 className={`text-center text-4xl text-black`}>The Scaffold-eth Ecosystem</h2>
         <div className="p-2"></div>
-        <div className={`text-center text-xl ${textColor}`}>A one-stop shop for all your Web3 development needs</div>
+        <div className={`text-center text-xl text-black`}>A one-stop shop for all your Web3 development needs</div>
       </div>
-      <div className="grid md:grid-cols-3 grid-cols-1 self-center justify-center ">
+      <div className="grid grid-cols-1 justify-center self-center lg:grid-cols-3 ">
         <Ecosystem key={0} {...EcosystemList[0]} />
         <Ecosystem key={0} {...EcosystemList[1]} />
         <Ecosystem key={0} {...EcosystemList[2]} />
       </div>
-      <div className="grid md:grid-cols-3 grid-cols-1 content-center ">
+      <div className="grid grid-cols-1 content-center lg:grid-cols-3 ">
         <div></div>
         <Ecosystem key={0} {...EcosystemList[3]} />
       </div>

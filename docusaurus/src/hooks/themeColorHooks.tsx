@@ -7,10 +7,10 @@ export const useBgPrimary = (): string => {
 
 export const useHeroTextColor = (): string => {
   const { colorMode } = useColorMode();
-  return colorMode === 'dark' ? 'text-black' : 'text-white';
+  return colorMode === 'dark' ? 'text-white' : 'text-black';
 };
 
 export const useTextColor = (): string => {
   const { colorMode } = useColorMode();
-  return colorMode === 'dark' ? 'text-white' : 'text-black';
+  return colorMode === 'dark' ? 'text-primary' : 'text-black';
 };

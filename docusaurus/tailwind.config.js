@@ -11,6 +11,9 @@ const config = {
   },
   theme: {
     extend: {
+      colors: {
+        'text-primary': '#C2D0EA',
+      },
       /**
        *  added the default spacing values to max width
        * @param theme
