@@ -1,4 +1,6 @@
-Creates a burner signer/address, and provides ways of interacting with and updating the signer
+Creates a burner signer/address, and provides ways of interacting with and updating the signer.
+
+> Returns the burner signer/address.
 
 ## How to import
 
@@ -11,7 +13,9 @@ import { useBurnerSigner } from 'eth-hooks';
 To get started:
 
 ```typescript
-const burnerSigner = useBurnerSigner();
+const burnerSigner = useBurnerSigner(localProvider): TBurnerSigner;
 ```
+
+## To learn more
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#useburnersigner).

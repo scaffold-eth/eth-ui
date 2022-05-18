@@ -1,5 +1,7 @@
 Get a token list from Uniswap's IPFS token list.
 
+> Returns a token list
+
 ## How to import
 
 ```typescript
@@ -11,7 +13,9 @@ import { useDexTokenList } from 'eth-hooks';
 To get started:
 
 ```typescript
-const tokenList = useDexTokenList();
+const tokenList = useDexTokenList(tokenListUri?, chainId?, options?): THookResult<TokenInfo[]>
 ```
+
+## To learn more
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#usedextokenlist).

@@ -2,6 +2,8 @@
 
 Invoke a callback on every block or with a polling time. On block is the prefered method.
 
+> Returns the block number.
+
 ## How to import
 
 ```typescript
@@ -23,5 +25,7 @@ useBlockNumber(scaffoldAppProviders.localAdaptor?.provider, (blockNumber) =>
   console.log(`⛓ A new local block is here: ${blockNumber}`)
 );
 ```
+
+## To learn more
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#useblocknumber).
