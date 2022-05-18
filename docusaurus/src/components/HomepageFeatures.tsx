@@ -52,12 +52,7 @@ const Feature: FC<FeatureItem> = ({ title, image, description }) => {
   return (
     <div className="grid grid-cols-1 justify-items-center">
       <div className="">
-        <img
-          className={styles.featureSvg}
-          style={{ height: '200px', width: '229px' }}
-          alt={title}
-          src={useBaseUrl(image)}
-        />
+        <img style={{ height: '200px', width: '229px' }} alt={title} src={useBaseUrl(image)} />
       </div>
       <div className="p-3"></div>
       <div className="grid grid-cols-1 justify-items-center p-6">

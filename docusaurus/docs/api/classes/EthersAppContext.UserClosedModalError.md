@@ -25,4 +25,4 @@ Error.constructor
 
 #### Defined in
 
-[context/ethers-app/connectors/connectorErrors.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/connectorErrors.ts#L12)
+[context/ethers-app/connectors/connectorErrors.ts:12](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/context/ethers-app/connectors/connectorErrors.ts#L12)
