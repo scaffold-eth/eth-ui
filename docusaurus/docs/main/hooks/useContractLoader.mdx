@@ -1,5 +1,7 @@
 Load your contracts and return them.
 
+> Returns a record of the contract name.
+
 ## How to import
 
 ```typescript
@@ -11,7 +13,9 @@ import { useContractLoader } from 'eth-hooks';
 To get started:
 
 ```typescript
-const loadContract = useContractLoader();
+const loadContract = useContractLoader(config?, providerOrSigner): Record<string, BaseContract>;
 ```
+
+## To learn more
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#usecontractloader).

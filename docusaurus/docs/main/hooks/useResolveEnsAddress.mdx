@@ -1,5 +1,7 @@
 Gets the wallet address from an ENS name.
 
+> Returns undefined or the address.
+
 ## How to import
 
 ```typescript
@@ -14,5 +16,7 @@ To get started:
 const [addressFromENS] = useResolveEnsName(scaffoldAppProviders.mainnetAdaptor?.provider, 'austingriffith.eth');
 console.log('🏷 Resolved austingriffith.eth as:', addressFromENS);
 ```
+
+## To learn more
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#useresolveensaddress).
