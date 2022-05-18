@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 ---
+
 # 🖇 Overview
 
 Easily port Ethereum blockchain information to your React frontend.
@@ -43,7 +44,7 @@ Caches the network RPC calls. This prevents unnecessary requests to the network.
 #### Ethers App Context
 
 - [useBlockNumberContext](./main/hooks/useBlockNumberContext)
-- [useEthersContext](./main/hooks/useEthersContext)
+- useEthersContext
 
 #### Network
 
@@ -59,8 +60,8 @@ Caches the network RPC calls. This prevents unnecessary requests to the network.
 
 - [useContractReader](./main/hooks/useContractReader)
 - contractContextFactory
-  - [useLoadAppContracts](./main/hooks/useLoadAppContracts)
-  - [useConnectAppContracts](./main/hooks/useConnectAppContracts)
+  - useLoadAppContracts
+  - useConnectAppContracts
 - legacy (eth-hooks V2+)
   - [useContractLoader](./main/hooks/useContractLoader)
   - [useContractReaderUntyped](./main/hooks/useContractReaderUntyped)

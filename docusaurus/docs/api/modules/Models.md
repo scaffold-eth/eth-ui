@@ -43,7 +43,7 @@ A callback type that returns a EthersModalConnector
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/ethersAppContextTypes.ts#L17)
+[models/ethersAppContextTypes.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/ethersAppContextTypes.ts#L17)
 
 ---
 
@@ -66,7 +66,7 @@ Describes the sctructure of each contract in hardhat_contracts.json
 
 #### Defined in
 
-[models/contractTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractTypes.ts#L7)
+[models/contractTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractTypes.ts#L7)
 
 ---
 
@@ -84,7 +84,7 @@ Describes a basic contract data record, the chainId and address
 
 #### Defined in
 
-[models/contractTypes.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractTypes.ts#L18)
+[models/contractTypes.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractTypes.ts#L18)
 
 ---
 
@@ -105,7 +105,7 @@ Describes the structure of hardhat_contracts.json
 
 #### Defined in
 
-[models/contractTypes.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractTypes.ts#L58)
+[models/contractTypes.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractTypes.ts#L58)
 
 ---
 
@@ -128,7 +128,7 @@ A type for external contracts
 
 #### Defined in
 
-[models/contractTypes.ts:80](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractTypes.ts#L80)
+[models/contractTypes.ts:80](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractTypes.ts#L80)
 
 ---
 
@@ -154,7 +154,7 @@ Contract function information:
 
 #### Defined in
 
-[models/contractTypes.ts:95](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractTypes.ts#L95)
+[models/contractTypes.ts:95](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractTypes.ts#L95)
 
 ---
 
@@ -181,7 +181,7 @@ A type that describes the basics of a network for applications. e.g. mainnet, ro
 
 #### Defined in
 
-[models/networkTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/networkTypes.ts#L7)
+[models/networkTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/networkTypes.ts#L7)
 
 ---
 
@@ -199,7 +199,7 @@ Used by eth-hooks, eth-components and scaffold-eth-typescript
 
 #### Defined in
 
-[models/providerTypes.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/providerTypes.ts#L19)
+[models/providerTypes.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/providerTypes.ts#L19)
 
 ---
 
@@ -213,7 +213,7 @@ A union of various providers and signers in ethers to give maximum flexibility
 
 #### Defined in
 
-[models/providerTypes.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/providerTypes.ts#L27)
+[models/providerTypes.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/providerTypes.ts#L27)
 
 ---
 
@@ -227,7 +227,7 @@ A union of various providers in ethers to give maximum flexibility
 
 #### Defined in
 
-[models/providerTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/providerTypes.ts#L42)
+[models/providerTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/providerTypes.ts#L42)
 
 ---
 
@@ -241,7 +241,7 @@ A union of abstract, non initalizable providers, used by some functions
 
 #### Defined in
 
-[models/providerTypes.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/providerTypes.ts#L50)
+[models/providerTypes.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/providerTypes.ts#L50)
 
 ---
 
@@ -262,7 +262,7 @@ An generic extension of EventFilter that is used by TypedEvent. It allows for ty
 
 #### Defined in
 
-[models/providerTypes.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/providerTypes.ts#L58)
+[models/providerTypes.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/providerTypes.ts#L58)
 
 ---
 
@@ -282,7 +282,7 @@ An generic extension of Event. It types the the arguments and return values of t
 
 #### Defined in
 
-[models/providerTypes.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/providerTypes.ts#L69)
+[models/providerTypes.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/providerTypes.ts#L69)
 
 ---
 
@@ -302,7 +302,7 @@ Similar to [partial](https://www.typescriptlang.org/docs/handbook/utility-types.
 
 #### Defined in
 
-[models/utilityTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/utilityTypes.ts#L7)
+[models/utilityTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/utilityTypes.ts#L7)
 
 ## Misc
 
@@ -312,7 +312,7 @@ Similar to [partial](https://www.typescriptlang.org/docs/handbook/utility-types.
 
 #### Defined in
 
-[models/constants/common.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/constants/common.ts#L1)
+[models/constants/common.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/constants/common.ts#L1)
 
 ---
 
@@ -322,7 +322,7 @@ Similar to [partial](https://www.typescriptlang.org/docs/handbook/utility-types.
 
 #### Defined in
 
-[models/constants/common.ts:2](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/constants/common.ts#L2)
+[models/constants/common.ts:2](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/constants/common.ts#L2)
 
 ---
 
@@ -341,7 +341,7 @@ Similar to [partial](https://www.typescriptlang.org/docs/handbook/utility-types.
 
 #### Defined in
 
-[models/constants/keyNamespace.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/constants/keyNamespace.ts#L1)
+[models/constants/keyNamespace.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/constants/keyNamespace.ts#L1)
 
 ---
 
@@ -374,7 +374,7 @@ A function that connects to a contract. Used by [TContractConnectorBase](Models.
 
 #### Defined in
 
-[models/contractAppContextTypes.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractAppContextTypes.ts#L9)
+[models/contractAppContextTypes.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractAppContextTypes.ts#L9)
 
 ---
 
@@ -394,7 +394,7 @@ This types describes a base for a connnector. A contract connector would be a a 
 
 #### Defined in
 
-[models/contractAppContextTypes.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractAppContextTypes.ts#L18)
+[models/contractAppContextTypes.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractAppContextTypes.ts#L18)
 
 ---
 
@@ -420,7 +420,7 @@ This type descripts a connector that has enough information to create a contract
 
 #### Defined in
 
-[models/contractAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractAppContextTypes.ts#L31)
+[models/contractAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractAppContextTypes.ts#L31)
 
 ---
 
@@ -436,7 +436,7 @@ This type descripts a connector that has enough information to create a contract
 
 #### Defined in
 
-[models/contractAppContextTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractAppContextTypes.ts#L42)
+[models/contractAppContextTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractAppContextTypes.ts#L42)
 
 ---
 
@@ -461,7 +461,7 @@ A Record of typed connectors that can be used to create a contract.
 
 #### Defined in
 
-[models/contractAppContextTypes.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractAppContextTypes.ts#L51)
+[models/contractAppContextTypes.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractAppContextTypes.ts#L51)
 
 ---
 
@@ -486,7 +486,7 @@ A type that infers contract type `(extended from BaseContract)` based on connect
 
 #### Defined in
 
-[models/contractAppContextTypes.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractAppContextTypes.ts#L62)
+[models/contractAppContextTypes.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractAppContextTypes.ts#L62)
 
 ---
 
@@ -511,7 +511,7 @@ A utility type for typed contracts by name and then by chain
 
 #### Defined in
 
-[models/contractAppContextTypes.ts:78](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractAppContextTypes.ts#L78)
+[models/contractAppContextTypes.ts:78](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractAppContextTypes.ts#L78)
 
 ---
 
@@ -536,7 +536,7 @@ A utility type for typed contracts by chain and then by name
 
 #### Defined in
 
-[models/contractAppContextTypes.ts:90](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractAppContextTypes.ts#L90)
+[models/contractAppContextTypes.ts:90](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractAppContextTypes.ts#L90)
 
 ---
 
@@ -563,7 +563,7 @@ Describes the current ContractsContext for the app used by the context created b
 
 #### Defined in
 
-[models/contractAppContextTypes.ts:102](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractAppContextTypes.ts#L102)
+[models/contractAppContextTypes.ts:102](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractAppContextTypes.ts#L102)
 
 ---
 
@@ -584,7 +584,7 @@ Contracts by contract name
 
 #### Defined in
 
-[models/contractTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractTypes.ts#L31)
+[models/contractTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractTypes.ts#L31)
 
 ---
 
@@ -605,7 +605,7 @@ Contracts by contract name
 
 #### Defined in
 
-[models/contractTypes.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/contractTypes.ts#L44)
+[models/contractTypes.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/contractTypes.ts#L44)
 
 ---
 
@@ -619,7 +619,7 @@ An constant for block number interval of 10 blocks
 
 #### Defined in
 
-[models/hookTypes.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/hookTypes.ts#L11)
+[models/hookTypes.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/hookTypes.ts#L11)
 
 ---
 
@@ -633,7 +633,7 @@ An constant for block number interval of 50 blocks
 
 #### Defined in
 
-[models/hookTypes.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/hookTypes.ts#L17)
+[models/hookTypes.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/hookTypes.ts#L17)
 
 ---
 
@@ -647,7 +647,7 @@ An constant for block number interval of 250 blocks
 
 #### Defined in
 
-[models/hookTypes.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/hookTypes.ts#L23)
+[models/hookTypes.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/hookTypes.ts#L23)
 
 ---
 
@@ -663,7 +663,7 @@ An constant for block number interval of 250 blocks
 
 #### Defined in
 
-[models/hookTypes.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/hookTypes.ts#L25)
+[models/hookTypes.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/hookTypes.ts#L25)
 
 ---
 
@@ -699,7 +699,7 @@ The following options are available:
 
 #### Defined in
 
-[models/hookTypes.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/hookTypes.ts#L50)
+[models/hookTypes.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/hookTypes.ts#L50)
 
 ---
 
@@ -735,7 +735,7 @@ Alternate Context Key
 
 #### Defined in
 
-[models/hookTypes.ts:73](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/hookTypes.ts#L73)
+[models/hookTypes.ts:73](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/hookTypes.ts#L73)
 
 ---
 
@@ -751,7 +751,7 @@ An helper to create the default override settings for hooks
 
 #### Defined in
 
-[models/hookTypes.ts:93](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/hookTypes.ts#L93)
+[models/hookTypes.ts:93](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/hookTypes.ts#L93)
 
 ---
 
@@ -773,7 +773,7 @@ A helper to create default update options for hooks
 
 #### Defined in
 
-[models/hookTypes.ts:105](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/hookTypes.ts#L105)
+[models/hookTypes.ts:105](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/hookTypes.ts#L105)
 
 ---
 
@@ -797,7 +797,7 @@ This type describes the tuple that is returned by most hooks
 
 #### Defined in
 
-[models/hookTypes.ts:124](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/hookTypes.ts#L124)
+[models/hookTypes.ts:124](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/hookTypes.ts#L124)
 
 ## Type Definition
 
@@ -822,4 +822,4 @@ Essentially a object that allows interaction with the network:
 
 #### Defined in
 
-[models/ethersAppContextTypes.ts:52](https://github.com/scaffold-eth/eth-hooks/blob/d9dfbde/src/models/ethersAppContextTypes.ts#L52)
+[models/ethersAppContextTypes.ts:52](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/models/ethersAppContextTypes.ts#L52)
