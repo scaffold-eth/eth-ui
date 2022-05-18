@@ -1,5 +1,7 @@
 Get the Uniswap exchange price of ETH/USD (extrapolated from WETH/DAI).
 
+> Returns the price in USD.
+
 ## How to import
 
 ```typescript
@@ -11,7 +13,9 @@ import { useDexEthPrice } from 'eth-hooks';
 To get started:
 
 ```typescript
-const price = useDexEthPrice();
+const price = useDexEthPrice(mainnetProvider, targetNetworkInfo?, options?): THookResult<number>;
 ```
+
+## To learn more
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#usedexethprice).

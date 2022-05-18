@@ -1,5 +1,7 @@
 Find out if a contract exists already on the blockchain.
 
+> Returns a boolean.
+
 ## How to import
 
 ```typescript
@@ -11,7 +13,9 @@ import { useContractExistsAtAddress } from 'eth-hooks';
 To get started:
 
 ```typescript
-const contractExists = useContractExistsAtAddress();
+const contractExists = useContractExistsAtAddress(contract, options?): THookResult<boolean>
 ```
+
+## To learn more
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#usecontractexistsataddress).
