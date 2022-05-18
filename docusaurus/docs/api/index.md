@@ -1,6 +1,6 @@
 ---
 id: 'index'
-title: 'eth-hooks - v4.2.21'
+title: 'eth-hooks - v4.2.22'
 slug: '/api/'
 sidebar_label: 'Table of contents'
 sidebar_position: 0.5

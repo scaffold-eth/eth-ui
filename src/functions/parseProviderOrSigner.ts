@@ -6,6 +6,45 @@ import { isValidEthersAdaptor } from '~~/functions';
 import { TEthersProviderOrSigner, TEthersProvider } from '~~/models';
 import { TEthersAdaptor } from '~~/models/ethersAppContextTypes';
 
+const isProvider = (providerOrSigner: TEthersProviderOrSigner | undefined): boolean => {
+  const casted = providerOrSigner as TEthersProvider;
+
+  if (
+    providerOrSigner instanceof JsonRpcProvider ||
+    providerOrSigner instanceof Web3Provider ||
+    providerOrSigner instanceof StaticJsonRpcProvider
+  ) {
+    return true;
+  } else if (
+    casted?._isProvider &&
+    casted?.getNetwork != null &&
+    typeof casted?.getNetwork == 'function' &&
+    casted.listAccounts != null &&
+    typeof casted.listAccounts == 'function'
+  ) {
+    // fallback check incase of inter library calls and differences in deps.
+    return true;
+  }
+  return false;
+};
+
+const isSigner = (providerOrSigner: TEthersProviderOrSigner | undefined): boolean => {
+  const casted = providerOrSigner as Signer;
+
+  if (providerOrSigner instanceof ethers.Signer) {
+    return true;
+  } else if (
+    casted?._isSigner &&
+    typeof casted?.provider != null &&
+    casted?.signMessage != null &&
+    typeof casted?.signMessage == 'function'
+  ) {
+    // fallback check incase of inter library calls and differences in deps.
+    return true;
+  }
+  return false;
+};
+
 /**
  * #### Summary
  * Parse {@link TEthersProviderOrSigner} to {@link TEthersUser}
@@ -25,23 +64,21 @@ export const parseProviderOrSigner = async (
   let account: string | undefined;
 
   try {
-    if (
-      providerOrSigner instanceof JsonRpcProvider ||
-      providerOrSigner instanceof Web3Provider ||
-      providerOrSigner instanceof StaticJsonRpcProvider
-    ) {
-      provider = providerOrSigner;
-      providerNetwork = await providerOrSigner.getNetwork();
-      const accounts = await providerOrSigner.listAccounts();
+    if (isProvider(providerOrSigner)) {
+      const casted = providerOrSigner as TEthersProvider;
+      provider = casted;
+      providerNetwork = await casted.getNetwork();
+      const accounts = await casted.listAccounts();
       if (accounts && accounts.length > 0) {
-        signer = providerOrSigner.getSigner();
+        signer = casted.getSigner();
       }
     }
 
-    if (!signer && providerOrSigner instanceof Signer) {
-      signer = providerOrSigner;
-      provider = signer.provider;
-      providerNetwork = provider && (await provider.getNetwork());
+    if (!signer && isSigner(providerOrSigner)) {
+      const casted = providerOrSigner as Signer;
+      signer = casted;
+      provider = casted.provider;
+      providerNetwork = casted.provider && (await casted.provider.getNetwork());
     }
 
     if (signer) {
