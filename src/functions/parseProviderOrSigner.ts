@@ -1,4 +1,4 @@
-import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
+import { JsonRpcProvider, Provider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { ethers, Signer } from 'ethers';
 import { invariant } from 'ts-invariant';
 
@@ -6,7 +6,7 @@ import { isValidEthersAdaptor } from '~~/functions';
 import { TEthersProviderOrSigner, TEthersProvider } from '~~/models';
 import { TEthersAdaptor } from '~~/models/ethersAppContextTypes';
 
-const isProvider = (providerOrSigner: TEthersProviderOrSigner | undefined): boolean => {
+export const isProvider = (providerOrSigner: TEthersProviderOrSigner | undefined): boolean => {
   const casted = providerOrSigner as TEthersProvider;
 
   if (
@@ -14,6 +14,8 @@ const isProvider = (providerOrSigner: TEthersProviderOrSigner | undefined): bool
     providerOrSigner instanceof Web3Provider ||
     providerOrSigner instanceof StaticJsonRpcProvider
   ) {
+    return true;
+  } else if (Provider.isProvider(providerOrSigner)) {
     return true;
   } else if (
     casted?._isProvider &&
@@ -32,6 +34,8 @@ const isSigner = (providerOrSigner: TEthersProviderOrSigner | undefined): boolea
   const casted = providerOrSigner as Signer;
 
   if (providerOrSigner instanceof ethers.Signer) {
+    return true;
+  } else if (Signer.isSigner(providerOrSigner)) {
     return true;
   } else if (
     casted?._isSigner &&
