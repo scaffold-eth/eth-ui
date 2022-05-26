@@ -15,7 +15,7 @@ const EcosystemList: EcosystemItem[] = [
   {
     title: 'Scaffold-eth-typescript',
     description: <>Fast fullstack blockchain application development</>,
-    url: 'https://github.com/scaffold-eth/scaffold-typescript-eth',
+    url: 'https://github.com/scaffold-eth/scaffold-eth-typescript',
     btnText: "Let's see the repo",
   },
   {
