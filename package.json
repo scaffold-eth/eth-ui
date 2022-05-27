@@ -1,12 +1,13 @@
 {
   "name": "eth-hooks",
-  "version": "4.2.23",
+  "version": "4.2.34-beta01",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
+  "type": "module",
   "engines": {
     "node": ">=12",
     "npm": ">=6"
@@ -69,8 +70,8 @@
     "merge-anything": "^5.0.2",
     "react-query": "^3.38.*",
     "ts-invariant": "^0.9.4",
-    "use-debounce": "^8.0.0",
-    "usehooks-ts": "^2.5.2",
+    "use-debounce": "^8.0.1",
+    "usehooks-ts": "^2.5.3",
     "web3modal": "^1.9.7"
   },
   "peerDependencies": {
@@ -107,7 +108,7 @@
     "chai": "^4.3.6",
     "cross-env": "^7.0.3",
     "earljs": "^0.2.3",
-    "esbuild": "^0.14.38",
+    "esbuild": "^0.14.39",
     "esbuild-node-externals": "^1.4.1",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
@@ -143,12 +144,12 @@
     "shx": "^0.3.4",
     "sinon": "^13.0.2",
     "sinon-chai": "^3.7.0",
-    "ts-node": "^10.7.0",
+    "ts-node": "^10.8.0",
     "ts-patch": "^2.0.1",
     "ts-sinon": "^2.0.2",
     "tsconfig-paths": "^3.14.1",
     "typechain": "^7.0.0",
-    "typescript": "^4.6.4",
+    "typescript": "^4.7.2",
     "typescript-transform-paths": "^3.3.1"
   },
   "keywords": [
