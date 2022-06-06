@@ -6520,7 +6520,6 @@ __metadata:
     shx: ^0.3.4
     sinon: ^13.0.2
     sinon-chai: ^3.7.0
-    test-usehooks-ts: ^3.0.0-beta
     ts-invariant: ^0.9.4
     ts-node: ^10.8.0
     ts-patch: ^2.0.1
@@ -6531,6 +6530,7 @@ __metadata:
     typescript: ^4.7.2
     typescript-transform-paths: ^3.3.1
     use-debounce: ^8.0.1
+    usehooks-ts: ^2.5.4
     web3modal: ^1.9.7
   peerDependencies:
     "@uniswap/sdk": ^3
@@ -14882,15 +14882,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"test-usehooks-ts@npm:^3.0.0-beta":
-  version: 3.0.0-beta
-  resolution: "test-usehooks-ts@npm:3.0.0-beta"
-  peerDependencies:
-    react: ">=16.8.0"
-  checksum: a8e26cd4ed937921e3a6212ae71c254dbad1f834172f8324ca09d1e3b437874f32b9fde4ede9b238fe1fef8899cdaa0253e5a4ea21fac184eb61e1d1df5d9a89
-  languageName: node
-  linkType: hard
-
 "test-value@npm:^2.1.0":
   version: 2.1.0
   resolution: "test-value@npm:2.1.0"
@@ -15851,6 +15842,15 @@ __metadata:
   version: 3.1.1
   resolution: "use@npm:3.1.1"
   checksum: 08a130289f5238fcbf8f59a18951286a6e660d17acccc9d58d9b69dfa0ee19aa038e8f95721b00b432c36d1629a9e32a464bf2e7e0ae6a244c42ddb30bdd8b33
+  languageName: node
+  linkType: hard
+
+"usehooks-ts@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "usehooks-ts@npm:2.5.4"
+  peerDependencies:
+    react: ">=16.9.0"
+  checksum: d665a6abc98b48eb19c85e97977bfc3f345d7186a6a843b363d9beb9ef1d4fca6cffc6211191828771aa693ff285118ac4897e1193f1657bd0fafbd9dacd8882
   languageName: node
   linkType: hard
 

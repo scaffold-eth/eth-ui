@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect, useReducer } from 'react';
-import { useIsMounted } from 'test-usehooks-ts';
+import { useIsMounted } from 'usehooks-ts';
 
 import { BlockNumberReactContext } from './BlockNumberReactContext';
 

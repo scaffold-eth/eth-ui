@@ -1,4 +1,4 @@
-import { useIsMounted } from 'test-usehooks-ts';
+import { useIsMounted } from 'usehooks-ts';
 
 export const useCheckIsMounted = (): void => {
   const data = useIsMounted();
