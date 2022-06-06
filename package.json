@@ -1,16 +1,15 @@
 {
   "name": "eth-hooks",
-  "version": "4.2.34-beta01",
+  "version": "4.2.34-beta27",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
-  "main": "index.js",
   "module": "index.js",
+  "main": "index.js",
+  "browser": "index.js",
   "types": "index.d.ts",
-  "type": "module",
   "engines": {
-    "node": ">=12",
-    "npm": ">=6"
+    "node": ">=14"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +27,8 @@
   "scripts": {
     "watch": "tsc -w --noEmit",
     "clean": "shx rm -rf ./lib",
-    "build": "yarn clean && node esbuild.config.mjs && ts-patch i -s && tsc -p tsconfig.build.json",
+    "build:old": "yarn clean && node esbuild.config.mjs && ts-patch i -s && tsc -p tsconfig.build.json",
+    "build": "yarn clean && tsup && ts-patch i -s && tsc -p tsconfig.build.json",
     "package": "shx cp -R package.json ./lib && shx cp -R README.md ./lib",
     "publish:pre": "yarn clean && yarn build && yarn package",
     "publish:yalc": "yarn build && yarn package && cd lib && yalc publish --no-script --push",
@@ -69,9 +69,9 @@
     "lodash.isequal": "^4.5.0",
     "merge-anything": "^5.0.2",
     "react-query": "^3.38.*",
+    "test-usehooks-ts": "^3.0.0-beta",
     "ts-invariant": "^0.9.4",
     "use-debounce": "^8.0.1",
-    "usehooks-ts": "^2.5.3",
     "web3modal": "^1.9.7"
   },
   "peerDependencies": {
@@ -148,6 +148,7 @@
     "ts-patch": "^2.0.1",
     "ts-sinon": "^2.0.2",
     "tsconfig-paths": "^3.14.1",
+    "tsup": "^6.0.1",
     "typechain": "^7.0.0",
     "typescript": "^4.7.2",
     "typescript-transform-paths": "^3.3.1"

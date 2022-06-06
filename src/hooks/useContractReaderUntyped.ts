@@ -1,6 +1,6 @@
 import { BaseContract, ContractFunction } from 'ethers';
 import { useState, useCallback, useEffect } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useIsMounted } from 'test-usehooks-ts';
 
 import { useBlockNumberContext, useEthersAppContext } from '~~/context';
 import { mergeDefaultOverride, ethersOverride } from '~~/functions';

@@ -1,6 +1,6 @@
 import { BaseContract } from 'ethers';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useIsMounted } from 'usehooks-ts';
+import { useIsMounted } from 'test-usehooks-ts';
 
 import { parseProviderOrSigner, providerKey } from '~~/functions';
 import {
