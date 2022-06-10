@@ -13,7 +13,7 @@ import {
   NoStaticJsonRPCProviderFoundError,
 } from '~~/context/ethers-app';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
-import { Web3Modal } from '~~/helpers/esm-fixtures/web3modal.cjs';
+import { Web3Modal } from '~~/helpers/esm-fixtures/web3modal';
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser, const_web3DialogUserRejected } from '~~/models/constants/common';
 
