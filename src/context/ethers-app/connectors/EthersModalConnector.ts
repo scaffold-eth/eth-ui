@@ -3,7 +3,7 @@ import { AbstractConnector } from '@web3-react/abstract-connector';
 import { ConnectorUpdate } from '@web3-react/types';
 import { BigNumber, Signer, utils } from 'ethers';
 import { invariant } from 'ts-invariant';
-import { default as Web3Modal, ICoreOptions, ThemeColors } from 'web3modal';
+import { ICoreOptions, ThemeColors } from 'web3modal';
 
 import { UserClosedModalError, CouldNotActivateError } from './connectorErrors';
 
@@ -13,6 +13,7 @@ import {
   NoStaticJsonRPCProviderFoundError,
 } from '~~/context/ethers-app';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
+import { Web3Modal } from '~~/helpers/esm-fixtures/web3modal';
 import { TEthersProvider } from '~~/models';
 import { const_web3DialogClosedByUser, const_web3DialogUserRejected } from '~~/models/constants/common';
 
@@ -71,7 +72,7 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
   protected _options: Partial<ICoreOptions>;
   protected _providerBase?: any;
   protected _ethersProvider?: TEthersProvider;
-  protected _web3Modal?: Web3Modal;
+  protected _web3Modal?: typeof Web3Modal;
   protected _id: string | undefined;
   protected _debug: boolean = false;
   protected _config: Readonly<TEthersModalConfig>;
@@ -163,9 +164,9 @@ export class EthersModalConnector extends AbstractConnector implements ICommonMo
     this.log("Handling 'close' event", code, reason);
     this.deactivate();
   }
-
   public loadWeb3Modal(): void {
     if (!this._web3Modal) {
+      // @ts-expect-error
       this._web3Modal = new Web3Modal({ ...this._options, theme: this._theme });
     }
   }
