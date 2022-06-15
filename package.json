@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.3.0-beta01",
+  "version": "4.3.0",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
@@ -30,7 +30,6 @@
   "scripts": {
     "watch": "tsc -w --noEmit",
     "clean": "shx rm -rf ./lib",
-    "build:old": "yarn clean && node esbuild.config.mjs && ts-patch i -s && tsc -p tsconfig.build.json",
     "build": "yarn clean && tsup && ts-patch i -s && tsc -p tsconfig.build.json",
     "package": "shx cp -R package.json ./lib && shx cp -R README.md ./lib",
     "publish:pre": "yarn clean && yarn build && yarn package",
