@@ -1,12 +1,15 @@
 {
   "name": "eth-hooks",
-  "version": "4.2.39",
+  "version": "4.3.0-beta01",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
-  "module": "index.js",
   "main": "index.js",
-  "browser": "index.js",
+  "module": "./esm/index.js",
+  "browser": {
+    "./index.js": "./index.js",
+    "./index.mjs": "./esm/index.js"
+  },
   "types": "index.d.ts",
   "engines": {
     "node": ">=14"

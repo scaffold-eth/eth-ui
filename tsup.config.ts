@@ -19,6 +19,7 @@ export default defineConfig({
   minifyWhitespace: true,
   minifySyntax: false,
   minifyIdentifiers: false,
+  legacyOutput: true,
   platform: 'browser',
   target: ['node16', 'esnext'],
   format: ['cjs', 'esm'],
