@@ -175,7 +175,7 @@ const [balance] = useBalance;
 We can also add an update option, allowing us to update the `useBalance` hook when we need:
 
 ```typescript
-import { defualtUpdateOptions } from 'eth-hooks/models';
+import { defaultUpdateOptions } from 'eth-hooks/models';
 ```
 
 Let's update our `balance` function with a few extras.
@@ -214,7 +214,7 @@ Check out the `Main.tsx` component in its final form:
 import React, { FC } from 'react';
 import { useBalance, mainnetScaffoldEthProvider } from '../config/appConfig';
 import { useEthersAdaptorFromProviderOrSigners } from 'eth-hooks';
-import { defualtUpdateOptions } from 'eth-hooks/models';
+import { defaultUpdateOptions } from 'eth-hooks/models';
 
 export const Main: FC = () => {
   const [adaptor] = useEthersAdaptorFromProviderOrSigners(mainnetScaffoldEthProvider);
