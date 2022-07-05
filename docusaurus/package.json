@@ -50,7 +50,7 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-tailwind": "^0.2.1",
     "mdx-mermaid": "^1.2.2",
-    "mermaid": "^8.11.5",
+    "mermaid": "^9.1.2",
     "postcss": "^8.4.13",
     "prettier": "^2.6.2",
     "prettier-eslint": "^14.0.2",
