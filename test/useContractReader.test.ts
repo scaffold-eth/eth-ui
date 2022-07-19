@@ -108,7 +108,7 @@ describe('useContractReader', function () {
         sandbox.stub(hookHelpers, 'checkUpdateOptions').returns();
         const purposeUpdate = 'higher purpose';
         const updateOptions = {
-          refetchInterval: 2_000, // Note this is below 10_000 limit just for testing
+          refetchInterval: 10_000, // Note this is below 10_000 limit just for testing
           blockNumberInterval: undefined,
         };
         const wrapper = await hookTestWrapper(() =>
@@ -121,7 +121,7 @@ describe('useContractReader', function () {
         await shouldFailWithMessage(
           () =>
             wrapper.waitForValueToChange(() => wrapper.result.current[0], {
-              timeout: updateOptions.refetchInterval - 100,
+              timeout: 6_000,
               interval: 200,
             }),
           'Timed out'
