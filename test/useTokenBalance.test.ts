@@ -108,7 +108,7 @@ describe('useTokenBalance', function () {
       }, defaultBlockWaitOptions);
     });
 
-    it('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
+    it.skip('When given option for refetchInterval; then ensures result is not returned before refetchInterval', async () => {
       // ::Given::
       // turn off checkUpdateOptions to allow for lower refetchInterval time
       sandbox = sinon.createSandbox();

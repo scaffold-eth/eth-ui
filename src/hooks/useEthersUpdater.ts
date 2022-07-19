@@ -5,7 +5,7 @@ import { TUpdateOptions } from '~~/models';
 
 /**
  * #### Summary
- * Calls update argument based on update options
+ * A hook that invokes an update callback function based on update options and ethers network state (i.e. block number)
  *
  * @param update Function to call when update
  * @param blockNumber Current block number
