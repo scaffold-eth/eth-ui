@@ -6,6 +6,8 @@
   },
   "files": ["hardhat.config.ts"],
   "ts-node": {
+    "swc": true,
+
     "compilerOptions": {
       "module": "CommonJS"
     },
