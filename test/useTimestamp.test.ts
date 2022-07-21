@@ -31,6 +31,7 @@ describe('useTimestamp', function () {
     await mineBlock(wrapper.mockProvider);
 
     await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+
     const timestamp2 = await expectTimestamp(wrapper);
     const [result2] = wrapper.result.current;
     expect(result2).be.equal(timestamp2);

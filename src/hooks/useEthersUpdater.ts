@@ -21,7 +21,7 @@ export const useEthersUpdater = (
   checkUpdateOptions(options);
 
   // number that only increases every (X * options.blockNumberInterval) blocks
-  const blockNumberFilter = Math.floor((blockNumber ?? 0) / (options.blockNumberInterval ?? 1));
+  const blockNumberFilter = blockNumber ? Math.floor(blockNumber / (options.blockNumberInterval ?? 1)) : undefined;
 
   useEffect(() => {
     if (allowBlockNumberUpdate) {

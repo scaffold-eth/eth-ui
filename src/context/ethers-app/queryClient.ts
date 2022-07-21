@@ -1,3 +1,3 @@
 import { QueryClient } from 'react-query';
 
-export const contextQueryClient = new QueryClient();
+export const defaultQueryClient = new QueryClient();
