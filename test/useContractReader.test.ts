@@ -69,8 +69,10 @@ describe('useContractReader', function () {
 
       it('When given options of block number interval to update; then the hook only updates "once an interval" over multiple intervals', async () => {
         // ::Given::
-        const blockIntervalToUpdate = 5;
-        const totalBlocksToTraverse = 21;
+        const blockIntervalToUpdate = 3;
+        const totalBlocksToTraverse = 9;
+        const expectedUpdatedCount = Math.floor(totalBlocksToTraverse / blockIntervalToUpdate) + 1;
+
         const updateOptions = { blockNumberInterval: blockIntervalToUpdate };
         const wrapper = await hookTestWrapper(() =>
           useContractReader(yourContract, yourContract?.purpose, [], undefined, updateOptions)
@@ -96,8 +98,6 @@ describe('useContractReader', function () {
         const uniqueHookResults = [
           ...new Set(wrapper.result.all.map((m) => (m as THookResult<string | undefined>)[0])),
         ];
-        // 4 results (20/5) and 1 initial state
-        const expectedUpdatedCount = Math.floor(totalBlocksToTraverse / blockIntervalToUpdate) + 1;
         expect(uniqueHookResults).to.have.lengthOf(expectedUpdatedCount);
       });
 
@@ -108,7 +108,7 @@ describe('useContractReader', function () {
         sandbox.stub(hookHelpers, 'checkUpdateOptions').returns();
         const purposeUpdate = 'higher purpose';
         const updateOptions = {
-          refetchInterval: 2_000, // Note this is below 10_000 limit just for testing
+          refetchInterval: 10_000, // Note this is below 10_000 limit just for testing
           blockNumberInterval: undefined,
         };
         const wrapper = await hookTestWrapper(() =>
@@ -121,7 +121,7 @@ describe('useContractReader', function () {
         await shouldFailWithMessage(
           () =>
             wrapper.waitForValueToChange(() => wrapper.result.current[0], {
-              timeout: updateOptions.refetchInterval - 100,
+              timeout: 6_000,
               interval: 200,
             }),
           'Timed out'

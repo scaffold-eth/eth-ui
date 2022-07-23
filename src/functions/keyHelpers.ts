@@ -1,5 +1,5 @@
 import { Provider } from '@ethersproject/providers';
-import { BaseContract, Event } from 'ethers';
+import { BaseContract, Event, Signer } from 'ethers';
 import { Result } from 'ethers/lib/utils';
 import { QueryClient } from 'react-query';
 import { invariant } from 'ts-invariant';
@@ -19,23 +19,28 @@ export type TKeyTypes = {
   contractFunc?: string;
 };
 
+/**
+ * Get a react-query query key fo ethers provider
+ * @param providerOrSigner
+ * @returns
+ */
 export const providerKey = (
   providerOrSigner: TEthersProviderOrSigner | undefined
 ): Record<'provider' | 'signer', string> => {
   if (providerOrSigner == null) return { provider: 'undefined provider', signer: 'undefined signer' };
 
-  if (providerOrSigner instanceof Provider) {
+  if (Provider.isProvider(providerOrSigner)) {
+    const provider = providerOrSigner as TEthersProvider;
+
     return {
-      provider: `${providerOrSigner?.network?.chainId}_${
-        providerOrSigner?.network?.name
-      }_${providerOrSigner?.connection.url.substring(0, 25)}`,
+      provider: `${provider?.network?.chainId}_${provider?.network?.name}_${provider?.connection.url.substring(0, 25)}`,
       signer: 'isProvider',
     };
   } else {
-    const provider = providerOrSigner.provider as TEthersProvider;
+    const provider = (providerOrSigner as Signer).provider as TEthersProvider;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const signerStr: string = (providerOrSigner as any)?.address ?? '';
-    if (provider && provider?.network) {
+    if (provider && provider?.network && Signer.isSigner(providerOrSigner)) {
       return {
         signer: `isSigner_${providerOrSigner._isSigner}_${signerStr}`,
         provider: `${provider?.network?.chainId}_${provider?.network?.name}_${provider?.connection.url.substring(
@@ -49,6 +54,11 @@ export const providerKey = (
   return { provider: 'unknown provider', signer: 'unknown signer' };
 };
 
+/**
+ * Get a react-query query key
+ * @param adaptor
+ * @returns
+ */
 export const adaptorKey = (adaptor: TEthersAdaptor | undefined): Partial<Record<'adaptor' | 'provider', string>> => {
   if (adaptor == null && !isValidEthersAdaptor(adaptor)) return { adaptor: 'undefined adaptor' };
 
@@ -61,10 +71,20 @@ export const adaptorKey = (adaptor: TEthersAdaptor | undefined): Partial<Record<
   return { adaptor: 'unknown adaptor' };
 };
 
+/**
+ * Get a react-query query key
+ * @param m
+ * @returns
+ */
 export const eventKey = (m: Event | TypedEvent<Result>): string => {
   return `${m.transactionHash}_${m.logIndex}`;
 };
 
+/**
+ * Get a react-query query key
+ * @param contract
+ * @returns
+ */
 export const contractKey = (contract: BaseContract | undefined): Partial<Record<'contract' | 'provider', string>> => {
   if (contract == null) return { contract: 'undefined contract' };
 
@@ -86,6 +106,12 @@ export const contractKey = (contract: BaseContract | undefined): Partial<Record<
   return { contract: `${address}_${signerStr}_${fragments}`, ...provider };
 };
 
+/**
+ * Get a react-query query key
+ * @param contract
+ * @param func
+ * @returns
+ */
 export const contractFuncKey = (
   contract: BaseContract | undefined,
   func: ((...args: any[]) => Promise<any>) | undefined

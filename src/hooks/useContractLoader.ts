@@ -77,7 +77,8 @@ export const parseContractsInDeployedHardhatContractsJson = (
 };
 /**
  * #### Summary
- * Loads your contracts and returns them. ✋🏽 @deprecated
+ * ✋🏽 @deprecated
+ * Loads your contracts and returns them.
  * Gives options to read values from contracts or write transactions into them.
  *
  * ##### ✏️ Notes

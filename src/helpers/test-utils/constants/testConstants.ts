@@ -8,5 +8,5 @@ export const const_DefaultTestChainId = 31337;
  */
 export const defaultBlockWaitOptions: { timeout: number; interval: number } = {
   timeout: 11_000,
-  interval: 250,
+  interval: 300,
 } as const;

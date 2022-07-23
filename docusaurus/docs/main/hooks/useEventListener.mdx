@@ -1,5 +1,7 @@
 Tracks the events associated with a contract.
 
+> Returns contract events.
+
 ## How to import
 
 ```typescript
@@ -11,7 +13,9 @@ import { useEventListener } from 'eth-hooks';
 To get started:
 
 ```typescript
-const events = useEventListener();
+const events = useEventListener<GTypedEvent>(contract, eventFilter, startBlock, toBlock?, options?): THookResult<GTypedEvent[]>
 ```
+
+## To learn more
 
 [Go here for this hooks full API documentation](../../api/modules/Hooks#useeventlistener).

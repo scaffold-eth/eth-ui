@@ -39,7 +39,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:71](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L71)
+[context/ethers-app/connectors/EthersModalConnector.ts:71](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L71)
 
 ---
 
@@ -49,7 +49,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:72](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L72)
+[context/ethers-app/connectors/EthersModalConnector.ts:72](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L72)
 
 ---
 
@@ -59,7 +59,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:73](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L73)
+[context/ethers-app/connectors/EthersModalConnector.ts:73](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L73)
 
 ---
 
@@ -69,7 +69,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:74](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L74)
+[context/ethers-app/connectors/EthersModalConnector.ts:74](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L74)
 
 ---
 
@@ -79,7 +79,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:75](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L75)
+[context/ethers-app/connectors/EthersModalConnector.ts:75](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L75)
 
 ---
 
@@ -89,7 +89,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:76](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L76)
+[context/ethers-app/connectors/EthersModalConnector.ts:76](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L76)
 
 ---
 
@@ -99,7 +99,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:77](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L77)
+[context/ethers-app/connectors/EthersModalConnector.ts:77](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L77)
 
 ---
 
@@ -109,7 +109,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:78](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L78)
+[context/ethers-app/connectors/EthersModalConnector.ts:78](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L78)
 
 ---
 
@@ -119,7 +119,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:79](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L79)
+[context/ethers-app/connectors/EthersModalConnector.ts:79](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L79)
 
 ---
 
@@ -129,7 +129,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:80](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L80)
+[context/ethers-app/connectors/EthersModalConnector.ts:80](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L80)
 
 ## Accessors
 
@@ -143,7 +143,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:82](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L82)
+[context/ethers-app/connectors/EthersModalConnector.ts:82](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L82)
 
 ## Methods
 
@@ -161,7 +161,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:86](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L86)
+[context/ethers-app/connectors/EthersModalConnector.ts:86](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L86)
 
 ---
 
@@ -181,7 +181,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:116](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L116)
+[context/ethers-app/connectors/EthersModalConnector.ts:116](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L116)
 
 ---
 
@@ -199,7 +199,7 @@ The provider selected by user via web3modal is interfaced to the web3-react cont
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:167](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L167)
+[context/ethers-app/connectors/EthersModalConnector.ts:167](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L167)
 
 ---
 
@@ -234,7 +234,7 @@ AbstractConnector.activate
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:188](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L188)
+[context/ethers-app/connectors/EthersModalConnector.ts:188](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L188)
 
 ---
 
@@ -256,7 +256,7 @@ AbstractConnector.deactivate
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:261](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L261)
+[context/ethers-app/connectors/EthersModalConnector.ts:261](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L261)
 
 ---
 
@@ -274,7 +274,7 @@ AbstractConnector.getProvider
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:281](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L281)
+[context/ethers-app/connectors/EthersModalConnector.ts:281](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L281)
 
 ---
 
@@ -292,7 +292,7 @@ AbstractConnector.getChainId
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:285](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L285)
+[context/ethers-app/connectors/EthersModalConnector.ts:285](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L285)
 
 ---
 
@@ -310,7 +310,7 @@ AbstractConnector.getAccount
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:295](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L295)
+[context/ethers-app/connectors/EthersModalConnector.ts:295](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L295)
 
 ---
 
@@ -328,7 +328,7 @@ AbstractConnector.getAccount
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:307](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L307)
+[context/ethers-app/connectors/EthersModalConnector.ts:307](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L307)
 
 ---
 
@@ -342,7 +342,7 @@ AbstractConnector.getAccount
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:311](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L311)
+[context/ethers-app/connectors/EthersModalConnector.ts:311](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L311)
 
 ---
 
@@ -370,7 +370,7 @@ Change the current signer and account used by the connector
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:322](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L322)
+[context/ethers-app/connectors/EthersModalConnector.ts:322](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L322)
 
 ---
 
@@ -384,7 +384,7 @@ Change the current signer and account used by the connector
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:333](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L333)
+[context/ethers-app/connectors/EthersModalConnector.ts:333](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L333)
 
 ---
 
@@ -406,7 +406,7 @@ Resets the web3Modal and clears the cache
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:341](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L341)
+[context/ethers-app/connectors/EthersModalConnector.ts:341](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L341)
 
 ---
 
@@ -434,7 +434,7 @@ Sets the web3modal theme: light | dark | ThemeColors
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:356](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L356)
+[context/ethers-app/connectors/EthersModalConnector.ts:356](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L356)
 
 ---
 
@@ -448,7 +448,7 @@ Sets the web3modal theme: light | dark | ThemeColors
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:360](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L360)
+[context/ethers-app/connectors/EthersModalConnector.ts:360](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L360)
 
 ## Constructors
 
@@ -471,4 +471,4 @@ AbstractConnector.constructor
 
 #### Defined in
 
-[context/ethers-app/connectors/EthersModalConnector.ts:96](https://github.com/scaffold-eth/eth-hooks/blob/b2e0cac/src/context/ethers-app/connectors/EthersModalConnector.ts#L96)
+[context/ethers-app/connectors/EthersModalConnector.ts:96](https://github.com/scaffold-eth/eth-hooks/blob/4b1029e/src/context/ethers-app/connectors/EthersModalConnector.ts#L96)

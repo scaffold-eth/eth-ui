@@ -6,12 +6,10 @@ import { QueryClientProvider } from 'react-query';
 import { invariant } from 'ts-invariant';
 
 import { NoEthereumProviderFoundError } from '~~/context';
-import { BlockNumberContext } from '~~/context/ethers-app/BlockNumberContext';
 import { EthersModalConnector, TEthersModalConnector } from '~~/context/ethers-app/connectors/EthersModalConnector';
-import { contextQueryClient as ethersAppQueryClient } from '~~/context/ethers-app/queryClient';
-import { mergeDefaultOverride } from '~~/functions';
+import { defaultQueryClient } from '~~/context/ethers-app/queryClient';
 import { isEthersProvider } from '~~/functions/ethersHelpers';
-import { TEthersProvider, TOverride } from '~~/models';
+import { TEthersProvider } from '~~/models';
 import { IEthersContext } from '~~/models/ethersAppContextTypes';
 
 /**
@@ -127,7 +125,7 @@ export type TEthersAppContextProps = {
   /**
    * disables the local queryClientRoot and QueryClientProvider for react-query and allows you to use your own
    */
-  disableQueryClientRoot?: boolean;
+  disableDefaultQueryClientRoot?: boolean;
   /**
    * if you want to pass in your own provider.
    * Make sure it is compatable with ethers.js, see {@link TGetEthersAppProviderLibrary} for details
@@ -193,14 +191,10 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
 
     invariant(props.secondaryWeb3ReactRoot.contextKey !== 'primary', 'You cannot use primary for alternate roots');
 
-    const options: TOverride = mergeDefaultOverride({
-      alternateContextKey: props.secondaryWeb3ReactRoot.contextKey,
-    });
-
     const alternateProvider = cloneElement(
       props.secondaryWeb3ReactRoot.web3ReactRoot,
       { getLibrary: props.customGetEthersAppProviderLibrary ?? getEthersAppProviderLibrary },
-      <BlockNumberContext override={options}>{props.children}</BlockNumberContext>
+      <>{props.children}</>
     );
 
     return alternateProvider;
@@ -208,13 +202,13 @@ export const EthersAppContext: FC<TEthersAppContextProps> = (props) => {
 
   const element = (
     <Web3ReactProvider getLibrary={props.customGetEthersAppProviderLibrary ?? getEthersAppProviderLibrary}>
-      <BlockNumberContext>{props.children}</BlockNumberContext>
+      {props.children}
     </Web3ReactProvider>
   );
 
-  if (props.disableQueryClientRoot) {
+  if (props.disableDefaultQueryClientRoot) {
     return element;
   } else {
-    return <QueryClientProvider client={ethersAppQueryClient}>{element}</QueryClientProvider>;
+    return <QueryClientProvider client={defaultQueryClient}>{element}</QueryClientProvider>;
   }
 };
