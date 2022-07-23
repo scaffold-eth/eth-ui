@@ -6941,6 +6941,7 @@ __metadata:
     use-debounce: ^8.0.2
     usehooks-ts: ^2.6.0
     web3modal: ^1.9.8
+    zustand: "https://pkg.csb.dev/pmndrs/zustand/commit/a9a05f74/zustand/_pkg.tgz"
   peerDependencies:
     "@uniswap/sdk": ^3
     react: ">=17"
@@ -16434,6 +16435,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"use-sync-external-store@npm:1.2.0":
+  version: 1.2.0
+  resolution: "use-sync-external-store@npm:1.2.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
+  languageName: node
+  linkType: hard
+
 "use@npm:^3.1.0":
   version: 3.1.1
   resolution: "use@npm:3.1.1"
@@ -17578,5 +17588,22 @@ __metadata:
   peerDependencies:
     ethers: ~5.5.0
   checksum: 76f2956ef09d2b3d6806b2990cf6aad4508f23ef8cdfc0089a64a16d178395dabc5fff30abad7997acb012567dc0565326af2a148ce40d45d747eed22439e812
+  languageName: node
+  linkType: hard
+
+"zustand@https://pkg.csb.dev/pmndrs/zustand/commit/a9a05f74/zustand/_pkg.tgz":
+  version: 4.0.0-rc.2
+  resolution: "zustand@https://pkg.csb.dev/pmndrs/zustand/commit/a9a05f74/zustand/_pkg.tgz"
+  dependencies:
+    use-sync-external-store: 1.2.0
+  peerDependencies:
+    immer: ">=9.0"
+    react: ">=16.8"
+  peerDependenciesMeta:
+    immer:
+      optional: true
+    react:
+      optional: true
+  checksum: 644770227781511d40d517c2eab4eaab2db017164c0cc48a663fa74159ca09b9db5d5c8af03cb623b84651993cb20284ed013fbe0421291ada0d21d84190a0ae
   languageName: node
   linkType: hard

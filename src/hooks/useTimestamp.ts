@@ -36,14 +36,17 @@ export const useTimestamp = (
   const ethersContext = useEthersAppContext(override.alternateContextKey);
   const { provider } = ethersOverride(ethersContext, override);
 
-  const keys = [{ ...queryKey, ...providerKey(provider) }, { blockNumber }] as const;
+  const keys = [{ ...queryKey, ...providerKey(provider) }] as const;
   const { data, refetch, status } = useQuery(
     keys,
-    async (keys): Promise<number> => {
-      const { blockNumber } = keys.queryKey[1];
-      const block = await provider?.getBlock(blockNumber);
-      if (block?.timestamp != null) {
-        return block.timestamp;
+    async (_keys): Promise<number> => {
+      const blockNumber = await provider?.getBlockNumber();
+
+      if (blockNumber != null) {
+        const block = await provider?.getBlock(blockNumber);
+        if (block?.timestamp != null) {
+          return block.timestamp;
+        }
       }
       return 0;
     },
@@ -53,6 +56,5 @@ export const useTimestamp = (
   );
 
   useEthersUpdater(refetch, blockNumber, options);
-
   return [data ?? 0, refetch, status];
 };
