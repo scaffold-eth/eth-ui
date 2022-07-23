@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useRef } from 'react';
 
 import { checkUpdateOptions } from '~~/functions';
 import { TUpdateOptions } from '~~/models';
@@ -19,17 +19,16 @@ export const useEthersUpdater = (
   allowBlockNumberUpdate: boolean = true
 ): void => {
   checkUpdateOptions(options);
+  const updateNumberRef = useRef<undefined | number>(undefined);
 
   // number that only increases every (X * options.blockNumberInterval) blocks
   const blockNumberFilter = blockNumber ? Math.floor(blockNumber / (options.blockNumberInterval ?? 1)) : undefined;
 
-  useEffect(() => {
-    if (allowBlockNumberUpdate) {
-      // update if blocknumber or if polling
-      if (blockNumber != null && !options.refetchInterval) {
-        void update();
-      }
+  if (allowBlockNumberUpdate) {
+    // update if blocknumber or if polling
+    if (!options.refetchInterval && blockNumberFilter !== updateNumberRef.current) {
+      updateNumberRef.current = blockNumberFilter;
+      void update();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [blockNumberFilter, update, options.refetchInterval]);
+  }
 };

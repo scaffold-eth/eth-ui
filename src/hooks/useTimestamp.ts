@@ -41,6 +41,7 @@ export const useTimestamp = (
     keys,
     async (_keys): Promise<number> => {
       const blockNumber = await provider?.getBlockNumber();
+
       if (blockNumber != null) {
         const block = await provider?.getBlock(blockNumber);
         if (block?.timestamp != null) {
@@ -55,6 +56,5 @@ export const useTimestamp = (
   );
 
   useEthersUpdater(refetch, blockNumber, options);
-
   return [data ?? 0, refetch, status];
 };

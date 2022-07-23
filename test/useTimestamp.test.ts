@@ -1,3 +1,4 @@
+import 'test/helpers/chai-imports';
 import { expect } from 'chai';
 import { QueryStatus } from 'react-query';
 
@@ -5,8 +6,6 @@ import { hookTestWrapper, TTestHookResult } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
 import { mineBlock } from '~~/helpers/test-utils/eth';
 import { useTimestamp } from '~~/hooks';
-
-import 'test/helpers/chai-imports';
 
 const expectTimestamp = async (
   wrapper: TTestHookResult<() => [timestamp: number, update: () => void, status: QueryStatus]>
@@ -21,7 +20,11 @@ const expectTimestamp = async (
 describe('useTimestamp', function () {
   it('When the hook is called; then it returns the current block timestamp', async () => {
     const wrapper = await hookTestWrapper(() => useTimestamp());
-    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+    console.log(wrapper.result.current[0]);
+    await wrapper.waitFor(
+      () => wrapper.result.current[0] !== undefined && wrapper.result.current[0] !== 0,
+      defaultBlockWaitOptions
+    );
 
     const timestamp1 = await expectTimestamp(wrapper);
     const [result1] = wrapper.result.current;
@@ -30,7 +33,9 @@ describe('useTimestamp', function () {
     // mine another block
     await mineBlock(wrapper.mockProvider);
 
-    await wrapper.waitForValueToChange(() => wrapper.result.current[0], defaultBlockWaitOptions);
+    await wrapper.waitFor(() => {
+      return wrapper.result.current[0] !== result1;
+    }, defaultBlockWaitOptions);
 
     const timestamp2 = await expectTimestamp(wrapper);
     const [result2] = wrapper.result.current;
