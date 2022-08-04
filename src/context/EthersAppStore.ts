@@ -1,4 +1,4 @@
-import create, { StoreApi, UseBoundStore } from 'zustand';
+import { default as create, StoreApi, UseBoundStore } from 'zustand';
 
 import { IBlockNumberState } from '~~/context/EthersAppState';
 
@@ -9,6 +9,7 @@ interface IStore {
 
 // type TSetStoreFunc = IStore | Partial<IStore> | ((state: IStore) => IStore | Partial<IStore>);
 export type TEthersAppStore = UseBoundStore<StoreApi<IStore>>;
+export type { create, StoreApi, UseBoundStore };
 
 export const useEthersAppStore = create<IStore>()((set) => ({
   blockNumberState: {},

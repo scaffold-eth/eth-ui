@@ -2,7 +2,7 @@ import { merge } from 'merge-anything';
 import { useCallback, useEffect, useRef } from 'react';
 import { useQueryClient } from 'react-query';
 import { invariant } from 'ts-invariant';
-import create, { StoreApi, UseBoundStore } from 'zustand';
+import { default as create, StoreApi, UseBoundStore } from 'zustand';
 
 import { useEthersAppContext } from '~~/context';
 import { invalidateCache, isValidEthersAdaptor } from '~~/functions';
@@ -17,6 +17,8 @@ import {
   TTypedContract,
 } from '~~/models';
 import { keyNamespace } from '~~/models/constants';
+
+export type { create, StoreApi, UseBoundStore };
 
 /**
  * i've added comment headers since this is a large file due to the factory function
