@@ -90,8 +90,11 @@ export const useBurnerSigner = (localProvider: TEthersProvider | undefined): TBu
   const [privateKeyValue, setPrivateKey] = useState<BytesLike>();
   const walletRef = useRef<Wallet>();
   const creatingBurnerRef = useRef(false);
-  const [signer] = useDebounce(walletRef.current, 200, { trailing: true });
-  const [account] = useDebounce(walletRef.current?.address, 200, { trailing: true });
+  const [signer] = useDebounce(walletRef.current, 200, {
+    trailing: true,
+    equalityFn: (a, b) => a?.address === b?.address && a != null && b != null,
+  });
+  const account = walletRef.current?.address;
 
   const setValue = (value: string): void => {
     try {

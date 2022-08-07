@@ -1,6 +1,6 @@
 {
   "name": "eth-hooks",
-  "version": "4.5.1",
+  "version": "4.6.0",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
@@ -76,7 +76,7 @@
     "use-debounce": "^8.0.2",
     "usehooks-ts": "^2.6.0",
     "web3modal": "^1.9.8",
-    "zustand": "https://pkg.csb.dev/pmndrs/zustand/commit/a9a05f74/zustand/_pkg.tgz"
+    "zustand": "4.0.0"
   },
   "peerDependencies": {
     "@uniswap/sdk": "^3",

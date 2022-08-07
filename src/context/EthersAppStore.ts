@@ -1,35 +1,21 @@
-import create, { StoreApi, UseBoundStore } from 'zustand';
+import { default as create, StoreApi, UseBoundStore } from 'zustand';
 
 import { IBlockNumberState } from '~~/context/EthersAppState';
 
-interface IEthersAppStore {
+interface IStore {
   blockNumberState: IBlockNumberState;
   setBlockNumber: (blocknumber: number, chainId: number) => void;
 }
 
-type TSetStoreFunc =
-  | IEthersAppStore
-  | Partial<IEthersAppStore>
-  | ((state: IEthersAppStore) => IEthersAppStore | Partial<IEthersAppStore>);
+// type TSetStoreFunc = IStore | Partial<IStore> | ((state: IStore) => IStore | Partial<IStore>);
+export type TEthersAppStore = UseBoundStore<StoreApi<IStore>>;
+export type { create, StoreApi, UseBoundStore };
 
-const setBlockNumber = (chainId: number, blocknumber: number): TSetStoreFunc => {
-  return (state): IEthersAppStore => {
-    state.blockNumberState[chainId] = blocknumber;
-    return state;
-  };
-};
-
-export type TEthersAppStore = UseBoundStore<StoreApi<IEthersAppStore>>;
-
-export const useEthersAppStore = create<IEthersAppStore>()((set) => ({
+export const useEthersAppStore = create<IStore>()((set) => ({
   blockNumberState: {},
-  setBlockNumber: (blocknumber: number, chainId: number): void => set(setBlockNumber(chainId, blocknumber)),
+  setBlockNumber: (blocknumber: number, chainId: number): void =>
+    set((state): IStore => {
+      state.blockNumberState[chainId] = blocknumber;
+      return state;
+    }),
 }));
-
-// export const createEthersAppStore = (): TEthersAppStore => {
-//   const useEthersAppStore = create<IEthersAppStore>()((set) => ({
-//     blockNumberState: {},
-//     setBlockNumber: (blocknumber: number, chainId: number): void => set(setBlockNumber(chainId, blocknumber)),
-//   }));
-//   return useEthersAppStore;
-// };
