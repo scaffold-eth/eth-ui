@@ -21,7 +21,7 @@ const EcosystemList: EcosystemItem[] = [
   {
     title: 'Eth-hooks',
     description: <>Useful React hooks for blockchain application development</>,
-    url: 'https://github.com/scaffold-eth/scaffold-eth',
+    url: 'https://github.com/scaffold-eth/eth-hooks',
     btnText: 'I want the hooks repo',
   },
   {
