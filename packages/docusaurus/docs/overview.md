@@ -83,4 +83,4 @@ Caches the network RPC calls. This prevents unnecessary requests to the network.
 
 ### API Documentation
 
-Check out [documentation at the eth-hooks website!](https://scaffold-eth.github.io/eth-hooks/docs/api)
+Check out [documentation at the eth-hooks website!](https://scaffold-eth.github.io/eth-ui/docs/api)

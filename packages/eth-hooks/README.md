@@ -13,7 +13,7 @@ Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
 # Documentation
 
-## 📚 Check out the documentation at [Eth-hooks-documentation](https://scaffold-eth.github.io/eth-hooks/)
+## 📚 Check out the documentation at [Eth-hooks-documentation](https://scaffold-eth.github.io/eth-ui/)
 
 # Features
 
@@ -33,7 +33,7 @@ Caches the network RPC calls so that unecessary requests to the network is preve
 
 ## API Documentation
 
-Check out [the documentation at the eth-hooks page!](https://scaffold-eth.github.io/eth-hooks/)
+Check out [the documentation at the eth-hooks page!](https://scaffold-eth.github.io/eth-ui/)
 
 ## Hooks!
 
@@ -182,7 +182,7 @@ The first create a web3Config. Check out their github repo for a detailed explan
 
 ### 2. Create a function that returns a `TEthersModalConnector`
 
-This function should have a signature that returns `TEthersModalConnector` which is an interface that is implemented by [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html)
+This function should have a signature that returns `TEthersModalConnector` which is an interface that is implemented by [EthersModalConnector](https://scaffold-eth.github.io/eth-ui/api-typedocs/classes/EthersAppContext.EthersModalConnector.html)
 
 ```ts
 type TCreateEthersModalConnector = (id?: string) => TEthersModalConnector | undefined;
@@ -205,7 +205,7 @@ const createLoginConnector: TCreateEthersModalConnector = useCallback(
 );
 ```
 
-You can find the details for [EthersModalConnector](https://scaffold-eth.github.io/eth-hooks/api-typedocs/classes/EthersAppContext.EthersModalConnector.html) in the api docs.
+You can find the details for [EthersModalConnector](https://scaffold-eth.github.io/eth-ui/api-typedocs/classes/EthersAppContext.EthersModalConnector.html) in the api docs.
 
 ### 3. Create a login event handler
 
@@ -372,7 +372,7 @@ const [purpose, update] = useContractReader(
 
 ## API Documentation
 
-Check out [the documentation at the eth-hooks page!](https://scaffold-eth.github.io/eth-hooks/)
+Check out [the documentation at the eth-hooks page!](https://scaffold-eth.github.io/eth-ui/)
 
 ## Dependencies
 

@@ -9,12 +9,10 @@ Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 
 ## Author
 
-
-
 # Documentation
-## 📚 Check out the documentation at [Eth-hooks-documentation](https://scaffold-eth.github.io/eth-hooks/)
+
+## 📚 Check out the documentation at [Eth-hooks-documentation](https://scaffold-eth.github.io/eth-ui/)
 
 # Features
-
 
 ## Hooks!
