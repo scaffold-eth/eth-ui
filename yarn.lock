@@ -4013,7 +4013,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^8.16.0, @testing-library/dom@npm:^8.5.0":
+"@testing-library/dom@npm:^8.13.0, @testing-library/dom@npm:^8.16.0, @testing-library/dom@npm:^8.5.0":
   version: 8.17.1
   resolution: "@testing-library/dom@npm:8.17.1"
   dependencies:
@@ -4029,7 +4029,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react-hooks@npm:^8.0.1":
+"@testing-library/react-hooks@npm:^8.0.0, @testing-library/react-hooks@npm:^8.0.1":
   version: 8.0.1
   resolution: "@testing-library/react-hooks@npm:8.0.1"
   dependencies:
@@ -4051,7 +4051,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:^13.3.0":
+"@testing-library/react@npm:^13.1.1, @testing-library/react@npm:^13.3.0":
   version: 13.3.0
   resolution: "@testing-library/react@npm:13.3.0"
   dependencies:
@@ -4065,7 +4065,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/user-event@npm:^14.2.6":
+"@testing-library/user-event@npm:^14.1.1, @testing-library/user-event@npm:^14.2.6":
   version: 14.4.3
   resolution: "@testing-library/user-event@npm:14.4.3"
   peerDependencies:
@@ -4533,7 +4533,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.11.45":
+"@types/node@npm:^16.11.33, @types/node@npm:^16.11.45":
   version: 16.11.48
   resolution: "@types/node@npm:16.11.48"
   checksum: 10cd539cb2cf5a8f51f3c2bd761c093b752e534b1f2dc0d7193debd7986145b68db2a5fd48498af641e8641fb8d24b7c4851ea3e30fb8f56cc13ac719cad1e1f
@@ -4637,7 +4637,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.0.6":
+"@types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.0.3, @types/react-dom@npm:^18.0.6":
   version: 18.0.6
   resolution: "@types/react-dom@npm:18.0.6"
   dependencies:
@@ -4678,7 +4678,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.0.15":
+"@types/react@npm:*, @types/react@npm:^18.0.15, @types/react@npm:^18.0.8":
   version: 18.0.17
   resolution: "@types/react@npm:18.0.17"
   dependencies:
@@ -4865,7 +4865,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.33.0":
+"@typescript-eslint/eslint-plugin@npm:^5.21.0, @typescript-eslint/eslint-plugin@npm:^5.33.0":
   version: 5.33.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.33.0"
   dependencies:
@@ -4902,7 +4902,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.10.0, @typescript-eslint/parser@npm:^5.33.0":
+"@typescript-eslint/parser@npm:^5.10.0, @typescript-eslint/parser@npm:^5.21.0, @typescript-eslint/parser@npm:^5.33.0":
   version: 5.33.0
   resolution: "@typescript-eslint/parser@npm:5.33.0"
   dependencies:
@@ -11004,7 +11004,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.14.49":
+"esbuild@npm:^0.14.39, esbuild@npm:^0.14.49":
   version: 0.14.54
   resolution: "esbuild@npm:0.14.54"
   dependencies:
@@ -11370,7 +11370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:^26.6.0":
+"eslint-plugin-jest@npm:^26.1.5, eslint-plugin-jest@npm:^26.6.0":
   version: 26.8.2
   resolution: "eslint-plugin-jest@npm:26.8.2"
   dependencies:
@@ -11387,7 +11387,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsx-a11y@npm:^6.6.0":
+"eslint-plugin-jsx-a11y@npm:^6.5.1, eslint-plugin-jsx-a11y@npm:^6.6.0":
   version: 6.6.1
   resolution: "eslint-plugin-jsx-a11y@npm:6.6.1"
   dependencies:
@@ -11432,7 +11432,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-mocha@npm:^10.0.5":
+"eslint-plugin-mocha@npm:^10.0.4, eslint-plugin-mocha@npm:^10.0.5":
   version: 10.1.0
   resolution: "eslint-plugin-mocha@npm:10.1.0"
   dependencies:
@@ -11526,7 +11526,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-testing-library@npm:^5.5.1":
+"eslint-plugin-testing-library@npm:^5.3.1, eslint-plugin-testing-library@npm:^5.5.1":
   version: 5.6.0
   resolution: "eslint-plugin-testing-library@npm:5.6.0"
   dependencies:
@@ -11735,7 +11735,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.22.0, eslint@npm:^8.7.0":
+"eslint@npm:^8.14.0, eslint@npm:^8.22.0, eslint@npm:^8.7.0":
   version: 8.22.0
   resolution: "eslint@npm:8.22.0"
   dependencies:
@@ -11941,6 +11941,115 @@ __metadata:
     "@codechecks/client":
       optional: true
   checksum: 3bfa81e554b069bb817f2a073a601a0429e6b582c56ad99db0727dc2a102ab00fc27888820b8a042a194a8fb7d40954d10cd7b011ede6b8170285d2d5a88666c
+  languageName: node
+  linkType: hard
+
+"eth-headless@workspace:packages/eth-headless":
+  version: 0.0.0-use.local
+  resolution: "eth-headless@workspace:packages/eth-headless"
+  dependencies:
+    "@testing-library/dom": ^8.13.0
+    "@testing-library/react": ^13.1.1
+    "@testing-library/react-hooks": ^8.0.0
+    "@testing-library/user-event": ^14.1.1
+    "@types/chai": ^4.3.1
+    "@types/lodash.isequal": ^4.5.6
+    "@types/mocha": ^9.1.1
+    "@types/node": ^16.11.33
+    "@types/pretty-time": ^1.1.2
+    "@types/qrcode.react": ^1.0.2
+    "@types/react": ^18.0.8
+    "@types/react-blockies": ^1.4.1
+    "@types/react-dom": ^18.0.3
+    "@types/sinon-chai": ^3.2.8
+    "@typescript-eslint/eslint-plugin": ^5.21.0
+    "@typescript-eslint/parser": ^5.21.0
+    chai: ^4.3.6
+    cross-env: ^7.0.3
+    earljs: ^0.2.3
+    esbuild: ^0.14.39
+    esbuild-node-externals: ^1.4.1
+    eslint: ^8.14.0
+    eslint-config-prettier: ^8.5.0
+    eslint-plugin-import: ^2.26.0
+    eslint-plugin-jest: ^26.1.5
+    eslint-plugin-jsx-a11y: ^6.5.1
+    eslint-plugin-markdown: ^2.2.1
+    eslint-plugin-mocha: ^10.0.4
+    eslint-plugin-prettier: ^4.0.0
+    eslint-plugin-react: ^7.29.4
+    eslint-plugin-react-hooks: ^4.5.0
+    eslint-plugin-testing-library: ^5.3.1
+    eslint-plugin-unused-imports: ^2.0.0
+    eth-hooks: ^4.0.48
+    ethers: ^5.6.4
+    global-jsdom: ^8.4.0
+    jsdom: ^19.0.0
+    lodash.isequal: ^4.5.0
+    merge-anything: ^5.0.2
+    mocha: ^10.0.0
+    mocha-github-actions-reporter: ^0.2.4
+    mocha-junit-reporter: ^2.0.2
+    prettier: ^2.6.2
+    prettier-eslint: ^14.0.2
+    prettier-plugin-tailwindcss: ^0.1.10
+    react: ^18.1.0
+    react-dom: ^18.1.0
+    react-query: ^3.38.*
+    shx: ^0.3.4
+    sinon: ^13.0.2
+    sinon-chai: ^3.7.0
+    ts-invariant: ^0.9.4
+    ts-node: ^10.8.0
+    ts-patch: ^2.0.1
+    ts-sinon: ^2.0.2
+    tsconfig-paths: ^3.14.1
+    tsup: ^6.0.1
+    typechain: ^7.0.0
+    typescript: ^4.7.2
+    typescript-transform-paths: ^3.3.1
+    use-debounce: ^8.0.0
+    usehooks-ts: ^2.5.2
+  peerDependencies:
+    react: ">=17"
+    react-dom: ">=17"
+  languageName: unknown
+  linkType: soft
+
+"eth-hooks@npm:^4.0.48":
+  version: 4.6.0
+  resolution: "eth-hooks@npm:4.6.0"
+  dependencies:
+    "@ethersproject/abi": ^5.6.4
+    "@ethersproject/abstract-provider": ^5.6.1
+    "@ethersproject/address": ^5.6.1
+    "@ethersproject/bignumber": ^5.6.2
+    "@ethersproject/bytes": ^5.6.1
+    "@ethersproject/contracts": ^5.6.2
+    "@ethersproject/networks": ^5.6.4
+    "@ethersproject/providers": ^5.6.8
+    "@ethersproject/signing-key": ^5.6.2
+    "@ethersproject/solidity": ^5.6.1
+    "@ethersproject/units": ^5.6.1
+    "@ethersproject/wallet": ^5.6.2
+    "@uniswap/token-lists": ^1.0.0-beta.30
+    "@web3-react/abstract-connector": ^6.0.7
+    "@web3-react/core": ^6.1.9
+    "@web3-react/types": ^6.0.7
+    ethers: ^5.6.8
+    lodash.isequal: ^4.5.0
+    merge-anything: ^5.0.2
+    react-query: ^3.39.2
+    ts-invariant: ^0.10.3
+    use-debounce: ^8.0.2
+    usehooks-ts: ^2.6.0
+    web3modal: ^1.9.8
+    zustand: 4.0.0
+  peerDependencies:
+    "@uniswap/sdk": ^3
+    react: ">=17"
+    react-dom: ">=17"
+  checksum: ad8ed4496b6f0b469ac2d5f6f9a32f6b657f80c660fa3693907edc847b420927e988c181b671ea55459b162cb87b4f778178c2011b58b06ed862e6c0adee6bcf
   languageName: node
   linkType: hard
 
@@ -12528,7 +12637,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^5.0.1, ethers@npm:^5.0.2, ethers@npm:^5.5.2, ethers@npm:^5.5.3, ethers@npm:^5.6.8":
+"ethers@npm:^5.0.1, ethers@npm:^5.0.2, ethers@npm:^5.5.2, ethers@npm:^5.5.3, ethers@npm:^5.6.4, ethers@npm:^5.6.8":
   version: 5.6.9
   resolution: "ethers@npm:5.6.9"
   dependencies:
@@ -13874,7 +13983,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"global-jsdom@npm:^8.5.0":
+"global-jsdom@npm:^8.4.0, global-jsdom@npm:^8.5.0":
   version: 8.5.0
   resolution: "global-jsdom@npm:8.5.0"
   peerDependencies:
@@ -19911,7 +20020,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-eslint@npm:^14.1.0":
+"prettier-eslint@npm:^14.0.2, prettier-eslint@npm:^14.1.0":
   version: 14.1.0
   resolution: "prettier-eslint@npm:14.1.0"
   dependencies:
@@ -19998,7 +20107,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:^0.1.13":
+"prettier-plugin-tailwindcss@npm:^0.1.10, prettier-plugin-tailwindcss@npm:^0.1.13":
   version: 0.1.13
   resolution: "prettier-plugin-tailwindcss@npm:0.1.13"
   peerDependencies:
@@ -20572,7 +20681,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.2.0":
+"react-dom@npm:^18.1.0, react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
@@ -20673,7 +20782,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-query@npm:^3.39.2":
+"react-query@npm:^3.38.*, react-query@npm:^3.39.2":
   version: 3.39.2
   resolution: "react-query@npm:3.39.2"
   dependencies:
@@ -20774,7 +20883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0":
+"react@npm:^18.1.0, react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
@@ -22309,6 +22418,20 @@ __metadata:
     chai: ^4.0.0
     sinon: ">=4.0.0"
   checksum: 49a353d8eb66cc6db35ac452f6965c72778aa090d1f036dd1e54ba88594b1c3f314b1a403eaff22a4e314f94dc92d9c7d03cbb88c21d89e814293bf5b299964d
+  languageName: node
+  linkType: hard
+
+"sinon@npm:^13.0.2":
+  version: 13.0.2
+  resolution: "sinon@npm:13.0.2"
+  dependencies:
+    "@sinonjs/commons": ^1.8.3
+    "@sinonjs/fake-timers": ^9.1.2
+    "@sinonjs/samsam": ^6.1.1
+    diff: ^5.0.0
+    nise: ^5.1.1
+    supports-color: ^7.2.0
+  checksum: 237f21c8c4a8b31574c71b1b9f4c0f74a63dde5c0e86bd116effa4ce63c52467bd45fb4034a8fa32656a7919d9b19fc7b108ca9e1e6e3144f3735da96dad2877
   languageName: node
   linkType: hard
 
@@ -23902,7 +24025,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.9.1":
+"ts-invariant@npm:^0.9.4":
+  version: 0.9.4
+  resolution: "ts-invariant@npm:0.9.4"
+  dependencies:
+    tslib: ^2.1.0
+  checksum: c9e5726361fa266916966b2070605f8664b6dd1d8b0ef7565dbf056abb6a87be26195985ef62dd97aeb0894cf2f4ad5b7f0d89dadadc197eaa38e99222afa29c
+  languageName: node
+  linkType: hard
+
+"ts-node@npm:^10.8.0, ts-node@npm:^10.9.1":
   version: 10.9.1
   resolution: "ts-node@npm:10.9.1"
   dependencies:
@@ -23940,7 +24072,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-patch@npm:^2.0.2":
+"ts-patch@npm:^2.0.1, ts-patch@npm:^2.0.2":
   version: 2.0.2
   resolution: "ts-patch@npm:2.0.2"
   dependencies:
@@ -24029,7 +24161,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsup@npm:^6.2.2":
+"tsup@npm:^6.0.1, tsup@npm:^6.2.2":
   version: 6.2.2
   resolution: "tsup@npm:6.2.2"
   dependencies:
@@ -24214,7 +24346,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typechain@npm:^7.0.1":
+"typechain@npm:^7.0.0, typechain@npm:^7.0.1":
   version: 7.0.1
   resolution: "typechain@npm:7.0.1"
   dependencies:
@@ -24311,7 +24443,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.5.4, typescript@npm:^4.7.4":
+"typescript@npm:^4.5.4, typescript@npm:^4.7.2, typescript@npm:^4.7.4":
   version: 4.7.4
   resolution: "typescript@npm:4.7.4"
   bin:
@@ -24321,7 +24453,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.5.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.5.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
   version: 4.7.4
   resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"
   bin:
@@ -24776,7 +24908,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-debounce@npm:^8.0.3":
+"use-debounce@npm:^8.0.0, use-debounce@npm:^8.0.2, use-debounce@npm:^8.0.3":
   version: 8.0.3
   resolution: "use-debounce@npm:8.0.3"
   peerDependencies:
@@ -24827,7 +24959,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"usehooks-ts@npm:^2.6.0":
+"usehooks-ts@npm:^2.5.2, usehooks-ts@npm:^2.6.0":
   version: 2.6.0
   resolution: "usehooks-ts@npm:2.6.0"
   peerDependencies:

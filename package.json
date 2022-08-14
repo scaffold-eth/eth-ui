@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "eth-hooks": "yarn workspace eth-hooks",
+    "eth-headless": "yarn workspace eth-headless",
     "docs": "yarn workspace documentation",
     "postinstall": "husky install",
     "lint": "yarn eth-hooks lint && yarn docs lint",
@@ -43,6 +44,10 @@
     "packages/eth-hooks/**/*.{ts,tsx}": [
       "yarn workspace eth-hooks lint --fix",
       "yarn workspace eth-hooks format"
+    ],
+    "packages/eth-headless/**/*.{ts,tsx}": [
+      "yarn workspace eth-headless lint --fix",
+      "yarn workspace eth-headless format"
     ],
     "packages/docusaurus/src/**/*.{ts,tsx,js,jsx}": [
       "npm run lint --fix",

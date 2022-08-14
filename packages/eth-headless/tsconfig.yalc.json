@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "emitDeclarationOnly": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "inlineSources": false,
+    "inlineSourceMap": false
+  },
+  "files": []
+}

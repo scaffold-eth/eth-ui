@@ -160,18 +160,5 @@
     "create-eth-app",
     "typescript"
   ],
-  "license": "MIT",
-  "packageManager": "yarn@3.2.0",
-  "volta": {
-    "node": "16.13.1"
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx,js,jsx}": [
-      "yarn lint --fix",
-      "yarn format"
-    ],
-    "src/**/*.{json}": [
-      "yarn format"
-    ]
-  }
+  "license": "MIT"
 }
