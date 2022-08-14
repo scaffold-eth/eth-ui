@@ -1,4 +1,4 @@
-import { useBalance } from 'eth-hooks';
+// import { useBalance } from 'eth-hooks';
 import { BigNumber, utils } from 'ethers';
 import { useState } from 'react';
 
@@ -16,7 +16,9 @@ export interface EthBalanceResult {
 
 export const useEthBalance = (props: EthBalanceProps): EthBalanceResult => {
   const [dollarMode, setDollarMode] = useState(true);
-  const [userBalance] = useBalance(props.address);
+  // const [userBalance] = useBalance(props.address);
+  // hack to get monorepo done
+  const userBalance = [3];
 
   let resolvedBalance = BigNumber.from(userBalance ?? 0);
   if (userBalance != null) {

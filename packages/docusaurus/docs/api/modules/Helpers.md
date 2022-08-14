@@ -31,4 +31,4 @@ custom_edit_url: null
 
 #### Defined in
 
-helpers/lazier.ts:18
+[helpers/lazier.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/helpers/lazier.ts#L18)

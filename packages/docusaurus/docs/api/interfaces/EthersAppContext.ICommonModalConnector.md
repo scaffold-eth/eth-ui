@@ -30,7 +30,7 @@ custom_edit_url: null
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:45
+[context/ethers-app/connectors/EthersModalConnector.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L45)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:46
+[context/ethers-app/connectors/EthersModalConnector.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L46)
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:48
+[context/ethers-app/connectors/EthersModalConnector.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L48)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:49
+[context/ethers-app/connectors/EthersModalConnector.ts:49](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L49)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:51
+[context/ethers-app/connectors/EthersModalConnector.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L51)
 
 ___
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:52
+[context/ethers-app/connectors/EthersModalConnector.ts:52](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L52)

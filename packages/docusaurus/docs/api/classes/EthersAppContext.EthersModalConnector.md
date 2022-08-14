@@ -25,7 +25,7 @@ custom_edit_url: null
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:72
+[context/ethers-app/connectors/EthersModalConnector.ts:72](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L72)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:73
+[context/ethers-app/connectors/EthersModalConnector.ts:73](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L73)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:74
+[context/ethers-app/connectors/EthersModalConnector.ts:74](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L74)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:75
+[context/ethers-app/connectors/EthersModalConnector.ts:75](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L75)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:76
+[context/ethers-app/connectors/EthersModalConnector.ts:76](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L76)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:77
+[context/ethers-app/connectors/EthersModalConnector.ts:77](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L77)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:78
+[context/ethers-app/connectors/EthersModalConnector.ts:78](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L78)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:79
+[context/ethers-app/connectors/EthersModalConnector.ts:79](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L79)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:80
+[context/ethers-app/connectors/EthersModalConnector.ts:80](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L80)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:81
+[context/ethers-app/connectors/EthersModalConnector.ts:81](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L81)
 
 ## Accessors
 
@@ -129,7 +129,7 @@ context/ethers-app/connectors/EthersModalConnector.ts:81
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:83
+[context/ethers-app/connectors/EthersModalConnector.ts:83](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L83)
 
 ## Methods
 
@@ -147,7 +147,7 @@ context/ethers-app/connectors/EthersModalConnector.ts:83
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:87
+[context/ethers-app/connectors/EthersModalConnector.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L87)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:117
+[context/ethers-app/connectors/EthersModalConnector.ts:117](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L117)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:167
+[context/ethers-app/connectors/EthersModalConnector.ts:167](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L167)
 
 ___
 
@@ -203,7 +203,7 @@ AbstractConnector.activate
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:189
+[context/ethers-app/connectors/EthersModalConnector.ts:189](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L189)
 
 ___
 
@@ -221,7 +221,7 @@ AbstractConnector.deactivate
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:262
+[context/ethers-app/connectors/EthersModalConnector.ts:262](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L262)
 
 ___
 
@@ -239,7 +239,7 @@ AbstractConnector.getProvider
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:282
+[context/ethers-app/connectors/EthersModalConnector.ts:282](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L282)
 
 ___
 
@@ -257,7 +257,7 @@ AbstractConnector.getChainId
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:286
+[context/ethers-app/connectors/EthersModalConnector.ts:286](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L286)
 
 ___
 
@@ -275,7 +275,7 @@ AbstractConnector.getAccount
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:296
+[context/ethers-app/connectors/EthersModalConnector.ts:296](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L296)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:308
+[context/ethers-app/connectors/EthersModalConnector.ts:308](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L308)
 
 ___
 
@@ -307,7 +307,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:312
+[context/ethers-app/connectors/EthersModalConnector.ts:312](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L312)
 
 ___
 
@@ -331,7 +331,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:323
+[context/ethers-app/connectors/EthersModalConnector.ts:323](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L323)
 
 ___
 
@@ -345,7 +345,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:334
+[context/ethers-app/connectors/EthersModalConnector.ts:334](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L334)
 
 ___
 
@@ -363,7 +363,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:342
+[context/ethers-app/connectors/EthersModalConnector.ts:342](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L342)
 
 ___
 
@@ -387,7 +387,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:357
+[context/ethers-app/connectors/EthersModalConnector.ts:357](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L357)
 
 ___
 
@@ -401,7 +401,7 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:361
+[context/ethers-app/connectors/EthersModalConnector.ts:361](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L361)
 
 ## Constructors
 
@@ -424,4 +424,4 @@ AbstractConnector.constructor
 
 #### Defined in
 
-context/ethers-app/connectors/EthersModalConnector.ts:97
+[context/ethers-app/connectors/EthersModalConnector.ts:97](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L97)

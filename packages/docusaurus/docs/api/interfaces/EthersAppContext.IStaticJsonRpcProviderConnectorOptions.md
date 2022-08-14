@@ -25,7 +25,7 @@ custom_edit_url: null
 
 #### Defined in
 
-context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:14
+[context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L14)
 
 ___
 
@@ -35,4 +35,4 @@ ___
 
 #### Defined in
 
-context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:15
+[context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L15)

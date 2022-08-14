@@ -1,6 +1,6 @@
 ---
 id: "index"
-title: "eth-hooks - v4.6.1-beta0"
+title: "eth-hooks - v4.6.1"
 sidebar_label: "Table of contents"
 sidebar_position: 0.5
 hide_table_of_contents: true

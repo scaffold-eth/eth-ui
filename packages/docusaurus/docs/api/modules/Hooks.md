@@ -26,7 +26,7 @@ custom_edit_url: null
 
 #### Defined in
 
-hooks/dapps/useDexEthPrice.ts:27
+[hooks/dapps/useDexEthPrice.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/dapps/useDexEthPrice.ts#L27)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-hooks/dapps/useDexTokenList.ts:26
+[hooks/dapps/useDexTokenList.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/dapps/useDexTokenList.ts#L26)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-hooks/dapps/useResolveEnsAddress.ts:19
+[hooks/dapps/useResolveEnsAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/dapps/useResolveEnsAddress.ts#L19)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-hooks/dapps/useResolveEnsName.ts:45
+[hooks/dapps/useResolveEnsName.ts:45](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/dapps/useResolveEnsName.ts#L45)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-hooks/erc/useTokenBalance.ts:32
+[hooks/erc/useTokenBalance.ts:32](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/erc/useTokenBalance.ts#L32)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-hooks/useAreSignerEqual.ts:21
+[hooks/useAreSignerEqual.ts:21](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useAreSignerEqual.ts#L21)
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 #### Defined in
 
-hooks/useBalance.ts:46
+[hooks/useBalance.ts:46](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useBalance.ts#L46)
 
 ___
 
@@ -190,7 +190,7 @@ ___
 
 #### Defined in
 
-hooks/useBlockNumber.ts:22
+[hooks/useBlockNumber.ts:22](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useBlockNumber.ts#L22)
 
 ___
 
@@ -211,7 +211,7 @@ ___
 
 #### Defined in
 
-hooks/useBurnerSigner.ts:58
+[hooks/useBurnerSigner.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useBurnerSigner.ts#L58)
 
 ___
 
@@ -231,7 +231,7 @@ ___
 
 #### Defined in
 
-hooks/useBurnerSigner.ts:89
+[hooks/useBurnerSigner.ts:89](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useBurnerSigner.ts#L89)
 
 ___
 
@@ -252,7 +252,7 @@ ___
 
 #### Defined in
 
-hooks/useContractExistsAtAddress.ts:25
+[hooks/useContractExistsAtAddress.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useContractExistsAtAddress.ts#L25)
 
 ___
 
@@ -273,7 +273,7 @@ ___
 
 #### Defined in
 
-hooks/useContractLoader.ts:102
+[hooks/useContractLoader.ts:102](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useContractLoader.ts#L102)
 
 ___
 
@@ -303,7 +303,7 @@ ___
 
 #### Defined in
 
-hooks/useContractReaderUntyped.ts:26
+[hooks/useContractReaderUntyped.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useContractReaderUntyped.ts#L26)
 
 ___
 
@@ -324,7 +324,7 @@ ___
 
 #### Defined in
 
-hooks/useEthersAdaptorFromProviderOrSigners.ts:31
+[hooks/useEthersAdaptorFromProviderOrSigners.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useEthersAdaptorFromProviderOrSigners.ts#L31)
 
 ___
 
@@ -354,7 +354,7 @@ ___
 
 #### Defined in
 
-hooks/useEventListener.ts:26
+[hooks/useEventListener.ts:26](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useEventListener.ts#L26)
 
 ___
 
@@ -364,7 +364,7 @@ ___
 
 #### Defined in
 
-hooks/useGasPrice.ts:28
+[hooks/useGasPrice.ts:28](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useGasPrice.ts#L28)
 
 ___
 
@@ -388,7 +388,7 @@ ___
 
 #### Defined in
 
-hooks/useGasPrice.ts:48
+[hooks/useGasPrice.ts:48](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useGasPrice.ts#L48)
 
 ___
 
@@ -410,7 +410,7 @@ ___
 
 #### Defined in
 
-hooks/useNonce.ts:34
+[hooks/useNonce.ts:34](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useNonce.ts#L34)
 
 ___
 
@@ -431,7 +431,7 @@ ___
 
 #### Defined in
 
-hooks/useSignerAddress.ts:19
+[hooks/useSignerAddress.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useSignerAddress.ts#L19)
 
 ___
 
@@ -452,7 +452,7 @@ ___
 
 #### Defined in
 
-hooks/useSignerChainId.ts:20
+[hooks/useSignerChainId.ts:20](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useSignerChainId.ts#L20)
 
 ___
 
@@ -473,7 +473,7 @@ ___
 
 #### Defined in
 
-hooks/useTimestamp.ts:31
+[hooks/useTimestamp.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useTimestamp.ts#L31)
 
 ## Models
 
@@ -492,7 +492,7 @@ hooks/useTimestamp.ts:31
 
 #### Defined in
 
-hooks/useContractLoader.ts:39
+[hooks/useContractLoader.ts:39](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useContractLoader.ts#L39)
 
 ## Misc
 
@@ -506,7 +506,7 @@ hooks/useContractLoader.ts:39
 
 #### Defined in
 
-hooks/useCheckIsMounted.ts:3
+[hooks/useCheckIsMounted.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useCheckIsMounted.ts#L3)
 
 ___
 
@@ -527,7 +527,7 @@ ___
 
 #### Defined in
 
-hooks/useContractLoader.ts:59
+[hooks/useContractLoader.ts:59](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useContractLoader.ts#L59)
 
 ___
 
@@ -558,7 +558,7 @@ ___
 
 #### Defined in
 
-hooks/useContractReader.ts:27
+[hooks/useContractReader.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useContractReader.ts#L27)
 
 ___
 
@@ -581,4 +581,4 @@ ___
 
 #### Defined in
 
-hooks/useEthersUpdater.ts:15
+[hooks/useEthersUpdater.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/hooks/useEthersUpdater.ts#L15)

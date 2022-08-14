@@ -32,7 +32,7 @@ custom_edit_url: null
 
 #### Defined in
 
-models/ethersAppContextTypes.ts:17
+[models/ethersAppContextTypes.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/ethersAppContextTypes.ts#L17)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-models/contractTypes.ts:7
+[models/contractTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractTypes.ts#L7)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-models/contractTypes.ts:18
+[models/contractTypes.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractTypes.ts#L18)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-models/contractTypes.ts:58
+[models/contractTypes.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractTypes.ts#L58)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-models/contractTypes.ts:80
+[models/contractTypes.ts:80](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractTypes.ts#L80)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-models/contractTypes.ts:95
+[models/contractTypes.ts:95](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractTypes.ts#L95)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-models/networkTypes.ts:7
+[models/networkTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/networkTypes.ts#L7)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-models/providerTypes.ts:19
+[models/providerTypes.ts:19](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/providerTypes.ts#L19)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-models/providerTypes.ts:27
+[models/providerTypes.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/providerTypes.ts#L27)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-models/providerTypes.ts:42
+[models/providerTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/providerTypes.ts#L42)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-models/providerTypes.ts:50
+[models/providerTypes.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/providerTypes.ts#L50)
 
 ___
 
@@ -191,7 +191,7 @@ ___
 
 #### Defined in
 
-models/providerTypes.ts:58
+[models/providerTypes.ts:58](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/providerTypes.ts#L58)
 
 ___
 
@@ -207,7 +207,7 @@ ___
 
 #### Defined in
 
-models/providerTypes.ts:69
+[models/providerTypes.ts:69](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/providerTypes.ts#L69)
 
 ___
 
@@ -223,7 +223,7 @@ ___
 
 #### Defined in
 
-models/utilityTypes.ts:7
+[models/utilityTypes.ts:7](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/utilityTypes.ts#L7)
 
 ## Misc
 
@@ -233,7 +233,7 @@ models/utilityTypes.ts:7
 
 #### Defined in
 
-models/constants/common.ts:1
+[models/constants/common.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/constants/common.ts#L1)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 #### Defined in
 
-models/constants/common.ts:2
+[models/constants/common.ts:2](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/constants/common.ts#L2)
 
 ___
 
@@ -262,7 +262,7 @@ ___
 
 #### Defined in
 
-models/constants/keyNamespace.ts:1
+[models/constants/keyNamespace.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/constants/keyNamespace.ts#L1)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-models/contractAppContextTypes.ts:9
+[models/contractAppContextTypes.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractAppContextTypes.ts#L9)
 
 ___
 
@@ -309,7 +309,7 @@ ___
 
 #### Defined in
 
-models/contractAppContextTypes.ts:18
+[models/contractAppContextTypes.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractAppContextTypes.ts#L18)
 
 ___
 
@@ -326,7 +326,7 @@ ___
 
 #### Defined in
 
-models/contractAppContextTypes.ts:31
+[models/contractAppContextTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractAppContextTypes.ts#L31)
 
 ___
 
@@ -342,7 +342,7 @@ ___
 
 #### Defined in
 
-models/contractAppContextTypes.ts:42
+[models/contractAppContextTypes.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractAppContextTypes.ts#L42)
 
 ___
 
@@ -359,7 +359,7 @@ ___
 
 #### Defined in
 
-models/contractAppContextTypes.ts:51
+[models/contractAppContextTypes.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractAppContextTypes.ts#L51)
 
 ___
 
@@ -376,7 +376,7 @@ ___
 
 #### Defined in
 
-models/contractAppContextTypes.ts:62
+[models/contractAppContextTypes.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractAppContextTypes.ts#L62)
 
 ___
 
@@ -393,7 +393,7 @@ ___
 
 #### Defined in
 
-models/contractAppContextTypes.ts:78
+[models/contractAppContextTypes.ts:78](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractAppContextTypes.ts#L78)
 
 ___
 
@@ -410,7 +410,7 @@ ___
 
 #### Defined in
 
-models/contractAppContextTypes.ts:90
+[models/contractAppContextTypes.ts:90](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractAppContextTypes.ts#L90)
 
 ___
 
@@ -435,7 +435,7 @@ ___
 
 #### Defined in
 
-models/contractAppContextTypes.ts:102
+[models/contractAppContextTypes.ts:102](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractAppContextTypes.ts#L102)
 
 ___
 
@@ -449,7 +449,7 @@ ___
 
 #### Defined in
 
-models/contractTypes.ts:31
+[models/contractTypes.ts:31](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractTypes.ts#L31)
 
 ___
 
@@ -463,7 +463,7 @@ ___
 
 #### Defined in
 
-models/contractTypes.ts:44
+[models/contractTypes.ts:44](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/contractTypes.ts#L44)
 
 ___
 
@@ -473,7 +473,7 @@ ___
 
 #### Defined in
 
-models/hookTypes.ts:11
+[models/hookTypes.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/hookTypes.ts#L11)
 
 ___
 
@@ -483,7 +483,7 @@ ___
 
 #### Defined in
 
-models/hookTypes.ts:17
+[models/hookTypes.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/hookTypes.ts#L17)
 
 ___
 
@@ -493,7 +493,7 @@ ___
 
 #### Defined in
 
-models/hookTypes.ts:23
+[models/hookTypes.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/hookTypes.ts#L23)
 
 ___
 
@@ -509,7 +509,7 @@ ___
 
 #### Defined in
 
-models/hookTypes.ts:25
+[models/hookTypes.ts:25](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/hookTypes.ts#L25)
 
 ___
 
@@ -533,7 +533,7 @@ ___
 
 #### Defined in
 
-models/hookTypes.ts:50
+[models/hookTypes.ts:50](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/hookTypes.ts#L50)
 
 ___
 
@@ -551,7 +551,7 @@ ___
 
 #### Defined in
 
-models/hookTypes.ts:73
+[models/hookTypes.ts:73](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/hookTypes.ts#L73)
 
 ___
 
@@ -565,7 +565,7 @@ ___
 
 #### Defined in
 
-models/hookTypes.ts:93
+[models/hookTypes.ts:93](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/hookTypes.ts#L93)
 
 ___
 
@@ -585,7 +585,7 @@ ___
 
 #### Defined in
 
-models/hookTypes.ts:105
+[models/hookTypes.ts:105](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/hookTypes.ts#L105)
 
 ___
 
@@ -601,7 +601,7 @@ ___
 
 #### Defined in
 
-models/hookTypes.ts:124
+[models/hookTypes.ts:124](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/hookTypes.ts#L124)
 
 ## Type Definition
 
@@ -620,4 +620,4 @@ models/hookTypes.ts:124
 
 #### Defined in
 
-models/ethersAppContextTypes.ts:52
+[models/ethersAppContextTypes.ts:52](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/models/ethersAppContextTypes.ts#L52)
