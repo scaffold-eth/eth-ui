@@ -10167,6 +10167,7 @@ __metadata:
     eslint-plugin-react: ^7.29.4
     eslint-plugin-react-hooks: ^4.5.0
     eslint-plugin-tailwind: ^0.2.1
+    eslint-plugin-tailwindcss: ^3.6.0
     mdx-mermaid: ^1.2.2
     mermaid: ^8.11.5
     postcss: ^8.4.13

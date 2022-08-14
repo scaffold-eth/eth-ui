@@ -13,8 +13,9 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*.ts* ",
-    "format": "prettier -w ./src"
+    "lint": "eslint --config ./.eslintrc.js --ignore-path ./.eslintignore ./src/**/*.ts* ",
+    "format": "prettier -w ./src",
+    "format:check": "yarn prettier -c ./src "
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.1",
@@ -49,6 +50,7 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-tailwind": "^0.2.1",
+    "eslint-plugin-tailwindcss": "^3.6.0",
     "mdx-mermaid": "^1.2.2",
     "mermaid": "^8.11.5",
     "postcss": "^8.4.13",

@@ -15,6 +15,7 @@
     "lint": "yarn eth-hooks lint && yarn docs lint",
     "lint:fix": "yarn eth-hooks lint --fix && yarn docs lint  --fix",
     "lint:report": "yarn eth-hooks lint:report",
+    "format": "yarn eth-hooks format && yarn docs format",
     "format:check": "yarn eth-hooks format:check && yarn docs format:check"
   },
   "private": true,
