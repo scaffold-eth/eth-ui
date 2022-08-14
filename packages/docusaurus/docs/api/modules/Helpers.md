@@ -36,7 +36,7 @@ js .some function that can be used with async predicates
 
 #### Defined in
 
-[src/functions/asyncHelpers.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/asyncHelpers.ts#L11)
+[src/functions/asyncHelpers.ts:11](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/asyncHelpers.ts#L11)
 
 ___
 
@@ -59,7 +59,7 @@ Is it a ethers compatable provider, used by EthersModalConnector and useEthersPr
 
 #### Defined in
 
-[src/functions/ethersHelpers.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/ethersHelpers.ts#L23)
+[src/functions/ethersHelpers.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/ethersHelpers.ts#L23)
 
 ___
 
@@ -85,7 +85,7 @@ TProviderAndSigner
 
 #### Defined in
 
-[src/functions/parseProviderOrSigner.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/parseProviderOrSigner.ts#L62)
+[src/functions/parseProviderOrSigner.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/parseProviderOrSigner.ts#L62)
 
 ## Misc
 
@@ -112,7 +112,7 @@ TProviderAndSigner
 
 #### Defined in
 
-[src/functions/asyncHelpers.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/asyncHelpers.ts#L18)
+[src/functions/asyncHelpers.ts:18](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/asyncHelpers.ts#L18)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/functions/ethersHelpers.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/ethersHelpers.ts#L35)
+[src/functions/ethersHelpers.ts:35](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/ethersHelpers.ts#L35)
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/functions/ethersHelpers.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/ethersHelpers.ts#L42)
+[src/functions/ethersHelpers.ts:42](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/ethersHelpers.ts#L42)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/functions/ethersHelpers.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/ethersHelpers.ts#L51)
+[src/functions/ethersHelpers.ts:51](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/ethersHelpers.ts#L51)
 
 ___
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/functions/ethersHelpers.ts:63](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/ethersHelpers.ts#L63)
+[src/functions/ethersHelpers.ts:63](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/ethersHelpers.ts#L63)
 
 ___
 
@@ -213,7 +213,7 @@ ___
 
 #### Defined in
 
-[src/functions/ethersHelpers.ts:80](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/ethersHelpers.ts#L80)
+[src/functions/ethersHelpers.ts:80](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/ethersHelpers.ts#L80)
 
 ___
 
@@ -234,7 +234,7 @@ ___
 
 #### Defined in
 
-[src/functions/hookHelpers.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/hookHelpers.ts#L17)
+[src/functions/hookHelpers.ts:17](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/hookHelpers.ts#L17)
 
 ___
 
@@ -257,7 +257,7 @@ Hook that will verify update options are valid
 
 #### Defined in
 
-[src/functions/hookHelpers.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/hookHelpers.ts#L37)
+[src/functions/hookHelpers.ts:37](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/hookHelpers.ts#L37)
 
 ___
 
@@ -277,7 +277,7 @@ ___
 
 #### Defined in
 
-[src/functions/hookHelpers.ts:55](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/hookHelpers.ts#L55)
+[src/functions/hookHelpers.ts:55](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/hookHelpers.ts#L55)
 
 ___
 
@@ -303,7 +303,7 @@ ___
 
 #### Defined in
 
-[src/functions/hookHelpers.ts:65](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/hookHelpers.ts#L65)
+[src/functions/hookHelpers.ts:65](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/hookHelpers.ts#L65)
 
 ___
 
@@ -324,7 +324,7 @@ ___
 
 #### Defined in
 
-[src/functions/hookHelpers.ts:83](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/hookHelpers.ts#L83)
+[src/functions/hookHelpers.ts:83](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/hookHelpers.ts#L83)
 
 ___
 
@@ -350,7 +350,7 @@ ___
 
 #### Defined in
 
-[src/functions/hookHelpers.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/hookHelpers.ts#L87)
+[src/functions/hookHelpers.ts:87](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/hookHelpers.ts#L87)
 
 ___
 
@@ -367,7 +367,7 @@ ___
 
 #### Defined in
 
-[src/functions/keyHelpers.ts:10](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/keyHelpers.ts#L10)
+[src/functions/keyHelpers.ts:10](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/keyHelpers.ts#L10)
 
 ___
 
@@ -386,7 +386,7 @@ ___
 
 #### Defined in
 
-[src/functions/keyHelpers.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/keyHelpers.ts#L15)
+[src/functions/keyHelpers.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/keyHelpers.ts#L15)
 
 ___
 
@@ -408,7 +408,7 @@ Get a react-query query key fo ethers provider
 
 #### Defined in
 
-[src/functions/keyHelpers.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/keyHelpers.ts#L27)
+[src/functions/keyHelpers.ts:27](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/keyHelpers.ts#L27)
 
 ___
 
@@ -430,7 +430,7 @@ Get a react-query query key
 
 #### Defined in
 
-[src/functions/keyHelpers.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/keyHelpers.ts#L62)
+[src/functions/keyHelpers.ts:62](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/keyHelpers.ts#L62)
 
 ___
 
@@ -452,7 +452,7 @@ Get a react-query query key
 
 #### Defined in
 
-[src/functions/keyHelpers.ts:79](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/keyHelpers.ts#L79)
+[src/functions/keyHelpers.ts:79](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/keyHelpers.ts#L79)
 
 ___
 
@@ -474,7 +474,7 @@ Get a react-query query key
 
 #### Defined in
 
-[src/functions/keyHelpers.ts:88](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/keyHelpers.ts#L88)
+[src/functions/keyHelpers.ts:88](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/keyHelpers.ts#L88)
 
 ___
 
@@ -497,7 +497,7 @@ Get a react-query query key
 
 #### Defined in
 
-[src/functions/keyHelpers.ts:115](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/keyHelpers.ts#L115)
+[src/functions/keyHelpers.ts:115](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/keyHelpers.ts#L115)
 
 ___
 
@@ -520,7 +520,7 @@ ___
 
 #### Defined in
 
-[src/functions/keyHelpers.ts:135](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/keyHelpers.ts#L135)
+[src/functions/keyHelpers.ts:135](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/keyHelpers.ts#L135)
 
 ___
 
@@ -543,7 +543,7 @@ ___
 
 #### Defined in
 
-[src/functions/keyHelpers.ts:144](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/keyHelpers.ts#L144)
+[src/functions/keyHelpers.ts:144](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/keyHelpers.ts#L144)
 
 ___
 
@@ -563,4 +563,4 @@ ___
 
 #### Defined in
 
-[src/functions/parseProviderOrSigner.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/functions/parseProviderOrSigner.ts#L9)
+[src/functions/parseProviderOrSigner.ts:9](https://github.com/scaffold-eth/eth-hooks/blob/951f765/packages/eth-hooks/src/functions/parseProviderOrSigner.ts#L9)

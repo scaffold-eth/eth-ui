@@ -1,5 +1,4 @@
 import { JsonRpcSigner } from '@ethersproject/providers';
-// @ts-ignore
 import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { MockProvider } from 'ethereum-waffle';
 import { Signer } from 'ethers';
