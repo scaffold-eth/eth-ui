@@ -7,6 +7,10 @@ custom_edit_url: null
 
 [EthersAppContext](../modules/EthersAppContext.md).IStaticJsonRpcProviderConnectorOptions
 
+#### Summary
+A web3modal CustomProvider Options
+- Options for web3modal that allows you to connect to a StaticJsonRpcProvider such as localhost
+
 ## Hierarchy
 
 - `IAbstractConnectorOptions`
@@ -25,7 +29,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L14)
+[src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:14](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L14)
 
 ___
 
@@ -35,4 +39,4 @@ ___
 
 #### Defined in
 
-[context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/814ff62/packages/eth-hooks/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L15)
+[src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:15](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L15)
