@@ -55,7 +55,7 @@ Gives you access to consistent interface to get the current provider information
 
 #### Defined in
 
-[src/context/ethers-app/EthersAppContext.tsx:35](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/EthersAppContext.tsx#L35)
+[src/context/ethers-app/EthersAppContext.tsx:35](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/EthersAppContext.tsx#L35)
 
 ___
 
@@ -89,7 +89,7 @@ Gives you access to consistent interface to get the current provider information
 
 #### Defined in
 
-[src/context/ethers-app/EthersAppContext.tsx:35](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/EthersAppContext.tsx#L35)
+[src/context/ethers-app/EthersAppContext.tsx:35](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/EthersAppContext.tsx#L35)
 
 ___
 
@@ -143,7 +143,7 @@ See scaffold-eth-typescript for an example that uses it to connect to a localhos
 
 #### Defined in
 
-[src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L33)
+[src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts:33](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/connectors/StaticJsonRpcProviderConnector.ts#L33)
 
 ___
 
@@ -178,7 +178,7 @@ current block number
 
 #### Defined in
 
-[src/context/ethers-app/useBlockNumberContext.tsx:27](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/useBlockNumberContext.tsx#L27)
+[src/context/ethers-app/useBlockNumberContext.tsx:27](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/useBlockNumberContext.tsx#L27)
 
 ## Misc
 
@@ -206,7 +206,7 @@ Props for context
 
 #### Defined in
 
-[src/context/ethers-app/EthersAppContext.tsx:116](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/EthersAppContext.tsx#L116)
+[src/context/ethers-app/EthersAppContext.tsx:116](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/EthersAppContext.tsx#L116)
 
 ___
 
@@ -231,7 +231,7 @@ ___
 
 #### Defined in
 
-[src/context/ethers-app/EthersAppContext.tsx:136](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/EthersAppContext.tsx#L136)
+[src/context/ethers-app/EthersAppContext.tsx:136](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/EthersAppContext.tsx#L136)
 
 ___
 
@@ -241,7 +241,7 @@ ___
 
 #### Defined in
 
-[src/context/ethers-app/connectors/EthersModalConnector.ts:55](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L55)
+[src/context/ethers-app/connectors/EthersModalConnector.ts:55](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/connectors/EthersModalConnector.ts#L55)
 
 ___
 
@@ -260,7 +260,7 @@ ___
 
 #### Defined in
 
-[src/context/ethers-app/connectors/connectorErrors.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/connectors/connectorErrors.ts#L1)
+[src/context/ethers-app/connectors/connectorErrors.ts:1](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/connectors/connectorErrors.ts#L1)
 
 ___
 
@@ -270,4 +270,4 @@ ___
 
 #### Defined in
 
-[src/context/ethers-app/queryClient.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/queryClient.ts#L3)
+[src/context/ethers-app/queryClient.ts:3](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/queryClient.ts#L3)

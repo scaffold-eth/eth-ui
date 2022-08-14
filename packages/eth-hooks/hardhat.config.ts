@@ -1,3 +1,4 @@
+// This adds support for typescript paths mappings
 import './test/helpers/hardhat-imports';
 
 import { HardhatUserConfig } from 'hardhat/types';
@@ -31,15 +32,17 @@ const config: HardhatUserConfig = {
     rootHooks: mochaRootHook_disableReact18Warnings,
   },
   paths: {
-    cache: './test-files/__mocks__/generated/cache',
-    artifacts: './test-files/__mocks__/generated/artifacts',
-    deployments: './test-files/__mocks__/generated/deployments',
-    sources: './test-files/contracts',
-    deploy: './test-files/deploy',
+    root: './test-files',
+    cache: './generated/cache',
+    artifacts: './generated/artifacts',
+    deployments: './generated/deployments',
+    deploy: './deploy',
+    tests: '../test',
   },
   typechain: {
-    outDir: './test-files/__mocks__/generated/contract-types',
+    outDir: './generated/contract-types',
+    discriminateTypes: true,
   },
 };
 
-module.exports = config;
+export default config;

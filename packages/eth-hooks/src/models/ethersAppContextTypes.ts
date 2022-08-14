@@ -18,7 +18,7 @@ export type TCreateEthersModalConnector = (id?: string) => TEthersModalConnector
 
 /**
  * #### Summary
- * The return type of {@link EthersModalConnector}
+ * The return type of {@link TCreateEthersModalConnector}
  * - ethers compatable provider {@link TEthersProvider}
  * - a callback to change the current signer
  * - the current account, chainId and signer

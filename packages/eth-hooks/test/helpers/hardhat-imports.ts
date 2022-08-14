@@ -2,8 +2,9 @@ import 'tsconfig-paths/register';
 import 'global-jsdom/register';
 
 import '@typechain/hardhat';
-import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-ethers';
+import '@nomiclabs/hardhat-waffle';
+import 'hardhat-deploy-ethers';
 import 'hardhat-deploy';
 
 // import 'solidity-coverage';

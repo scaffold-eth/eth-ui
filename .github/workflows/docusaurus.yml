@@ -35,6 +35,9 @@ jobs:
       - name: Build eth-hooks
         run: |
           yarn install
+      - name: Build test artifacts
+        run: |
+          yarn install
           yarn eth-hooks hardhat:compile
 
       - name: Build Docusaurus website

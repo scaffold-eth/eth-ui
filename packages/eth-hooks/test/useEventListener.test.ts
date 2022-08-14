@@ -2,7 +2,8 @@ import { expect } from 'chai';
 import { deployContract } from 'ethereum-waffle';
 import { EventFilter, Signer } from 'ethers';
 import { mockYourContractJson } from 'test-files/__mocks__';
-import { SetPurposeEvent, YourContract } from 'test-files/__mocks__/generated/contract-types/YourContract';
+import { YourContract } from 'test-files/generated/contract-types';
+import { SetPurposeEvent } from 'test-files/generated/contract-types/contracts/YourContract';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';

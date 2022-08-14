@@ -28,5 +28,12 @@
     "lib": true
   },
   "explorerExclude.backup": null,
-  "exportall.config.relExclusion": ["/src/helpers/test-utils", "/src/helpers/typedoc", "/src/helpers/__global.ts"]
+  "eslint.debug": true,
+  "eslint.enable": true,
+  "eslint.workingDirectories": [
+    { "directory": "packages/*", "changeProcessCWD": true },
+    { "directory": "packages/eth-hooks", "changeProcessCWD": true },
+    { "directory": "packages/docusaurus", "changeProcessCWD": true },
+    { "directory": "packages/eth-headless", "changeProcessCWD": true }
+  ]
 }

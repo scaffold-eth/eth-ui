@@ -28,7 +28,7 @@ export const useEventListener = <GTypedEvent extends TypedEvent<Result>>(
   eventFilter: string | EventFilter | undefined,
   startBlock: number,
   toBlock: number | undefined = undefined,
-  options: TUpdateOptions = mergeDefaultUpdateOptions({ ...const_blockNumberIntervalMedium })
+  options: TUpdateOptions<GTypedEvent[]> = mergeDefaultUpdateOptions(const_blockNumberIntervalMedium)
 ): THookResult<GTypedEvent[]> => {
   const keys = [
     {

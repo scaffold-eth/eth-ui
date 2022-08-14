@@ -1,8 +1,8 @@
 import 'test/helpers/chai-imports';
 import { expect } from 'chai';
 import { Signer } from 'ethers';
-import { YourContract } from 'test-files/__mocks__/generated/contract-types';
 import { setupMockYourContract } from 'test-files/__mocks__/setupMockContracts';
+import { YourContract } from 'test-files/generated/contract-types';
 import sinon from 'ts-sinon';
 
 import { hookTestWrapper } from '~~/helpers/test-utils';

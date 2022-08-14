@@ -2,7 +2,8 @@ import { expect } from 'chai';
 import { deployContract } from 'ethereum-waffle';
 import { Signer } from 'ethers';
 import { mockYourContractJson, mockBasicERC20ContractJson } from 'test-files/__mocks__';
-import { YourContract, BasicERC20Contract } from 'test-files/__mocks__/generated/contract-types';
+
+import { YourContract, BasicERC20Contract } from '../generated/contract-types';
 
 import { TContractFunctionInfo } from '~~/models';
 

@@ -7,8 +7,8 @@ import {
   mockExternalContractsForUseContractLoader as mockExternalContractsForLoader,
   mockHardhatBasicJson,
 } from 'test-files/__mocks__';
-import { YourContract } from 'test-files/__mocks__/generated/contract-types';
 import { setupMockYourContract } from 'test-files/__mocks__/setupMockContracts';
+import { YourContract } from 'test-files/generated/contract-types';
 
 import { getTestSigners, hookTestWrapper } from '~~/helpers/test-utils/wrapper';
 import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';

@@ -31,4 +31,4 @@ Error.constructor
 
 #### Defined in
 
-[src/context/ethers-app/connectors/connectorErrors.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/d4c4958/packages/eth-hooks/src/context/ethers-app/connectors/connectorErrors.ts#L23)
+[src/context/ethers-app/connectors/connectorErrors.ts:23](https://github.com/scaffold-eth/eth-hooks/blob/5901efa/packages/eth-hooks/src/context/ethers-app/connectors/connectorErrors.ts#L23)

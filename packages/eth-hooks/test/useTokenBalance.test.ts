@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { Signer } from 'ethers';
 import sinon from 'ts-sinon';
 
-import { BasicERC20Contract } from '../test-files/__mocks__/generated/contract-types';
 import { setupMockBasicERC20Contract } from '../test-files/__mocks__/setupMockContracts';
+import { BasicERC20Contract } from '../test-files/generated/contract-types';
 
 import * as hookHelpers from '~~/functions/hookHelpers';
 import { defaultBlockWaitOptions } from '~~/helpers/test-utils/constants';
