@@ -18,6 +18,8 @@ Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
 ## Author
 
 [@shravansunder](https://github.com/ShravanSunder)
+[@stevenpslade](https://github.com/stevenpslade)
+[@grothem](https://github.com/grothem)
 
 ## Documentation
 
