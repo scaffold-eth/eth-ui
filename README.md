@@ -1,6 +1,6 @@
 # Eth-ui Monorepo
 
-> A monorep for eth ui related packages including [eth-hooks](packages/eth-hooks/README.md)
+A monorep for eth ui related packages including [eth-hooks](packages/eth-hooks/README.md)
 
 ---
 
@@ -8,12 +8,12 @@
 
 Commonly used Ethereum hooks to supercharge your web3 dev!
 
-### See the [eth-hooks readme](packages/eth-hooks/README.md) for more details.
-
 Used by 🏭 [scaffold-eth-typescript](https://github.com/scaffold-eth/scaffold-eth-typescript), 🏗 [scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)
 , [eth-components](https://github.com/scaffold-eth/eth-components) and many other web3 projects!
 
 Created by 🏰 [BuidlGuidl.eth](https://BuidlGuidl.com)
+
+> See the [eth-hooks readme](packages/eth-hooks/README.md) for more details.
 
 ## Author
 
