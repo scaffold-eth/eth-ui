@@ -35,19 +35,17 @@ jobs:
       - name: Build eth-hooks
         run: |
           yarn install
-          yarn hardhat:compile
+          yarn eth-hooks hardhat:compile
 
       - name: Build Docusaurus website
         run: |
-          cd docusaurus
-          npm install 
-          npm run build
+          yarn docs build
 
       - name: Deploy to GitHub Pages
         if: success() && contains('refs/heads/next', github.ref)
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: docusaurus
-          build_dir: docusaurus/build
+          build_dir: packages/docusaurus/build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

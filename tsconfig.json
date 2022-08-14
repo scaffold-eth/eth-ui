@@ -1,46 +1,28 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esNext",
-    "outDir": "lib",
-    "lib": ["dom", "ESNext", "ES2017"],
     "sourceMap": true,
-    "inlineSources": true,
-    "jsx": "react-jsxdev",
+    // "inlineSources": true,
     "allowJs": false,
-    "declaration": true,
-    "declarationDir": "lib",
     "declarationMap": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "noImplicitAny": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
+    "declaration": true,
     "strict": true,
-    "rootDir": ".",
-    "baseUrl": ".",
-    "typeRoots": ["node_modules/@types"],
-    "paths": {
-      "~~": ["./src/"],
-      "~~/*": ["./src/*"]
-    }
+    "forceConsistentCasingInFileNames": true,
+    "module": "es2020",
+    "moduleResolution": "Node",
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
-  "include": ["src", "test", "test-files", "hardhat.config.ts", "test-files/deploy", "docusaurus", "tsup.config.ts"],
+  "include": ["packages/**/*.ts", "packages/**/*.tsx"],
   "exclude": [
-    "lib/**/*",
-    "node_modules",
     "**/node_modules",
-    "**/node_modules/**",
+    "node_modules",
     ".husky",
-    "./.yalc/**/*",
-    "**/*.md",
-    "docs/**/*",
-    "website/**/*",
-    "**/*.json"
+    "**/*.css",
+    "./tailwind.config.js",
+    "**/.yalc/",
+    "**/.yalc/**/*",
+    ".yalc/**/*"
   ]
 }

@@ -36,14 +36,14 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --immutable
-      - run: yarn run build
+      - run: yarn eth-hooks run build
 
-      - run: yarn test
+      - run: yarn eth-hooks test
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
         with:
-          files: testresult.xml
+          files: ./packages/eth-hooks/testresult.xml
           comment_mode: update last
           hide_comments: all but latest
           compare_to_earlier_commit: true

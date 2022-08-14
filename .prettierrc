@@ -1,11 +1,11 @@
 {
-  "arrowParens": "always",
-  "bracketSpacing": true,
-  "printWidth": 120,
-  "requirePragma": false,
   "singleQuote": true,
-  "tabWidth": 2,
+  "bracketSpacing": true,
   "trailingComma": "es5",
-  "endOfLine": "lf",
-  "bracketSameLine": true
+  "requirePragma": false,
+  "arrowParens": "always",
+  "bracketSameLine": true,
+  "tabWidth": 2,
+  "printWidth": 120,
+  "endOfLine": "lf"
 }

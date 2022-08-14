@@ -1,7 +1,11 @@
 # folders
 lib/
-node_modules/**/*
-**/*.md
-docs/**/*
-website/**/*
-build/**/*
+node_modules/
+# files
+**/*.less
+**/*.css
+**/*.scss
+**/*.json
+**/*.png
+**/*.svg
+**/generated/**/*
