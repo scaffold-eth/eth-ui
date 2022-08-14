@@ -1,0 +1,60 @@
+{
+  "name": "eth-ui",
+  "version": "0.0.1",
+  "keywords": [
+    "ethereum",
+    "react",
+    "uniswap",
+    "workspaces",
+    "yarn"
+  ],
+  "scripts": {
+    "eth-hooks": "yarn workspace eth-hooks",
+    "docs": "yarn workspace documentation",
+    "postinstall": "husky install",
+    "lint": "yarn eth-hooks lint && yarn docs lint",
+    "lint:fix": "yarn eth-hooks lint --fix && yarn docs lint  --fix",
+    "lint:report": "yarn eth-hooks lint:report",
+    "format:check": "yarn eth-hooks format:check && yarn docs format:check"
+  },
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "packageManager": "yarn@3.2.2",
+  "devDependencies": {
+    "chalk": "4",
+    "commander": "^9.4.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.22.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "pinst": "^3.0.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-solidity": "^1.0.0-dev.23",
+    "shx": "^0.3.4",
+    "syncpack": "^8.2.4",
+    "ts-node": "^10.9.1"
+  },
+  "lint-staged": {
+    "packages/eth-hooks/**/*.{ts,tsx}": [
+      "yarn workspace eth-hooks lint --fix",
+      "yarn workspace eth-hooks format"
+    ],
+    "packages/docusaurus/src/**/*.{ts,tsx,js,jsx}": [
+      "npm run lint --fix",
+      "npm run format"
+    ],
+    "packages/docusaurus/**/*.{json}": [
+      "npm run format"
+    ],
+    "packages/docusaurus/src/**/*.{md,mdx}": [
+      "npm run format"
+    ]
+  },
+  "volta": {
+    "node": "16.15.0"
+  }
+}
