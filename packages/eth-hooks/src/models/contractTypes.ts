@@ -1,33 +1,25 @@
-import { z } from 'zod';
+import { z, ZodType } from 'zod';
+
+// /**
+//  * #### Summary
+//  * Zod Schema for {@link TBasicContract}
+//  */
+// export const basicContractSchema = z.object({
+//   address: z.string(),
+//   abi: z.array(z.any()).optional(),
+// });
 
 /**
  * #### Summary
- * Zod Schema for {@link TBasicContract}
- */
-export const basicContractSchema = z.object({
-  address: z.string(),
-  abi: z.array(z.any()).optional(),
-});
-
-/**
- * #### Summary
- * Describes the sctructure of each contract in hardhat_contracts.json
+ * Describes the basic structure of each contract
  *
  * @category Models
  */
-export type TBasicContract = z.infer<typeof basicContractSchema>;
-
-/**
- * #### Summary
- * Zod Schema for {@link TBasicContractConfig}
- */
-export const basicContractConfigSchema = z.record(
-  z.number({ description: 'chainId' }),
-  z.object({
-    address: z.string(),
-    chainId: z.number(),
-  })
-);
+export type TBasicContract = {
+  contractName: string;
+  address: string;
+  abi?: Readonly<Record<string, any>[]>;
+};
 
 /**
  * #### Summary
@@ -35,29 +27,83 @@ export const basicContractConfigSchema = z.record(
  * A record of key:chainId.  value:{address, chainId}
  * @category Models
  */
-export type TBasicContractConfig = z.infer<typeof basicContractConfigSchema>;
+export type TBasicContractDeployment = {
+  [chainId: number]: {
+    chainId: number;
+    address: string;
+  };
+};
+
+// /**
+//  * #### Summary
+//  * Zod Schema for {@link TBasicContractConfig}
+//  */
+// export const basicContractConfigSchema = z.record(
+//   z.number({ description: 'chainId' }),
+//   z.object({
+//     address: z.string(),
+//     chainId: z.number(),
+//   })
+// );
 
 /**
  * #### Summary
- * Zod Schema for {@link TBasicContractMap}
+ * Contracts by contract name
+ * - A record key: contractNames, values: {@link TBasicContractDeployment}
  */
-export const basicContractMapSchema = z.record(
+export type TBasicContractDeploymentMap = {
+  [contractName: string]: {
+    config: TBasicContractDeployment;
+  };
+};
+/**
+ * #### Summary
+ * Zod Schema for {@link TBasicContractDeploymentMap}
+ */
+export const basicContractDeploymentMapSchema: ZodType<TBasicContractDeploymentMap> = z.record(
   z.string({ description: 'contractName' }),
   z.object({
-    config: basicContractConfigSchema,
+    config: z.record(
+      z.number({ description: 'chainId' }),
+      z.object({
+        address: z.string(),
+        chainId: z.number(),
+      })
+    ),
   })
 );
 
 /**
  * #### Summary
- * Contracts by contract name
- * - A record key: contractNames, values: {@link TBasicContractConfig}
+ * Contracts by contract name, used by eth-hooks to connect and load contracts
+ * - A record of key:{contract names}, values: Hardhat contract json
+ * - includes chain id
  */
-export type TBasicContractMap = z.infer<typeof basicContractMapSchema>;
 
-export const externalContractAddressMap = z.record(
-  z.number({ description: 'chainId' }),
-  z.record(z.string({ description: 'contractName' }), z.string({ description: 'address' }))
+export type TContractMapWithAbi = {
+  [contractName: string]: {
+    config: TBasicContractDeployment;
+    abi: Readonly<Record<string, any>[]>;
+  };
+};
+
+/**
+ * #### Summary
+ * Zod Schema for {@link TContractMapWithAbi}
+ */
+
+export const contractMapWithAbiSchema: ZodType<TContractMapWithAbi> = z.record(
+  z.string({ description: 'contractName' }),
+  z.object({
+    config: z.record(
+      z.number({ description: 'chainId' }),
+      z.object({
+        address: z.string(),
+        chainId: z.number(),
+      })
+    ),
+    abi: z.array(z.any()),
+  })
 );
 
 /**
@@ -70,3 +116,12 @@ export const externalContractAddressMap = z.record(
  * @category Models
  */
 export type TExternalContractsAddressMap = z.infer<typeof externalContractAddressMap>;
+
+/**
+ * #### Summary
+ * Zod Schema for {@link TExternalContractsAddressMap}
+ */
+export const externalContractAddressMap = z.record(
+  z.number({ description: 'chainId' }),
+  z.record(z.string({ description: 'contractName' }), z.string({ description: 'address' }))
+);

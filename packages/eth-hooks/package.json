@@ -148,6 +148,7 @@
     "ts-node": "^10.9.1",
     "ts-patch": "^2.0.2",
     "ts-sinon": "^2.0.2",
+    "ts-toolbelt": "^9.6.0",
     "tsconfig-paths": "^4.1.0",
     "tsup": "^6.2.2",
     "typechain": "^8.1.0",

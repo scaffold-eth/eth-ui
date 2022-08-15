@@ -1,5 +1,6 @@
-import { z } from 'zod';
+import { z, ZodType } from 'zod';
 
+export type TForgeTransactionData = z.infer<typeof forgeTransactionDataSchema>;
 export const forgeTransactionDataSchema = z.object({
   type: z.string(),
   from: z.string(),
@@ -10,9 +11,19 @@ export const forgeTransactionDataSchema = z.object({
   accessList: z.array(z.string()),
 });
 
-export const forgeTransactionSchema = z.object({
+export type TForgeTransaction = {
+  hash: string;
+  transactionType: 'CREATE' | Omit<string, 'CREATE'>;
+  contractName: string;
+  contractAddress: string;
+  function: string;
+  arguments: string;
+  transaction: TForgeTransactionData;
+};
+
+export const forgeTransactionSchema: ZodType<TForgeTransaction> = z.object({
   hash: z.string(),
-  transactionType: z.enum(['CREATE']),
+  transactionType: z.string(),
   contractName: z.string(),
   contractAddress: z.string(),
   function: z.string(),
@@ -20,12 +31,17 @@ export const forgeTransactionSchema = z.object({
   transaction: forgeTransactionDataSchema,
 });
 
-export const forgeBroadcastSchema = z.object({
-  transactions: z.array(forgeTransactionSchema),
-});
+export type TForgeBroadcastJson = {
+  transactions: TForgeTransaction[];
+};
 
-export type TForgeTransactionData = z.infer<typeof forgeTransactionDataSchema>;
+export type TForgeBoradcastCollection = {
+  [chainId: number]: TForgeBroadcastJson;
+};
 
-export type TForgeTransaction = z.infer<typeof forgeTransactionSchema>;
-
-export type TForgeBroadcast = z.infer<typeof forgeBroadcastSchema>;
+export const forgeBoradcastCollectionSchema: ZodType<TForgeBoradcastCollection> = z.record(
+  z.number({ description: 'chainId' }),
+  z.object({
+    transactions: z.array(forgeTransactionSchema),
+  })
+);
