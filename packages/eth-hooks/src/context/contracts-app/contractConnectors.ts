@@ -3,14 +3,16 @@ import { merge } from 'merge-anything';
 
 import { TContractConnectorBase, TContractConnector, TContractConnectFunc } from '~~/models';
 import {
-  THardhatContractDataRecord,
   TExternalContractsAddressMap,
-  TDeployedHardhatContractsJson,
   TBasicContractConfig,
-  deployedHardhatContractsJsonSchema,
   basicContractMapSchema,
   TBasicContractMap,
 } from '~~/models/contractTypes';
+import {
+  THardhatContractDataRecord,
+  TDeployedHardhatContractsJson,
+  deployedHardhatContractsJsonSchema,
+} from '~~/models/contractTypesHardhat';
 
 /**
  * #### Summary

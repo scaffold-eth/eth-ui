@@ -3,11 +3,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useIsMounted } from 'usehooks-ts';
 
 import { parseProviderOrSigner, providerKey } from '~~/functions';
-import {
-  TDeployedHardhatContractsJson as THardhatDeployedContractsJson,
-  TBasicContract,
-  TEthersProviderOrSigner,
-} from '~~/models';
+import { TBasicContract, TEthersProviderOrSigner } from '~~/models';
+import { TDeployedHardhatContractsJson } from '~~/models/contractTypesHardhat';
 
 /**
  * #### Summary
@@ -49,7 +46,7 @@ export type TContractLoaderConfig = {
    * Hardhat deployed contracts
    * untyped
    */
-  deployedContractsJson?: THardhatDeployedContractsJson;
+  deployedContractsJson?: TDeployedHardhatContractsJson;
   /**
    * External contracts (such as DAI)
    */
@@ -57,7 +54,7 @@ export type TContractLoaderConfig = {
 };
 
 export const parseContractsInDeployedHardhatContractsJson = (
-  contractList: THardhatDeployedContractsJson,
+  contractList: TDeployedHardhatContractsJson,
   chainId: number
 ): Record<string, TBasicContract> => {
   let combinedContracts: Record<string, TBasicContract> = {};
@@ -118,7 +115,7 @@ export const useContractLoader = (
       const chainId = adaptor?.chainId;
       if (providerOrSigner != null && chainId && chainId > 0) {
         try {
-          const contractList: THardhatDeployedContractsJson = { ...(config.deployedContractsJson ?? {}) };
+          const contractList: TDeployedHardhatContractsJson = { ...(config.deployedContractsJson ?? {}) };
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
