@@ -11,14 +11,14 @@ import { waitForExpect } from '~~/helpers/test-utils/functions/mochaHelpers';
 import { getTestSigners } from '~~/helpers/test-utils/wrapper';
 import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { useContractReaderUntyped } from '~~/hooks';
-import { TContractFunctionInfo } from '~~/models';
+import { TContractFunctionInfoUntyped } from '~~/models';
 
 const initialPurpose = 'no purpose';
 
 describe('useContractReaderUntyped', function () {
   describe('Given that a YourContract is deployed', () => {
     let yourContract: YourContract | undefined;
-    let yourContractPurposeInfo: TContractFunctionInfo;
+    let yourContractPurposeInfo: TContractFunctionInfoUntyped;
     let contractSigner: Signer;
 
     before(async () => {

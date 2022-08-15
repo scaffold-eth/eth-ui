@@ -13,7 +13,7 @@ import { YourContract } from 'test-files/generated/contract-types';
 import { getTestSigners, hookTestWrapper } from '~~/helpers/test-utils/wrapper';
 import { wrapperTestSetupHelper } from '~~/helpers/test-utils/wrapper/hardhatTestHelpers';
 import { TContractLoaderConfig, useContractLoader } from '~~/hooks';
-import { TContractFunctionInfo } from '~~/models';
+import { TContractFunctionInfoUntyped } from '~~/models';
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const initalizeHook = async (config: TContractLoaderConfig) => {
   const wrapper = await hookTestWrapper((input: Parameters<typeof useContractLoader>) => useContractLoader(...input));
@@ -25,7 +25,7 @@ const initalizeHook = async (config: TContractLoaderConfig) => {
 describe('useContractLoader', function () {
   describe('Given that YourContract is deployed', () => {
     let yourContract: YourContract | undefined;
-    let _yourContractPurposeInfo: TContractFunctionInfo;
+    let _yourContractPurposeInfo: TContractFunctionInfoUntyped;
     let contractSigner: Signer;
 
     before(async () => {

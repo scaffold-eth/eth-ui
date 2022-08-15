@@ -1,51 +1,93 @@
+import { z } from 'zod';
+
+/**
+ * #### Summary
+ * Zod Schema for {@link TBasicContract}
+ */
+export const basicContractSchema = z.object({
+  address: z.string(),
+  abi: z.array(z.any()).optional(),
+});
+
 /**
  * #### Summary
  * Describes the sctructure of each contract in hardhat_contracts.json
  *
  * @category Models
  */
-export type TBasicContractData = {
-  address: string;
-  abi?: any[];
-};
+export type TBasicContract = z.infer<typeof basicContractSchema>;
 
 /**
  * #### Summary
- * Describes a basic contract data record, the chainId and address
- *
+ * Zod Schema for {@link TBasicContractConfig}
+ */
+export const basicContractConfigSchema = z.record(
+  z.number({ description: 'chainId' }),
+  z.object({
+    address: z.string(),
+    chainId: z.number(),
+  })
+);
+
+/**
+ * #### Summary
+ * Describes a basic contract data record.
+ * A record of key:chainId.  value:{address, chainId}
  * @category Models
  */
-export type TBasicContractDataConfig = {
-  [chainId: number]: {
-    chainId: number;
-    address: string;
-  };
-};
+export type TBasicContractConfig = z.infer<typeof basicContractConfigSchema>;
+
+/**
+ * #### Summary
+ * Zod Schema for {@link TBasicContractMap}
+ */
+export const basicContractMapSchema = z.record(
+  z.string({ description: 'contractName' }),
+  z.object({
+    config: basicContractConfigSchema,
+  })
+);
 
 /**
  * #### Summary
  * Contracts by contract name
- * - A record of contract names and their hardhat contract json
- * - includes chain id
+ * - A record key: contractNames, values: {@link TBasicContractConfig}
  */
-export type THardhatContractDataRecord = {
-  [contractName: string]: {
-    config: TBasicContractDataConfig;
-    abi: any[];
-  };
-};
+export type TBasicContractMap = z.infer<typeof basicContractMapSchema>;
+
+/**
+ * #### Summary
+ * Zod Schema for {@link THardhatContractDataRecord}
+ */
+export const hardhatContractDataRecordSchema = z.record(
+  z.string({ description: 'contractName' }),
+  z.object({
+    config: basicContractConfigSchema,
+    abi: z.array(z.any()),
+  })
+);
 
 /**
  * #### Summary
  * Contracts by contract name
- * - A record of contract names and their hardhat contract json
+ * - A record of key:{contract names}, values: Hardhat contract json
  * - includes chain id
  */
-export type TExternalContractDataRecord = {
-  [contractName: string]: {
-    config: TBasicContractDataConfig;
-  };
-};
+export type THardhatContractDataRecord = z.infer<typeof hardhatContractDataRecordSchema>;
+/**
+ * #### Summary
+ * Zod Schema for {@link TBasicContractMap}
+ */
+export const deployedHardhatContractsJsonSchema = z.record(
+  z.number({ description: 'chainId' }),
+  z
+    .object({
+      name: z.string({ description: 'contractName' }),
+      chainId: z.string({ description: 'chainId' }),
+      contracts: z.record(z.string({ description: 'contractName' }), basicContractSchema.required()),
+    })
+    .array()
+);
 
 /**
  * #### Summary
@@ -55,18 +97,12 @@ export type TExternalContractDataRecord = {
  *
  * @category Models
  */
-export type TDeployedHardhatContractsJson = {
-  [chainId: string]: {
-    name: string;
-    chainId: string;
-    contracts: {
-      [contractName: string]: {
-        address: string;
-        abi?: any[];
-      };
-    };
-  }[];
-};
+export type TDeployedHardhatContractsJson = z.infer<typeof deployedHardhatContractsJsonSchema>;
+
+export const externalContractAddressMap = z.record(
+  z.number({ description: 'chainId' }),
+  z.record(z.string({ description: 'contractName' }), z.string({ description: 'address' }))
+);
 
 /**
  * {chainId: {contract: address}}, contains an record of contracts
@@ -77,14 +113,11 @@ export type TDeployedHardhatContractsJson = {
  *
  * @category Models
  */
-export type TExternalContractsAddressMap = {
-  [chainId: number]: {
-    [contractName: string]: string;
-  };
-};
+export type TExternalContractsAddressMap = z.infer<typeof externalContractAddressMap>;
 
 /**
  * #### Summary
+ * @depcrated
  * Contract function information:
  * - contractName
  * - functionname
@@ -92,7 +125,7 @@ export type TExternalContractsAddressMap = {
  *
  * @category Models
  */
-export type TContractFunctionInfo = {
+export type TContractFunctionInfoUntyped = {
   contractName: string;
   functionName: string;
   functionArgs?: any[];

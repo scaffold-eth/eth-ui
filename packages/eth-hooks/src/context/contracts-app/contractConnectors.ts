@@ -6,8 +6,10 @@ import {
   THardhatContractDataRecord,
   TExternalContractsAddressMap,
   TDeployedHardhatContractsJson,
-  TBasicContractDataConfig,
-  TExternalContractDataRecord,
+  TBasicContractConfig,
+  deployedHardhatContractsJsonSchema,
+  basicContractMapSchema,
+  TBasicContractMap,
 } from '~~/models/contractTypes';
 
 /**
@@ -20,6 +22,11 @@ import {
  * @returns
  */
 const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): THardhatContractDataRecord => {
+  const parse = deployedHardhatContractsJsonSchema.safeParse(configJson);
+  if (!parse.success) {
+    console.error('Invalid deployed hardhat_contracts.json TDeployedHardhatContractsJson', parse.error);
+  }
+
   const contractData: THardhatContractDataRecord = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
@@ -30,7 +37,7 @@ const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): THa
     )?.[0];
     if (deployedDataByNetwork?.chainId != null) {
       for (const contractName in deployedDataByNetwork.contracts) {
-        const config: TBasicContractDataConfig = {
+        const config: TBasicContractConfig = {
           [chainId]: { address: deployedDataByNetwork.contracts[contractName].address, chainId },
         };
 
@@ -46,14 +53,19 @@ const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): THa
   return contractData;
 };
 
-const extractExternalContracts = (configJson: TExternalContractsAddressMap): TExternalContractDataRecord => {
-  const contractData: TExternalContractDataRecord = {};
+const extractExternalContracts = (configJson: TExternalContractsAddressMap): TBasicContractMap => {
+  const parse = basicContractMapSchema.safeParse(configJson);
+  if (!parse.success) {
+    console.error('Invalid deployed hardhat_contracts.json TDeployedHardhatContractsJson', parse.error);
+  }
+
+  const contractData: TBasicContractMap = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
 
     for (const contractName in configJson[chainId]) {
-      const config: TBasicContractDataConfig = {
+      const config: TBasicContractConfig = {
         [chainId]: { address: configJson[chainId][contractName], chainId: chainId },
       };
       contractData[contractName] = merge({ ...(contractData[contractName] ?? {}) }, { config });
@@ -153,7 +165,7 @@ export const createConnectorForExternalAbi = <
   GBaseContract extends BaseContract = BaseContract
 >(
   contractName: GContractNames,
-  config: TBasicContractDataConfig,
+  config: TBasicContractConfig,
   abi: Record<string, any>[],
   connectFunc: TContractConnectFunc<GBaseContract> | undefined = undefined
 ): TContractConnector<GContractNames, GBaseContract> => {

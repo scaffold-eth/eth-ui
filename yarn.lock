@@ -11784,6 +11784,7 @@ __metadata:
     use-debounce: ^8.0.3
     usehooks-ts: ^2.6.0
     web3modal: ^1.9.8
+    zod: ^3.18.0
     zustand: 4.0.0
   peerDependencies:
     "@uniswap/sdk": ^3
@@ -26015,6 +26016,13 @@ __metadata:
   peerDependencies:
     ethers: ~5.5.0
   checksum: f533e3320a40317e2656594da9e8aa38f3a95a91141a715028845143dfc5eb84075f400c5dd558296f55706e42c5575bb66defedb3551258e9f843513d3b8c06
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.18.0":
+  version: 3.18.0
+  resolution: "zod@npm:3.18.0"
+  checksum: 86a9a9928f4b40a07020d4b9832842fa4a70050c2d7bd1b2866bc1acfd734aa53a40f87a99a4312a637341a608b0105770c7a1f83b56df78e97691b4f5badcd8
   languageName: node
   linkType: hard
 

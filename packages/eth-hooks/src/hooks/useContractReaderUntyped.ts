@@ -4,7 +4,7 @@ import { useIsMounted } from 'usehooks-ts';
 
 import { useBlockNumberContext, useEthersAppContext } from '~~/context';
 import { mergeDefaultOverride, ethersOverride } from '~~/functions';
-import { TContractFunctionInfo, TOverride } from '~~/models';
+import { TContractFunctionInfoUntyped, TOverride } from '~~/models';
 
 /**
  * #### Summary
@@ -25,7 +25,7 @@ import { TContractFunctionInfo, TOverride } from '~~/models';
  */
 export const useContractReaderUntyped = <GOutput>(
   contract: BaseContract,
-  contractFunctionInfo: TContractFunctionInfo,
+  contractFunctionInfo: TContractFunctionInfoUntyped,
   formatter?: (_value: GOutput | undefined) => GOutput,
   onChange?: (_value?: GOutput) => void,
   override: TOverride = mergeDefaultOverride()

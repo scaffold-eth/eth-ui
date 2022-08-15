@@ -5,7 +5,7 @@ import { useIsMounted } from 'usehooks-ts';
 import { parseProviderOrSigner, providerKey } from '~~/functions';
 import {
   TDeployedHardhatContractsJson as THardhatDeployedContractsJson,
-  TBasicContractData,
+  TBasicContract,
   TEthersProviderOrSigner,
 } from '~~/models';
 
@@ -59,8 +59,8 @@ export type TContractLoaderConfig = {
 export const parseContractsInDeployedHardhatContractsJson = (
   contractList: THardhatDeployedContractsJson,
   chainId: number
-): Record<string, TBasicContractData> => {
-  let combinedContracts: Record<string, TBasicContractData> = {};
+): Record<string, TBasicContract> => {
+  let combinedContracts: Record<string, TBasicContract> = {};
 
   // combine partitioned contracts based on all the available and chain id.
   if (contractList?.[chainId]?.[0] != null) {
@@ -77,12 +77,12 @@ export const parseContractsInDeployedHardhatContractsJson = (
 };
 /**
  * #### Summary
- * ✋🏽 @deprecated
- * Loads your contracts and returns them.
+ * ✋🏽 @deprecated use contractContextFactory
+ * Loads your contracts and returns them. Is not typed
  * Gives options to read values from contracts or write transactions into them.
  *
  * ##### ✏️ Notes
- * - ✋🏽 For easy app wide contract access use {@link AppContractContex} created by {@link contractsContextFactory}.  See {@link contractsContextFactory} for more details.
+ * - ✋🏽 For easy app wide contract access use {@link ContractAppContext} created by {@link contractsContextFactory}.  See {@link contractsContextFactory} for more details.
  *
  * A optional providerOrSigner is needed to initalize the contract class
  * - if none is given, the context providerOrSigner is used if the chainId is the same.
@@ -122,7 +122,7 @@ export const useContractLoader = (
           const externalContractList: TExternalContracts = {
             ...(config.externalContracts ?? {}),
           };
-          let combinedContracts: Record<string, TBasicContractData> = parseContractsInDeployedHardhatContractsJson(
+          let combinedContracts: Record<string, TBasicContract> = parseContractsInDeployedHardhatContractsJson(
             contractList,
             chainId
           );
