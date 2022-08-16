@@ -7,15 +7,15 @@ import {
   TContractConnectFunc,
   TExternalContractsAddressMap,
   TBasicContractDeployment,
-  basicContractDeploymentMapSchema,
-  TBasicContractDeploymentMap,
+  TContractDeploymentMap,
   TContractMapWithAbi,
   TDeployedHardhatContractsJson,
   deployedHardhatContractsJsonSchema,
   TBasicContract,
-  TForgeBoradcastCollection,
-  forgeBoradcastCollectionSchema,
+  TForgeDeploymentBroadcastCollection,
+  forgeDeploymentBroadcastCollectionSchema,
   TForgeBroadcastJson,
+  externalContractAddressMap,
 } from '~~/models';
 
 /**
@@ -30,7 +30,7 @@ import {
 const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): TContractMapWithAbi => {
   const parse = deployedHardhatContractsJsonSchema.safeParse(configJson);
   if (!parse.success) {
-    console.error('Invalid deployed hardhat_contracts.json TDeployedHardhatContractsJson', parse.error);
+    console.error('Invalid deployment hardhat_contracts.json TDeployedHardhatContractsJson', parse.error);
   }
 
   const contractData: TContractMapWithAbi = {};
@@ -65,13 +65,13 @@ const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): TCo
  * @param configJson
  * @returns
  */
-const extractExternalContracts = (configJson: TExternalContractsAddressMap): TBasicContractDeploymentMap => {
-  const parse = basicContractDeploymentMapSchema.safeParse(configJson);
+const extractExternalContracts = (configJson: TExternalContractsAddressMap): TContractDeploymentMap => {
+  const parse = externalContractAddressMap.safeParse(configJson);
   if (!parse.success) {
-    console.error('Invalid deployed hardhat_contracts.json TDeployedHardhatContractsJson', parse.error);
+    console.error('Invalid TExternalContractsAddressMap', parse.error);
   }
 
-  const contractData: TBasicContractDeploymentMap = {};
+  const contractData: TContractDeploymentMap = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
@@ -87,13 +87,13 @@ const extractExternalContracts = (configJson: TExternalContractsAddressMap): TBa
   return contractData;
 };
 
-const extractForgeBroadcastContracts = (configJson: TForgeBoradcastCollection): TBasicContractDeploymentMap => {
-  const parse = forgeBoradcastCollectionSchema.safeParse(configJson);
+const extractForgeBroadcastContracts = (configJson: TForgeDeploymentBroadcastCollection): TContractDeploymentMap => {
+  const parse = forgeDeploymentBroadcastCollectionSchema.safeParse(configJson);
   if (!parse.success) {
     console.error('Invalid forge boradcast json TForgeBroadcastJson', parse.error);
   }
 
-  const contractData: TBasicContractDeploymentMap = {};
+  const contractData: TContractDeploymentMap = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;

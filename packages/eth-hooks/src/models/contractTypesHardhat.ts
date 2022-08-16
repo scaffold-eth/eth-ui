@@ -15,7 +15,9 @@ export type TDeployedHardhatContractsJson = z.infer<typeof deployedHardhatContra
  * Zod Schema for {@link TBasicContractMap}
  */
 export const deployedHardhatContractsJsonSchema = z.record(
-  z.number({ description: 'chainId' }),
+  z
+    .union([z.string({ description: 'chainId' }), z.number({ description: 'chainId' })])
+    .transform((s) => parseInt(s.toString())),
   z
     .object({
       name: z.string({ description: 'contractName' }),

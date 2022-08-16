@@ -35,11 +35,11 @@ export type TForgeBroadcastJson = {
   transactions: TForgeTransaction[];
 };
 
-export type TForgeBoradcastCollection = {
+export type TForgeDeploymentBroadcastCollection = {
   [chainId: number]: TForgeBroadcastJson;
 };
 
-export const forgeBoradcastCollectionSchema: ZodType<TForgeBoradcastCollection> = z.record(
+export const forgeDeploymentBroadcastCollectionSchema: ZodType<TForgeDeploymentBroadcastCollection> = z.record(
   z.number({ description: 'chainId' }),
   z.object({
     transactions: z.array(forgeTransactionSchema),

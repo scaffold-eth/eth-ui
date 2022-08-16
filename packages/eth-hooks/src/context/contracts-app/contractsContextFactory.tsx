@@ -72,7 +72,7 @@ export const contractsContextFactory = <
   GContractNames extends string,
   GAppConnectorList extends TConnectorList<GContractNames, TBaseContractExtended<GContractNames>>
 >(
-  loadAppContractConnectors: () => GAppConnectorList | undefined
+  loadAppContractConnectors: () => GAppConnectorList
 ): {
   /**
    * #### Summary
@@ -86,7 +86,7 @@ export const contractsContextFactory = <
   useAppContracts: <GContractName extends GContractNames>(
     contractName: GContractName,
     chainId: number | undefined
-  ) => TTypedContract<GContractName, GAppConnectorList> | undefined;
+  ) => TTypedContract<GContractName, GAppConnectorList> | never;
   /**
    * #### Summary
    * This hook needs to be called in your app to load all your app contracts
@@ -363,7 +363,7 @@ export const contractsContextFactory = <
   const useAppContracts = <GContractName extends GContractNames>(
     contractName: GContractName,
     chainId: number | undefined
-  ): TTypedContract<GContractName, GAppConnectorList> | undefined => {
+  ): TTypedContract<GContractName, GAppConnectorList> | never => {
     const contractsState = useContractsAppStore((state) => state.contractState);
     const ethersContext = useEthersAppContext();
     const contract = contractsState?.contractsByName?.[contractName]?.[chainId ?? -1]; // -1 is unknown chainId
@@ -388,7 +388,7 @@ export const contractsContextFactory = <
     if (contract) {
       return contract as TTypedContract<GContractName, GAppConnectorList>;
     }
-    return undefined;
+    return undefined as never;
   };
 
   /**

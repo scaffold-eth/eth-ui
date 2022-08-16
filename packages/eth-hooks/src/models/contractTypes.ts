@@ -51,16 +51,16 @@ export type TBasicContractDeployment = {
  * Contracts by contract name
  * - A record key: contractNames, values: {@link TBasicContractDeployment}
  */
-export type TBasicContractDeploymentMap = {
+export type TContractDeploymentMap = {
   [contractName: string]: {
     config: TBasicContractDeployment;
   };
 };
 /**
  * #### Summary
- * Zod Schema for {@link TBasicContractDeploymentMap}
+ * Zod Schema for {@link TContractDeploymentMap}
  */
-export const basicContractDeploymentMapSchema: ZodType<TBasicContractDeploymentMap> = z.record(
+export const contractDeploymentMapSchema: ZodType<TContractDeploymentMap> = z.record(
   z.string({ description: 'contractName' }),
   z.object({
     config: z.record(
@@ -122,6 +122,8 @@ export type TExternalContractsAddressMap = z.infer<typeof externalContractAddres
  * Zod Schema for {@link TExternalContractsAddressMap}
  */
 export const externalContractAddressMap = z.record(
-  z.number({ description: 'chainId' }),
+  z
+    .union([z.string({ description: 'chainId' }), z.number({ description: 'chainId' })])
+    .transform((s) => parseInt(s.toString())),
   z.record(z.string({ description: 'contractName' }), z.string({ description: 'address' }))
 );

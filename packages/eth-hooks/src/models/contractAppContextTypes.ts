@@ -57,7 +57,7 @@ export type TConnectorList<GContractNames extends string, GContracts extends TBa
  * A type that infers contract type `(extended from BaseContract)` based on connectors and contractName.  For example `DAI` from `{ DAI: { connect: ... } }`.  If the contractName is not found, it will return a BaseContract
  *
  * ##### ✏️ Notes
- * - used by {@link contractContextFactory}
+ * - used by {@link contractsConextFactory}
  */
 export type TTypedContract<
   GContractNames extends string,
@@ -66,7 +66,7 @@ export type TTypedContract<
   [key in GContractNames]: { connect: (address: any, signerOrProvider: any) => infer TypedContract };
 }
   ? TypedContract
-  : TBaseContractExtended<GContractNames>;
+  : never;
 
 /**
  * #### Summary
