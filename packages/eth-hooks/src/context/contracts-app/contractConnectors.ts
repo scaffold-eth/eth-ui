@@ -16,6 +16,7 @@ import {
   forgeDeploymentBroadcastCollectionSchema,
   TForgeBroadcastJson,
   externalContractAddressMap,
+  TBaseContractExtended,
 } from '~~/models';
 
 /**
@@ -249,28 +250,44 @@ export const createConnectorForExternalContract = <GContractNames extends string
  */
 export const createConnectorForExternalAbi = <
   GContractNames extends string,
-  GBaseContract extends BaseContract = BaseContract
+  GBaseContractExtended extends TBaseContractExtended<GContractNames> = TBaseContractExtended<GContractNames>
 >(
   contractName: GContractNames,
-  config: TBasicContractDeployment,
+  config: {
+    [chainId: number]: {
+      address: string;
+    };
+  },
   abi: Record<string, any>[],
-  connectFunc: TContractConnectFunc<GBaseContract> | undefined = undefined
-): TContractConnector<GContractNames, GBaseContract> => {
+  connectFunc: TContractConnectFunc<GBaseContractExtended> | undefined = undefined
+): TContractConnector<GContractNames, GBaseContractExtended> => {
+  const deploymentConfig: TBasicContractDeployment = { ...config } as TBasicContractDeployment;
+  for (const k in deploymentConfig) {
+    deploymentConfig[k].chainId = parseInt(k);
+  }
+
   if (connectFunc) {
     return {
       contractName,
       connect: connectFunc,
       abi: abi,
-      config: { ...config },
+      config: deploymentConfig,
     };
   } else {
+    const defaultConnectFunction: TContractConnectFunc<GBaseContractExtended> = (
+      address: string,
+      signerOrProvider: ethers.Signer | ethers.providers.Provider
+    ) => {
+      const baseContract = new BaseContract(address, abi, signerOrProvider) as GBaseContractExtended;
+      baseContract.contractName = contractName;
+      return baseContract;
+    };
+
     return {
       contractName,
-      connect: (address: string, signerOrProvider: ethers.Signer | ethers.providers.Provider): GBaseContract => {
-        return new BaseContract(address, abi, signerOrProvider) as GBaseContract;
-      },
+      connect: defaultConnectFunction,
       abi: abi,
-      config: { ...config },
+      config: deploymentConfig,
     };
   }
 };
