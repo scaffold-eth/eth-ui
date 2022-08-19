@@ -14,7 +14,6 @@ import {
   TBasicContract,
   TForgeDeploymentBroadcastCollection,
   forgeDeploymentBroadcastCollectionSchema,
-  TForgeBroadcastJson,
   externalContractAddressMap,
   TBaseContractExtended,
 } from '~~/models';
@@ -179,7 +178,7 @@ export const createConnectorForForgeBroadcastContract = <
 >(
   contractName: GContractNames,
   typechainFactory: TContractConnectorBase<GBaseContract>,
-  forgeBroadcastJson: TForgeBroadcastJson
+  forgeBroadcastJson: TForgeDeploymentBroadcastCollection
 ): TContractConnector<GContractNames, GBaseContract> => {
   const info = extractForgeBroadcastContracts(forgeBroadcastJson)[contractName];
 

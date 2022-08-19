@@ -12,22 +12,22 @@ export const forgeTransactionDataSchema = z.object({
 });
 
 export type TForgeTransaction = {
-  hash: string;
+  hash: string | null;
   transactionType: 'CREATE' | Omit<string, 'CREATE'>;
   contractName: string;
   contractAddress: string;
-  function: string;
-  arguments: string;
+  function: string | null;
+  arguments: string | null;
   transaction: TForgeTransactionData;
 };
 
 export const forgeTransactionSchema: ZodType<TForgeTransaction> = z.object({
-  hash: z.string(),
+  hash: z.string().nullable(),
   transactionType: z.string(),
   contractName: z.string(),
   contractAddress: z.string(),
-  function: z.string(),
-  arguments: z.string(),
+  function: z.string().nullable(),
+  arguments: z.string().nullable(),
   transaction: forgeTransactionDataSchema,
 });
 
@@ -40,7 +40,7 @@ export type TForgeDeploymentBroadcastCollection = {
 };
 
 export const forgeDeploymentBroadcastCollectionSchema: ZodType<TForgeDeploymentBroadcastCollection> = z.record(
-  z.number({ description: 'chainId' }),
+  z.union([z.number(), z.string()], { description: 'chainId' }).transform((t) => parseInt(t as string)),
   z.object({
     transactions: z.array(forgeTransactionSchema),
   })
