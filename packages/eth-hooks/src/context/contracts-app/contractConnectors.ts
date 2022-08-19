@@ -136,7 +136,10 @@ const extractForgeBroadcastContracts = (configJson: TForgeDeploymentBroadcastCol
  * @param deployedHardhatContractJson
  * @returns
  */
-export const createConnectorForHardhatContract = <GContractNames extends string, GBaseContract extends BaseContract>(
+export const createConnectorForHardhatContract = <
+  GContractNames extends string,
+  GBaseContract extends TBaseContractExtended<GContractNames>
+>(
   contractName: GContractNames,
   typechainFactory: TContractConnectorBase<GBaseContract>,
   deployedHardhatContractJson: TDeployedHardhatContractsJson
@@ -172,7 +175,7 @@ export const createConnectorForHardhatContract = <GContractNames extends string,
  */
 export const createConnectorForForgeBroadcastContract = <
   GContractNames extends string,
-  GBaseContract extends BaseContract
+  GBaseContract extends TBaseContractExtended<GContractNames>
 >(
   contractName: GContractNames,
   typechainFactory: TContractConnectorBase<GBaseContract>,
@@ -210,7 +213,10 @@ export const createConnectorForForgeBroadcastContract = <
  * @param deployedContractJson
  * @returns
  */
-export const createConnectorForExternalContract = <GContractNames extends string, GBaseContract extends BaseContract>(
+export const createConnectorForExternalContract = <
+  GContractNames extends string,
+  GBaseContract extends TBaseContractExtended<GContractNames>
+>(
   contractName: GContractNames,
   typechainFactory: TContractConnectorBase<GBaseContract>,
   deployedContractJson: TExternalContractsAddressMap
