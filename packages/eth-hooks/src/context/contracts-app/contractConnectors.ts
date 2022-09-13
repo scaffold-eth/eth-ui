@@ -87,6 +87,12 @@ const extractExternalContracts = (configJson: TExternalContractsAddressMap): TCo
   return contractData;
 };
 
+/**
+ * #### Summary
+ * Extract forge contracts from forgeDeploymentBroadcasts
+ * @param configJson
+ * @returns
+ */
 const extractForgeBroadcastContracts = (configJson: TForgeDeploymentBroadcastCollection): TContractDeploymentMap => {
   const parse = forgeDeploymentBroadcastCollectionSchema.safeParse(configJson);
   if (!parse.success) {
@@ -98,28 +104,38 @@ const extractForgeBroadcastContracts = (configJson: TForgeDeploymentBroadcastCol
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
 
-    for (const contractName in configJson[chainId]) {
-      const contractDeployment = configJson[chainId].transactions
-        .filter((f) => f.transactionType === 'CREATE')
-        .map((m) => {
-          const td: TBasicContract = {
-            contractName: m.contractName,
-            address: m.contractAddress,
-          };
-          return td;
-        });
+    const contractDeployments = configJson[chainId].transactions
+      .filter((f) => f.transactionType === 'CREATE')
+      .map((m) => {
+        const td: TBasicContract = {
+          contractName: m.contractName.replace('Deploy', '').replace('deploy', ''),
+          address: m.contractAddress,
+        };
+        return td;
+      });
 
-      const data = contractDeployment.filter((f) => f.contractName === contractName);
-      if (data.length > 1) {
-        console.error('Multiple contract deployments found for contract on the same chainId', contractName);
+    const contractNameList = contractDeployments.map((m) => m.contractName);
+
+    contractNameList.forEach((contractName) => {
+      const data = contractDeployments.filter((f) => f.contractName === contractName);
+      if (data.length === 0) {
+        console.error('Contract deployments NOT found for contract', contractName, `chainId: ${chainId}`);
+      } else if (data.length > 1) {
+        console.error(
+          'Multiple contract deployments found for contract on the same chainId',
+          contractName,
+          `chainId: ${chainId}`
+        );
       }
 
+      console.log('output data', data[0]);
+
       const config: TBasicContractDeployment = {
-        [chainId]: { address: data[0].address, chainId: chainId },
+        [chainId]: { address: data?.[0]?.address, chainId: chainId },
       };
 
       contractData[contractName] = merge({ ...(contractData[contractName] ?? {}) }, { config });
-    }
+    });
   }
 
   return contractData;
@@ -164,15 +180,15 @@ export const createConnectorForHardhatContract = <
 
 /**
  * ##### Summary
- * Creates a connector for any of your hardhat contracts
+ * Creates a connector for any of your Foundry contracts, deployed forge scripts and forge broadcast output
  *
  * @category ContractAppContext
  * @param contractName
  * @param typechainFactory
- * @param deployedHardhatContractJson
+ * @param forgeBroadcastJson
  * @returns
  */
-export const createConnectorForForgeBroadcastContract = <
+export const createConnectorForFoundryContract = <
   GContractNames extends string,
   GBaseContract extends TBaseContractExtended<GContractNames>
 >(
@@ -184,7 +200,7 @@ export const createConnectorForForgeBroadcastContract = <
 
   if (info == null || typechainFactory.abi == null) {
     throw new Error(
-      `Contract ${contractName} not found in deployed contracts (hardhat_config.json).  Check your hardhat deploy scripts and hardhat_config.json`
+      `Contract ${contractName} not found in deployed contracts (foundry_config.json).  Check your foundry deploy script`
     );
   }
 
