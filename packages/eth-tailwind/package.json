@@ -1,0 +1,112 @@
+{
+  "name": "eth-tailwind",
+  "version": "0.1.1-beta01",
+  "description": "A base for building web3 components",
+  "repository": "https://github.com/scaffold-eth/eth-headless.git",
+  "main": "index.js",
+  "module": "./esm/index.js",
+  "browser": {
+    "./index.js": "./index.js",
+    "./index.mjs": "./esm/index.js"
+  },
+  "types": "index.d.ts",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "contributors": [
+    {
+      "name": "Shravan Sunder",
+      "url": "https://github.com/ShravanSunder"
+    }
+  ],
+  "scripts": {
+    "watch": "tsc -w --noEmit",
+    "clean": "shx rm -rf ./lib",
+    "build": "yarn clean && tsup && ts-patch i -s && tsc -p tsconfig.build.json",
+    "package": "shx cp -R package.json ./lib && shx cp -R README.md ./lib",
+    "publish:pre": "yarn clean && yarn build && yarn package",
+    "publish:yalc": "yarn build && yarn package && cd lib && yalc publish --no-script --push",
+    "publish:next": "yarn build && yarn package && cd lib && npm publish --tag next",
+    "publish:latest": "yarn build && yarn package && cd lib && npm publish --tag latest",
+    "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*.(ts|tsx) ./test/**/*.(ts|tsx)",
+    "lint:report": "eslint --config ./.eslintrc --ignore-path ./.eslintignore --output-file eslint_report.json --format json ./src/**/*.(ts|tsx)",
+    "format": "yarn prettier -w ./src ./test",
+    "format:check": "yarn prettier -c ./src ./test",
+    "test": "TS_NODE_PROJECT=tsconfig.testing.json TS_NODE_TRANSPILE_ONLY=1 mocha ./test/**/*.test.(ts|tsx)"
+  },
+  "dependencies": {
+    "eth-headless": "workspace:^",
+    "eth-hooks": "workspace:^",
+    "ethers": "^5.6.9",
+    "lodash.isequal": "^4.5.0",
+    "merge-anything": "^5.0.2",
+    "react-query": "^3.38.*",
+    "ts-invariant": "^0.10.3",
+    "use-debounce": "^8.0.3",
+    "usehooks-ts": "^2.6.0"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^8.17.1",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/lodash.isequal": "^4.5.6",
+    "@types/node": "^16.11.48",
+    "@types/pretty-time": "^1.1.2",
+    "@types/qrcode.react": "^1.0.2",
+    "@types/react": "^18.0.17",
+    "@types/react-blockies": "^1.4.1",
+    "@types/react-dom": "^18.0.6",
+    "@types/sinon-chai": "^3.2.8",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "chai": "^4.3.6",
+    "cross-env": "^7.0.3",
+    "earljs": "^0.2.3",
+    "esbuild": "^0.15.2",
+    "esbuild-node-externals": "^1.4.1",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.8.2",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-markdown": "^3.0.0",
+    "eslint-plugin-mocha": "^10.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-testing-library": "^5.6.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "global-jsdom": "^8.5.0",
+    "jsdom": "^20.0.0",
+    "prettier": "^2.7.1",
+    "prettier-eslint": "^15.0.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.1",
+    "ts-patch": "^2.0.2",
+    "tsconfig-paths": "^4.1.0",
+    "tsup": "^6.2.2",
+    "typechain": "^8.1.0",
+    "typescript": "^4.7.4",
+    "typescript-transform-paths": "^3.3.1"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "react",
+    "create-eth-app",
+    "typescript"
+  ],
+  "license": "MIT"
+}

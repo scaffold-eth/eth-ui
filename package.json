@@ -49,6 +49,10 @@
       "yarn workspace eth-headless lint --fix",
       "yarn workspace eth-headless format"
     ],
+    "packages/eth-tailwind/**/*.{ts,tsx}": [
+      "yarn workspace eth-tailwind lint --fix",
+      "yarn workspace eth-tailwind format"
+    ],
     "packages/docusaurus/src/**/*.{ts,tsx,js,jsx}": [
       "npm run lint --fix",
       "npm run format"

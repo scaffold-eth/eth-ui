@@ -1,0 +1,32 @@
+{
+  "mochaExplorer.files": "test/**/*.{j,t}s",
+  "mochaExplorer.parallel": true,
+  "mochaExplorer.timeout": 20000,
+  "mochaExplorer.configFile": "./mocharc.json",
+  "mochaExplorer.esmLoader": false,
+  "terminal.integrated.fontSize": 12,
+  "editor.tabSize": 2,
+  "mochaExplorer.optsFile": "",
+  "search.useIgnoreFiles": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.cache": true,
+    "**/.vs/": true,
+    "**/*.cs": true,
+    "**/*.orig": true,
+    "**/bin/": true,
+    "**/build/": true,
+    "**/build/**/*": true,
+    "**/debug/": true,
+    "**/dist/": true,
+    "**/obj": true,
+    "lib": true
+  },
+  "explorerExclude.backup": null,
+  "exportall.config.relExclusion": ["/src/helpers/test-utils", "/src/helpers/typedoc", "/src/helpers/__global.ts"]
+}

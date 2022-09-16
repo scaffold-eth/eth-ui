@@ -1,1 +1,1 @@
-export * from './components/eth-balance';
+export * from './hooks/useEthBalance';
