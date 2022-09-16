@@ -11620,70 +11620,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eth-headless@workspace:^, eth-headless@workspace:packages/eth-headless":
-  version: 0.0.0-use.local
-  resolution: "eth-headless@workspace:packages/eth-headless"
-  dependencies:
-    "@testing-library/dom": ^8.17.1
-    "@testing-library/react": ^13.3.0
-    "@testing-library/react-hooks": ^8.0.1
-    "@testing-library/user-event": ^14.4.3
-    "@types/lodash.isequal": ^4.5.6
-    "@types/node": ^16.11.48
-    "@types/pretty-time": ^1.1.2
-    "@types/qrcode.react": ^1.0.2
-    "@types/react": ^18.0.17
-    "@types/react-blockies": ^1.4.1
-    "@types/react-dom": ^18.0.6
-    "@types/sinon-chai": ^3.2.8
-    "@typescript-eslint/eslint-plugin": ^5.33.0
-    "@typescript-eslint/parser": ^5.33.0
-    chai: ^4.3.6
-    cross-env: ^7.0.3
-    earljs: ^0.2.3
-    esbuild: ^0.15.2
-    esbuild-node-externals: ^1.4.1
-    eslint: ^8.22.0
-    eslint-config-prettier: ^8.5.0
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-jest: ^26.8.2
-    eslint-plugin-jsx-a11y: ^6.6.1
-    eslint-plugin-markdown: ^3.0.0
-    eslint-plugin-mocha: ^10.1.0
-    eslint-plugin-prettier: ^4.2.1
-    eslint-plugin-react: ^7.30.1
-    eslint-plugin-react-hooks: ^4.6.0
-    eslint-plugin-testing-library: ^5.6.0
-    eslint-plugin-unused-imports: ^2.0.0
-    eth-hooks: ^4.6.1
-    ethers: ^5.6.9
-    global-jsdom: ^8.5.0
-    jsdom: ^20.0.0
-    lodash.isequal: ^4.5.0
-    merge-anything: ^5.0.2
-    prettier: ^2.7.1
-    prettier-eslint: ^15.0.1
-    prettier-plugin-tailwindcss: ^0.1.13
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-query: ^3.38.*
-    shx: ^0.3.4
-    ts-invariant: ^0.10.3
-    ts-node: ^10.9.1
-    ts-patch: ^2.0.2
-    tsconfig-paths: ^4.1.0
-    tsup: ^6.2.2
-    typechain: ^8.1.0
-    typescript: ^4.7.4
-    typescript-transform-paths: ^3.3.1
-    use-debounce: ^8.0.3
-    usehooks-ts: ^2.6.0
-  peerDependencies:
-    react: ">=17"
-    react-dom: ">=17"
-  languageName: unknown
-  linkType: soft
-
 "eth-hooks@npm:^4.6.1":
   version: 4.6.2
   resolution: "eth-hooks@npm:4.6.2"
@@ -11922,71 +11858,6 @@ __metadata:
   checksum: 578f5c571c1bb0a86dc1bd4a5b56b8073b37823496d7afa74d772cf91ae6860f91bafcbee931be39a3d13f0c195df9f026a27fce350605ad5d15901a5a4ea94a
   languageName: node
   linkType: hard
-
-"eth-tailwind@workspace:packages/eth-tailwind":
-  version: 0.0.0-use.local
-  resolution: "eth-tailwind@workspace:packages/eth-tailwind"
-  dependencies:
-    "@testing-library/dom": ^8.17.1
-    "@testing-library/react": ^13.3.0
-    "@testing-library/react-hooks": ^8.0.1
-    "@testing-library/user-event": ^14.4.3
-    "@types/lodash.isequal": ^4.5.6
-    "@types/node": ^16.11.48
-    "@types/pretty-time": ^1.1.2
-    "@types/qrcode.react": ^1.0.2
-    "@types/react": ^18.0.17
-    "@types/react-blockies": ^1.4.1
-    "@types/react-dom": ^18.0.6
-    "@types/sinon-chai": ^3.2.8
-    "@typescript-eslint/eslint-plugin": ^5.33.0
-    "@typescript-eslint/parser": ^5.33.0
-    chai: ^4.3.6
-    cross-env: ^7.0.3
-    earljs: ^0.2.3
-    esbuild: ^0.15.2
-    esbuild-node-externals: ^1.4.1
-    eslint: ^8.22.0
-    eslint-config-prettier: ^8.5.0
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-jest: ^26.8.2
-    eslint-plugin-jsx-a11y: ^6.6.1
-    eslint-plugin-markdown: ^3.0.0
-    eslint-plugin-mocha: ^10.1.0
-    eslint-plugin-prettier: ^4.2.1
-    eslint-plugin-react: ^7.30.1
-    eslint-plugin-react-hooks: ^4.6.0
-    eslint-plugin-testing-library: ^5.6.0
-    eslint-plugin-unused-imports: ^2.0.0
-    eth-headless: "workspace:^"
-    eth-hooks: "workspace:^"
-    ethers: ^5.6.9
-    global-jsdom: ^8.5.0
-    jsdom: ^20.0.0
-    lodash.isequal: ^4.5.0
-    merge-anything: ^5.0.2
-    prettier: ^2.7.1
-    prettier-eslint: ^15.0.1
-    prettier-plugin-tailwindcss: ^0.1.13
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-query: ^3.38.*
-    shx: ^0.3.4
-    ts-invariant: ^0.10.3
-    ts-node: ^10.9.1
-    ts-patch: ^2.0.2
-    tsconfig-paths: ^4.1.0
-    tsup: ^6.2.2
-    typechain: ^8.1.0
-    typescript: ^4.7.4
-    typescript-transform-paths: ^3.3.1
-    use-debounce: ^8.0.3
-    usehooks-ts: ^2.6.0
-  peerDependencies:
-    react: ">=17"
-    react-dom: ">=17"
-  languageName: unknown
-  linkType: soft
 
 "eth-tx-summary@npm:^3.1.2":
   version: 3.2.4
@@ -24872,6 +24743,135 @@ __metadata:
   checksum: 0af8589942eeb11c9fe29eb31a1a09f3d5dd136aea53a9848dfbabff79ac0dd26fe13eb54d330d5555fe27bb50b28dca0715e09f9cc2bfa7670ccc8b7f919ca2
   languageName: node
   linkType: hard
+
+"wagmi-headless@workspace:^, wagmi-headless@workspace:packages/wagmi-headless":
+  version: 0.0.0-use.local
+  resolution: "wagmi-headless@workspace:packages/wagmi-headless"
+  dependencies:
+    "@testing-library/dom": ^8.17.1
+    "@testing-library/react": ^13.3.0
+    "@testing-library/react-hooks": ^8.0.1
+    "@testing-library/user-event": ^14.4.3
+    "@types/lodash.isequal": ^4.5.6
+    "@types/node": ^16.11.48
+    "@types/pretty-time": ^1.1.2
+    "@types/qrcode.react": ^1.0.2
+    "@types/react": ^18.0.17
+    "@types/react-blockies": ^1.4.1
+    "@types/react-dom": ^18.0.6
+    "@types/sinon-chai": ^3.2.8
+    "@typescript-eslint/eslint-plugin": ^5.33.0
+    "@typescript-eslint/parser": ^5.33.0
+    chai: ^4.3.6
+    cross-env: ^7.0.3
+    earljs: ^0.2.3
+    esbuild: ^0.15.2
+    esbuild-node-externals: ^1.4.1
+    eslint: ^8.22.0
+    eslint-config-prettier: ^8.5.0
+    eslint-plugin-import: ^2.26.0
+    eslint-plugin-jest: ^26.8.2
+    eslint-plugin-jsx-a11y: ^6.6.1
+    eslint-plugin-markdown: ^3.0.0
+    eslint-plugin-mocha: ^10.1.0
+    eslint-plugin-prettier: ^4.2.1
+    eslint-plugin-react: ^7.30.1
+    eslint-plugin-react-hooks: ^4.6.0
+    eslint-plugin-testing-library: ^5.6.0
+    eslint-plugin-unused-imports: ^2.0.0
+    eth-hooks: ^4.6.1
+    ethers: ^5.6.9
+    global-jsdom: ^8.5.0
+    jsdom: ^20.0.0
+    lodash.isequal: ^4.5.0
+    merge-anything: ^5.0.2
+    prettier: ^2.7.1
+    prettier-eslint: ^15.0.1
+    prettier-plugin-tailwindcss: ^0.1.13
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    react-query: ^3.38.*
+    shx: ^0.3.4
+    ts-invariant: ^0.10.3
+    ts-node: ^10.9.1
+    ts-patch: ^2.0.2
+    tsconfig-paths: ^4.1.0
+    tsup: ^6.2.2
+    typechain: ^8.1.0
+    typescript: ^4.7.4
+    typescript-transform-paths: ^3.3.1
+    use-debounce: ^8.0.3
+    usehooks-ts: ^2.6.0
+  peerDependencies:
+    react: ">=17"
+    react-dom: ">=17"
+  languageName: unknown
+  linkType: soft
+
+"wagmi-tailwind@workspace:packages/wagmi-tailwind":
+  version: 0.0.0-use.local
+  resolution: "wagmi-tailwind@workspace:packages/wagmi-tailwind"
+  dependencies:
+    "@testing-library/dom": ^8.17.1
+    "@testing-library/react": ^13.3.0
+    "@testing-library/react-hooks": ^8.0.1
+    "@testing-library/user-event": ^14.4.3
+    "@types/lodash.isequal": ^4.5.6
+    "@types/node": ^16.11.48
+    "@types/pretty-time": ^1.1.2
+    "@types/qrcode.react": ^1.0.2
+    "@types/react": ^18.0.17
+    "@types/react-blockies": ^1.4.1
+    "@types/react-dom": ^18.0.6
+    "@types/sinon-chai": ^3.2.8
+    "@typescript-eslint/eslint-plugin": ^5.33.0
+    "@typescript-eslint/parser": ^5.33.0
+    chai: ^4.3.6
+    cross-env: ^7.0.3
+    earljs: ^0.2.3
+    esbuild: ^0.15.2
+    esbuild-node-externals: ^1.4.1
+    eslint: ^8.22.0
+    eslint-config-prettier: ^8.5.0
+    eslint-plugin-import: ^2.26.0
+    eslint-plugin-jest: ^26.8.2
+    eslint-plugin-jsx-a11y: ^6.6.1
+    eslint-plugin-markdown: ^3.0.0
+    eslint-plugin-mocha: ^10.1.0
+    eslint-plugin-prettier: ^4.2.1
+    eslint-plugin-react: ^7.30.1
+    eslint-plugin-react-hooks: ^4.6.0
+    eslint-plugin-testing-library: ^5.6.0
+    eslint-plugin-unused-imports: ^2.0.0
+    eth-hooks: "workspace:^"
+    ethers: ^5.6.9
+    global-jsdom: ^8.5.0
+    jsdom: ^20.0.0
+    lodash.isequal: ^4.5.0
+    merge-anything: ^5.0.2
+    prettier: ^2.7.1
+    prettier-eslint: ^15.0.1
+    prettier-plugin-tailwindcss: ^0.1.13
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    react-query: ^3.38.*
+    shx: ^0.3.4
+    ts-invariant: ^0.10.3
+    ts-node: ^10.9.1
+    ts-patch: ^2.0.2
+    tsconfig-paths: ^4.1.0
+    tsup: ^6.2.2
+    typechain: ^8.1.0
+    typescript: ^4.7.4
+    typescript-transform-paths: ^3.3.1
+    use-debounce: ^8.0.3
+    usehooks-ts: ^2.6.0
+    wagmi-headless: "workspace:^"
+  peerDependencies:
+    react: ">=17"
+    react-dom: ">=17"
+  languageName: unknown
+  linkType: soft
 
 "wait-on@npm:^6.0.1":
   version: 6.0.1

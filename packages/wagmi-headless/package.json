@@ -1,8 +1,8 @@
 {
-  "name": "eth-tailwind",
-  "version": "0.1.1-beta01",
+  "name": "wagmi-headless",
+  "version": "0.1.1-beta0",
   "description": "A base for building web3 components",
-  "repository": "https://github.com/scaffold-eth/eth-headless.git",
+  "repository": "https://github.com/scaffold-eth/eth-ui.git",
   "main": "index.js",
   "module": "./esm/index.js",
   "browser": {
@@ -39,8 +39,7 @@
     "test": "TS_NODE_PROJECT=tsconfig.testing.json TS_NODE_TRANSPILE_ONLY=1 mocha ./test/**/*.test.(ts|tsx)"
   },
   "dependencies": {
-    "eth-headless": "workspace:^",
-    "eth-hooks": "workspace:^",
+    "eth-hooks": "^4.6.1",
     "ethers": "^5.6.9",
     "lodash.isequal": "^4.5.0",
     "merge-anything": "^5.0.2",

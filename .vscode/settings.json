@@ -34,6 +34,7 @@
     { "directory": "packages/*", "changeProcessCWD": true },
     { "directory": "packages/eth-hooks", "changeProcessCWD": true },
     { "directory": "packages/docusaurus", "changeProcessCWD": true },
-    { "directory": "packages/eth-headless", "changeProcessCWD": true }
+    { "directory": "packages/wagmi-headless", "changeProcessCWD": true }
+    { "directory": "packages/wagmi-tailwind", "changeProcessCWD": true }
   ]
 }

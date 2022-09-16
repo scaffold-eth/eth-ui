@@ -1,4 +1,4 @@
-# 🖇 Eth-headless Overview
+# 🖇 wagmi-headless Overview
 
 Commonly used Ethereum hooks to supercharge your web3 dev!
 
