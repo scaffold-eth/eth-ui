@@ -1,14 +1,22 @@
 import { BaseContract, ethers } from 'ethers';
 import { merge } from 'merge-anything';
 
-import { TContractConnectorBase, TContractConnector, TContractConnectFunc } from '~~/models';
 import {
-  THardhatContractDataRecord,
+  TContractConnectorBase,
+  TContractConnector,
+  TContractConnectFunc,
   TExternalContractsAddressMap,
+  TBasicContractDeployment,
+  TContractDeploymentMap,
+  TContractMapWithAbi,
   TDeployedHardhatContractsJson,
-  TBasicContractDataConfig,
-  TExternalContractDataRecord,
-} from '~~/models/contractTypes';
+  deployedHardhatContractsJsonSchema,
+  TBasicContract,
+  TForgeDeploymentBroadcastCollection,
+  forgeDeploymentBroadcastCollectionSchema,
+  externalContractAddressMap,
+  TBaseContractExtended,
+} from '~~/models';
 
 /**
  * #### Summary
@@ -19,8 +27,13 @@ import {
  * @param configJson {@link TDeployedHardhatContractsJson}
  * @returns
  */
-const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): THardhatContractDataRecord => {
-  const contractData: THardhatContractDataRecord = {};
+const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): TContractMapWithAbi => {
+  const parse = deployedHardhatContractsJsonSchema.safeParse(configJson);
+  if (!parse.success) {
+    console.error('Invalid deployment hardhat_contracts.json TDeployedHardhatContractsJson', parse.error);
+  }
+
+  const contractData: TContractMapWithAbi = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
@@ -30,7 +43,7 @@ const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): THa
     )?.[0];
     if (deployedDataByNetwork?.chainId != null) {
       for (const contractName in deployedDataByNetwork.contracts) {
-        const config: TBasicContractDataConfig = {
+        const config: TBasicContractDeployment = {
           [chainId]: { address: deployedDataByNetwork.contracts[contractName].address, chainId },
         };
 
@@ -46,18 +59,83 @@ const extractHardhatContracts = (configJson: TDeployedHardhatContractsJson): THa
   return contractData;
 };
 
-const extractExternalContracts = (configJson: TExternalContractsAddressMap): TExternalContractDataRecord => {
-  const contractData: TExternalContractDataRecord = {};
+/**
+ * #### Summary
+ * Extract externalContracts from TExternalContractsAddressMap
+ * @param configJson
+ * @returns
+ */
+const extractExternalContracts = (configJson: TExternalContractsAddressMap): TContractDeploymentMap => {
+  const parse = externalContractAddressMap.safeParse(configJson);
+  if (!parse.success) {
+    console.error('Invalid TExternalContractsAddressMap', parse.error);
+  }
+
+  const contractData: TContractDeploymentMap = {};
   for (const chainIdStr in configJson) {
     const chainId = parseInt(chainIdStr);
     if (chainId == null || isNaN(chainId)) continue;
 
     for (const contractName in configJson[chainId]) {
-      const config: TBasicContractDataConfig = {
+      const config: TBasicContractDeployment = {
         [chainId]: { address: configJson[chainId][contractName], chainId: chainId },
       };
       contractData[contractName] = merge({ ...(contractData[contractName] ?? {}) }, { config });
     }
+  }
+
+  return contractData;
+};
+
+/**
+ * #### Summary
+ * Extract forge contracts from forgeDeploymentBroadcasts
+ * @param configJson
+ * @returns
+ */
+const extractForgeBroadcastContracts = (configJson: TForgeDeploymentBroadcastCollection): TContractDeploymentMap => {
+  const parse = forgeDeploymentBroadcastCollectionSchema.safeParse(configJson);
+  if (!parse.success) {
+    console.error('Invalid forge boradcast json TForgeBroadcastJson', parse.error);
+  }
+
+  const contractData: TContractDeploymentMap = {};
+  for (const chainIdStr in configJson) {
+    const chainId = parseInt(chainIdStr);
+    if (chainId == null || isNaN(chainId)) continue;
+
+    const contractDeployments = configJson[chainId].transactions
+      .filter((f) => f.transactionType === 'CREATE')
+      .map((m) => {
+        const td: TBasicContract = {
+          contractName: m.contractName.replace('Deploy', '').replace('deploy', ''),
+          address: m.contractAddress,
+        };
+        return td;
+      });
+
+    const contractNameList = contractDeployments.map((m) => m.contractName);
+
+    contractNameList.forEach((contractName) => {
+      const data = contractDeployments.filter((f) => f.contractName === contractName);
+      if (data.length === 0) {
+        console.error('Contract deployments NOT found for contract', contractName, `chainId: ${chainId}`);
+      } else if (data.length > 1) {
+        console.error(
+          'Multiple contract deployments found for contract on the same chainId',
+          contractName,
+          `chainId: ${chainId}`
+        );
+      }
+
+      console.log('output data', data[0]);
+
+      const config: TBasicContractDeployment = {
+        [chainId]: { address: data?.[0]?.address, chainId: chainId },
+      };
+
+      contractData[contractName] = merge({ ...(contractData[contractName] ?? {}) }, { config });
+    });
   }
 
   return contractData;
@@ -73,7 +151,10 @@ const extractExternalContracts = (configJson: TExternalContractsAddressMap): TEx
  * @param deployedHardhatContractJson
  * @returns
  */
-export const createConnectorForHardhatContract = <GContractNames extends string, GBaseContract extends BaseContract>(
+export const createConnectorForHardhatContract = <
+  GContractNames extends string,
+  GBaseContract extends TBaseContractExtended<GContractNames>
+>(
   contractName: GContractNames,
   typechainFactory: TContractConnectorBase<GBaseContract>,
   deployedHardhatContractJson: TDeployedHardhatContractsJson
@@ -98,6 +179,43 @@ export const createConnectorForHardhatContract = <GContractNames extends string,
 };
 
 /**
+ * ##### Summary
+ * Creates a connector for any of your Foundry contracts, deployed forge scripts and forge broadcast output
+ *
+ * @category ContractAppContext
+ * @param contractName
+ * @param typechainFactory
+ * @param forgeBroadcastJson
+ * @returns
+ */
+export const createConnectorForFoundryContract = <
+  GContractNames extends string,
+  GBaseContract extends TBaseContractExtended<GContractNames>
+>(
+  contractName: GContractNames,
+  typechainFactory: TContractConnectorBase<GBaseContract>,
+  forgeBroadcastJson: TForgeDeploymentBroadcastCollection
+): TContractConnector<GContractNames, GBaseContract> => {
+  const info = extractForgeBroadcastContracts(forgeBroadcastJson)[contractName];
+
+  if (info == null || typechainFactory.abi == null) {
+    throw new Error(
+      `Contract ${contractName} not found in deployed contracts (foundry_config.json).  Check your foundry deploy script`
+    );
+  }
+
+  return {
+    contractName,
+    connect: typechainFactory.connect,
+    // createInterface: typechainFactory.createInterface,
+    abi: (typechainFactory.abi ?? []) as Record<string, any>[],
+    config: {
+      ...info.config,
+    },
+  };
+};
+
+/**
  * #### Summary
  * Creates a contract connector for any external contract
  *
@@ -110,7 +228,10 @@ export const createConnectorForHardhatContract = <GContractNames extends string,
  * @param deployedContractJson
  * @returns
  */
-export const createConnectorForExternalContract = <GContractNames extends string, GBaseContract extends BaseContract>(
+export const createConnectorForExternalContract = <
+  GContractNames extends string,
+  GBaseContract extends TBaseContractExtended<GContractNames>
+>(
   contractName: GContractNames,
   typechainFactory: TContractConnectorBase<GBaseContract>,
   deployedContractJson: TExternalContractsAddressMap
@@ -150,28 +271,44 @@ export const createConnectorForExternalContract = <GContractNames extends string
  */
 export const createConnectorForExternalAbi = <
   GContractNames extends string,
-  GBaseContract extends BaseContract = BaseContract
+  GBaseContractExtended extends TBaseContractExtended<GContractNames> = TBaseContractExtended<GContractNames>
 >(
   contractName: GContractNames,
-  config: TBasicContractDataConfig,
+  config: {
+    [chainId: number]: {
+      address: string;
+    };
+  },
   abi: Record<string, any>[],
-  connectFunc: TContractConnectFunc<GBaseContract> | undefined = undefined
-): TContractConnector<GContractNames, GBaseContract> => {
+  connectFunc: TContractConnectFunc<GBaseContractExtended> | undefined = undefined
+): TContractConnector<GContractNames, GBaseContractExtended> => {
+  const deploymentConfig: TBasicContractDeployment = { ...config } as TBasicContractDeployment;
+  for (const k in deploymentConfig) {
+    deploymentConfig[k].chainId = parseInt(k);
+  }
+
   if (connectFunc) {
     return {
       contractName,
       connect: connectFunc,
       abi: abi,
-      config: { ...config },
+      config: deploymentConfig,
     };
   } else {
+    const defaultConnectFunction: TContractConnectFunc<GBaseContractExtended> = (
+      address: string,
+      signerOrProvider: ethers.Signer | ethers.providers.Provider
+    ) => {
+      const baseContract = new BaseContract(address, abi, signerOrProvider) as GBaseContractExtended;
+      baseContract.contractName = contractName;
+      return baseContract;
+    };
+
     return {
       contractName,
-      connect: (address: string, signerOrProvider: ethers.Signer | ethers.providers.Provider): GBaseContract => {
-        return new BaseContract(address, abi, signerOrProvider) as GBaseContract;
-      },
+      connect: defaultConnectFunction,
       abi: abi,
-      config: { ...config },
+      config: deploymentConfig,
     };
   }
 };

@@ -22,8 +22,8 @@ const queryKey: TRequiredKeys = { namespace: keyNamespace.contracts, key: 'useCo
  * @param contract ethers.BaseContract class
  * @returns
  */
-export const useContractExistsAtAddress = (
-  contract: BaseContract | undefined,
+export const useContractExistsAtAddress = <GContract extends BaseContract>(
+  contract: GContract | undefined,
   options: TUpdateOptions<boolean> = mergeDefaultUpdateOptions()
 ): THookResult<boolean> => {
   const keys = [{ ...queryKey, ...contractKey(contract) }, { contractAddress: contract?.address }] as const;

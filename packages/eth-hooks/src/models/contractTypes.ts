@@ -1,72 +1,110 @@
+import { z, ZodType } from 'zod';
+
+// /**
+//  * #### Summary
+//  * Zod Schema for {@link TBasicContract}
+//  */
+// export const basicContractSchema = z.object({
+//   address: z.string(),
+//   abi: z.array(z.any()).optional(),
+// });
+
 /**
  * #### Summary
- * Describes the sctructure of each contract in hardhat_contracts.json
+ * Describes the basic structure of each contract
  *
  * @category Models
  */
-export type TBasicContractData = {
+export type TBasicContract = {
+  contractName: string;
   address: string;
-  abi?: any[];
+  abi?: Readonly<Record<string, any>[]>;
 };
 
 /**
  * #### Summary
- * Describes a basic contract data record, the chainId and address
- *
+ * Describes a basic contract data record.
+ * A record of key:chainId.  value:{address, chainId}
  * @category Models
  */
-export type TBasicContractDataConfig = {
+export type TBasicContractDeployment = {
   [chainId: number]: {
     chainId: number;
     address: string;
   };
 };
 
+// /**
+//  * #### Summary
+//  * Zod Schema for {@link TBasicContractConfig}
+//  */
+// export const basicContractConfigSchema = z.record(
+//   z.number({ description: 'chainId' }),
+//   z.object({
+//     address: z.string(),
+//     chainId: z.number(),
+//   })
+// );
+
 /**
  * #### Summary
  * Contracts by contract name
- * - A record of contract names and their hardhat contract json
+ * - A record key: contractNames, values: {@link TBasicContractDeployment}
+ */
+export type TContractDeploymentMap = {
+  [contractName: string]: {
+    config: TBasicContractDeployment;
+  };
+};
+/**
+ * #### Summary
+ * Zod Schema for {@link TContractDeploymentMap}
+ */
+export const contractDeploymentMapSchema: ZodType<TContractDeploymentMap> = z.record(
+  z.string({ description: 'contractName' }),
+  z.object({
+    config: z.record(
+      z.number({ description: 'chainId' }),
+      z.object({
+        address: z.string(),
+        chainId: z.number(),
+      })
+    ),
+  })
+);
+
+/**
+ * #### Summary
+ * Contracts by contract name, used by eth-hooks to connect and load contracts
+ * - A record of key:{contract names}, values: Hardhat contract json
  * - includes chain id
  */
-export type THardhatContractDataRecord = {
+
+export type TContractMapWithAbi = {
   [contractName: string]: {
-    config: TBasicContractDataConfig;
-    abi: any[];
+    config: TBasicContractDeployment;
+    abi: Readonly<Record<string, any>[]>;
   };
 };
 
 /**
  * #### Summary
- * Contracts by contract name
- * - A record of contract names and their hardhat contract json
- * - includes chain id
+ * Zod Schema for {@link TContractMapWithAbi}
  */
-export type TExternalContractDataRecord = {
-  [contractName: string]: {
-    config: TBasicContractDataConfig;
-  };
-};
 
-/**
- * #### Summary
- * Describes the structure of hardhat_contracts.json
- * - {chainIds: { networkNames: {contracts} }}, contains an record of contracts
- * - Used by {@link useContractLoader}
- *
- * @category Models
- */
-export type TDeployedHardhatContractsJson = {
-  [chainId: string]: {
-    name: string;
-    chainId: string;
-    contracts: {
-      [contractName: string]: {
-        address: string;
-        abi?: any[];
-      };
-    };
-  }[];
-};
+export const contractMapWithAbiSchema: ZodType<TContractMapWithAbi> = z.record(
+  z.string({ description: 'contractName' }),
+  z.object({
+    config: z.record(
+      z.number({ description: 'chainId' }),
+      z.object({
+        address: z.string(),
+        chainId: z.number(),
+      })
+    ),
+    abi: z.array(z.any()),
+  })
+);
 
 /**
  * {chainId: {contract: address}}, contains an record of contracts
@@ -77,23 +115,15 @@ export type TDeployedHardhatContractsJson = {
  *
  * @category Models
  */
-export type TExternalContractsAddressMap = {
-  [chainId: number]: {
-    [contractName: string]: string;
-  };
-};
+export type TExternalContractsAddressMap = z.infer<typeof externalContractAddressMap>;
 
 /**
  * #### Summary
- * Contract function information:
- * - contractName
- * - functionname
- * - functionArgs: functionArguments, an array
- *
- * @category Models
+ * Zod Schema for {@link TExternalContractsAddressMap}
  */
-export type TContractFunctionInfo = {
-  contractName: string;
-  functionName: string;
-  functionArgs?: any[];
-};
+export const externalContractAddressMap = z.record(
+  z
+    .union([z.string({ description: 'chainId' }), z.number({ description: 'chainId' })])
+    .transform((s) => parseInt(s.toString())),
+  z.record(z.string({ description: 'contractName' }), z.string({ description: 'address' }))
+);

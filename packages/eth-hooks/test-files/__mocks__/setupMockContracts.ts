@@ -5,11 +5,13 @@ import { mockYourContractJson, mockBasicERC20ContractJson } from 'test-files/__m
 
 import { YourContract, BasicERC20Contract } from '../generated/contract-types';
 
-import { TContractFunctionInfo } from '~~/models';
+import { TContractFunctionInfoUntyped } from '~~/models';
 
-export const setupMockYourContract = async (contractSigner: Signer): Promise<[YourContract, TContractFunctionInfo]> => {
+export const setupMockYourContract = async (
+  contractSigner: Signer
+): Promise<[YourContract, TContractFunctionInfoUntyped]> => {
   const yourContract = (await deployContract(contractSigner, mockYourContractJson)) as YourContract;
-  const yourContractFunctionInfo: TContractFunctionInfo = {
+  const yourContractFunctionInfo: TContractFunctionInfoUntyped = {
     contractName: 'YourContract',
     functionName: 'purpose',
   };

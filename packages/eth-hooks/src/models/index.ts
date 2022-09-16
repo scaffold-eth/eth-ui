@@ -6,3 +6,5 @@ export * from './hookTypes';
 export * from './networkTypes';
 export * from './providerTypes';
 export * from './utilityTypes';
+export * from './contractTypesForge';
+export * from './contractTypesHardhat';

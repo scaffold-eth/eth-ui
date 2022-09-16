@@ -11684,7 +11684,44 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"eth-hooks@^4.6.1, eth-hooks@workspace:packages/eth-hooks":
+"eth-hooks@npm:^4.6.1":
+  version: 4.6.2
+  resolution: "eth-hooks@npm:4.6.2"
+  dependencies:
+    "@ethersproject/abi": ^5.6.4
+    "@ethersproject/abstract-provider": ^5.6.1
+    "@ethersproject/address": ^5.6.1
+    "@ethersproject/bignumber": ^5.6.2
+    "@ethersproject/bytes": ^5.6.1
+    "@ethersproject/contracts": ^5.6.2
+    "@ethersproject/networks": ^5.6.4
+    "@ethersproject/providers": ^5.6.8
+    "@ethersproject/signing-key": ^5.6.2
+    "@ethersproject/solidity": ^5.6.1
+    "@ethersproject/units": ^5.6.1
+    "@ethersproject/wallet": ^5.6.2
+    "@uniswap/token-lists": ^1.0.0-beta.30
+    "@web3-react/abstract-connector": ^6.0.7
+    "@web3-react/core": ^6.1.9
+    "@web3-react/types": ^6.0.7
+    ethers: ^5.6.9
+    lodash.isequal: ^4.5.0
+    merge-anything: ^5.0.2
+    react-query: ^3.39.2
+    ts-invariant: ^0.10.3
+    use-debounce: ^8.0.3
+    usehooks-ts: ^2.6.0
+    web3modal: ^1.9.8
+    zustand: 4.0.0
+  peerDependencies:
+    "@uniswap/sdk": ^3
+    react: ">=17"
+    react-dom: ">=17"
+  checksum: 04eb0d6927821e91355a3e1d75fbabe97a0ad9b690dccb909e3c37c660600fd245273982f5f85cd203b48771db673161d737d579cf7f9295597b27e95fd0ac58
+  languageName: node
+  linkType: hard
+
+"eth-hooks@workspace:packages/eth-hooks":
   version: 0.0.0-use.local
   resolution: "eth-hooks@workspace:packages/eth-hooks"
   dependencies:
@@ -11776,6 +11813,7 @@ __metadata:
     ts-node: ^10.9.1
     ts-patch: ^2.0.2
     ts-sinon: ^2.0.2
+    ts-toolbelt: ^9.6.0
     tsconfig-paths: ^4.1.0
     tsup: ^6.2.2
     typechain: ^8.1.0
@@ -11784,6 +11822,7 @@ __metadata:
     use-debounce: ^8.0.3
     usehooks-ts: ^2.6.0
     web3modal: ^1.9.8
+    zod: ^3.18.0
     zustand: 4.0.0
   peerDependencies:
     "@uniswap/sdk": ^3
@@ -26015,6 +26054,13 @@ __metadata:
   peerDependencies:
     ethers: ~5.5.0
   checksum: f533e3320a40317e2656594da9e8aa38f3a95a91141a715028845143dfc5eb84075f400c5dd558296f55706e42c5575bb66defedb3551258e9f843513d3b8c06
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.18.0":
+  version: 3.18.0
+  resolution: "zod@npm:3.18.0"
+  checksum: 86a9a9928f4b40a07020d4b9832842fa4a70050c2d7bd1b2866bc1acfd734aa53a40f87a99a4312a637341a608b0105770c7a1f83b56df78e97691b4f5badcd8
   languageName: node
   linkType: hard
 

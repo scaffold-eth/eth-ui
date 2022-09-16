@@ -1,14 +1,14 @@
 {
   "name": "eth-hooks",
-  "version": "4.6.2",
+  "version": "5.0.2-beta27",
   "description": "A set of hooks to turbocharge buidling",
   "author": "Shravan Sunder<shravan.sunder.dev@gmail.com>",
   "repository": "https://github.com/scaffold-eth/eth-hooks.git",
   "main": "index.js",
-  "module": "./esm/index.js",
+  "module": "index.mjs",
   "browser": {
     "./index.js": "./index.js",
-    "./index.mjs": "./esm/index.js"
+    "./index.mjs": "index.js"
   },
   "types": "index.d.ts",
   "engines": {
@@ -72,6 +72,7 @@
     "use-debounce": "^8.0.3",
     "usehooks-ts": "^2.6.0",
     "web3modal": "^1.9.8",
+    "zod": "^3.18.0",
     "zustand": "4.0.0"
   },
   "peerDependencies": {
@@ -147,6 +148,7 @@
     "ts-node": "^10.9.1",
     "ts-patch": "^2.0.2",
     "ts-sinon": "^2.0.2",
+    "ts-toolbelt": "^9.6.0",
     "tsconfig-paths": "^4.1.0",
     "tsup": "^6.2.2",
     "typechain": "^8.1.0",
