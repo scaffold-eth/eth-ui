@@ -3,7 +3,6 @@ import { defineConfig } from 'tsup';
 export default defineConfig({
   entryPoints: [
     './src/index.ts',
-    './src/index.ts',
     './src/dapps.ts',
     './src/erc.ts',
     './src/context/index.ts',

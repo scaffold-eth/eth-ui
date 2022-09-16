@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "eth-hooks": "yarn workspace eth-hooks",
-    "eth-headless": "yarn workspace eth-headless",
+    "wagmi-headless": "yarn workspace wagmi-headless",
+    "wagmi-tailwind": "yarn workspace wagmi-tailwind",
     "docs": "yarn workspace documentation",
     "postinstall": "husky install",
     "lint": "yarn eth-hooks lint && yarn docs lint",
@@ -45,9 +46,13 @@
       "yarn workspace eth-hooks lint --fix",
       "yarn workspace eth-hooks format"
     ],
-    "packages/eth-headless/**/*.{ts,tsx}": [
-      "yarn workspace eth-headless lint --fix",
-      "yarn workspace eth-headless format"
+    "packages/wagmi-headless/**/*.{ts,tsx}": [
+      "yarn wagmi-headless lint --fix",
+      "yarn wagmi-headless format"
+    ],
+    "packages/wagmi-tailwind/**/*.{ts,tsx}": [
+      "yarn wagmi-tailwind lint --fix",
+      "yarn wagmi-tailwind format"
     ],
     "packages/docusaurus/src/**/*.{ts,tsx,js,jsx}": [
       "npm run lint --fix",

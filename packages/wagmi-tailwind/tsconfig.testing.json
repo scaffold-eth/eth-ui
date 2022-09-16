@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "types": ["mocha"]
+  },
+  "files": ["hardhat.config.ts"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    },
+    "moduleTypes": {
+      "**/*": "cjs"
+    }
+  }
+}

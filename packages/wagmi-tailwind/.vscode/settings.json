@@ -28,13 +28,5 @@
     "lib": true
   },
   "explorerExclude.backup": null,
-  "eslint.debug": true,
-  "eslint.enable": true,
-  "eslint.workingDirectories": [
-    { "directory": "packages/*", "changeProcessCWD": true },
-    { "directory": "packages/eth-hooks", "changeProcessCWD": true },
-    { "directory": "packages/docusaurus", "changeProcessCWD": true },
-    { "directory": "packages/wagmi-headless", "changeProcessCWD": true }
-    { "directory": "packages/wagmi-tailwind", "changeProcessCWD": true }
-  ]
+  "exportall.config.relExclusion": ["/src/helpers/test-utils", "/src/helpers/typedoc", "/src/helpers/__global.ts"]
 }
