@@ -38,7 +38,7 @@ export const useExchangeEthPrice = (
     void getPrice();
   }, [targetNetwork.price, mainnetProvider]);
 
-  useOnRepetition(pollPrice, { pollTime, provider: mainnetProvider });
+  useOnRepetition(pollPrice, { pollTime, leadingTrigger: mainnetProvider != null, provider: mainnetProvider });
 
   return price;
 };
