@@ -51,7 +51,7 @@ describe('useEventListener', function () {
       expect(result[index].event).to.equal('SetPurpose');
     });
 
-    describe('Given that multiple events occured before the hook is initialized', () => {
+    describe('Given that multiple events occurred before the hook is initialized', () => {
       let beforeMultipleEventsBlockNumber = 0;
       before(async () => {
         beforeMultipleEventsBlockNumber = await currentTestBlockNumber();
@@ -79,8 +79,8 @@ describe('useEventListener', function () {
       });
     });
 
-    describe('Given that multiple events occured after the hook is initialized', () => {
-      it('When the hook is initialized before the events, with a starting blockNumber before the events occured; then it returns all the events after that block number in the right order', async () => {
+    describe('Given that multiple events occurred after the hook is initialized', () => {
+      it('When the hook is initialized before the events, with a starting blockNumber before the events occurred; then it returns all the events after that block number in the right order', async () => {
         const eventFilter: EventFilter = yourContract!.filters.SetPurpose();
         const wrapper = await hookTestWrapper(() =>
           useEventListener<SetPurposeEvent>(yourContract, eventFilter, testStartBockNumber + 1)
