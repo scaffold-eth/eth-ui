@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocumentation=self.webpackChunkdocumentation||[]).push([[2535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":" React 18 & a Better web3 Login Experience [v4.2.x updates]","permalink":"/eth-ui/blog/2022/05/03/ React 18 & a Better web3 Login Experience [v4.2.x updates]"}]}')}}]);
