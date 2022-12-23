@@ -181,7 +181,7 @@ import { defaultUpdateOptions } from 'eth-hooks/models';
 Let's update our `balance` function with a few extras.
 
 ```typescript
-const [balance] = useBalance('0xb5dFcB9EABD2D4CB96Ae86d3Fc290a70461b4e42', defualtUpdateOptions(), {
+const [balance] = useBalance('0xb5dFcB9EABD2D4CB96Ae86d3Fc290a70461b4e42', defaultUpdateOptions(), {
   adaptorEnabled: true,
   adaptor,
 });
@@ -219,7 +219,7 @@ import { defaultUpdateOptions } from 'eth-hooks/models';
 export const Main: FC = () => {
   const [adaptor] = useEthersAdaptorFromProviderOrSigners(mainnetScaffoldEthProvider);
 
-  const [balance] = useBalance('0xb5dFcB9EABD2D4CB96Ae86d3Fc290a70461b4e42', defualtUpdateOptions(), {
+  const [balance] = useBalance('0xb5dFcB9EABD2D4CB96Ae86d3Fc290a70461b4e42', defaultUpdateOptions(), {
     adaptorEnabled: true,
     adaptor,
   });
